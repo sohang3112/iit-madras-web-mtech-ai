@@ -1,0 +1,12 @@
+# Verify all links in all Markdown files are working, not broken
+# Source: https://github.com/tcort/github-action-markdown-link-check
+name: Check Markdown links
+
+on: push
+
+jobs:
+  markdown-link-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: tcort/github-action-markdown-link-check@v1
