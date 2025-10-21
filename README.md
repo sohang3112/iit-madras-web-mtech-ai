@@ -22,6 +22,8 @@ For any help / queries, send email at webmtech@code.iitm.ac.in .
 * To get student ID card issued: [SSP (Student/Staff Services Portal)](https://ssp.iitm.ac.in/)
 * Fee portal (except first trimester): https://fees.iitm.ac.in/
 * Courses Info: https://seek.onlinedegree.iitm.ac.in/
+* Apply for Hostel (us web MTech students have to choose "Others Login" to apply for temporary stay): [IKollege](https://ikollege.iitm.ac.in/iitmhostel/)
+* Office of Hostel Management: [CCW](https://ccw.iitm.ac.in/)
 * Exams (mid-terms only, end-term is seperately held at exam centres): https://exams.study.iitm.ac.in/
 * Complaints platform: https://cc.iitm.ac.in/
 * Discussion by students & faculty: https://discourse.iitm.ac.in/
