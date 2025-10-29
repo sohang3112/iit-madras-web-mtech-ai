@@ -6,7 +6,21 @@
 
 Revision TODO (lectures) - make notes:
 
-- [ ] Introduction: Linear Algebra for Data Science
+- [ ] WIP (read 22 / 38 pages) Introduction: Linear Algebra for Data Science
+      
+      - Solution types: Consistent (unique, infinite), Inconsistent (no solution)
+      - Elimination (High school method)
+      - Graphical Method (plot 2 equation lines, point where they meet is solution)
+      - **Geometry of Linear Equations**: 3 ways of viewing System of Linear Equations:
+           - Matrix Form $A \mathbf{x} = \mathbf{b}$
+             where $A$ is coefficient matrix, $\mathbf{x}$ is vector of unknown variables, $\mathbf{b}$ is vector of RHS values.
+           - Row Picture - viewing one equation at a time
+           - Column Picture - view as one vector equation in terms of column vectors of $A$:
+
+If $A = \mathbf{a}_1 \ \mathbf{a}_2 \ \dots \ \mathbf{a}_n$ and x vector has x1, x2 .. xn scalars then:
+
+$$A x = b \quad \text{translates to} \quad x_1 \mathbf{a}_1 + x_2 \mathbf{a}_2 + \dots + x_n \mathbf{a}_n = \mathbf{b}.$$
+      
 - [ ] Linear Algebra 1
 - [ ] Linear Algebra 2
 - [ ] Linear Algebra 3
