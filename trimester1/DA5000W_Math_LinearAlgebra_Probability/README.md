@@ -6,7 +6,7 @@
 
 Revision TODO (lectures) - make notes:
 
-- [ ] WIP (read 23 / 38 pages) Introduction: Linear Algebra for Data Science
+- [x] Introduction: Linear Algebra for Data Science
       
       - Solution types: Consistent (unique, infinite), Inconsistent (no solution)
       - Elimination (High school method)
@@ -14,7 +14,7 @@ Revision TODO (lectures) - make notes:
       - **Geometry of Linear Equations**: 3 ways of viewing System of Linear Equations:
            - Matrix Form $A \mathbf{x} = \mathbf{b}$
              where $A$ is coefficient matrix, $\mathbf{x}$ is vector of unknown variables, $\mathbf{b}$ is vector of RHS values.
-           - Row Picture - viewing one equation at a time
+           - Row Picture - viewing one equation at a time. Each equation is a line (2D) / plane (3D) / hyperplane (n-D). 2 3D equations/planes meet at a 2D line/equation. In graph common inyeresection is equation solution point(s) if any.
            - Column Picture - view as one vector equation in terms of column vectors of $A$:
 
 If $A = \mathbf{a}_1 \ \mathbf{a}_2 \ \dots \ \mathbf{a}_n$ and x vector has x1, x2 .. xn scalars then:
@@ -22,7 +22,7 @@ If $A = \mathbf{a}_1 \ \mathbf{a}_2 \ \dots \ \mathbf{a}_n$ and x vector has x1,
 $$A x = b \quad \text{translates to} \quad x_1 \mathbf{a}_1 + x_2 \mathbf{a}_2 + \dots + x_n \mathbf{a}_n = \mathbf{b}.$$
 
     - *Order of Matrix* is $m \times n$ (rows, columns) - $m$ equations, $n$ unknowns (rectangular matrix). Becomes square matrix if $m = n$.
-      
+    - *Singular* coefficient matrix is not invertible, so either no (all dont interesect at any common line, though 2 of them might - eg. triangle 3 arms dont interesct at single common point) or infinite solutions (all interesect at common points), depending on RHS $\mathbf{b}$.
 - [ ] Linear Algebra 1
 - [ ] Linear Algebra 2
 - [ ] Linear Algebra 3
