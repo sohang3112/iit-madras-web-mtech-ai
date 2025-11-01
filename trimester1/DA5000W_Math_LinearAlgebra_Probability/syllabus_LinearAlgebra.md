@@ -3,9 +3,9 @@
 Check relevant topic boxes **after studying both theory and practice problems**.
 
 ## 1 Geometry of linear equations
-- [ ] Row picture
+- [x] Row picture: plot intersecting lines of each equation
 - [ ] Column picture
-- [ ] Matrix form
+- [x] Matrix form: $A \mathbf{x} = \mathbf{b}$
       
 ## 2 Types of solutions
 - [ ] For 2–dimensional and 3–dimensional case
