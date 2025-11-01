@@ -31,6 +31,15 @@ $$A x = b \quad \text{translates to} \quad x_1 \mathbf{a}_1 + x_2 \mathbf{a}_2 +
 - [ ] Linear Algebra 5
 - [ ] Linear Algebra Class Notes: written by Professor in freeform using Stylus Pen
 
+### Linear Algebra More Resources
+
+Books:
+
+- Numerical Linear Algebra: reading it
+- [Linear Algebra by Jim Hefferon](http://joshua.smcvt.edu/linearalgebra)
+- [A First Course in Linear Algebra by Robert A. Beezer](http://linear.ups.edu/download/fcla-electric-2.00.pdf)
+- [Linear Algebra Toolkit by Przemyslaw Bogacki](http://www.math.odu.edu/~bogacki/lat)
+
 ## Probability & Statistics
 
 **Faculty**: Prof Nandan Sudarshan
