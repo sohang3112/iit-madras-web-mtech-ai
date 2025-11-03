@@ -32,9 +32,64 @@ $$
 
 **TODO: graphically plot column view** - question came previously in an IIT question paper I think!
 
-#### TODO: Linear Algebra 1: Vector Space Norms
+#### DONE: Linear Algebra 1: Vector Space Norms
 
-#### TODO: Linear Algebra 2
+**Vector Space** / subspace is a set of vectors, and a field of scalar $\mathbb{F}$, having these binary operations:
+- closed under vector addition, ie $\mathbf{x} + \mathbf{y}$ also in same vector space.
+- closed under scalar multiplication, ie $c \mathbf{x}$ also in same vector space.
+
+Additionally it must satisfy these 8 properties:
+- exists unique zero vector such that $\mathbf{x} + 0 = \mathbf{x}$
+- Commutative: $\mathbf{x} + \mathbf{y} = \mathbf{y} + \mathbf{x}$
+- Associative: $(\mathbf{x} + \mathbf{y}) + \mathbf{z} = \mathbf{x} + (\mathbf{y} + \mathbf{z})$
+- Negative vector: exists unique so that $\mathbf{x} + (\mathbf{-x}) = 0$
+- Identity with scalar mutliply: $1 \mathbf{x} = \mathbf{x}$
+- Associativity with 2 scalars: $(c_1 c_2) \mathbf{x} = c_1 (c_2 \mathbf{x})$
+- Distributivity with scalar factor: $c (\mathbf{x} + \mathbf{y}) = c \mathbf{x} + c \mathbf{y}$
+- Distributivity with vector factor: $(c_1 + c_2) \mathbf{x} = c_1 \mathbf{x} + c_2 \mathbf{x}$
+
+Examples of both: vector spaces, and not vector spaces, in below image:
+
+![Examples: vector spaces yes / no](images/vector_space_examples.png)
+
+**Inner Product Vector Space** is a vector space in which inner product exists $\mathbf{x} \cdot \mathbf{y} = c$
+
+**Normed Vector Space** is an Inner Product Vector space in which a norm exists. **Norm** function converts any vector in vector space to a positive scalar length.
+*p-Norm Vector Space* is a normed vector space in which p-norm $\| \mathbf{x} \|_p = p(\mathbf{x})$ exists.
+
+**Vector Norm** is basically magnitude of a vector. Properties:
+- non-zero vector -> non-zero positive scalar norm: $\| \mathbf{x} \| \gt 0$
+- zero vector -> zero norm $\| \mathbf{x} \| = 0$ iff $\mathbf{x} = 0$
+- scalar multiply: $\| c \mathbf{x} \| = c \| \mathbf{x} \|$
+- triangular inequality: $\| \mathbf{x} \| + \| \mathbf{y} \| \le \| \mathbf{x} + \mathbf{y} \|$
+
+Important Norms:
+- 0-norm: count of vector dimensions
+- 1-norm: sum of vector components
+- 2-norm (Euclidean): $\sqrt{\| \mathbf{x}^2 + \mathbf{y}^2 \|}$
+- general $p$-norm: $\| \mathbf{x}^p + \mathbf{y}^p \| ^ {1/p}$
+- Infinity $\inf$-norm is maximum axis value of $\mathbf{x}$
+
+**Equivalence of Norms**: 2 norms $\| . \|_a$ and $\| . \|_b$ are equivalent if one norm can be bounded wrt other norm: 
+
+$$\exists \alpha, \beta \in \mathbb{R}^n, \alpha \| \mathbf{x} \|_a \le \| \mathbf{x} |_b \le \beta \| \mathbf{x} \|_a$$
+
+**Metric Space** $X$ is a set where **distance metric function between 2 vectors** exists: $d: X -> X -> \mathbb{R}^+$.
+*Normed vector space is a Metric space, but a Metric space need not be a Normed vector space.*
+
+Properties of metric:
+- positive: $d(\mathbf{x}, \mathbf{y}) \ge 0$
+- zero distance if equal: $d(\mathbf{x}, \mathbf{y}) = 0$ iff $\mathbf{x} = \mathbf{y}$
+- commutative args: $d(\mathbf{x}, \mathbf{y}) = d(\mathbf{y}, \mathbf{x})$
+- triangular inequality: $d(\mathbf{x}, \mathbf{z}) \le d(\mathbf{x}, \mathbf{y}) + d(\mathbf{y}, \mathbf{z})$
+
+**Euclidean Space**:
+- *Euclidean Norm* is 2-norm
+- *Euclidean distance* $d(\mathbf{x}, \mathbf{y}) = \| \mathbf{x} - \mathbf{y} \|$ using any vector norm $\| . \|$.
+
+#### TODO: Linear Algebra 2: Span, Basis, Vector Subspace
+
+
 
 #### TODO: Linear Algebra 3
 
