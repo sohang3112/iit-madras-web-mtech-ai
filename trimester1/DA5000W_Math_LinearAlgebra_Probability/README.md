@@ -2,7 +2,7 @@
 
 ## Linear Algebra
 
-**Faculty**: Prof Ramakrishna Pasumarthy
+**Faculty**: Prof Ramakrishna Pasumarthy <ramkrishna@study.iitm.ac.in> (his email is copied from first slide of 0th Intro lecture PDF)
 
 Common unofficial P2P Colab Notebook shared by Samuel (classmate): Linear Algebra: https://colab.research.google.com/drive/1Ka_REmcYf0RYliDglSsrnbkWQXHkfU74#scrollTo=V5HgLa5q9Crh
 
