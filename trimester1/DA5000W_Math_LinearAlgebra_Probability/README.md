@@ -34,7 +34,7 @@ $$
 
 #### DONE: Linear Algebra 1: Vector Space Norms
 
-**Vector Space** / subspace is a set of vectors, and a field of scalar $\mathbb{F}$, having these binary operations:
+**Vector Space** $(V, \mathbb{F})$ is a set of vectors $V$, and a field of scalar $\mathbb{F}$, having these binary operations:
 - closed under vector addition, ie $\mathbf{x} + \mathbf{y}$ also in same vector space.
 - closed under scalar multiplication, ie $c \mathbf{x}$ also in same vector space.
 
@@ -87,9 +87,52 @@ Properties of metric:
 - *Euclidean Norm* is 2-norm
 - *Euclidean distance* $d(\mathbf{x}, \mathbf{y}) = \| \mathbf{x} - \mathbf{y} \|$ using any vector norm $\| . \|$.
 
-#### TODO: Linear Algebra 2: Span, Basis, Vector Subspace
+#### IN PROGRESS: Linear Algebra 2: Span, Basis, Vector Subspace
 
+*Linear Independence of Vectors*: In vector space $(v, \mathbb{F})$, non-zero vectors $\mathbf{v_1}, \mathbf{v_2} \cdots \mathbf{v_n} \in V$ are dependent iff
+exist scalars $k_1, k_2 \cdots k_n$ (at least one non-zero) such that:
 
+$$k_1 \mathbf{v_1} + k_2 \mathbf{v_2} + \cdots + k_n \mathbf{v_n} = 0$$
+
+Otherwise (if this is only possible if all scalars are 0) vectors are linearly independent.
+
+**Orthogonal vectors are independent, but independent vectors need not be orthogonal**, they can be *skewed* instead.
+That is (example of independent vectors):
+- 2D plane: 2 vectors are independent iff they DON'T lie along same line/direction.
+- 3D space: 3 vectors are independent iff 3rd vector does NOT lie on plane formed by first 2 vectors.
+- nD space: independent iff each new vector adds a new dimension, does not lie on hyper-plane formed by previous vectors.
+
+**Skewed** means independent but NOT all orthogonal (though it's possible for some pairs of subset of vectors to be orthogonal).
+
+Let $V$ be vector space, $S$ be its subset. $S$ **spans** $V$ if every vector in $V$ can be written as a linear combination of vectors in $S$.
+
+**Basis** is minimal span with additional condition that all its vectors must be linearly independent.
+Any vector in space can be written using basis vectors and *coordinate representation / coordinate vector* $k_1, k_2 \cdots k_n$:
+
+$$k_1 \mathbf{v_1} + k_2 \mathbf{v_2} + \cdots + k_n \mathbf{v_n}$$
+
+NOTE: span and basis vectors DO NOT need to be orthogonal!
+
+**Dimension of vector space** is number of basis vectors.
+
+**Orthonormal basis vectors**: basis vectors that are mutually orthogonal and all of unit length.
+Coordinates of vector v wrt orthonormal basis vectors b1,b2 .. bn are found by simply taking dot products with basis: $\mathbf{v} \cdot \mathbf{b_i}$
+* but this method of coordinates is NOT TRUE for general basis vectors (NOT orthonormal).
+
+**Span vs Basis**:
+Practically this means that unlike span, it can't have any "redundant" vectors.
+$\mathbb{R}^n$ has exactly $n$ basis vectors, but span can have any number of vectors $\ge n$.
+
+Example of span vs basis for $\mathbb{R}^2$$:
+- ${(1,0), (0,1)}$ (standard unit/orthonormal basis vectors in 2D) - this set is both a span and a basis (linearly independent).
+- ${(1,0), (0,1), (3,-5)}$ is still a span but not a basis - due to addition of "extra" vector $(3,-5)$, now set is no longer linearly independent.
+
+**Testing for span and basis**:
+- span: row-reduce matrix (where vectors are columns), now if rank = n (dimension of vector space eg. $\mathbb{R}^n$) 
+then column space/vectors span $\mathbb{R}^n$. NOTE: span can have more vectors than required, so row-reduced can have all 0 rows as long as non-zero rows number equals n.
+- basis: same as span, but linear independent so can't have any 0 rows in row-reduced form.
+
+TODO: Exercise 1 in Advantage of Orthonormal Basis slide, next slide is Vector Subspace.
 
 #### TODO: Linear Algebra 3
 
