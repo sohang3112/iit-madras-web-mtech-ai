@@ -2,7 +2,7 @@
 
 ## Linear Algebra
 
-**Faculty**: Prof Ramakrishna Pasumarthy <ramkrishna@study.iitm.ac.in> (his email is copied from first slide of 0th Intro lecture PDF)
+**Faculty**: Prof Ramakrishna Pasumarthy &lt; ramkrishna@study.iitm.ac.in &gt; (his email is copied from first slide of 0th Intro lecture PDF)
 
 Common unofficial P2P Colab Notebook shared by Samuel (classmate): Linear Algebra: https://colab.research.google.com/drive/1Ka_REmcYf0RYliDglSsrnbkWQXHkfU74#scrollTo=V5HgLa5q9Crh
 
@@ -158,7 +158,7 @@ Books:
 
 ## Probability & Statistics
 
-**Faculty**: Prof Nandan Sudarshan
+**Faculty**: Prof Nandan Sudarshan (email unknown, TODO find out)
 
 ### Lecture Notes
 
