@@ -6,7 +6,7 @@ Common unofficial P2P Colab Notebook shared by Samuel (classmate): Linear Algebr
 
 Each heading here is a title of a lecture PDF. Under that are my notes on it.
 
-## THEORY ALMOST DONE, GIVEN EXERCISES TODO: Introduction: Linear Algebra for Data Science
+## THEORY DONE, GIVEN EXERCISES TODO: Introduction: Linear Algebra for Data Science
 
 - Solution types: Consistent (unique, infinite), Inconsistent (no solution)
 - Elimination (High school method)
@@ -26,7 +26,12 @@ $$
 - *Order of Matrix* is $m \times n$ (rows, columns) - $m$ equations, $n$ unknowns (rectangular matrix). Becomes square matrix if $m = n$.
 - *Singular* coefficient matrix is not invertible, so either no (all dont interesect at any common line, though 2 of them might - eg. triangle 3 arms dont interesct at single common point) or infinite solutions (all interesect at common points), depending on RHS $\mathbf{b}$.
 
-**TODO: graphically plot column view** - question came previously in an IIT question paper I think!
+**Plot columns view**: we can write eq as: $x_1 \mathbf{a_1} + x_2 \mathbf{a_2} + \cdots + x_n \mathbf{a_n} = \mathbf{b}$ ie. b is vector addition of scaled columns of A.
+ ie b is written using column vectors of A as basis vectors.
+
+So plot the n column vectors (basis) and how they add up to produce $\mathbf{b}$ as in image below:
+
+![Equation columns picture](images/eq_column_picture.png)
 
 
 ## THEORY DONE, GIVEN EXERCISES TODO: Linear Algebra 1: Vector Space Norms
@@ -149,7 +154,7 @@ $(U, \mathbb{F})$ is a subset of linear vector space $(V, \mathbb{F})$ iff subse
 - closed under multiplication with scalar: $c \mathbf{x} \in U$
 
 
-## IN PROGRESS: Linear Algebra 3: Linear Transforms, Rank, Nullity
+## THEORY DONE, GIVEN EXERCISES TODO: Linear Algebra 3: Linear Transforms, Rank, Nullity
 
 ### Linear Transformation / Map
 
@@ -187,15 +192,89 @@ System of linear equations $A \mathbf{x} = \mathbf{b}$ has:
 
 ### Matrices as Linear Maps
 
-TODO
+basically linear transformations are impl using **Transformation Matrix** multiplicaiton: $A \mathbf{x}$
 
-## TODO: Eigen Values and Eigen Vectors
+TODO: exercise: coordinates wrt basis vectors
+
+## THEORY ALMOST DONE (2 minor decompose SKIPPED), GIVEN EXERCISES TODO: Eigen Values and Eigen Vectors, Symmetric Matrix, SVD Matrix Decomposition
+
+- $A \mathbf{x} = \lambda \mathbf{x}$ => **Characterstic Polynomial** $(A - \lambda I) \mathbf{x}$, equate to 0 gives **Characterstic Equation**.
+- $\lambda = 0$ eigen value is allowed => $A$ is square matrix, $A \mathbf{x} = 0$ so eigen vectors are null space of $A$.
+- Product of eigen values of $AB$ = Product of all eigen values of $A$, $B$.
+- Identity Matrix has eigen value 1, all vectors are its eigen vectors.
+- Sum of Eigen Values = Trace = Sum of main diagonal elements, Product of Eigen Values = Determinant
+
+### Symmetric Matrix
+
+real square matrix where $A = A^T$ . Properties:
+- need not be invertible (eg. 0 is symmetric matrix)
+- has real eigen values
+- eigen vectors of distinct eigen values are orthogonal to each other
+- can be factored into $A = Q D Q^T$ (orthogonal) (diagonal) (orthogonal) --- SKIP how to calc those (NOTE: in lecture instead of D some weird symbol was there maybe greek?)
+
+### Matrix Decomposition using Eigen (multiple techniques)
+
+1. **Singular Value Decomposition (SVD)** of input matrix $A (m \times n)$: $A = U \Sigma V^T$ = (orthogonal) (diagonal) (orthogonal)
+    - $U (m \times m)$ has columns as eigen vectors of $A A^T$
+    - $V (n \times n)$ has columns as eigen vectors of $A^T A$
+    - $\Sigma (m \times n)$ is diagonal matrix - $sqrt{eigenvalues(A^T A)}$ in diagonal upto rank $r$ of $A$ - rest of the matrix is 0.
+
+2. 2 more Decomposisitions shown besides SVD --- SKIP FOR NOW (i think SVD was most important case which I have covered already)
+
+## THEORY DONE, GIVEN EXERCISES TODO: Linear Systems Theory: Eigen, SVD, Diagonalize, Jordan Normal
+
+Diagonal Matrix (non-zero only in main diagonal, elsewhere 0) Properties:
+- Its rank is no. of non-zero elems in diagonal
+- Its eigen values are non-zero elems in diagonal
+- If A,B are diagonal, AB also diagonal and commutative $AB = BA$
+- $A^n$ is also diagonal with entries $a_{ii}^n$ - this includes inverse $A^{-1}$ which has diagonal entries inversed.
+
+Square matrix $A$ is **diagonalizable**  if there exists a diagonal matrix $B$ that $A$ is similar to.
+
+How to check if $A (n \times n)$ is Diagonalizable:
+- Find eigen values $\lambda_1$, $\lambda_2$... and eigen vectors.
+- *If no. of independent eigen vector (irrespective of constant multiply) = n, then Diagonalizable else not. 
+    - NOTE: check no. of eigen vectors only not values (that can be less)
+    - eigen value 0 is ok
+- If diagonalizable, then D = diag([$\lambda_1$, $\lambda_2$ ...]). NOTE: if an eigen value has say 2 eigen vectors, then write the eigen value 2 times.
+
+Defective Matrix, Generalized Eigen Vector:
+- **Algebraic Multiplicity** = no. of eigen values (equals matrix rank). NOTE: better is, highest power in eigen characterstic polynomial (because eigen vals can repeat as single can have multiple corresponding eigen vectors).
+- **Geometric Multiplicity** = no. of unique independent eigen vectors (accounting for multiplicity - ie not just multiplied by common factor) (which are basis of **eigenspace**)
+- Defective Matrix has algebraic multiplicity less than geometric multiplicity - i.e., n x n matrix has less than n independent eigen vectors.
+- so problem: how to get basis for R^n having eigen vectors of A?? solution: use **generalized eigen vectors**.
+
+**Generalized Eigen Vectors** solve equation: $(A - \lambda I)^p \mathbf{x} = 0$ where power upto algebraic multiplicity:
+    - $p \in [1, k_\lambda]$ , $k_\lambda$ is the algebraic multiplicity.
+HOW TO SOLVE:
+- start with normal eigen vectors (ie. p=1) - say one of them is $\mathbf{v_1}$.
+- now calc for p=2 using: $\mathbf{v_2} = (A - \lambda I) \mathbf{v_1}$
+- now do it for p=3 using $\mathbf{v_2}$ -- keep going till $k_\lambda$ until solution found, ie, number of independent eigen vectors exactly n.
 
 
-## TODO: Linear Systems Theory: Eigen, SVD, Diagonalize, Jordan Normal
+## THEORY DONE, GIVEN EXERCISES TODO: Linear Algebra 5: Change of Basis / Coordinate Matrix
 
+**Change of Basis matrix (aka Coordinates Matrix)** from basis $B$ to $C$ (both are matrices with column vectors being required basis vectors):
+- $B \mathbf{x^B} = C \mathbf{x^C}$ => $\mathbf{x^C} = \mathbf{C^{-1}} B \mathbf{x}$ - here $P = C^{-1} B$ is the change of basis or coordinates matrix
 
-## TODO: Linear Algebra 5: Change of Basis
+**Similar Matrices and Similarity**: A, B are similar matrices if exists a non-singular matrix P such that $A = P B P^{-1}$
+
+**2 matrices are considered similar** if they represent same linear transform in a different base, 
+ie. we can decompose $A = P B P^{-1}$, where $P$ is the **change of basis matrix**. Same P is called **modal matrix** when checking matrix similarity.
+
+A matrix is similar to itself with P = I>
+
+To check if A, B are similar matrices:
+- method 1: solve equation $A P = P B$ (vals of $P$ are unknowns). A,B,P are $n \times n$, so $n^2 \times n^2$ equations, variables.
+  Found $P$ should have $det(P) \neq 0$.
+  **Can get complicated very fast due to $n^2$ variables!**
+- method 2: check if **Jordan Cannonical form (upto Block Order)** is equal - then similar else not.
+ 
+Other properties that must be equal if similar (necessary but not sufficient conditions) - should be useful in test:
+- Trace = sum of diagonal values
+- Determinants
+- Eigen Values (with multiplicity - ie. one set of r eigens could be scaled up by same factor)
+- Eigen Values Characterstic Polyynomial
 
 
 ## TODO: Linear Algebra Class Notes: written by Professor in freeform using Stylus Pen

@@ -8,6 +8,7 @@ Marking [-] dash in places I'm pretty sure I know but haven't explicitly done ma
 - [x] Row picture: plot intersecting lines of each equation
 - [ ] Column picture
 - [x] Matrix form: $A \mathbf{x} = \mathbf{b}$
+- [ ] Vector, Matrix Norms, Metric Spaces
       
 ## 2 Types of solutions
 - [-] For 2–dimensional and 3–dimensional case
@@ -21,9 +22,10 @@ Marking [-] dash in places I'm pretty sure I know but haven't explicitly done ma
 - [-] Independence and dependence of equations
 - [ ] Basis and dimension
 - [-] Matrix multiplication
-- [ ] Symmetric matrix
 
 ## 4 Solving a system of linear equations - Gaussian elimination
+- [ ] Eigen values & vectors, Matrix decomposition using Eigen (SVD, TODO: names of 2 others mentioned in lecture 4.1)
+- [ ] Symmetric & Diagonal Matrix properties
 - [ ] Augmented matrix and pivots
 - [-] Manipulating rules
 - [-] Step by step process of elimination

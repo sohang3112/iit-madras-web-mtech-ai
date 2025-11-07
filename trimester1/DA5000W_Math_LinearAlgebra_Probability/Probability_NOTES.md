@@ -34,8 +34,8 @@ Effect of plus/minus, multiply constant:
 - $SD(a + bX) = |b| SD(x)$
 - $Var(X) = b^2 SD(X)$
 
-- **Skew** = property of being left or right-tailed, assymetric deviation from mean - **formula not in lecture PDF?!**
-- **Kurtosis** = "fat tailed" , if I make plot fat tailed is it not just increasing variance?? - **formula not in lecture PDF?!**
+- **Skew** = property of being left or right-tailed, assymetric deviation from mean. *there are multiple measures of skewness but formulae not given in lecture so skip*
+- **Kurtosis** = "fat tailed" , if I make plot fat tailed is it not just increasing variance?? - *formuula not given so SKIP*
 
 ### Decision Tree, Value of Information
 
