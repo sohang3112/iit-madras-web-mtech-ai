@@ -4,14 +4,15 @@
 
 Each heading here is a title of a lecture PDF. Under that are my notes on it.
 
-## THEORY DONE, GIVEN EXERCISES TODO: Lecture Note 1 & 2 - Moment, Bayes, Skew, Kurtosis, EVSI, EVPI
+## THEORY ALMOST DONE, GIVEN EXERCISES TODO: Lecture Note 1 & 2 - Moment, Bayes, Skew, Kurtosis, EVSI, EVPI
 
 - *Sample Space* is set of all possible outcomes of a *random experiment*.
 - *Random Variables* can be discrete (*Probability Mass Function* is used) or continous (*Probability Density Function* is used).
 - *Cumulative Distribution Function* describes, for any random variable, probability of outcome $X$ **below** a certain value $x$ : $P(X \le x)$
 - 4 types of **Moments** (TODO) are *Mean* (measure of central tendency), *Variance* (dispersion), **Skew**, **Kurtosis**
 - Measures of Central Tendency: Mean, Median, Mode -- mean is bad with outliers, mode is useful with **nominal distributions** (TODO) and *multi-modal distributions* (ie multiple peaks in frequency plot).
-- *Inter-Quartile Range*: Min, Q1 (*lower* / 1st / 25% quartile), Q2 (*median* / 2nd / 50% quartile), Q3 (*upper* / 3rd / 75% quartile), Max
+- 4 Quartiles are there (min is NOT counted, but max is): Q1 (25% percentile), Q2 (median), Q3 (75% percentile), Q4 (max)
+- **Inter-Quartile Range**: Q3 - Q1, just Range is max - min
 
 Dispersion measures:
 - *Sample Variance*:
@@ -29,24 +30,32 @@ $$MAD = \frac{\sum |x_i - \bar{x}|}{N}$$
     - $Var(x) = \mu^2 = \int_a^b (x - \sigma)^2 dx = \int_a^b x^2 dx - \sigma^2$
     - or restated in expected value: $Var(x) = E((x - \sigma)^2) = E(x^2) - \sigma^2$
 
+TODO: Bayes Theorem (both probab formula form and using table form), Heirachical Bayes
+
 Effect of plus/minus, multiply constant:
 - $E(a + bX) = a + b E(X)$
 - $SD(a + bX) = |b| SD(x)$
 - $Var(X) = b^2 SD(X)$
 
 - **Skew** = property of being left or right-tailed, assymetric deviation from mean. *there are multiple measures of skewness but formulae not given in lecture so skip*
-- **Kurtosis** = "fat tailed" , if I make plot fat tailed is it not just increasing variance?? - *formuula not given so SKIP*
+- **Kurtosis** = "fat tailed" (basically how much normal curve is "spread" or wide around mean: TODO confirm this), if I make plot fat tailed is it not just increasing variance?? (TODO find answer to this question) - *formuula not given so SKIP*
 
-### Decision Tree, Value of Information
+### Decision Tree, Value of Information: EVPI, EVSI
 
 NOTE: for now only talking about binary choices, eg. whether to invest or not, NOT how much.
 
-EMV (Expected Monetary Value) = normal expected value, no extra value
-EVPI (Expected Value with Perfect Information) = Expected Value with Perfect Info - Expected Value without additional info (ie normal EV)
+**EMV (Expected Monetary Value)** = normal expected value, no extra value
+
+**EVPI (Expected Value with Perfect Information)** = Expected Value with Perfect Info Expected Value without additional info (ie normal EV)
     - to calculate Expected Value with Perfect Info, replace any negative payoff / loss with 0 (because with perfect info we would never invest on a losing day)
     - **Perfect Info never really happens** - instead purpose is to **set max bound on cost of info** by 
     considering hypothetical scenario where we do know future in advance perfectly
     - *don't forget to subtract the normal EV without info!*
+
+**EVSI (Expected Value with Sample Info)** = EV with sample probabilities (instead of normal probabs) - normal EV (EMV)
+- TODO: write detailed about EVSI probabilities table
+
+**Net EVSI** = EVSI - Sample Cost
 
 
 ## THEORY DONE, GIVEN EXERCISES TODO: Lecture Note 3 - Common Probability Distributions
@@ -152,7 +161,7 @@ This is pretty simple case that we do normally - probability of 1st success at x
 
 Binomial draws with replacement from bag with 2 types of balls, Hyper-Geometric draws without replacement
 
-Formulae - SKIP (not gonna bother to try to remember right now)
+Formulae
 - PDF = $\binom{n}{x} \binom{N-K}{n-x} / \binom{N}{n}$ where:
     - $N,K$ are population (total number, number of successes)
     - $n,x$ are sample     (total number, number of successes)

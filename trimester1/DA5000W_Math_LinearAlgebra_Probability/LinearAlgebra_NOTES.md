@@ -34,7 +34,9 @@ So plot the n column vectors (basis) and how they add up to produce $\mathbf{b}$
 ![Equation columns picture](images/eq_column_picture.png)
 
 
-## THEORY DONE, GIVEN EXERCISES TODO: Linear Algebra 1: Vector Space Norms
+## THEORY DONE, GIVEN EXERCISES TODO: Linear Algebra 1: Vector Space, Norms, Metric Spaces
+
+**4 Fundamental Matrix Subspaces** are column space, row space, null space, left null space.
 
 ### Vector Space
 
@@ -108,13 +110,11 @@ $$k_1 \mathbf{v_1} + k_2 \mathbf{v_2} + \cdots + k_n \mathbf{v_n} = 0$$
 
 Otherwise (if this is only possible if all scalars are 0) vectors are linearly independent.
 
-**Orthogonal vectors are independent, but independent vectors need not be orthogonal**, they can be *skewed* instead.
+**Orthogonal vectors are independent, but independent vectors need not be orthogonal.**
 That is (example of independent vectors):
 - 2D plane: 2 vectors are independent iff they DON'T lie along same line/direction.
 - 3D space: 3 vectors are independent iff 3rd vector does NOT lie on plane formed by first 2 vectors.
 - nD space: independent iff each new vector adds a new dimension, does not lie on hyper-plane formed by previous vectors.
-
-**Skewed** means independent but NOT all orthogonal (though it's possible for some pairs of subset of vectors to be orthogonal).
 
 ### Span and Basis
 
@@ -142,8 +142,9 @@ Example of span vs basis for $\mathbb{R}^2$$:
 - ${(1,0), (0,1), (3,-5)}$ is still a span but not a basis - due to addition of "extra" vector $(3,-5)$, now set is no longer linearly independent.
 
 **Testing for span and basis**:
-- span: row-reduce matrix (where vectors are columns), now if rank = n (dimension of vector space eg. $\mathbb{R}^n$) 
-then column space/vectors span $\mathbb{R}^n$. NOTE: span can have more vectors than required, so row-reduced can have all 0 rows as long as non-zero rows number equals n.
+- span: row-reduce matrix (where vectors are columns), now if rank = n (dimension of vector space eg. $\mathbb{R}^n$),
+        then column space/vectors span $\mathbb{R}^n$. 
+        NOTE: span can have more vectors than required, so row-reduced can have all 0 rows as long as non-zero rows number equals n.
 - basis: same as span, but linear independent so can't have any 0 rows in row-reduced form.
 
 ### Vector Subspace
@@ -162,6 +163,8 @@ Transform / Map $f: U -> V$ from **domain / inputs space** $U$ to **co-domain / 
 - **Homogenous** (multiplication with scalar): $f(c \mathbf{x}) = c f(\mathbf{x})$ (so can be linear combination of coordinates only, no constant otherwise this would fail)
 - **Additive**: $f(\mathbf{x}) + f(\mathbf{y}) = f(\mathbf{x} + \mathbf{y})$ (so can't have any multiplication or powers of coords, else this would fail)
 - **Superposition**: $f(c_1 \mathbf{x_1} + c_2 \mathbf{x_2} + \cdots + c_n \mathbf{x_n}) = c_1 f(\mathbf{x_1}) + c_2 f(\mathbf{x_2}) + \cdots + c_n f(\mathbf{x_n})$
+    - i.e., f(polynomial(vectors)) = polynomial(f(vectors))
+    - basically it's fancy Distributive property only, once you consider that f(vec x) = A x (ie multiply by transform matrix A)
 
 (Lecture states this "superposition" seperately but I don't see why it's needed since IMO implied by first 2 conditions of Homogenous and Additive).
 
@@ -194,15 +197,17 @@ System of linear equations $A \mathbf{x} = \mathbf{b}$ has:
 
 basically linear transformations are impl using **Transformation Matrix** multiplicaiton: $A \mathbf{x}$
 
-TODO: exercise: coordinates wrt basis vectors
+TODO: exercise: coordinates wrt basis vectors.
+      for simple case (vector wrt transform's unit input orthonormal basis vectors, answer is dot products of vec with basis vecs).
+      for anything more complicated (eg. non-ortho basis, coords wrt output and/or basis) multiply with change of basis matrix $C^{-1} B \mathbf{x}$.
 
-## THEORY ALMOST DONE (2 minor decompose SKIPPED), GIVEN EXERCISES TODO: Eigen Values and Eigen Vectors, Symmetric Matrix, SVD Matrix Decomposition
+## THEORY ALMOST DONE (2 minor decompose SKIPPED), GIVEN EXERCISES TODO: Eigen Values and Eigen Vectors, Symmetric Matrix, SVD Matrix Decomposition, [TODO Spectral Theorem for symmetric matrix decomposition]
 
 - $A \mathbf{x} = \lambda \mathbf{x}$ => **Characterstic Polynomial** $(A - \lambda I) \mathbf{x}$, equate to 0 gives **Characterstic Equation**.
 - $\lambda = 0$ eigen value is allowed => $A$ is square matrix, $A \mathbf{x} = 0$ so eigen vectors are null space of $A$.
 - Product of eigen values of $AB$ = Product of all eigen values of $A$, $B$.
 - Identity Matrix has eigen value 1, all vectors are its eigen vectors.
-- Sum of Eigen Values = Trace = Sum of main diagonal elements, Product of Eigen Values = Determinant
+- Sum of Eigen Values = *Trace* = Sum of main diagonal elements, Product of Eigen Values = Determinant
 
 ### Symmetric Matrix
 
@@ -210,7 +215,7 @@ real square matrix where $A = A^T$ . Properties:
 - need not be invertible (eg. 0 is symmetric matrix)
 - has real eigen values
 - eigen vectors of distinct eigen values are orthogonal to each other
-- can be factored into $A = Q D Q^T$ (orthogonal) (diagonal) (orthogonal) --- SKIP how to calc those (NOTE: in lecture instead of D some weird symbol was there maybe greek?)
+- is *orthogonally diagonalizable*, i.e., can be factored into $A = Q D Q^T$ (orthogonal) (diagonal) (orthogonal) (**spectral theorem**) --- SKIP (NOTE: in lecture instead of D some weird symbol was there maybe greek?)
 
 ### Matrix Decomposition using Eigen (multiple techniques)
 
@@ -227,22 +232,23 @@ real square matrix where $A = A^T$ . Properties:
 
 2. 2 more Decomposisitions shown besides SVD --- SKIP FOR NOW (i think SVD was most important case which I have covered already)
 
-## THEORY DONE, GIVEN EXERCISES TODO: Linear Systems Theory: Diagonalize [, SKIP: Jordan Normal - not in midsem syllabus, unsure about endsem]
+## THEORY ALMOST DONE, GIVEN EXERCISES TODO: Linear Systems Theory: Diagonalize (aka PDP Decompose), [WIP Block Matrix, Jordan Normal/Cannonical Matrix]
 
 Diagonal Matrix (non-zero only in main diagonal, elsewhere 0) Properties:
 - Its rank is no. of non-zero elems in diagonal
 - Its eigen values are non-zero elems in diagonal
 - If A,B are diagonal, AB also diagonal and commutative $AB = BA$
-- $A^n$ is also diagonal with entries $a_{ii}^n$ - this includes inverse $A^{-1}$ which has diagonal entries inversed.
+- $A^n$ is also diagonal with entries $a_{ii}^n$ - this includes inverse $A^{-1}$ which has diagonal entries inversed $1 / a_{ii}$.
 
 Square matrix $A$ is **diagonalizable**  if there exists a diagonal matrix $B$ that $A$ is similar to.
 
-How to check if $A (n \times n)$ is Diagonalizable:
+How to check if $A (n \times n)$ is Diagonalizable, i.e., $A = P D P^{-1}$ (so also called **PDP Decompose**):
 - Find eigen values $\lambda_1$, $\lambda_2$... and eigen vectors.
-- *If no. of independent eigen vector (irrespective of constant multiply) = n, then Diagonalizable else not. 
+- *If no. of independent eigen vector (irrespective of constant multiply) = n, then Diagonalizable else not*. 
     - NOTE: check no. of eigen vectors only not values (that can be less)
     - eigen value 0 is ok
 - If diagonalizable, then D = diag([$\lambda_1$, $\lambda_2$ ...]). NOTE: if an eigen value has say 2 eigen vectors, then write the eigen value 2 times.
+- IMPORTANT: order of eigen values in D must correspond to order of their respective 
 
 Defective Matrix, Generalized Eigen Vector:
 - **Algebraic Multiplicity** = no. of eigen values (equals matrix rank). NOTE: better is, highest power in eigen characterstic polynomial (because eigen vals can repeat as single can have multiple corresponding eigen vectors).
@@ -257,11 +263,33 @@ HOW TO SOLVE:
 - now calc for p=2 using: $\mathbf{v_2} = (A - \lambda I) \mathbf{v_1}$
 - now do it for p=3 using $\mathbf{v_2}$ -- keep going till $k_\lambda$ until solution found, ie, number of independent eigen vectors exactly n.
 
+**Block Matrix** is matrix of smaller submatrices called blocks. Blocks along diagonal are called diagonal blocks. Block matrix multiply similar to normal, just elems are submatrices.
 
-## THEORY DONE, GIVEN EXERCISES TODO: Linear Algebra 5: Change of Basis / Coordinate Matrix
+TODO: Block Matrix properties, Jordan Block properties
 
-**Change of Basis matrix (aka Coordinates Matrix)** from basis $B$ to $C$ (both are matrices with column vectors being required basis vectors):
-- $B \mathbf{x^B} = C \mathbf{x^C}$ => $\mathbf{x^C} = \mathbf{C^{-1}} B \mathbf{x}$ - here $P = C^{-1} B$ is the change of basis or coordinates matrix
+Blocks can be of any shape as long as consistent with overall matrix shape. Blocks can be rectangular, but Jordan Blocks are always square.
+
+**Jordan Cannonical Form Matrix** is diagonal block matrix - has Jordan Block submatrices on diagonal, 0 elsewhere. 
+Jordan Blocks all are of form (based on an eigenvalue $\lambda$): 
+
+\lambda 1       0
+0       \lambda 1
+0       0       \lambda
+
+ie Jordan blocks have main diagonal equals all \lambda , next diagonal (towards up and right) has all 1, rest all 0. 
+
+There are as many Jordan blocks as power of characterstic polynomial (i.e. each block has its own eigen value \lambda, eigen value repeats if it  has multiple eigen vectors).
+
+*Normal diagonal matrices are special case of Jordan Matrix with all block sizes 1*.
+
+How to find Jordan matrix (only simplest case, rest TODO):
+- find all eigen values
+- mk diag([lambda 1, lambda 2 ..]) - this is a diagonal matrix, it's Jordan normal form with block size 1
+
+## THEORY DONE, GIVEN EXERCISES TODO: Linear Algebra 5: Change of Basis / Coordinate Matrix, Similar Matrix Decomposistion
+
+From basis $B$ to $C$ (both are matrices with column vectors being required basis vectors):
+- $B \mathbf{x^B} = C \mathbf{x^C}$ => $\mathbf{x^C} = \mathbf{C^{-1}} B \mathbf{x}$ - here $P = C^{-1} B$ is the **change of basis or coordinates matrix**
 
 **Similar Matrices and Similarity**: A, B are similar matrices if exists a non-singular matrix P such that $A = P B P^{-1}$
 

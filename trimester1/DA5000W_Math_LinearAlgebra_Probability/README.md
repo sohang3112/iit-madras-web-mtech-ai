@@ -7,6 +7,11 @@
 
 TODO: some exercises are there within LA, Probab lecture PDFs - solve them!
 
+## Tutorials have questions with answers
+
+hard for me:
+* Tutorial 2 - Linear Algebra > Question 2 (find transform matrix when both input basis vectors and output basis vectors are specified)
+
 ## Resources
 
 ### Linear Algebra
