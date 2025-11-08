@@ -8,6 +8,7 @@ LINEAR ALGEBRA:
 * rank + nullity = no. of columns (no. of variables) [NOT no. of rows (no. of equations)]
 * finding basis for null space w-- need a lot of practice in calculating!
 * **find coordinates wrt non-unit non-standard basis vectors in (a) input space (b) output space (c) both**
+    - multiply vector by change-of-basis matrix: $C^{-1} B$ (where $B,C$ are basis matrices of input,output basis by putting basis vectors as columns.)
 * SVD matrix decomposition
 * PDP matrix decomposition
 

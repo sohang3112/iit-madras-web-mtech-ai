@@ -215,13 +215,19 @@ real square matrix where $A = A^T$ . Properties:
 ### Matrix Decomposition using Eigen (multiple techniques)
 
 1. **Singular Value Decomposition (SVD)** of input matrix $A (m \times n)$: $A = U \Sigma V^T$ = (orthogonal) (diagonal) (orthogonal)
-    - $U (m \times m)$ has columns as eigen vectors of $A A^T$
-    - $V (n \times n)$ has columns as eigen vectors of $A^T A$
-    - $\Sigma (m \times n)$ is diagonal matrix - $sqrt{eigenvalues(A^T A)}$ in diagonal upto rank $r$ of $A$ - rest of the matrix is 0.
+    - $U (m \times m)$ has columns as eigen vectors of $A A^T$ (**left singular vectors**)
+    - $V (n \times n)$ has columns as eigen vectors of $A^T A$ (**right singular vectors**)
+    - $\Sigma (m \times n)$ is diagonal matrix - $\sigma_i = sqrt{eigenvalues(A^T A)}$ (**singular values**) in diagonal upto rank $r$ of $A$ - rest of the matrix is 0.
+        - **Non-singular singular values** (confusing name!) = non-zero diagonal values $\sigma_i$ - *correspond to dimensions where $A$ preserves information*.
+        - Rest **Singular singular values** (zero entries on diagonal) correspond to dimensions where $A$ collapses axes (ie doesn't preserve their info in output)
+    
+    TODO - SKIP FOR NOW:
+    - [SVD Tutorial Jupyter Notebook](tutorial-questions/Tutorial%204.2%20-%20Linear%20Algebra%20SVD.ipynb), 
+    - understand SVD physical meaning (rotate,compress,etc.): https://gregorygundersen.com/blog/2018/12/10/svd/
 
 2. 2 more Decomposisitions shown besides SVD --- SKIP FOR NOW (i think SVD was most important case which I have covered already)
 
-## THEORY DONE, GIVEN EXERCISES TODO: Linear Systems Theory: Eigen, SVD, Diagonalize, Jordan Normal
+## THEORY DONE, GIVEN EXERCISES TODO: Linear Systems Theory: Diagonalize [, SKIP: Jordan Normal - not in midsem syllabus, unsure about endsem]
 
 Diagonal Matrix (non-zero only in main diagonal, elsewhere 0) Properties:
 - Its rank is no. of non-zero elems in diagonal
