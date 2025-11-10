@@ -33,6 +33,8 @@ So plot the n column vectors (basis) and how they add up to produce $\mathbf{b}$
 
 ![Equation columns picture](images/eq_column_picture.png)
 
+**Rank-Nullity Theorem / Dimension Theorem**: Rank (size of range $R(T)$) + Nullity (size of null space $N(T)$) = Columns $n$ (no. of variables)
+
 
 ## THEORY DONE, GIVEN EXERCISES TODO: Linear Algebra 1: Vector Space, Norms, Metric Spaces
 
