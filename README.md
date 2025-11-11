@@ -19,6 +19,7 @@ For any help / queries, send email at webmtech@code.iitm.ac.in .
 * [Term 1 Registration & Fees Guide 2025](https://docs.google.com/document/d/10lF62VJSPmCi2U7WuYcMctIIrS_WTwc55nXv6H1DuZg/edit?usp=drive_link)
 
 ### Login via Student LDAP Credentials (with IITM smail)
+* Student Dashboard (overall): https://wmtech.code.iitm.ac.in/student_dashboard/
 * To get student ID card issued: [SSP (Student/Staff Services Portal)](https://ssp.iitm.ac.in/)
 * Fee portal (except first trimester): https://fees.iitm.ac.in/
 * Courses Info: https://seek.onlinedegree.iitm.ac.in/
@@ -27,6 +28,7 @@ For any help / queries, send email at webmtech@code.iitm.ac.in .
 * Exams (mid-terms only, end-term is seperately held at exam centres): https://exams.study.iitm.ac.in/
 * Complaints platform: https://cc.iitm.ac.in/
 * Discussion by students & faculty: https://discourse.iitm.ac.in/
+* IITM Student Support: https://study-supportdesk.freshdesk.com/support/login
 * IITM WiFi site (intranet only in campus): https://netaccess.iitm.ac.in/
 
 ### Unofficial Links
