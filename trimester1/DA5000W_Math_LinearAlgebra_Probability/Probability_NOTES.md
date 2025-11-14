@@ -1,8 +1,11 @@
 # Probability & Statistics
 
-**Faculty**: Prof Nandan Sudarshan (email unknown, TODO find out)
+**Faculty**: Prof Nandan Sudarsanam (email unknown, TODO find out)
 
 Each heading here is a title of a lecture PDF. Under that are my notes on it.
+
+<details open>
+<summary><strong>Mid Sem:</strong> </summary>
 
 ## THEORY ALMOST DONE, GIVEN EXERCISES TODO: Lecture Note 1 & 2 - Moment, Bayes, Skew, Kurtosis, EVSI, EVPI
 
@@ -154,8 +157,8 @@ This is pretty simple case that we do normally - probability of 1st success at x
 
 - PDF $p(x) = (1-p)^{x-1} p$
 - CDF $1 - (1-p)^x$
-- Mean $1 / p$ <------------------- **REMEMBER!!** (forgetting as didnt see derivation :( ))
-- Variance $(1-p) / p^2$    ------------- **REMEMBER!!** (forgetting as didnt see derivation :( ))
+- Mean $1 / p$ <------------------- **REMEMBER!!** (forgetting as didnt see derivation :( )) - TODO: see derivation
+- Variance $(1-p) / p^2$    ------------- **REMEMBER!!** (forgetting as didnt see derivation :( )) - TODO: see derivation
 
 ##### Hyper-Geometric (always discrete)
 
@@ -167,17 +170,18 @@ Formulae
     - $n,x$ are sample     (total number, number of successes)
 - CDF, Mean, Variance -- TODO
 
----------------------------------- MIDSEM IS TILL HERE ------------------------------
+</details> <!-- Midsem end -->
 
-## TODO: Lecture Note 4 - Hypotheis Testing, Confidence Intervals, Central Limit Theorem -- SKIP, NOT IN MIDSEM!!!
 
-TODO
-
-## TODO: Lecture Note 5.1 (Bayes Inferential Stats) - Hypothesis Testing, Confidence Intervals -- SKIP, NOT IN MIDSEM!!!
+## TODO: Lecture Note 4 - Hypotheis Testing, Confidence Intervals, Central Limit Theorem -- NOT IN MIDSEM
 
 TODO
 
-## IN PROGRESS: Lecture Note 5.2 (Bayes Inferential Stats) - Acceptance Sampling (Acceptance Matrix, OC Curve), ANOVA, Chi Squared etc. -- SKIP, NOT IN MIDSEM!!!
+## TODO: Lecture Note 5.1 (Bayes Inferential Stats) - Hypothesis Testing, Confidence Intervals -- NOT IN MIDSEM
+
+TODO
+
+## IN PROGRESS: Lecture Note 5.2 (Bayes Inferential Stats) - Acceptance Sampling (Acceptance Matrix, OC Curve), ANOVA, Chi Squared etc. -- NOT IN MIDSEM
 
 **Acceptance Sampling**: does my population match standard / ideal population? 
 In factory items production, we know from experience that standard deviation remains about the same, so we can assume that as population std.

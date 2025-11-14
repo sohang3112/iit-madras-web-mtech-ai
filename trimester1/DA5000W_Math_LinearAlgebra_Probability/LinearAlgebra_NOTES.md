@@ -6,6 +6,9 @@ Common unofficial P2P Colab Notebook shared by Samuel (classmate): Linear Algebr
 
 Each heading here is a title of a lecture PDF. Under that are my notes on it.
 
+<details open>
+<summary><strong>Mid Sem:</strong></summary>
+
 ## THEORY DONE, GIVEN EXERCISES TODO: Introduction: Linear Algebra for Data Science
 
 - Solution types: Consistent (unique, infinite), Inconsistent (no solution)
@@ -312,7 +315,61 @@ Other properties that must be equal if similar (necessary but not sufficient con
 - Eigen Values (with multiplicity - ie. one set of r eigens could be scaled up by same factor)
 - Eigen Values Characterstic Polyynomial
 
+</details>
 
-## TODO: Linear Algebra Class Notes: written by Professor in freeform using Stylus Pen
+## THEORY ALMOST DONEVEN EXERCISES TODO: Tutorial 5: Least Squares linear regression, Orthogonality, Grahm-Schmidt (pseudo-inverse?)
+
+TODO: Also I think Professor covered Projection in lecture but it wasn't in TA session?
+
+(I guess A^-1 exist but still A^-1 b undefined as b not in Im(A) ? TODO)
+
+LEAST SQUARES
+The best approximate solution is called the least squares solution to the inconsistent system of equations.
+
+least square solution has |Ax_pred - b| <= |Ax_actual - b| (this is a strong claim!) ie Sum of Squared Errors (SSE) [ sum((ypred - yactual)^2) ] is minimized
+
+[So NOT APPLiCable on depdendent A ? - TODO]
+Ax = b is inconsistent (NOTE: A itself has independent columns, inconsistency due to b), but:
+A^T Ax = A^T b has consistent solution, gives xpred ! (quite strange, why?! TODO)
+SO xpred = (A^T A)^-1 A^T b -- GENERAL REGRESSION! (eg. multi-variable linear, quadratic etc. !)
+
+NOTE: both linear, quadratic case, Ax = b has diff "x" than inputs! inputs go in A, slope,intercept,coeffs in x ! confusing
+
+general linear: y = m0 (c) + m1 x1 + m2 x2 + ... 
+solve for coeffs in "x" = m0, m1, m2 ....
+
+for 2D specific case: x pred vec = (m,c) [get from solving above!] [TODO: revise 2d specific formulae also, use correlation coefficient]
+
+residual = error [TODO: revise 2d specific residual plot]
+
+Quadratic Regression using least squares:  
+y = ax2 + bx + c, solve for coeffs in "x": a,b,c
+"A" = [[xi^2, xi, xi^0 = 1] for xi in given points x coords]
+"b" = given  yi coords
+
+ORTHOGONALITY & ORTHONORMAL BASIS
+[this i already know] u . v = 0 -> orthogonal, 
+in orthonormal basis all vecs ortho and unit vec
+
+in general change of basis: solve for c vec, Bc = v => c = B^-1 v (v is given vec coords in standard basis, c is new vec coords to be found in new basis, B = [b1,b2...bn] is matrix where each column is basis vector)
+
+orthonormal basis simplifies calculation so always preferred:
+
+since ortho basis matrix (eg. [e1,e2..en]) has B^-1 = B^T,
+so c = B^T v  --> much simpler (equiv to dot product of v with every basis vec)
+
+Geometrically, each found coeff/coord ci is length of projection of v along ui
+
+GRAHM-SCHMIDT ORTHO NORMALIZATION PROCESS
+convert n INDEPENDENT vecs v1..vn into n ortho normal vecs u1..un :
+- u1 = v1
+- u2 = v2 - proj(v2) wrt u1 [ u1 . v2 / |u1| |v2| ]
+- u3 = v3 - proj(v3) wrt u1 - proj(v3) wrt u2
+- ... so on...
+- finally normalize (mk unit vecs) u1..un by dividing with magnitude
+
+
+
+
 
 

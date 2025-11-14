@@ -2,8 +2,9 @@
 
 ## Notes based on Lectures
 
-- [Lineaar Algebra](LinearAlgebra_NOTES.md)
-- [Probability](Probability_NOTES.md)
+- [Lineaar Algebra](LinearAlgebra_NOTES.md): Prof Ramkrishna
+- [Optimization](Optimization_NOTES.md): Prof Ramkrishna [start in lecture on 13 Nov 2025]
+- [Probability](Probability_NOTES.md): Prof Nandan
 
 TODO: some exercises are there within LA, Probab lecture PDFs - solve them!
 
