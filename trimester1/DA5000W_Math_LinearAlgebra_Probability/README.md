@@ -1,5 +1,7 @@
 # DA5000W: LinearAlgebra & Probability
 
+Course group email: &lt;da5000w@code.iitm.ac.in&gt;
+
 ## Notes based on Lectures
 
 - [Lineaar Algebra](LinearAlgebra_NOTES.md): Prof Ramkrishna
