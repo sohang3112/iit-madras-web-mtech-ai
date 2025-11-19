@@ -1,0 +1,32 @@
+"S No", "Question"   , "Type"               , "Marks Out of", "Score"
+     1, "AI_PY_01"   , "Short Ans (numeric)", "Out of 1"    ,       1
+     2, "AI_PY_01"   , "exp_marks"          , "Out of 1"    ,       1
+     3, "AI_PY_02"   , "Short Ans"          , "Out of 1"    ,       1
+     4, "AI_PY_02"   , "exp_marks"          , "Out of 1"    ,       1
+     5, "AI_PY_03"   , "Short Ans"          , "Out of 1"    ,       1
+     6, "AI_PY_03"   , "exp_marks"          , "Out of 1"    ,       1
+     7, "AI_PY_04"   , "Short Ans"          , "Out of 1"    ,       0
+     8, "AI_PY_04"   , "exp_marks"          , "Out of 1"    ,       0
+     9, "AI_PY_05"   , "MCQ"                , "Out of 1"    ,       1
+    10, "AI_PY_05"   , "exp_marks"          , "Out of 1"    ,       1
+    11, "AI_PY_06"   , "Short Ans"          , "Out of 1"    ,       0
+    12, "AI_PY_06"   , "exp_marks"          , "Out of 1"    ,       0
+    13, "AI_PY_07"   , "MCQ"                , "Out of 1"    ,       1
+    14, "AI_PY_07"   , "exp_marks"          , "Out of 1"    ,       1
+    15, "AI_PY_08"   , "MCQ"                , "Out of 1"    ,       1
+    16, "AI_PY_09"   ,                      , "Out of 1"    ,       0
+    17, "AI_PY_10"   , "MCQ"                , "Out of 1"    ,       1
+    18, "AI_PY_11"   , "MCQ"                , "Out of 1"    ,       1
+    19, "AI_PY_12"   , "MCQ"                , "Out of 1"    ,       2
+    20, "AI_PY_13"   , "exp_marks"          , "Out of 1"    ,       1
+      , "MCQ"        , "Total"              , "Total - 22"  ,      17
+      , "Problem 1"  , "Code"               , "Out of 4"    ,       4
+      , "Problem 2"  , "Code"               , "Out of 4"    ,       4
+      , "Problem 3"  , "Code"               , "Out of 4"    ,       4
+      , "Problem 4"  , "Code"               , "Out of 4"    ,       4
+      , "Problem 5"  , "Code"               , "Out of 4"    ,       0
+      , "Problem 6"  , "Code"               , "Out of 6"    ,       6
+      , "Problem 7"  , "Code"               , "Out of 6"    ,       0
+      , "Problem 8"  , "Code"               , "Out of 6"    ,       4
+      , "Programming", "Qns"                , "Total - 38"  ,      26
+      , "Grand"      , "Total"              , "Score - 60"  ,      43

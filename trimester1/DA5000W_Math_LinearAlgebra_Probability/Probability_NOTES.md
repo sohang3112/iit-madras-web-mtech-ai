@@ -138,8 +138,8 @@ PMF P(x) = $\ \frac{\lambda^x e^{-\lambda}}{x!}$
 
 continous waiting time between discrete Poisson trials. Here $\lambda$ is same as of corresponding Poisson distribution.
 
-- PDF $P(x) = \lambda e^{-\lambda x}$
-- CDF $1 - e^{-\lambda x}$
+- PDF **Probability of waiting exactly $x$ waiting time** $P(x) = \lambda e^{-\lambda x}$
+- CDF **Probability of waiting less than or equal to $x$ waiting time** $1 - e^{-\lambda x}$
 - Mean waiting time $1 / \lambda$ (makes sense since $\lambda$ is just expected no. of events per unit time).
 - Variance of waiting time $1 / \lambda^2$
 
@@ -155,9 +155,9 @@ But if (large n and np or np(1-p) > 10) OR ($\lambda = n p > 5$), use Poisson, w
 
 This is pretty simple case that we do normally - probability of 1st success at x'th trial. So (x-1) failures, then 1 success at x'th trial.
 
-- PDF $p(x) = (1-p)^{x-1} p$
-- CDF $1 - (1-p)^x$
-- Mean $1 / p$ <------------------- **REMEMBER!!** (forgetting as didnt see derivation :( )) - TODO: see derivation
+- PDF **Probability of first success at exactly x'th trial** $p(x) = (1-p)^{x-1} p$
+- CDF **Probability of first success at most x'th trial** $1 - (1-p)^x$
+- Mean **How many trials before first success?** $1 / p$ (pretty intuitivie I guess?)
 - Variance $(1-p) / p^2$    ------------- **REMEMBER!!** (forgetting as didnt see derivation :( )) - TODO: see derivation
 
 ##### Hyper-Geometric (always discrete)
