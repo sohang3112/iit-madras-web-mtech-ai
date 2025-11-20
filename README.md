@@ -21,7 +21,8 @@ For any help / queries, send email at webmtech@code.iitm.ac.in .
 ### Login via Student LDAP Credentials (with IITM smail)
 * Student Dashboard (overall): https://wmtech.code.iitm.ac.in/student_dashboard/
     * Midsem score (only total marks, no details) is shown (in small font!) in respective course cards at https://wmtech.code.iitm.ac.in/student_dashboard/current_courses
-* To get student ID card issued: [SSP (Student/Staff Services Portal)](https://ssp.iitm.ac.in/)
+* To upload all documents and get student ID card issued: [SSP (Student/Staff Services Portal)](https://ssp.iitm.ac.in/)
+    * Email &lt;sspsupport@smail.iitm.ac.in&gt; if any issue in SSP Portal, eg. an uploaded document needs to be corrected after submision.
 * Fee portal (except first trimester): https://fees.iitm.ac.in/
 * Courses Info: https://seek.onlinedegree.iitm.ac.in/
 * Apply for Hostel (us web MTech students have to choose "Others Login" to apply for temporary stay): [IKollege](https://ikollege.iitm.ac.in/iitmhostel/)
