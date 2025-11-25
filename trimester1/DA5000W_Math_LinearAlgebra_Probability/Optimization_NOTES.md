@@ -27,3 +27,19 @@ Exact topics shared in first Optimization lecture (shared by a colleague):
 12. Numerical methods for optimization.
 13. Discussion on initial guesses and learning rates in optimization algorithms.
 14. Overview of constrained optimization and future topics to be covered, including KKT conditions and linear programming with the simplex method.
+
+## WIP 6. CONSTRAINED OPTIMIZATION
+* f(x) = func to minimize or maximize
+* ci(x) = 0 --- equality constraints
+* cj(x) >= 0 -- inequality constraints
+
+### Single Equality problem:
+only one $c(x) = 0$
+
+at minimum $x^*$, $\delta f(x^*) = \lambda \delta c(x^*)$ that is, constraint normal is parallel to gradient of function being optimized
+This can be derived from  first order gradient of **Lagrangian** (unconstrained optimization).
+
+Lagrangian $L(\mathbf{x}, \lambda) = f(x) - \lambda c(x)$ where $\lambda$ is *Lagrangian multiplier*.
+First order gradients, one wrt x, one wrt $\lambda$ :
+* $\delta_x L = \delta_x f(x) - \lambda \delta c(x) = 0$
+* $delta_{\} L = - c(x) = 0$
