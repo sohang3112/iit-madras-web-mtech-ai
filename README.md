@@ -32,6 +32,7 @@ For any help / queries, send email at webmtech@code.iitm.ac.in .
 * Complaints platform: https://cc.iitm.ac.in/
 * Discussion by students & faculty: https://discourse.iitm.ac.in/
 * IITM Student Support: https://study-supportdesk.freshdesk.com/support/login -- NOT SURE IF APPLICABLE TO Web MTech students
+* Buy merchandise (cloths, stationary etc.) having IIT Madras logo at [Gift Shop](https://giftshop.iitm.ac.in/).
 * IITM WiFi site (intranet only in campus): https://netaccess.iitm.ac.in/
 
 ### Unofficial Links
