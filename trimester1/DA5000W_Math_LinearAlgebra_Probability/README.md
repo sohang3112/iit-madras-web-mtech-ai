@@ -25,3 +25,9 @@ Books:
 - [Linear Algebra by Jim Hefferon](http://joshua.smcvt.edu/linearalgebra)
 - [A First Course in Linear Algebra by Robert A. Beezer](http://linear.ups.edu/download/fcla-electric-2.00.pdf)
 - [Linear Algebra Toolkit by Przemyslaw Bogacki](http://www.math.odu.edu/~bogacki/lat)
+
+### Optimization
+
+Books:
+
+- Numerical Optimization by Jorge Nocedal & Stephen J. Wright - saved in my OneDrive

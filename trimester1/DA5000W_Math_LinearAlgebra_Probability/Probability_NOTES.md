@@ -132,7 +132,7 @@ limit of binomial for rare events (probability of success too low or too high)
 
 Parameter (expected number of events per unit time) $\lambda = n p$
 
-PMF P(x) = $\ \frac{\lambda^x e^{-\lambda}}{x!}$
+PMF P(x) = $\frac{\lambda^x e^{-\lambda}}{x!}$
 
 #### Exponential Distribution (always continous)
 
