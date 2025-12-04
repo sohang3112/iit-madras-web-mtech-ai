@@ -8,11 +8,11 @@ Max possible marks (total 59):
 - Code: Problem 1-5 (4 marks each), Problem 6-8 (6 marks each) => $5*4 + 3*6 = 38$
     - OR AS THEY HAVE GRADED 100 actually correct / 233 marked wrong / 800 total
 
-Wrong answer marks deducted (7 marks actually correct / 14 marked wrong / 38 total):
+Wrong answer marks deducted (1 marks actually correct / 14 marked wrong / 38 total):
 - MCQ Q7,11 - 1x2 = 2 , x2 (accounting for explanations) - 4
 - MCQ Q16 **WRONG MARKING!** - 1 (they put it wrong so 0 according to them)
 - Code Problem 5 - 4 - *they gave 0%*
-- Code Problem 7 **WRONG MARKING!** - 6 *they actually gave 0%*
+- Code Problem 7 - 6 *they gave 0%*
 - Code Problem 8 - 6 marks, I passed 2/3 private tests, so *they gave 67 / 100*
 
 ## MCQ
@@ -105,7 +105,9 @@ def two_d_norm(X):
 
 -----------
 
-Problem 7: Apply Discount (Marks allotted - 6 Marks) - *they gave: 0 / 100* **WRONGLY MARKED**
+**UPDATE FROM THEIR SIDE**: my code is wrong - I missed condition that regular 10% discount is *only if amount > 1000*.
+
+Problem 7: Apply Discount (Marks allotted - 6 Marks) - *they gave: 0 / 100*
 
 Write apply_discount(order_list) which applies discounts using a lambda function based on customer type:
 
@@ -128,7 +130,7 @@ def apply_discount(order_list):
     return [get_price(name, price) for name, price in order_list]
 ```
 
-**WRONGLY MARKED!** - their 2 private tests shown failing, but actual and expected outputs match!!
+their 2 private tests shown failing, but actual and expected outputs match!!
 
 Private test 1 (both actual & expected outputs same): `[400.0, 1200.0, 1800.0, 800.0, 3000.0]`
 
