@@ -363,10 +363,12 @@ Geometrically, each found coeff/coord ci is length of projection of v along ui
 GRAHM-SCHMIDT ORTHO NORMALIZATION PROCESS
 convert n INDEPENDENT vecs v1..vn into n ortho normal vecs u1..un :
 - u1 = v1
-- u2 = v2 - proj(v2) wrt u1 [ u1 . v2 / |u1| |v2| ]
+- u2 = v2 - proj(v2) wrt u1
 - u3 = v3 - proj(v3) wrt u1 - proj(v3) wrt u2
 - ... so on...
 - finally normalize (mk unit vecs) u1..un by dividing with magnitude
+
+where proj(v2) wrt u1 = scalar * vector = [v2 . u1 / |v2| |u1|] * u1 vector
 
 
 

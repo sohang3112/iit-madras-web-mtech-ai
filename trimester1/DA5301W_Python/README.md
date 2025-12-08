@@ -81,3 +81,7 @@ Depth First Search:
 - like BFS, each vertex is visited once
 - complexity same as BFS: Adjacency Matrix: O(n^2), Adjacency List: O(m + n)
 - DFS Paths are NOT shortest paths, unlike BFS
+
+### TODO: selection sort, searching in a list, exception handling, debugging & testing
+
+### NOTE: class on pytorch & tensorflow also discussed, but that's not in endsem exam
