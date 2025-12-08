@@ -1,9 +1,24 @@
 # IIT Madras Web MTech (Industrial AI) 2025
+
 Notes during my Web MTech (AI) at IIT Madras.  Web MTech is an Executive course to be done along with job.
 Company MoU (Memorandum of Understanding) or LoS (Letter of Support) is mandatory, otherwise learners can exit with PG Diploma.
 
 Instead of GATE exam scores that are required for admission to regular MTech, 
 for web MTech an internal entrance exam of IIT Madras is conducted.
+
+### TODO
+
+Scrape from course portals - module lecture slides PDFs (currently downloading them manually).
+
+Automate (pre-made solution or else program myself) digitally doing Linear Algebra assignments:
+* PDF -> markdown with math expressions correctly rendered using MathJAX, and deleting any unicode (invisible?) characters
+* ChatGPT output has math in latex expressions, convert to MathJAX inside Markdown (eg. `\[`, `]\` --> `$$` and other corrections)
+* GenAI automate (maybe via new MCP server in VS Code?) (NOTE OpenAI doesn't have free tier for API calling but Gemini does - try it at https://aistudio.google.com/) :
+    * verify my (question, answer)(s)
+    * cheat (hopefully rarely!): get solutions for all questions
+
+NOTE: when just putting multiple questions to solve to ChatGPT in single prompt, it always misses out on some questions, probably due to its context length (TODO: check how much?).
+But I have tried same with Gemini - it's much better, doesn't forget any question (probably has bigger context length). So shouldn't be an issue.
 
 ## Links
 
