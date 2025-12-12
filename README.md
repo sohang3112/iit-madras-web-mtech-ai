@@ -11,8 +11,8 @@ for web MTech an internal entrance exam of IIT Madras is conducted.
 Scrape from course portals - module lecture slides PDFs (currently downloading them manually).
 
 Automate (pre-made solution or else program myself) digitally doing Linear Algebra assignments:
-* PDF -> markdown with math expressions correctly rendered using MathJAX, and deleting any unicode (invisible?) characters
-* ChatGPT output has math in latex expressions, convert to MathJAX inside Markdown (eg. `\[`, `]\` --> `$$` and other corrections)
+* PDF -> markdown with OCR (images -> text eg. where question text in image), math expressions correctly rendered using MathJAX, and deleting any unicode (invisible?) characters
+* ChatGPT output has math in latex expressions, convert to MathJAX inside Markdown (eg. `(`, `)`, --> `$`, `\[`, `]\` --> `$$`)
 * GenAI automate (maybe via new MCP server in VS Code?) (NOTE OpenAI doesn't have free tier for API calling but Gemini does - try it at https://aistudio.google.com/) :
     * verify my (question, answer)(s)
     * cheat (hopefully rarely!): get solutions for all questions
