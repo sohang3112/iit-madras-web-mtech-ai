@@ -41,7 +41,7 @@ Cmp categorical variables and/or summary plots: Bar plot (optional: grouped, sta
 
 ### Graphs
 
-lib: networkx - TODO: practise code
+lib: networkx - **TODO**: revise `networkx`, `heapq`
 • Neighbours of a vertex ?
 • shortest path ?
 • which vertices reachable from a start vertex ?
@@ -82,6 +82,38 @@ Depth First Search:
 - complexity same as BFS: Adjacency Matrix: O(n^2), Adjacency List: O(m + n)
 - DFS Paths are NOT shortest paths, unlike BFS
 
-### TODO: selection sort, searching in a list, exception handling, debugging & testing
+### selection sort, searching in a list, exception handling, debugging & testing
 
-### NOTE: class on pytorch & tensorflow also discussed, but that's not in endsem exam
+SELECTION SORT
+Recurrence means T(n) of an algo
+
+find 1st min put in ans list, 2nd min ... (or inplace: swap 1st min with 1st elem, 2nd min with 2nd elem..)
+
+T(n) = n + (n-1) + .. + 1 = n(n+1)/2 = O(n^2) -- always this much even for almost sorted list
+
+**TODO**: Briefly revise all sort methods' complexity & behaviour with almost-sorted - NOT IN NOTES, but came in assignment 4
+
+-----
+
+SEARCH IN ARRAY
+* Linear Search: T(n) = n =O(n)
+* Binary Search: (only for sorted list)
+   * T(0) = 1, T(n) = T(n//2) + 1 => T(n) = 2 + log n
+
+------
+
+DEBUGGING
+Error types: Syntax, Runtime, Logic, Data (eg. missing val, extra category etc.), Performance
+
+Validation: Pydantic (inherit BaseClassModel, Field()), Pandera (schema validation of Pandas / Polars / Pyspark df, integrates with pytest, on fail shows row, column, failing rule)
+
+* Notebook: `%pdb on` (auto enter pdb on error), `%debug` (inspect after error)
+* VS Code: Debug and Run, put breakpoints
+
+Tests: Unit, Integration, Performance, End to End
+
+Pytest: Fixture, Parameterized Test, pytest.raises(), 
+float approx equal -->
+ assert x == pytest.approx(3.14, [OPTIONAL precision: 0.2])
+
+### NOTE: (pytorch & tensorflow, AI assisted coding) lecture slides but not in endsem
