@@ -10,6 +10,8 @@ Midsem question paper with all public & private tests downloaded from https://se
 
 ## Notes based on Lectures
 
+**TODO: THEORY DONE, NOTEBOOKS REMAIN!**
+
 ### Visualization
 
 libs: 
