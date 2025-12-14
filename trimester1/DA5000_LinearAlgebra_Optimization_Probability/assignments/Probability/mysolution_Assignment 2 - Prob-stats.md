@@ -86,9 +86,12 @@ TODO
 
 ## Problem 3
 
-We intend to compare several methods for predicting the shear strength for steel items. Data for two of these methods, the M1 and M2, when applied to nine specific items, are shown in Table 1.
+We intend to compare several methods for predicting the shear strength for steel items. 
+Data for two of these methods, the M1 and M2, when applied to nine specific items, are shown in Table 1.
 
-Determine if there is a significant difference in shear strength predictions between methods M1 and M2 at a significance level of α = 0.05. Address the following while arriving at the conclusion:
+Determine if there is a significant difference in shear strength predictions between methods M1 and M2 
+at a significance level of $\alpha = 0.05$. 
+Address the following while arriving at the conclusion:
 
 (a) Formulate the Null and Alternate Hypothesis
 (b) Calculate the test statistic and compare with the critical value
@@ -106,8 +109,7 @@ Item  | Method 1  | Method 2
 8     | 1.537     | 1.086 
 9     | 1.559     | 1.052 
 
-Table 1: Comparison of predictions of Method 1 and Method 2 for 9 items
-
+*Table 1: Comparison of predictions of Method 1 and Method 2 for 9 items*
 
 ### Solution 3
 

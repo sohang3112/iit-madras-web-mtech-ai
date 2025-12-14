@@ -173,15 +173,80 @@ Formulae
 </details> <!-- Midsem end -->
 
 
-## TODO: Lecture Note 4 - Hypotheis Testing, Confidence Intervals, Central Limit Theorem -- NOT IN MIDSEM
+## TODO: Lecture Note 4 - Confidence Intervals, Central Limit Theorem, Sampling Distributions, (no specific hypothesis tests) -- NOT IN MIDSEM
 
 TODO
 
-## TODO: Lecture Note 5.1 (Bayes Inferential Stats) - Hypothesis Testing, Confidence Intervals -- NOT IN MIDSEM
+## IN PROGRESS: Lecture Note 5.1 (Bayes Inferential Stats) - Hypothesis Testing (Tests: Z, T, Paired T, F, Z Proportion)
 
-TODO
+### P Value
 
-## IN PROGRESS: Lecture Note 5.2 (Bayes Inferential Stats) - Acceptance Sampling (Acceptance Matrix, OC Curve), ANOVA, Chi Squared etc. -- NOT IN MIDSEM
+If we assume the null hypothesis to be true (and make some assumptions about the distributions of various variables), 
+then the **‘test statistic’ should be no different than a single random draw from a specific probability distribution**.
+
+Ascertain the probability of observing a “test statistic” equal to or more extreme than that which was observed, 
+from this theoretical distribution, assuming that the null hypothesis is true. This is the p-value.
+
+Reject the null hypothesis if the p-value is low. *It’s P(Data|Hypothesis) not P(Hypothesis|Data)*.
+
+Alt Definition: The P-value is the smallest level of significance that would lead to rejection of the null hypothesis $H_0$ 
+with the given data.
+
+### Hypothesis Testing - Sample vs Population
+
+* Initially we assume population follows a specific probability distribution (eg. Normal, T Distribution etc.)
+* Form null and alternate hypothesis: *Mutually Exclusive Collectively Exhaustive*
+* Calc *test statistic* (eg. z score, f score etc. - depends on test)
+* Lookup **p-value** (probab of getting as extreme value as input in assumed distribution) using Z Table, T Table, F Table etc.
+* Reject Null Hypothesis if $pvalue < significance$ (usually significance is $\alpha=0.05$).
+
+Convention: Population mean, std are $\mu$, $\sigma$ ; sample mean, std are $\bar{x}$, $s$
+
+#### Z Test: Single Sample
+
+Comparing sample mean vs population mean. If only 1 sample value, then that is sample mean.
+
+* Z Score is $z = \frac{\bar{x} - \mu}{\sigma / \sqrt{n}}$
+    * Additional Note (not in syllabus): Denominator $\sigma / \sqrt{n}$ is Standard Error $SE$ of sample means from normal population.
+* Lookup p-value ($P(X <= \mu)$: **area to left of Z Score**) in Z Table.
+    * **Critical Area** (extreme area where vals should be REJECTED), in case of 2-tailed, 
+      is area more than 2 (population) standard deviations away from (population) mean.
+
+Types: 
+- *Two-tailed* (equality) $H_0: \bar{x} = \mu)$
+- *Left-Tailed* $H_0: \bar{x} \geq \mu$  because critical (rejection) area is to the left of mean
+- *Right-Tailed* $H_0: \bar{x} \leq \mu$ because critical (rejection) area is to the right of mean
+
+##### Z Test Assumptions
+
+A **z distribution** is just $N(0,1^2)$ - a standard normal distribution with mean 0, std dev 1 - explained in image:
+
+![Z Distribution](images/z_distribution.png)
+
+So formula is standard normal formula only:
+
+$$P(Z \leq z) = \int_{-\infty}^{\infty} \frac{1}{\sqrt{2 \pi}} e^{\mu^2/ 2}$$
+
+* Population is Normally distributed OR sample size is large enough for $\bar{x}$ to be approximately normal.
+* **Population Standard Deviation $\sigma$ is known** and we're comparing given sample mean to expected population mean.
+
+Lookup of critical p-values from Z Scores is done by:
+* above formula (not often used directly as it has an integral!)
+* Z Table (manual method)
+* Excel: `norm.s.dist(1.2, TRUE)`
+* R: `> pnorm(1.2)`
+
+**TODO: Exercises given in lectures themselves, solve/revise!**
+
+##### Summary (Table Formulae): Z, T, Chi-Square, Z-Proportion -- TODO: lookup these in detail online!!
+
+![Hypothesis Tests Formulae Table](images/hypothesis_formulae_table.png)
+
+### Hypothesis Testing - Cmp 2 Samples
+
+
+
+## IN PROGRESS: Lecture Note 5.2 (Bayes Inferential Stats) - Acceptance Sampling (Acceptance Matrix (TP, FP errors), OC Curve), ANOVA, Chi Squared -- NOT IN MIDSEM
 
 **Acceptance Sampling**: does my population match standard / ideal population? 
 In factory items production, we know from experience that standard deviation remains about the same, so we can assume that as population std.
