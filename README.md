@@ -40,7 +40,8 @@ For any help / queries, send email at webmtech@code.iitm.ac.in .
     * *Cannot login to* https://app.onlinedegree.iitm.ac.in/auth/login (linked to as dashboard in seek course site) - not a big issue as main dashboard link above is working (wmtech).
 * To upload all documents and get student ID card issued: [SSP (Student/Staff Services Portal)](https://ssp.iitm.ac.in/)
     * Email &lt;sspsupport@smail.iitm.ac.in&gt; if any issue in SSP Portal, eg. an uploaded document needs to be corrected after submision.
-* Fee portal (except first trimester): https://fees.iitm.ac.in/
+* ~~Fee portal (except first trimester): https://fees.iitm.ac.in/~~ - seems applicable for regular BTech students, not us Web MTech ones
+    * Web MTech specific: After first trimester, login with smail Google account & do course registration + fee payment at https://wmtech.code.iitm.ac.in/student_dashboard/wmtech_course_registration
 * Apply for Hostel (us web MTech students have to choose "Others Login" to apply for temporary stay): [IKollege](https://ikollege.iitm.ac.in/iitmhostel/)
 * Office of Hostel Management: [CCW](https://ccw.iitm.ac.in/)
 * Exams (mid-terms only, end-term is seperately held at exam centres): https://exams.study.iitm.ac.in/
@@ -49,6 +50,7 @@ For any help / queries, send email at webmtech@code.iitm.ac.in .
 * IITM Student Support: https://study-supportdesk.freshdesk.com/support/login -- NOT SURE IF APPLICABLE TO Web MTech students
 * Buy merchandise (cloths, stationary etc.) having IIT Madras logo at [Gift Shop](https://giftshop.iitm.ac.in/).
 * IITM WiFi site (intranet only in campus): https://netaccess.iitm.ac.in/
+* **IITM AI Research Lab**: https://ai4bharat.iitm.ac.in/ - work on LLMs (eg. specialized train on Indian languages) and other tech.
 
 ### Unofficial Links
 * Subreddit [r/iitmadras](https://www.reddit.com/r/iitmadras/)

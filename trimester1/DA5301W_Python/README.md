@@ -84,7 +84,9 @@ Depth First Search:
 - complexity same as BFS: Adjacency Matrix: O(n^2), Adjacency List: O(m + n)
 - DFS Paths are NOT shortest paths, unlike BFS
 
-### selection sort, searching in a list, exception handling, debugging & testing
+### IN PROGRESS: sorting, search, exception handling, debugging & testing
+
+**TODO**: lecture slides remaining of Insertion Sort, Merge Sort, Tim Sort, Heap & Priority Queue (`heapq`, `bisect` stdlib modules)
 
 SELECTION SORT
 Recurrence means T(n) of an algo
@@ -92,8 +94,6 @@ Recurrence means T(n) of an algo
 find 1st min put in ans list, 2nd min ... (or inplace: swap 1st min with 1st elem, 2nd min with 2nd elem..)
 
 T(n) = n + (n-1) + .. + 1 = n(n+1)/2 = O(n^2) -- always this much even for almost sorted list
-
-**TODO**: Briefly revise all sort methods' complexity & behaviour with almost-sorted - NOT IN NOTES, but came in assignment 4
 
 -----
 

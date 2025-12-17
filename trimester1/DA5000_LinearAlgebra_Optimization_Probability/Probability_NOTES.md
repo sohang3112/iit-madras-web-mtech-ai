@@ -124,7 +124,7 @@ Probability Density Function: $P(x) = \frac{1}{\sqrt{2 \pi} \sigma} e^{\frac{-(x
 
 ![Normal Distribution](images/normal_distribution.png)
 
-As above plot shows, area under the curve (probability) at 1 sigma away from mean (both sides inclusive) is 68%, 2 sigma is 95%, 3 sigma is 99.7%.
+As above plot shows, area under the curve (probability) at 1 sigma away from mean (both sides inclusive) is 68%, 2 sigma is 95%, 3 sigma is 99.7%. This is called **68-95-99.7** rule in short.
 
 #### Poisson Distribution (always discrete)
 
@@ -175,7 +175,7 @@ Formulae
 
 ## TODO: Lecture Note 4 - Confidence Intervals, Central Limit Theorem, Sampling Distributions, (no specific hypothesis tests) -- NOT IN MIDSEM
 
-TODO
+TODO: 95% confidence interval of difference in population means... and rem topics
 
 ## IN PROGRESS: Lecture Note 5.1 (Bayes Inferential Stats) - Hypothesis Testing (Tests: Z, T, Paired T, F, Z Proportion)
 
@@ -236,6 +236,11 @@ Lookup of critical p-values from Z Scores is done by:
 * Excel: `norm.s.dist(1.2, TRUE)`
 * R: `> pnorm(1.2)`
 
+##### NOT IN NOTES SO UNSURE: [Paired Z Test](https://www.ncss.com/wp-content/themes/ncss/pdf/Procedures/PASS/Paired_Z-Tests.pdf)
+
+When comparing 2 means, we take mean difference and check if it's greater than, less than or equal to 0 
+(assuming population standard deviation of paired differences is known).
+
 **TODO: Exercises given in lectures themselves, solve/revise!**
 
 ##### Summary (Table Formulae): Z, T, Chi-Square, Z-Proportion -- TODO: lookup these in detail online!!
@@ -244,6 +249,24 @@ Lookup of critical p-values from Z Scores is done by:
 
 ### Hypothesis Testing - Cmp 2 Samples
 
+**How to lookup in T Table**: find p-value using degrees of freedom and significance level $\alpha$. 
+Usually 2 tables are given, one for 1-tailed and one for 2-tailed.
+In case only 1 T table is given, lookup using $\alpha$ for 1-tailed, $\alpha / 2$ for 2-tailed.
+
+![2 Samples Comparision](images/sample_hypothesis_tests.png)
+
+NOTES RE ABOVE TABLE IMAGE:
+* **Welsch T Test** is another name for *t test (independent, unequal variances)* mentioned above.
+  In its formula $\frac{(\bar{x_1} - \bar{x_2}) - d_0}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}}$:
+  * in numerator $d_0$ is difference in population means $\mu_1 - \mu_2$. But it's generally assumed 0 so can be omitted.
+  * denominator $\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}$ is actually the Standard Error for difference in population means.
+  * T Table is same as in Student's T Distribution. Only difference is degrees of freedom calculation. Full formula for degrees of freedom in Welsch T Test is complicated, so use these simplifications instead:
+
+| Situation                                                          | Degrees of Freedom                   |
+| -------------------------------------------------------------------| ------------------------------------ |
+| Equal variances (Student's T Distribution) OR Similar sample sizes | $n_1 + n_2 - 2$                      |
+| Unequal variances, small samples                                   | $\min(n_1-1, n_2-1)$                 |
+| Unequal variances, large samples                                   | Z test (degrees of freedom $\infty$) |
 
 
 ## IN PROGRESS: Lecture Note 5.2 (Bayes Inferential Stats) - Acceptance Sampling (Acceptance Matrix (TP, FP errors), OC Curve), ANOVA, Chi Squared -- NOT IN MIDSEM
@@ -257,12 +280,20 @@ Huge pouplation so we draw $n$ random samples & use sample mean as **unbiased es
 
 NOTE: with or without replacement, Expected sample mean = population mean, but Expected variance is different.
 
-This is the **Acceptance Matrix**
+This is the **Acceptance Matrix** (NOTE: true/false is with respect to Alt Hypothesis only, 
+ie null hypothesis being correct means alt hypothesis is false => so false prediction)
 
-Predicted \ Actual | False Prediction of Alt Hypothesis                 | True Prediction of Alt Hypothesis
------------------- | -------------------------------------------------- | -------------------------------------------------
-True Actual        | FP (**Type 1 error / producer risk / alpha-risk**) | TP (**1-alpha**)
-False Actual       | TN (**1-beta**)                                    | FN (**Type 2 error / Consumer risk / beta-risk**)
+Predicted \ Actual            | False Prediction of Alt Hypothesis             | True Prediction of Alt Hypothesis
+----------------------------- | ---------------------------------------------- | -------------------------------------------------
+Alt Hypothesis actaully True  | FP (**Type 1 error / producer risk**) $\alpha$ | TP $1-\alpha$
+Alt Hypothesis actually False | TN $1-\beta$                                   | FN (**Type 2 error / Consumer risk**) $\beta$
+
+IMPORTANT: $\alpha$, $\beta$ in above table should be used only after row-wise normalization:
+
+$$
+\alpha = \frac{FP}{TP+FP} \\
+\beta = \frac{FN}{TN+FN}
+$$
 
 in hypothesis testing, before testing, we initially choose $\alpha$ (usually 0.05) of how much max FP error we are willing to allow.
 after testing, if p value > $\alpha$ => fails. if p value < $\alpha$ => *then this measured p value is now exact FP rate, alpha was only a max threshold*.
@@ -271,7 +302,21 @@ $\beta$ (FN / type 2 error) is more complicated, it depends on:
 * d = $|\mu_1 - \mu_2| / \sigma$ - mean of population (or else sample mean as approx replacement) compared to standard mean - how many standard deviations away is it?
     (NOTE: this is NOT z score -- TODO: write more about difference here)
 * sample size n
-* FP / type 1 error
+* FP / type 1 error $\alpha$
+
+$\alpha$, $\beta$ are related (if $\alpha$ decreases while keeping sample size and mean constant, then $\beta$ will increase).
+But there is no general formula linking the two, relation depends on specific hypothesis test.
+
+SKIPPING (not in lecture slides, so hopefully not needed!) Formulae mostly from https://www.geeksforgeeks.org/machine-learning/confusion-matrix-machine-learning/:
+
+$$
+\text{Reliability / Accuracy} = P(overall_correct_prediction) = \frac{TP+TN}{TP+FP+TN+FN} = 1 - (\alpha + \beta) \\
+\text{Power / Sensitivity / True Negative Rate} = P(true_prediction | true_actual) = \frac{TN}{TN+FN} = 1 - \beta \\
+\text{Precision / True Positive Rate} = P(true_actual | true_prediction) = \frac{TP}{TP+FP} = 1 - \alpha \\
+\text{Recall} = \frac{TP}{TP+FN} = \frac{1 - \alpha}{1 - \alpha + \beta} \\
+\text{F1 Score (combines Precision, Recall)} -- TODO
+Prevelance -- TODO
+$$
 
 Graph of beta versus d for a given sample size n is called **Operational Curve (OC)**.
 
