@@ -1,9 +1,11 @@
 # Trimester 1 : September - December 2025
 
-Teaching Assistants (TAs)
-- (all I think?) Subhalekshmi SV &lt;subhalekshmi@code.iitm.ac.in&gt;
-- (math course?) V M Vijaya Yuvaram Singh &lt;da24s015@smail.iitm.ac.in&gt;
-- (python course?) Ayush Kumar &lt;da24s019@smail.iitm.ac.in&gt;
+Teaching Assistants (TAs) (incomplete list)
+- general Subhalekshmi SV &lt;subhalekshmi@code.iitm.ac.in&gt;
+- DA5000 Math:
+    - LA & Optimization: Mrudula A Mahindrakar ee25s011 <ee25s011@smail.iitm.ac.in>
+    - V M Vijaya Yuvaram Singh &lt;da24s015@smail.iitm.ac.in&gt;
+- DA5301 Python: Ayush Kumar &lt;da24s019@smail.iitm.ac.in&gt;
 
 PG Courses email: &lt;pgcourses@iitm.ac.in&gt;
 
