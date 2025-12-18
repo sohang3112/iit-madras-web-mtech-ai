@@ -119,3 +119,9 @@ float approx equal -->
  assert x == pytest.approx(3.14, [OPTIONAL precision: 0.2])
 
 ### NOTE: (pytorch & tensorflow, AI assisted coding) lecture slides but not in endsem
+
+### Summary
+
+Algorithms Complexities Table:
+
+![Algorithms Complexities Table](./complexities_table.jpeg)
