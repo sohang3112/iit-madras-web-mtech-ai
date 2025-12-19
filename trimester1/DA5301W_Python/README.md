@@ -88,12 +88,20 @@ Depth First Search:
 
 **TODO**: lecture slides remaining of Insertion Sort, Merge Sort, Tim Sort, Heap & Priority Queue (`heapq`, `bisect` stdlib modules)
 
+
 SELECTION SORT
 Recurrence means T(n) of an algo
 
 find 1st min put in ans list, 2nd min ... (or inplace: swap 1st min with 1st elem, 2nd min with 2nd elem..)
 
 T(n) = n + (n-1) + .. + 1 = n(n+1)/2 = O(n^2) -- always this much even for almost sorted list
+
+ADDITIONAL (NOT IN SYLLABUS): QuickSort (real one is in-place): pivot elem, on left sort less elems, on right sort greater elems
+
+```haskell
+quicksort []     = []
+quicksort (x:xs) = quicksort [y <= x | y <- xs] ++ [x] ++ quicksort [y > x | y <- xs]
+```
 
 -----
 

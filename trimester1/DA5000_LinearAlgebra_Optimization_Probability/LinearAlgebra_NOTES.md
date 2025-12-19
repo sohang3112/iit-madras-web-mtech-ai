@@ -370,6 +370,17 @@ convert n INDEPENDENT vecs v1..vn into n ortho normal vecs u1..un :
 
 where proj(v2) wrt u1 = scalar * vector = [v2 . u1 / |v2| |u1|] * u1 vector
 
+## REVISION OF LA
+
+**Visualization** of 4 Fundamental Subspaces (column space, row space, null space, left null space (aka null space of transpose matrix)):
+
+![4 Fundamental Subspaces](images/fundamental_subspaces.png)
+
+Here $r$ is Rank, $m \times n$ is shape (rows, columns) of coefficient matrix $A$.
+RHS Bias Vector $\mathbf{b}$ has shape $n \times 1$.
+
+$C(A), N(A) \in \mathbb{R}^n$, $R(A), N(A^T) \in \mathbb{R}^m$ 
+
 
 
 

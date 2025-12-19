@@ -47,3 +47,21 @@ Marking [-] dash in places I'm pretty sure I know but haven't explicitly done ma
 - [ ] Finding eigenvectors for distinct eigenvalues
 - [ ] Finding eigenvectors for repeated eigenvalues
 - [ ] Diagonalization of a symmetric matrix – Eigenvalue decomposition
+
+-------------------- ENDSEM TOPICS ----------------------------------
+
+LA & Optimization:
+
+NOTE: done marked are only done theory, practice everything is remaining...
+
+- [x] Least squares
+- [x] Orthogonality
+- [x] Gram Schmidt Orthogonalization
+- [x] Unconstrained Optimization (including Gradient Descent)
+   - [x] First Order Condition
+   - [x] Second Order Condition
+- [ ] Constrained Optimization
+   - [ ] KKT Conditions
+   - [ ] Equality and Inequality Constraints
+- [ ] Linear Program
+- [ ] Duality

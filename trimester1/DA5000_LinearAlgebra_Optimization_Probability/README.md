@@ -31,3 +31,4 @@ Books:
 Books:
 
 - Numerical Optimization by Jorge Nocedal & Stephen J. Wright - saved in my OneDrive
+- https://misha.fish/archive/482-spring-2020 : University of Illinois course notes, 2022 (esp recommended by Prof Ramkrishan for simplex)

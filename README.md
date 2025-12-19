@@ -12,7 +12,8 @@ Scrape from course portals - module lecture slides PDFs (currently downloading t
 
 Automate (pre-made solution or else program myself) digitally doing Linear Algebra assignments:
 * PDF -> markdown with OCR (images -> text eg. where question text in image), math expressions correctly rendered using MathJAX, and deleting any unicode (invisible?) characters
-* ChatGPT output has math in latex expressions, convert to MathJAX inside Markdown (eg. `(`, `)`, --> `$`, `\[`, `]\` --> `$$`)
+* ChatGPT output has math in latex expressions, convert to MathJAX inside Markdown 
+  (eg. `(`, `)`, --> `$`, `[`, `]` --> `$$`, `\` (when followed by newline) --> `\\`)
 * GenAI automate (maybe via new MCP server in VS Code?) (NOTE OpenAI doesn't have free tier for API calling but Gemini does - try it at https://aistudio.google.com/) :
     * verify my (question, answer)(s)
     * cheat (hopefully rarely!): get solutions for all questions
@@ -20,20 +21,20 @@ Automate (pre-made solution or else program myself) digitally doing Linear Algeb
 NOTE: when just putting multiple questions to solve to ChatGPT in single prompt, it always misses out on some questions, probably due to its context length (TODO: check how much?).
 But I have tried same with Gemini - it's much better, doesn't forget any question (probably has bigger context length). So shouldn't be an issue.
 
-## Links
+## IITM Links
 
 For any help / queries, send email at webmtech@code.iitm.ac.in .
 
 * Example roll number: DA25M518 - here 25 stands for year 2025, M stands for MTech (other option being P for students who opted for PG Diploma).
 * Smail (student email id) example: da25m518@smail.iitm.ac.in -- i.e. ROLL_NUMBER@smail.iitm.ac.in
 
-### Public Links (any logins are with personal email)
+### Public IITM Links (any logins are with personal email)
 * AI Course Structure, Entrance Exam, etc.: https://code.iitm.ac.in/artificial-intelligence/
 * Apply at: https://code.iitm.ac.in/webmtech/
 * Fill personal details in form (after clearing entrance exam and being nominated by company): https://forms.study.iitm.ac.in/
 * [Term 1 Registration & Fees Guide 2025](https://docs.google.com/document/d/10lF62VJSPmCi2U7WuYcMctIIrS_WTwc55nXv6H1DuZg/edit?usp=drive_link)
 
-### Login via Student LDAP Credentials (with IITM smail)
+### IITM Login via Student LDAP Credentials (with IITM smail)
 * Student Dashboard (overall): https://wmtech.code.iitm.ac.in/student_dashboard/
     * Midsem score (only total marks, no details) is shown (in small font!) in respective course cards at https://wmtech.code.iitm.ac.in/student_dashboard/current_courses
     * Above dashboard's courses page has links to each course site, url of the form: https://seek.onlinedegree.iitm.ac.in/courses/{COURSE_ID}/
@@ -52,6 +53,8 @@ For any help / queries, send email at webmtech@code.iitm.ac.in .
 * IITM WiFi site (intranet only in campus): https://netaccess.iitm.ac.in/
 * **IITM AI Research Lab**: https://ai4bharat.iitm.ac.in/ - work on LLMs (eg. specialized train on Indian languages) and other tech.
 
-### Unofficial Links
-* Subreddit [r/iitmadras](https://www.reddit.com/r/iitmadras/)
 
+## General Misc Resources
+* Subreddit [r/iitmadras](https://www.reddit.com/r/iitmadras/)
+- Past Papers (various subjects, levels, years): https://acegrade.in/prev_papers -- math, stats, python, deep learning, etc.
+- https://iitmdatascience.com/notes.html has some notes (no question papers) on math, python, ML etc. (though not sure of quality as haven't tried)
