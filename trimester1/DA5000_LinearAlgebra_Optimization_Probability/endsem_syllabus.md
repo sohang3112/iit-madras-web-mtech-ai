@@ -18,7 +18,7 @@
 
 ## Optimization
 
-- [ ] Unconstrained univariate, multivariate opt
+- [ ] Unconstrained univariate, multivariate optimization
 - [ ] Constrained Optimization (KKT Lagrangian)
 - [ ] Linear Programming problem formulation
 - [ ] Simplex (if you have time and patience)

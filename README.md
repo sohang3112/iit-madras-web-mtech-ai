@@ -21,6 +21,13 @@ Automate (pre-made solution or else program myself) digitally doing Linear Algeb
 NOTE: when just putting multiple questions to solve to ChatGPT in single prompt, it always misses out on some questions, probably due to its context length (TODO: check how much?).
 But I have tried same with Gemini - it's much better, doesn't forget any question (probably has bigger context length). So shouldn't be an issue.
 
+## Main Course Material
+
+Table of all courses (core & elective) with credits info for all trimesters is available at https://code.iitm.ac.in/artificial-intelligence in *Course Curriculum* tab.
+
+- [Trimester 1: September - December 2025](trimester1/)
+- [Trimester 2: January - April 2026](trimester2/)
+
 ## IITM Links
 
 For any help / queries, send email at webmtech@code.iitm.ac.in .

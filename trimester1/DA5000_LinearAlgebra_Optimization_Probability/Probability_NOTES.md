@@ -322,4 +322,8 @@ Graph of beta versus d for a given sample size n is called **Operational Curve (
 
 ![Operational Curves](images/operational_curves.png)
 
-**ANOVA**, **Chi Squared Test** (degrees of freedom), **F Score** (compares 2 variances) -- SKIP: hypothesis testing shouldn't come in midsem exam!
+TODO: **ANOVA**, **Chi Squared Test** (degrees of freedom), **F Score** (compares 2 variances)
+
+ANOVA: tests that means of multiple are equal $\mu_1 = \mu_2 = \mu_3 ...$ using F Score.
+
+F Test is a subtype of ANOVA.
