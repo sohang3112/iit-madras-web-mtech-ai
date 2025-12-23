@@ -21,6 +21,12 @@ Automate (pre-made solution or else program myself) digitally doing Linear Algeb
 NOTE: when just putting multiple questions to solve to ChatGPT in single prompt, it always misses out on some questions, probably due to its context length (TODO: check how much?).
 But I have tried same with Gemini - it's much better, doesn't forget any question (probably has bigger context length). So shouldn't be an issue.
 
+But Gemini has its own major problem -- you can't copy its math expressions!! 
+Unlike Chatgpt, which generates Latex that can be copied easily, Gemini instead generates some code to actually render the math, with result being it's useless when you need to actually copy its output (obviously all my math questions have math expressions!!).
+
+I observed that when I tell it explicitly NOT to render answer but instead generate my answer as markdown code having embedded mathjax - 
+ChatGPT follows instructions, Gemini completely ignores it.
+ 
 ## Main Course Material
 
 Table of all courses (core & elective) with credits info for all trimesters is available at https://code.iitm.ac.in/artificial-intelligence in *Course Curriculum* tab.
