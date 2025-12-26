@@ -124,7 +124,7 @@ Probability Density Function: $P(x) = \frac{1}{\sqrt{2 \pi} \sigma} e^{\frac{-(x
 
 ![Normal Distribution](images/normal_distribution.png)
 
-As above plot shows, area under the curve (probability) at 1 sigma away from mean (both sides inclusive) is 68%, 2 sigma is 95%, 3 sigma is 99.7%. This is called **68-95-99.7** rule in short.
+As above plot shows, area under the curve (probability) at 1 sigma away from mean (both sides inclusive) is 68%, 2 sigma is 95%, 3 sigma is 99.7%. This is called **68-95-99.7** rule in short. NOTE: these are approximations, not exact! Example for 95% confidence, actual z score is 1.96 (NOT 2).
 
 #### Poisson Distribution (always discrete)
 
