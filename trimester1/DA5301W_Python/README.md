@@ -227,21 +227,21 @@ TODO: didn't really understand static vs dynamic graph here, see code examples
 
 #### PyTorch
 
-• torchvision
-• torchtext
-• torchaudio
-• captum: model explainability
-• detectron: object detection & segmentation
-• autograd (pytorch feature not diff lib) : automatic differentiation (gradients) -> . backward() 
+* torchvision
+* torchtext
+* torchaudio
+* captum: model explainability
+* detectron: object detection & segmentation
+* autograd (pytorch feature not diff lib) : automatic differentiation (gradients) -> . backward() 
 
 Pytorch lightning is higher level lib, automatea train, eval loops
 
 #### TENSORFLOW / KERAS
 
-• TensorBoard -- TODO: visualize computation graph (layers), visualize weights distribution, visualize train & infer images,track&visualuze train with diff hyperparams, analyze train bottlenecks with memory & cpu usage stats!
-• TensorflowLite: supports Android, iOS
-• TensorflowExtended (TFX): production pipeline, integrates with Tensorflow Serving
-• Tensorflow Hub: ML models repo
+* TensorBoard -- TODO: visualize computation graph (layers), visualize weights distribution, visualize train & infer images,track&visualuze train with diff hyperparams, analyze train bottlenecks with memory & cpu usage stats!
+* TensorflowLite: supports Android, iOS
+* TensorflowExtended (TFX): production pipeline, integrates with Tensorflow Serving
+* Tensorflow Hub: ML models repo
 
 Also support TPUs (difficult to work with in pytorch) 
 
