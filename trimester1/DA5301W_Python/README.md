@@ -225,7 +225,8 @@ dynamic graph (more debuggable but lib can optimize less) used in pytorch and te
 
 TODO: didn't really understand static vs dynamic graph here, see code examples
 
-PYTORCH:
+#### PyTorch
+
 • torchvision
 • torchtext
 • torchaudio
@@ -235,7 +236,8 @@ PYTORCH:
 
 Pytorch lightning is higher level lib, automatea train, eval loops
 
-TENSORFLOW / KERAS:
+#### TENSORFLOW / KERAS
+
 • TensorBoard -- TODO: visualize computation graph (layers), visualize weights distribution, visualize train & infer images,track&visualuze train with diff hyperparams, analyze train bottlenecks with memory & cpu usage stats!
 • TensorflowLite: supports Android, iOS
 • TensorflowExtended (TFX): production pipeline, integrates with Tensorflow Serving
