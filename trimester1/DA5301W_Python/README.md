@@ -217,7 +217,38 @@ Pytest: Fixture, Parameterized Test, pytest.raises(),
 float approx equal -->
  assert x == pytest.approx(3.14, [OPTIONAL precision: 0.2])
 
-### NOTE: (pytorch & tensorflow, AI assisted coding) lecture slides but not in endsem
+### WIP pytorch & tensorflow NOT IN ENDSEM
+
+static graph (of model layers) (built before execution) was used in tensorflow v1
+
+dynamic graph (more debuggable but lib can optimize less) used in pytorch and tensorflow v2
+
+TODO: didn't really understand static vs dynamic graph here, see code examples
+
+PYTORCH:
+• torchvision
+• torchtext
+• torchaudio
+• captum: model explainability
+• detectron: object detection & segmentation
+• autograd (pytorch feature not diff lib) : automatic differentiation (gradients) -> . backward() 
+
+Pytorch lightning is higher level lib, automatea train, eval loops
+
+TENSORFLOW / KERAS:
+• TensorBoard -- TODO: visualize computation graph (layers), visualize weights distribution, visualize train & infer images,track&visualuze train with diff hyperparams, analyze train bottlenecks with memory & cpu usage stats!
+• TensorflowLite: supports Android, iOS
+• TensorflowExtended (TFX): production pipeline, integrates with Tensorflow Serving
+• Tensorflow Hub: ML models repo
+
+Also support TPUs (difficult to work with in pytorch) 
+
+Equivalent of autograd for gradient calc is `GradientTape()`
+
+
+### TODO AI assisted coding NOT IN ENDSEM
+
+TODO
 
 ### Summary
 
