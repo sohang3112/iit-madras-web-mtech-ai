@@ -11,7 +11,7 @@ All of Deep Learning, especially supervised learning, is basically curve fitting
 
 While creating a new architecture, activation etc. we have to make sure everything is differentiable, otherwise Deep Learning optimization will not work.
 
-## Linear Algebra & Probability Revise (lecture 1 slides have material of lecture 2 as well)
+## Linear Algebra & Probability Revise (lecture 1 slides have material of lecture 2, 3 as well)
 
 ### Linear Algebra Revision
 
@@ -44,6 +44,8 @@ One nice property of norms as loss for optimization is that they are convex, so 
 
 **We usually use Cross-Entropy loss (or binary cross entropy), but may additionally use L1,L2 norms to promote sparsity so there are less weights**.
 
+**Loss functions measure some kind of distance.**
+
 #### Linear Hyper-plane
 
 It's an $n-1$ dimensional subspace of $\mathbf{R}^n$.
@@ -57,12 +59,14 @@ NOTE: for regression, no activation function is used on final Linear layer as we
 
 Distance of a vector $x$ from hyperplane = $\frac{x^T v}{\|v\|}$ where $v$ is normal vector of hyperplane.
 
+A simple example of a problem that's NOT linearly seperable is XOR. So a single neural layer cannot learn it, multiple are required.
+
 #### Singular Value Decomposition (SVD) of Matrix
 
 $$M = U \Sigma V^T$$
 
 where:
-* $U$, $V$ are **orthogonal matrices** (both matrices' row & column vectors form orthonormal bases)
+* $U$, $V$ are **orthogonal matrices** (i.e. $I = A A^T = B B^T$, i.e. both matrices' row & column vectors form orthonormal bases)
     * **Left Singular Vectors** are columns of $U$ - they come from eigen vectors of $M^T M$
     * **Right Singular Vectors** are columns of $V$ - they come from eigen vectors of $M M^T$.
 * $\Sigma$ is a **Positive Semi-Definite Diagonal matrix** -- its non-zero diagonal entries are called **Singular Values**.
@@ -127,6 +131,8 @@ Here:
 All of Deep Learning theory uses Bayesian framework. 
 But if prior (training) distribution is incorrect (ie posterior distribution of test/inference data is different), then poor results.
 
+**Sum of posteriors is 1 as sample space $Y$ is same in all**: eg. for binary classification, $P(X=0 | Y) + P(X=1 | Y) = 1$
+
 #### WIP Entropy (Cross, Relative, KL Divergence)
 
 Cross Entropy loss - use in classification (cross entropy and relative entropy are similar, so you're automatically using relative entropy as well here)
@@ -171,10 +177,59 @@ TODO: Logistic Regression (name has regression but actually final output is clas
 
 ### Regression
 
+It uses **linear activation**, i.e., just identity (no change)
+
 Linear Regression
+
+TODO: Polynomial Regression uses Taylor's Expansion
 
 TODO: Multi-Class Regression
 
 TODO: Ridge Regression
+
+TODO
+
+
+### WIP Underfitting and Overfitting
+
+Assuming uniform, balanced data
+
+Underfitting -- train error is high (too less model params), so try increasing number of model parameters or number of layers etc.
+
+Overfitting -- low train error BUT high test error (too many model params) => regularization techniques to solve like L1, L2, Dropout etc.
+
+NOTE: test error is also called **generalization error**.
+
+Finding *optimal number of model parameters* is hard.
+
+**VC Dimension** $|TrainError - TestError| \le \sqrt{O(d_{VC} \frac{log n}{n})}$ -- this is **probabilistic equation NOT deterministic** 
+(it's likely to hold not guaranteed) -- TODO: CHECK what's this vc dimension (he said it's used mostly in theoritical ML not practical?)
+
+Some **counter-intuitive facts**:
+
+* When you overfit, validation error increases. 
+  But even after that when you keep increasing parameters a lot (millions / billions of params!), then validation error actually reduces!
+  This is **Over-parameterized region** (LLMs operate here).
+
+
+### Validation (split data, Cross-Validation)
+
+In training only not validation, we maximize posterior probability. 
+
+Split data: Train-Validation typically 80:20 ; also Test data
+
+Cross-Validation: multiple (train,val) splits & trains, then average all the models' weights/params -- accuracy is worst accuracy from all splits.
+   (NOTE: seperate test data is still recommended to be used in Cross-Validation)
+    * No hard rule for number of folds in k-fold cross validation - chosen subjectively.
+
+
+### Bias-Variance tradeoff
+
+Bias reduce => Variance increase
+
+**Capapcity Point** is where (bias, variance) both are overall minimized (ie any further reduction in one will only come at expense of increase in other).
+
+
+### No Free Lunch Theorem
 
 TODO
