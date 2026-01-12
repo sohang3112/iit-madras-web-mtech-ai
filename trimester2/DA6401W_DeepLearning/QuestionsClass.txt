@@ -1,0 +1,13 @@
+PRACTICE QUESTIONS ASKED IN CLASS (not for submission)
+
+----------------------
+(Asked in lecture 2)
+Maximize posterior(Construct Optimal classifier) which takes realtive humidity as input and classifies as Sunny/Rainy.
+Avg. relative humiidity for sunny=0.6
+Avg. relative humiidity for rainy=0.9
+P(Sunny)=P(Rainy)=0.5
+Expceted result-> classifier will be sigmoid(xTw+w0), pt. on a line where w=mu1+mu0/2
+Hint: Take log of Gaussian dist and max wrt x
+
+ANSWER: TODO
+---------------------

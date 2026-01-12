@@ -11,7 +11,7 @@ All of Deep Learning, especially supervised learning, is basically curve fitting
 
 While creating a new architecture, activation etc. we have to make sure everything is differentiable, otherwise Deep Learning optimization will not work.
 
-## Linear Algebra & Probability Revise (lecture 1); WIP check if anything missed from lecture slide
+## Linear Algebra & Probability Revise (lecture 1 slides have material of lecture 2 as well)
 
 ### Linear Algebra Revision
 
@@ -57,35 +57,30 @@ NOTE: for regression, no activation function is used on final Linear layer as we
 
 Distance of a vector $x$ from hyperplane = $\frac{x^T v}{\|v\|}$ where $v$ is normal vector of hyperplane.
 
-#### Singular Value Decomposition (SVD)
+#### Singular Value Decomposition (SVD) of Matrix
 
-### Probability
+$$M = U \Sigma V^T$$
 
-TODO - Cross Entropy (KL Divergence + Entropy of a random variable PMF P), Relative Entropy (distance between 2 probability distributions, using their Probability Mass Functions), KL Divergence etc.
+where:
+* $U$, $V$ are **orthogonal matrices** (both matrices' row & column vectors form orthonormal bases)
+    * **Left Singular Vectors** are columns of $U$ - they come from eigen vectors of $M^T M$
+    * **Right Singular Vectors** are columns of $V$ - they come from eigen vectors of $M M^T$.
+* $\Sigma$ is a **Positive Semi-Definite Diagonal matrix** -- its non-zero diagonal entries are called **Singular Values**.
+  These *diagonal values are positive and in ascending order*: $\sigma_1 \le \sigma_2 \le .. \sigma_r$ where $r$ is rank of $\Sigma$ - remaining are 0 values.
 
-PMF of distribution P = TODO: formula
+**Pseudo-Inverse** of $M$ is $V \Sigma^{-1} U^T$
 
-TODO
+For all singular values $\sigma_i$ and corresponding left singular vectors $u_i$, right singular vectors $v_i$:
 
-## WIP Lecture 2 - slides not uploaded yet
+$$M v_i = \sigma_i u_i$$
 
-### Probability Revision
+#### Matrix Norm
 
-Cross Entropy loss - use in classification (cross entropy and relative entropy are similar, so you're automatically using relative entropy as well here)
+$$\|A\|_p = \sup \limits_{x \ne 0} \frac{ \|A x\|_p }{ \|x\|_p } , \quad \|A\|_2 = \sigma_{max}(A)$$
 
-Minimizing Cross Entropy & KL Divergence gives same minima; we prefer cross entropy as it's easier to differentiate.
+Here $\sup$ is basically equivalent to $\max$. **Matrix 2-norm is its largest singular value** (singular values calculated in SVD)
 
-All of Deep Learning theory uses Bayesian framework. 
-But if prior (training) distribution is incorrect (ie posterior distribution of test/inference data is different), then poor results.
-
-Information Theory definitions:
-* Entropy is original bits of distribution (least bits req to encode)
-* Relative Entropy is how many bits (ie log 2 of information) you need to encode distribution
-* Cross Entropy is how many bits used if you wrongly assume distribution P is actually distribution Q + entropy of P
-
-### Linear Algebra Revision
-
-Taylor series, Gradient & Hessian
+#### Taylor series, Gradient & Hessian
 
 Taylor: polynomial expansion of function $f$, centered at point $a$, at a random point $x$ near $a$.
 
@@ -103,6 +98,46 @@ $$H_f = \begin{pmatrix}
 \vdots                                         & \ddots                                       & \vdots \\
 \frac{\partial^2 f}{\partial x_n \partial x_1} & \frac{\partial^2 f}{\partial x_n \partial x_2} & \cdots & \frac{\partial^2 f}{\partial x_n^2} \\
 \end{pmatrix}$$
+
+
+### Probability
+
+PMF of distribution P = TODO: formula
+
+**Probability Space**:
+* Sample Space
+* $F$ Event Space - contains all possible subsets of Sample Space
+* $P$ **measure** for all elements of $F$ - eg. proportion of occurance of any $u \in F$
+
+Mapping $SampleSpace \rightarrow \mathbb{R}$ is a **Random Variable**.
+
+#### Bayes Formula
+
+$$
+P(X|Y) = \frac{ P(Y|X) P(X)}{ P(Y) } \\
+\implies P(X|Y) \propto P(Y|X) P(X) \\
+\implies Posterior \propto Prior \times Likelihood
+$$
+
+Here:
+* $P(X)$ is **prior** (statistics known before making any observations)
+* $P(X|Y)$ is **posterior** (updated probability after finding out outcome of $Y$)
+* $P(Y=y | X)$ is **likelihood** (calculated based on outcome of $Y$). **It's NOT a valid PMF / PDF** because probability space itself changes for each value of $X$.
+
+All of Deep Learning theory uses Bayesian framework. 
+But if prior (training) distribution is incorrect (ie posterior distribution of test/inference data is different), then poor results.
+
+#### WIP Entropy (Cross, Relative, KL Divergence)
+
+Cross Entropy loss - use in classification (cross entropy and relative entropy are similar, so you're automatically using relative entropy as well here)
+
+Minimizing Cross Entropy & KL Divergence gives same minima; we prefer cross entropy as it's easier to differentiate.
+
+Information Theory definitions:
+* Entropy is original bits of distribution (least bits req to encode)
+* Relative Entropy is how many bits (ie log 2 of information) you need to encode distribution
+* Cross Entropy is how many bits used if you wrongly assume distribution P is actually distribution Q + entropy of P
+
 
 ### Supervised vs Unsupervised learning
 
