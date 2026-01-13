@@ -5,7 +5,7 @@
 
 Machine Learning usually requires significant feature engineering, but Deep Learning often automatically transforms features.
 
-## Lecture 1 - Optimization Revision (slides not uploaded yet)
+## Lecture 1 - Optimization Revision (recording uploaded but slides not uploaded yet)
 
 * Constrained vs Unconstrained (aka **Static**) optimization
 * Linear, Quadratic, Non linear programming
@@ -69,3 +69,6 @@ Types of Gradient Descent (here L is loss) - tradeoff in convergence vs computat
 * Batch GD $w_{i+1} = w_i - \eta \nabla L(w)$ -- smoother convergence, but loads a lot of data into memory so slower
 * Stochastic GD (online/streaming data) (different update rule) -- uses less (only one data at a point), faster
 * Mini-batch GD: hybrid of batch and SGD -- (NOTE: for convergence Batch is best if can fit data into memory. There can be some extreme data in a mini-batch which affects strongly, but would affect batch GD less due to averaging out with more data)
+
+
+## Lecture 2
