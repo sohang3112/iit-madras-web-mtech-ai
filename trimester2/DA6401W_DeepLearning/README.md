@@ -144,14 +144,29 @@ Information Theory definitions:
 * Relative Entropy is how many bits (ie log 2 of information) you need to encode distribution
 * Cross Entropy is how many bits used if you wrongly assume distribution P is actually distribution Q + entropy of P
 
+### Machine Learning
 
-### Supervised vs Unsupervised learning
+#### Supervised vs Unsupervised learning
 
-TODO: copy table from slides (properties)
+Supervised learning            | Unsupervised
+------------------------------ | ---------------
+Labelled data                  | Unlabelled data
+Training + Inference           | No Train, only Inference
+eg. Classification, Regression | eg. PCA, Clustering, Pattern Finding
 
-Loss function types: Cross entropy (or binary cross entropy) loss, optionally with L1 / L2 / mixed norms
+#### Loss functions
 
-### Classification
+Loss functions quantify error obtained during parameter optimization.
+
+$$\argmin Loss \{ f(x,\theta) - label(x) \}$$
+
+* L0  norm (sparsity -promoting), 0 -1 loss:  $\|y  – y true \|_0$
+* L1  norm, absolute error: $\|y  – y true \|_1$
+* Squared L2  norm, Euclidean distance: $\|y  – y true \|^2_2$
+* Mixed norms: linear combination of different p-norms $p ge 1$ – convex losses
+* Cross entropy, F-score, etc.
+
+#### Classification
 
 BINARY CLASSIFICATION:
 
@@ -175,7 +190,7 @@ TODO: MULTI-CLASS REGRESSION:
 
 TODO: Logistic Regression (name has regression but actually final output is classification)
 
-### Regression
+#### Regression
 
 It uses **linear activation**, i.e., just identity (no change)
 
@@ -190,7 +205,9 @@ TODO: Ridge Regression
 TODO
 
 
-### WIP Underfitting and Overfitting
+#### Training & Generalization (Test) errors - Underfitting and Overfitting
+
+![Training & Generalization error](images/train_generalize_error.png)
 
 Assuming uniform, balanced data
 
@@ -208,11 +225,13 @@ Finding *optimal number of model parameters* is hard.
 Some **counter-intuitive facts**:
 
 * When you overfit, validation error increases. 
+  But after that point if you keep increasing parameters massively (millions / billions of params), then after a point accuracy increases!
+  LLMs operate in this *over-parameterized* zone.
   But even after that when you keep increasing parameters a lot (millions / billions of params!), then validation error actually reduces!
   This is **Over-parameterized region** (LLMs operate here).
 
 
-### Validation (split data, Cross-Validation)
+#### Validation (split data, Cross-Validation)
 
 In training only not validation, we maximize posterior probability. 
 
@@ -223,13 +242,29 @@ Cross-Validation: multiple (train,val) splits & trains, then average all the mod
     * No hard rule for number of folds in k-fold cross validation - chosen subjectively.
 
 
-### Bias-Variance tradeoff
+#### Bias-Variance tradeoff
+
+![Bias-Variance tradeoff](images/bias_variance_tradeoff.png)
+
+When we train model on different training data sampled from same underlying data (eg. Cross Validation),
+and then do inference with all the trained models on fixed validation point (TODO: on only one point, or fixed validation data):
+
+Bias, Variance values are different at different chosen validation points.
+
+$$
+Bias(x) = E[y_{pred}] - f(x) \\
+Variance(x) = Var(y_{pred}) \\
+$$
 
 Bias reduce => Variance increase
 
-**Capapcity Point** is where (bias, variance) both are overall minimized (ie any further reduction in one will only come at expense of increase in other).
+**Capacity Point** is where (bias, variance) both are overall minimized (ie any further reduction in one will only come at expense of increase in other).
 
+$Error = E[(y_{true} - y_{pred})^2] = Bias^2 + Var(y_{pred}) + IrreducibleError)$
 
-### No Free Lunch Theorem
+#### No Free Lunch Theorem
 
-TODO
+No model can have best possible performance on all possible unseen data (since unseen data can have unique statistics).
+Tradeoff between **Robustness** and **Accuracy**.
+
+**Regularization**: Use any known statistical behaviour of entire data to optimize model (in addition to training data).

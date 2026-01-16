@@ -5,7 +5,9 @@
 
 Machine Learning usually requires significant feature engineering, but Deep Learning often automatically transforms features.
 
-## Lecture 1 - Optimization Revision (recording uploaded but slides not uploaded yet)
+## Lecture 1 (Optimization) & Lecture 2 (Probability) revision (common lecture slides)
+
+### Optimization Revision
 
 * Constrained vs Unconstrained (aka **Static**) optimization
 * Linear, Quadratic, Non linear programming
@@ -14,7 +16,7 @@ Machine Learning usually requires significant feature engineering, but Deep Lear
 * **Arthur Samuel's pardigm/mechanism** to improve performance by tweaking weights/parameters.
 * Gradient Descent
 
-### Mathematical Optimization
+#### Mathematical Optimization
 
 * Linear function: $a f(x) + b f(y) = f(ax + by)$
     * **Linear vs Affine linear**: linear has only scaling $A x$, with transform it becomes Affine linear $A x + b$
@@ -26,15 +28,15 @@ Optimization problem with decision variables: maximize **cost/objective/loss fun
 
 NOTE: constraints can be both linear and non-linear, sometimes linear are written seperately $A_i x \le b_i$.
 
-### Optimization Types
+#### Optimization Types
 
 * Linear programming: maximize $c^T x$ subject to $A_i x \le b_i$
 * Quadratic
 * Non-linear
 
-### Constrained Optimization
+#### Constrained Optimization
 
-#### KKT 
+##### KKT 
 
 Has to be used for non-linear optimization.
 
@@ -54,9 +56,9 @@ Complementary condition $\mu_j g_j(\mathbf{x^*}) = 0$ (NOTE: $\mu_j$ is dependen
 
 **LICQ**: Linearly Independent (TODO: rem full form)
 
-### Unconstrained Optimization
+#### Unconstrained Optimization
 
-#### Gradient Descent
+##### Gradient Descent
 
 * If learning rate is too big, oscillation diverges
 * If learning rate is too low, it takes a long time to converge.
@@ -71,4 +73,42 @@ Types of Gradient Descent (here L is loss) - tradeoff in convergence vs computat
 * Mini-batch GD: hybrid of batch and SGD -- (NOTE: for convergence Batch is best if can fit data into memory. There can be some extreme data in a mini-batch which affects strongly, but would affect batch GD less due to averaging out with more data)
 
 
-## Lecture 2
+### Probability Revision 
+
+* Experiments & Random Variables
+* Sample Space $\Omega$
+* Events:
+    * Set Algebra:
+        * Commutative (both union & intersection) $E \cup F = F \cup E$, $E \cap F = F \cap E$
+        * Associative (both union & intersection) $(E \cup F) \cup G = E \cup (F \cup G)$, $(E \cap F) \cap G = E \cap (F \cap G)$
+        * Distributive (both union on intersection & intersection on union) $(E \cup F) \cap G = (E \cap G) \cup (F \cap G)$, $(E \cap F) \cup G = (E \cup G) \cap (F \cup G)$
+    * Independent & Mutually Exclusive events
+    * Union $E \cup F$, Intersection $E \cap F$, Null event (mutually exclusive) $E \cap F = \emptyset$
+    * Complement $E^c = \Omega - E$, Difference $E - F = E \cap F^c$
+* Counting:
+    * $n$ distinct objects can be arranged in $n!$ ways
+    * Permutations: $^n\mathrm P^r = \frac{ n! }{ (n-r)! }$
+    * Combinations: $^n\mathrm C^r = \frac{ n! }{ r! (n-r)! }$
+* Probability Measure: a function $P: Event -> [0,1]$ such that for mutually exclusive events, $P(E \cup F) = P(E) + P(F)$
+
+
+## WIP Lecture 3 - slides not uploaded
+
+Bias-Variance Tradeoff: TODO details
+
+2 estimators $\theta_1$, $\theta_2$ of same unknown parameter $\theta$
+
+Relative Efficiency = $MSE_1 / MSE_2$
+
+Estimator with less MSE (mean squared error) is more efficient. 
+So if relative efficiency here is $< 1$, then $\theta_1$ is more efficient.
+
+This is used in Cross-Validation and other places.
+
+**Method of Moments** (method to estimate parameters) (moments of sample & population are equated and then solve equation)
+- moment is just generalized average. kth moment is $E[X^k] = \frac{x_1^k + x_2^k + ... + x_n^k}{n}$
+- find sample mean, and equate it to theoritical population mean (according to assumed distribution). 
+  Eg. if assuming Poisson (rare event distrib), then set its mean $\lambda$ to found sample mean.
+  TODO: how to know which distribution to assume? Eg. Normal, Poisson etc.
+
+**Maximum Likelihood Estimator**: another method to estimate parameters
