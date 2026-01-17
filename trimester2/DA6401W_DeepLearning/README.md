@@ -230,6 +230,10 @@ Some **counter-intuitive facts**:
   But even after that when you keep increasing parameters a lot (millions / billions of params!), then validation error actually reduces!
   This is **Over-parameterized region** (LLMs operate here).
 
+Examples of underfit, overfit and bestfit:
+
+![Examples: fit](images/examples_fit.png)
+
 
 #### Validation (split data, Cross-Validation)
 
@@ -243,6 +247,9 @@ Cross-Validation: multiple (train,val) splits & trains, then average all the mod
 
 
 #### Bias-Variance tradeoff
+
+* Overfitting: High model variance & low training MSE
+* Underfitting: Low model variance & high training MSE
 
 ![Bias-Variance tradeoff](images/bias_variance_tradeoff.png)
 
@@ -268,3 +275,22 @@ No model can have best possible performance on all possible unseen data (since u
 Tradeoff between **Robustness** and **Accuracy**.
 
 **Regularization**: Use any known statistical behaviour of entire data to optimize model (in addition to training data).
+
+#### Maximum Likelihood Estimation (MLE) vs Maximum A Posteriori (MAP - Bayesian Inference)
+
+Infer bias $p$ of a coin from observations of its toss $X_i ~ Bernoulli(p)$.
+
+**Maximum Likelihood Estimation (MLE - Classical / no prior bias)**: 
+* Probability of head: $\hat{p} = \frac{\sum y_i}{N}$ where $y_i \in \{0,1\}$ are experiment outputs.
+* On taking many different sample observations of same coin: $Bias(\hat{p}) = 0 \quad Variance(\hat{p}) = \frac{p (1-p)}{N}$
+
+**Maximum A Posteriori (MAP - Bayesian / prior bias)**:
+* We maximize Posterior probability (ie updated probab after knowing about previous coin tosses): $\argmax\limits_{p} P(\text{data} | p) P(p)$
+    * TODO QUESTION: in slide this is shown to solve to $\frac{\sum y_i}{N+1}$ -- here how did the $N+1$ come in denominator??
+* Unlike MLE, here Bias is NOT 0 (since prior knowledge is used).
+
+MLE vs MAP (Bayesian) plot (MSE error vs N number of observations) with different $w$ (weight given to prior data -- give more weight if prior is more reliable).
+We can see Bayesian line is lower, i.e., for any N here, MSE is lower for Bayesian:
+
+![MLE vs MAP](images/bayesian_inference.png)
+
