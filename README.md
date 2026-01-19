@@ -46,6 +46,7 @@ For any help / queries, send email at webmtech@code.iitm.ac.in .
 * Apply at: https://code.iitm.ac.in/webmtech/
 * Fill personal details in form (after clearing entrance exam and being nominated by company): https://forms.study.iitm.ac.in/
 * [Term 1 Registration & Fees Guide 2025](https://docs.google.com/document/d/10lF62VJSPmCi2U7WuYcMctIIrS_WTwc55nXv6H1DuZg/edit?usp=drive_link)
+* [Student Handbook (Google Doc)](https://docs.google.com/document/d/e/2PACX-1vSC8Bh--zcS5pZ_qgUbjBq029vGzvHVbeqENMIiVp0n-WsvdIdKb8pwse1jXLZsxdkCwb7SJVavx5HT/pub)
 
 ### IITM Login via Student LDAP Credentials (with IITM smail)
 * Student Dashboard (overall): https://wmtech.code.iitm.ac.in/student_dashboard/

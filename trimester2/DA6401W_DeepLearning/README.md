@@ -11,7 +11,7 @@ All of Deep Learning, especially supervised learning, is basically curve fitting
 
 While creating a new architecture, activation etc. we have to make sure everything is differentiable, otherwise Deep Learning optimization will not work.
 
-## Linear Algebra & Probability Revise (lecture 1 slides have material of lecture 2, 3 as well)
+## Linear Algebra & Probability Revise (lecture 1 slides have material of lecture 2, 3, 4 as well)
 
 ### Linear Algebra Revision
 
@@ -284,6 +284,10 @@ Bias reduce => Variance increase
 
 $Error = E[(y_{true} - y_{pred})^2] = Bias^2 + Var(y_{pred}) + IrreducibleError)$
 
+For finite datasets & specific model training runs, loss can be reduced to 0.
+But for large datasets & considering statistical loss (ie in cross-validation, average loss of all trained models) - 
+that can't go to 0, but can only be reduced till the Irreducible Loss.
+
 #### No Free Lunch Theorem
 
 No model can have best possible performance on all possible unseen data (since unseen data can have unique statistics).
@@ -309,11 +313,29 @@ We can see Bayesian line is lower, i.e., for any N here, MSE is lower for Bayesi
 
 ![MLE vs MAP](images/bayesian_inference.png)
 
+An example of a prior is: suppose we only collect some kind of data in summer. 
+So summer = prior bias; in summer model can perform better than a generic model ; but badly not in summer.
+
 #### Grokking
 
 * Generalization of *over-parameterized models* by **over training** (less over training needed for smaller dataset).
 * **Weight Decay** helps (additional term in loss function that pushes weights closer to 0)
 
-TODO: how is this different from [Double Decay](#double-decay) ?
-
 ![Grokking](images/grokking.png)
+
+Grokking was discovered in 2023 by OpenAI when they accidentally left a model training even after loss appeared to saturate (so straight line loss).
+But after a long time (a week), the loss suddenly dropped a lot from previous straight line loss!
+It's because loss wasn't actually straight line, it was just decreasing very very slowly so it wasn't noticeable.
+Here loss function jumped from one local minima to far-away better local minima.
+
+**Grokking vs Double Descent**: 
+* In Double Descent no. of model parameters are increased, but in grokking no. of parameters is same - just training epochs increases.
+* Grokking depends on loss function used, Double Descent doesn't.
+
+#### No Free Lunch Theorem
+
+It's *applicable only to parameterized supervised learning, but NOT online learning, reinforcement learning etc.*
+
+**Inductive Bias**: bias learnt by model from traininig data (practically impossible to have 0 bias in data)
+
+*Tradeoff between good Robustness (how much model can generalize, so less Variance) vs good Accuracy (so less Bias)*
