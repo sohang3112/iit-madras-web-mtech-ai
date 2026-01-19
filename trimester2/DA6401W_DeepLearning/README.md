@@ -168,7 +168,10 @@ $$\argmin Loss \{ f(x,\theta) - label(x) \}$$
 
 #### Classification
 
-BINARY CLASSIFICATION:
+* Sigmoid etc. activations are useful to convert non linearly seperable data into linearly seperable data.
+* **Sigmoid / Softmax are basically single layer classifiers**. It converts **logits** (distances) to probabilities.
+
+##### Binary Classification
 
 Calculate Posterior probabilities $P(y=0 | x)$, $P(y=1 | x)$, then $a$ is log posterior ratios.
 
@@ -182,19 +185,22 @@ $$P(y=1 | x) = \sigma(a_1) = \frac{1}{1 + e^{-a}}$$
 
 Finally after sigmoid gives us the probabilities, just choose class with higher probability.
 
-Sigmoid etc. activations are useful to convert non linearly seperable data into linearly seperable data.
+##### Multi-Class Classification
 
-**Sigmoid / Softmax are basically single layer classifiers**. It converts **logits** (distances) to probabilities.
+$$P(y=C_k | x) = \frac{P(x | y=C_k) P(y=C_k)}{\sum_j P(x | y=C_j) P(y=C_j)}$$
 
-TODO: MULTI-CLASS REGRESSION:
+This simplifies to **Softmax** function (using log posterior vector $a$ having elements $a_k = ln P(x | y=C_k) P(y=C_k)$):
+
+$$P(y=C_k | x) = \sigma_k(a) = \frac{e^{\alpha_k}}{\sum_j e^{\alpha_j}}$$
 
 TODO: Logistic Regression (name has regression but actually final output is classification)
 
 #### Regression
 
-It uses **linear activation**, i.e., just identity (no change)
+* $y_i = f(x_i) + \epsilon$ where $\{x_i\}, \{y_i\}$ are training inputs, labels, $\epsilon$ is error. Find $f$.
+* Parameterized $f(x) = g(W,x)$ where $W$ is weights matrix ; Linear Regression: $g(W,x) = W^T x$
 
-Linear Regression
+Linear Regression uses **linear activation**, i.e., just identity (no change)
 
 TODO: Polynomial Regression uses Taylor's Expansion
 
@@ -222,18 +228,27 @@ Finding *optimal number of model parameters* is hard.
 **VC Dimension** $|TrainError - TestError| \le \sqrt{O(d_{VC} \frac{log n}{n})}$ -- this is **probabilistic equation NOT deterministic** 
 (it's likely to hold not guaranteed) -- TODO: CHECK what's this vc dimension (he said it's used mostly in theoritical ML not practical?)
 
-Some **counter-intuitive facts**:
-
-* When you overfit, validation error increases. 
-  But after that point if you keep increasing parameters massively (millions / billions of params), then after a point accuracy increases!
-  LLMs operate in this *over-parameterized* zone.
-  But even after that when you keep increasing parameters a lot (millions / billions of params!), then validation error actually reduces!
-  This is **Over-parameterized region** (LLMs operate here).
-
 Examples of underfit, overfit and bestfit:
 
 ![Examples: fit](images/examples_fit.png)
 
+
+Some **counter-intuitive facts**:
+
+* Sometimes more training data can lead to worse performance! TODO: examples of this?
+* Double Decay
+
+##### Double Decay
+
+When you overfit, validation error increases. 
+But after that point if you keep increasing parameters massively (millions / billions of params), then after a point accuracy increases - **Double Descent**!
+LLMs operate in this *over-parameterized* zone.
+But even after that when you keep increasing parameters a lot (millions / billions of params!), then validation error actually reduces!
+This is **Over-parameterized region** (LLMs operate here).
+It's because as no. of parameters (depth) increases, overfitting is smoothened (smoother interpolation and extrapolation).
+So **Overfitting can be overcome with deeper networks**. *Interpolation Threshold* for this is when *no. of parameters = no. of data points*.
+
+![Double Descent](images/double_descent.png)
 
 #### Validation (split data, Cross-Validation)
 
@@ -294,3 +309,11 @@ We can see Bayesian line is lower, i.e., for any N here, MSE is lower for Bayesi
 
 ![MLE vs MAP](images/bayesian_inference.png)
 
+#### Grokking
+
+* Generalization of *over-parameterized models* by **over training** (less over training needed for smaller dataset).
+* **Weight Decay** helps (additional term in loss function that pushes weights closer to 0)
+
+TODO: how is this different from [Double Decay](#double-decay) ?
+
+![Grokking](images/grokking.png)
