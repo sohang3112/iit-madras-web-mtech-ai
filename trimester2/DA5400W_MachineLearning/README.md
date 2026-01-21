@@ -1,7 +1,10 @@
 # DA45400W : Foundations of Machine Learning
 
+Faculty:
 * Prof Nirav Pravinbhai Bhatt &lt;niravbhatt@smail.iitm.ac.in&gt;
-* Course group email &lt;da5400w@code.iitm.ac.in&gt;
+* Prof Tirthankar Sengupta &lt;tirtha.s@gmail.com&gt;
+
+Course group email &lt;da5400w@code.iitm.ac.in&gt;
 
 Machine Learning usually requires significant feature engineering, but Deep Learning often automatically transforms features.
 
@@ -112,3 +115,15 @@ This is used in Cross-Validation and other places.
   TODO: how to know which distribution to assume? Eg. Normal, Poisson etc.
 
 **Maximum Likelihood Estimator**: another method to estimate parameters
+
+
+## WIP Lecture 4 - PCA (Principal Components Analysis)
+
+Effect of row-operations on determinant:
+* add 2 rows => determinant is unchanged
+* multiply a row with a constant => deterimant is multiplied with the constant
+* swap 2 rows => determinant sign flips
+
+Covariance matrix $x^T x$ is square matrix
+
+
