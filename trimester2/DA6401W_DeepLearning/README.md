@@ -339,3 +339,25 @@ It's *applicable only to parameterized supervised learning, but NOT online learn
 **Inductive Bias**: bias learnt by model from traininig data (practically impossible to have 0 bias in data)
 
 *Tradeoff between good Robustness (how much model can generalize, so less Variance) vs good Accuracy (so less Bias)*
+
+So it's impossible to train one model which has best possible performance for any possible data.
+
+
+## Multilayer Perceptron (Lecture 5)
+
+Single perceptron: $u(W^T x + b)$ (linear calculation with weights, then run non-linear activation)
+
+* Any continous function can be approximated by a polynomial of sufficient degree.
+* Deep Learning (neural network) is *Universal Function Approximator*.
+
+width = no. of neurons in a layer, depth = no. of layers
+
+Motivation to come up with Resnet model was to look at loss surface plot and try to design a loss with good loss surface.
+
+ReLU activation doesn't work well with a single layer model (due to its sharp edges in plot).
+But in multiple layers (ie hidden layers) it works very well. And computationally it's best as very simple (derivative is also very simple).
+
+`sigmoid` is equivalent to `tanh` with some extra weights.
+
+sigmoid derivative is 1/4 -> less than 1 creates problem in gradient descent (vanishing gradient). 
+tanh is better (in hidden layers) - unlike sigmoid it can be negative, and has

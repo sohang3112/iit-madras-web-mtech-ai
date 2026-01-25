@@ -117,13 +117,44 @@ This is used in Cross-Validation and other places.
 **Maximum Likelihood Estimator**: another method to estimate parameters
 
 
-## WIP Lecture 4 - PCA (Principal Components Analysis)
+## WIP Lecture 4 - PCA (Principal Components Analysis) - Linear Algebra Revision
+
+Coefficient matrix $A$ does NOT need to be square, can be rectangular (in linear system of equations $A x = b$)
 
 Effect of row-operations on determinant:
 * add 2 rows => determinant is unchanged
 * multiply a row with a constant => deterimant is multiplied with the constant
 * swap 2 rows => determinant sign flips
 
-Covariance matrix $x^T x$ is square matrix
+Covariance matrix $x^T x$ is square matrix.
+
+For an eigenvalue $\lambda_i$, which is a root of characterstic equation $det(A - \lambda I) x = 0 \implies (\lambda - \lambda_1)^{p_1} (\lambda_1 - \lambda_2)^{p_2} ... (\lambda - \lambda_n)^{p_n} = 0$
+* **Dimension of Eigenspace** is nullity of $A - \lambda_i I$ -  - i.e. no. of eigenvector bases (linearly independent).
+* **Algebraic Multiplicity** is no. of times it appears as a root - i.e. power $p_i$.
+* **Geometric Multiplicity** is *dimension of its eigen-space.
+
+$$\forall \lambda_i, GeometricMultiplicity \le AlgebraicMultiplicity$$
+
+In real symmetric matrices, eigen-vectors of distinct eigenvalues are orthogonal.
+
+* Matrix $A$ is **diagonalizable** if it can be written as $A = P D P^{-1}$ where $P$ is an invertible matrix and $D$ is a diagonal matrix.
+* Square matrix is **orthogonal** iff $P^T = P^{-1}$
+* **Spectral Theorem**: A real symmetric matrix is *orthogonally diagonalizable*.
+* Square matrix is *diagonalizable* iff for each eigen value, $GeometricMultiplicity = AlgebraicMultiplicity$.
+* So from above, for any real symmetric matrix, for all eigen values $GeometricMultiplicity = AlgebraicMultiplicity$.
+
+Construct set of orthonormal eigenvectors for a $n \times n$ real symmetric matrix:
+* TODO
+
+**Optimization Problem** (which we try to solve using PCA): 
+
+$$
+\max \|A x\|^2 \\
+s.t. \quad \|x\| = 1
+$$
+
+TODO: optimization problem
+
+
 
 
