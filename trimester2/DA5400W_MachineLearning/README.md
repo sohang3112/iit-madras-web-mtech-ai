@@ -156,5 +156,15 @@ $$
 TODO: optimization problem
 
 
+## WIP Lecture - Clustering Analysis
+
+Definitions:
+* Centroid is mean of all point vectors. $\mu = \frac{\sum x_i}{N}$
+* Radius is max distance of any point from the centroid. $r_i = max |x - \mu|^2$  -- NOTE: we DID NOT take square root here for convinience.
+* Diameter is max pairwise-distance between any 2 points. It's NOT related to radius. $di_i = max |x_p - x_q|^2$ (again square root not taken here for convinience)
+
+First, simplest method is K-means Clustering. (slower for larger data)
+
+
 
 
