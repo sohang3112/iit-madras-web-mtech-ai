@@ -164,6 +164,9 @@ Definitions:
 * Diameter is max pairwise-distance between any 2 points. It's NOT related to radius. $di_i = max |x_p - x_q|^2$ (again square root not taken here for convinience)
 
 First, simplest method is K-means Clustering. (slower for larger data)
+K (No. of clusters) is determined heuristically / with trial and error.
+
+For large dimensional data, PCA can be done to reduce dimensionality before Clustering.
 
 
 
