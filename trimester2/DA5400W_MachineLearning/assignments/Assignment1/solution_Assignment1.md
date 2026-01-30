@@ -139,15 +139,28 @@ TODO
 
 ## Problem 9
 
-Determine the stationary points and classify their nature for the function $f(x) = x^4 + y^4 - 36 x y$ .
+Determine the stationary points and classify their nature for the function $f(x,y) = x^4 + y^4 - 36 x y$ .
 
 ### Solution
 
-TODO
+$$
+\nabla f   = \begin{pmatrix} 4 x^3 - 36 y \\ 4 y^3 - 36 x \end{pmatrix} = 0 \implies 4 x^3 = 30 y, 4 y^3 = 30 x \implies (x,y) = (0,0), (3,3), (-3,-3) \\
+\nabla^2 f = \begin{pmatrix} 12 x^2 & -36 \\ -36 & 12 y^2 \end{pmatrix} \\
+\nabla^2 f(0,0) = \begin{pmatrix} 0 & -36 \\ -36 & 0 \end{pmatrix} \implies det(\nabla^2 f(0,0)) = -  36^2 < 0 \implies \text{Saddle Point}
+\nabla^2 f(\pm 3, \pm 3) = \begin{pmatrix} 108 & -36 \\ -36 & 108 \end{pmatrix} \implies det(\nabla^2 f(\pm 3, \pm 3)) = 108^2 - 36^2 > 0, f_{xx} = 108 > 0 \implies \text{Saddle Point}
+$$
+
+So stationary points are (0,0) (saddle point) and (3,3), (-3,-3) (both local minima).
+
+This works because for 2x2 Hessian Matrix:
+* determinant $D < 0$ implies eigen values $\lambda_1$, $\lambda_2$ are of opposite signs (as $D = \lambda_1 \lambda_2$), so point is saddle point.
+* determinant $D > 0$ and $f_{xx} > 0$ implies positive eigen values, so Hessian is Positive Definite and point is local minima.
 
 -----------
 
-10. Solve the following optimization problems by hand(s) and also draw the feasible regions:
+## Problem 10
+
+Solve the following optimization problems by hand(s) and also draw the feasible regions:
 
 * Find the maximum of the following function:
 $$

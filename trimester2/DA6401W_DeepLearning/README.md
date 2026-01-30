@@ -343,7 +343,7 @@ It's *applicable only to parameterized supervised learning, but NOT online learn
 So it's impossible to train one model which has best possible performance for any possible data.
 
 
-## Multilayer Perceptron (Lecture 5)
+## WIP Multilayer Perceptron (Lecture 5)
 
 Single perceptron: $u(W^T x + b)$ (linear calculation with weights, then run non-linear activation)
 
@@ -361,3 +361,48 @@ But in multiple layers (ie hidden layers) it works very well. And computationall
 
 sigmoid derivative is 1/4 -> less than 1 creates problem in gradient descent (vanishing gradient). 
 tanh is better (in hidden layers) - unlike sigmoid it can be negative, and has
+
+## WIP Gradient Descent (Lecture 6)
+
+* how to find roots of derivative of loss function ?
+* Taylor approximations in higher dimensions:
+    * Gradient Vector (linear approx at a point)
+    * Hessian Matrix (curvature of function at a point)
+* Loss $L(w + \epsilon) \approx L(w) + \nabla L(w)^T (w + \epsilon - w)$
+    * For $L(w + \epsilon) - L(w) \le 0$, pick $\epsilon$ opposite to $\nabla L(w)$
+
+* Update (using first order Taylor approx) in steepest direction (gradient of loss) $w_{n+1} = w_n - \eta \nabla L(w_n)$
+    * $L(w_0) \ge L(w_1) \ge \cdots \ge L(w_n)$
+* How to find gradient w.r.t all weights? - by using Backpropogation
+* What is a good learning rate $\eta$ ?
+* What is a good starting rate $w_0$ ?
+
+In some situations second order Taylor approx is also used in update rule -- will be covered later.
+
+### Backpropogation
+
+* Compute $g = \nabla_{output} L$
+TODO
+
+* For input-label pair (x,y) and loss function C(.):
+
+$$C(y, f^L) =$$
+
+TODO
+
+
+### Weights Initialization
+
+DON'T initialize all weights to same value like 0 (else very bad performance). Init has to be random weights.
+
+Control variance of randomness (U - Uniform, N - Normal distribution):
+
+Technique  | Activations         | Distribution                                      | Remark
+---------- | ------------------- | ------------------------------------------------- | -------------------
+Xavier     | tanh, sigmoid       | $\mathcal{U}(\pm \sqrt{6 / (n_{l+1} + n_{l-1})})$ | NOT applicable for RELU because unlike tanh, sigmoid RELU doesn't have symmetric mean around 0
+Kaiming He | RELU & its variants | $\mathcal{N}(0, 2 / n_{l-1})$                     |
+LeCun      | SELU                | $\mathcal{U}(\pm \sqrt{3 / n_{l-1}})$             |
+
+Random orthogonal matrix is used for any arbitary activation in libraries.
+
+NOTE: in each both uniform and normal distributions with specific values can be used. What are listed here are best.
