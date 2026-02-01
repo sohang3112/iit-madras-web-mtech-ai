@@ -144,6 +144,25 @@ $$
 Hessian $\nabla^2 f$ is a diagonal matrix so eigenvalues are from diagonal: 2, -4. As one positive and one negative eigenvalue is there, it's an indeterminate matrix.
 So stationary point $(-4,3)$ is a saddle point.
 
+Plotting contour (2D visualization of a 3D surface):
+
+```python
+import numpy as np
+from matplotlib import pyplot as plt
+x = np.linspace(-100,100,201)
+y = np.linspace(-100,100,201)
+X, Y = np.meshgrid(x, y, indexing='ij')
+Z = 8*X + 12*Y + X**2 - 2*Y**2
+plt.contourf(x,y,Z)
+plt.colorbar(label='Z Values')
+plt.title('Contour Plot')
+plt.xlabel('X Axis')
+plt.ylabel('Y Axis')
+plt.show()
+```
+
+![Contour plot](images/Q8_contour_plot.png)
+
 ## Problem 9
 
 Determine the stationary points and classify their nature for the function $f(x,y) = x^4 + y^4 - 36 x y$ .
@@ -189,23 +208,39 @@ $$
 \nabla^2 f = 4 - 20 x + 16 x^3 - 5 x^4
 $$
 
-Here one root (stationary point) is 4; finding remaining roots approximately using Newton Direction descent: 
+Here one root (stationary point) is 2; remaining real roots are approximately 3.51471704 and -1.71339702$ (found using `numpy.polynomial.Polynomial([4,0,5,2,-1]).roots()` which finds roots via Newton Raphson update rule $x_{k+1} = x_k - \frac{f'(x_k)}{f''(x_k)}$) 
 
-Newton Direction update rule: $x_{k+1} = x_k - (\nabla^2 f(x_k))^{-1} \nabla f(x_k) = x_k - \frac{(x - 2) (-x^4 + 2 x^3 + 5 x^2 + 4)}{4 - 20 x + 16 x^3 - 5 x^4}$
+For each of these roots:
 
-Taking starting point $x_0 = 0$:
+$$
+\nabla^2 f(2) = 4 - 20*2 + 16*2^3 - 5*2^4 = 12 > 0 \quad (\text{local minima}) \\
+\nabla^2 f(3.51471704) = 4 - 20*3.51471704 + 16*3.51471704^3 - 5*3.51471704^4 = -134.6 < 0 \quad (\text{local maxima}) \\
+\nabla^2 f(-1.71339702) = 4 - 20*(-1.71339702) + 16*(-1.71339702)^3 - 5*(-1.71339702)^4 = -85.3 < 0 \quad (\text{local maxima})
+$$
 
-k  | $x_k$  | $x_{k+1} = x_k - \frac{(x - 2) (-x^4 + 2 x^3 + 5 x^2 + 4)}{4 - 20 x + 16 x^3 - 5 x^4}$
--- | ------ | ---------------------------------------------------------------------------------------
-1  |  1     | -1
-2  | -1     |  5
-3  |  5     |  4.395
-4  |  4.395 |  3.978
-5  |  3.978 |  3.722
-6  |  3.722 |  3.592
-7  |  3.592 |  3.539
+Since 2 local maxima exist, find which has greater value:
 
-TODO
+$$
+f(3.51471704) = 1 - 8*3.51471704 + 2*3.51471704^2 - 3.51471704^3*10/3 + 3.51471704^4/4 + 3.51471704^5*4/5 - 3.51471704^6/6 = 5.906 \\
+f(-1.71339702) = 1 - 8*(-1.71339702) + 2*(-1.71339702)^2 - (-1.71339702)^3*10/3 + (-1.71339702)^4/4 + (-1.71339702)^5*4/5 - (-1.71339702)^6/6 = 23.469
+$$
+
+So global maxima is -1.71339702 and maximum value of $f(x)$ is 23.469 .
+
+Plotting feasible region:
+
+```python
+from matplotlib import pyplot as plt 
+import numpy as np 
+x = np.linspace(-50, 50, num=200)
+y = 1 - x*8 + x**2*2 - x**3*10/3 + x**4/4 + x**5*4/5 - x**6/6
+plt.plot(x, y)
+plt.show()
+```
+
+![Feasible Region](images/Q10_1.1_plot.png)
+
+BUG: maximum value solution I got is 23, but plot shows maximum value around 0!
 
 * $f(x_1, x_2) = x_1 + x_2 \quad \text{subject to} \quad x_1^2 + x_2^2 - 1 = 0$
 
@@ -219,11 +254,13 @@ $$
 
 So maxima point is $(x_1, x_2) = (cos(\frac{\pi}{4}), sin(\frac{\pi}{4}) = (\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}})$ and maximum value is $\frac{1}{\sqrt{2}} + \frac{1}{\sqrt{2}} = \sqrt{2}$.
 
+TODO: plot feasible region
+
 2. 
 
 $$
 (x_1 - \frac{3}{2})^2 + (x_2 - \frac{1}{8})^2 \\
-\text{subject to} \quad \begin{pmatrix}1 - x_1 - x_2 \\ 1 - x_1 + x_2 \\ 1 + x_1 - x_2 \\ 1 + x_1 + x_2 \end{pmatrix} \ge 0
+\text{subject to} \quad \begin{pmatrix} 1 - x_1 - x_2 \\ 1 - x_1 + x_2 \\ 1 + x_1 - x_2 \\ 1 + x_1 + x_2 \end{pmatrix} \ge 0
 $$
 
 Lagrangian: $L(x_1,x_2,\lambda_1,\lambda_2,\lambda_3,\lambda_4) = (x_1-\frac{3}{2})^2 + (x_2-\frac{1}{8})^2 + \lambda_1 (x_1+x_2-1) + \lambda_2 (x_1-x_2-1) + \lambda_3 (-x_1+x_2-1) + \lambda_4 (-x_1-x_2-1)$ where $\lambda_1,\lambda_2,\lambda_3,\lambda_4$ are Lagrangian multipliers.
@@ -259,6 +296,8 @@ $$
 
 Therefore Lagrangian multipliers are $(\lambda_1,\lambda_2,\lambda_3,\lambda_4) = (\frac{5}{8}, \frac{3}{8}, 0, 0)$
 
+TODO: plot feasible region
+
 3. $\min f(x) = (x_1 - 1)^2 + x_2^2, \quad \text{subject to} \quad x_1 - x_2^2 \le 0$
 
 In terms of $x_2$:
@@ -270,3 +309,5 @@ f''(x_2) = 12 x_2^2 - 2 \implies f''(0) = -2 < 0, f''(\frac{1}{\sqrt{2}}) = 4 > 
 $$
 
 So minima is at $(x_1,x_2) = (\frac{1}{2},\frac{1}{\sqrt{2}})$ and minimum value is $(\frac{1}{2} - 1)^2 + \frac{1}{\sqrt{2}}^2 = \frac{3}{4}$.
+
+TODO: plot feasible regions

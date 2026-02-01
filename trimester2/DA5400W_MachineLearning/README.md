@@ -215,6 +215,10 @@ For large dimensional data, PCA can be done to reduce dimensionality before Clus
 
 - **Gamma Integral**: $\int_0^\infty x^2 e^{-x / \alpha} dx = 2! \alpha^3$
 
+### Python Code
+
+- Plot **contour** (2D visualization of a 3D surface) using matplotlib: `X, Y = np.meshgrid(x,y,indexing="ij"); Z = polynomial(X,Y); plt.contourf(x,y,Z,levels=20)`
+
 
 ## TODO Practice Questions
 
