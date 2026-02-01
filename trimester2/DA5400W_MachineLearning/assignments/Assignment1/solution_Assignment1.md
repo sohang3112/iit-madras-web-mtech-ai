@@ -1,8 +1,10 @@
---
+---
 Author: 
 CreationDate: 
 ChangeDate: 
 CurrentDate: 
+---
+
 <!-- set all attributes used by VS Code Markdown Converter extension to blank above, so that it doesn't come in generated PDF -->
 
 <!-- SKIPPED Q3, Q5 (not required acc. later instructions) -->
@@ -68,7 +70,7 @@ Which is the best estimator and why?
 
 ### Solution
 
-Using $E[aX \pm bY] = a E[X] \pm a E[Y], Var(aX \pm bY) = a^2 Var(X) + b^2 Var(Y)$:
+Using $E(aX \pm bY) = a E(X) \pm a E(Y), Var(aX \pm bY) = a^2 Var(X) + b^2 Var(Y)$:
 
 $$
 E[\theta_{Mr}] =  \frac{\mu + \mu + 4 \mu}{6} = \mu,         \quad Var{\theta_{Mr}}  = \frac{\sigma^2 + \sigma^2 + 4^2 \sigma^2}{6^2} = 0.5 \sigma^2 \\
@@ -208,7 +210,7 @@ $$
 \nabla^2 f = 4 - 20 x + 16 x^3 - 5 x^4
 $$
 
-Here one root (stationary point) is 2; remaining real roots are approximately 3.51471704 and -1.71339702$ (found using `numpy.polynomial.Polynomial([4,0,5,2,-1]).roots()` which finds roots via Newton Raphson update rule $x_{k+1} = x_k - \frac{f'(x_k)}{f''(x_k)}$) 
+Here one root (stationary point) is 2; remaining real roots are approximately 3.51471704 and -1.71339702 (found using `numpy.polynomial.Polynomial([4,0,5,2,-1]).roots()`). 
 
 For each of these roots:
 
@@ -230,17 +232,17 @@ So global maxima is -1.71339702 and maximum value of $f(x)$ is 23.469 .
 Plotting feasible region:
 
 ```python
-from matplotlib import pyplot as plt 
-import numpy as np 
-x = np.linspace(-50, 50, num=200)
+import numpy as np
+import matplotlib.pyplot as plt
+x = np.linspace(-5, 5, 2000)
 y = 1 - x*8 + x**2*2 - x**3*10/3 + x**4/4 + x**5*4/5 - x**6/6
 plt.plot(x, y)
+plt.axvline(-1.71339702, linestyle="--")    # add dotted line showing maxima point
+plt.title("Polynomial (zoomed view)")
 plt.show()
 ```
 
-![Feasible Region](images/Q10_1.1_plot.png)
-
-BUG: maximum value solution I got is 23, but plot shows maximum value around 0!
+![Feasible Region](images/Q10_1.1.png)
 
 * $f(x_1, x_2) = x_1 + x_2 \quad \text{subject to} \quad x_1^2 + x_2^2 - 1 = 0$
 
@@ -254,7 +256,23 @@ $$
 
 So maxima point is $(x_1, x_2) = (cos(\frac{\pi}{4}), sin(\frac{\pi}{4}) = (\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}})$ and maximum value is $\frac{1}{\sqrt{2}} + \frac{1}{\sqrt{2}} = \sqrt{2}$.
 
-TODO: plot feasible region
+Plotting feasible region:
+
+```python
+import numpy as np
+from matplotlib import pyplot as plt
+theta = np.linspace(0, 2*np.pi, 400)
+x1 = np.cos(theta)
+x2 = np.sin(theta)
+plt.plot(x1, x2, label="Feasible set")
+plt.scatter([1/np.sqrt(2)], [1/np.sqrt(2)], color="red")
+plt.axis("equal")
+plt.legend()
+plt.title("Feasible region: unit circle")
+plt.show()
+```
+
+![Feasible Region](images/Q10_1.2.png)
 
 2. 
 
@@ -296,7 +314,22 @@ $$
 
 Therefore Lagrangian multipliers are $(\lambda_1,\lambda_2,\lambda_3,\lambda_4) = (\frac{5}{8}, \frac{3}{8}, 0, 0)$
 
-TODO: plot feasible region
+Plotting feasible region:
+
+```python
+import numpy as np
+from matplotlib import pyplot as plt
+x = np.linspace(-1.2, 1.2, 400)
+X, Y = np.meshgrid(x, x)
+feasible = (np.abs(X) + np.abs(Y)) <= 1
+plt.contourf(X, Y, feasible, levels=[0,1], alpha=0.3)
+plt.scatter(1, 0, color="red")  # KKT point
+plt.axis("equal")
+plt.title("Feasible region: |x1| + |x2| ≤ 1")
+plt.show()
+```
+
+![Feasible Region](images/Q10_2.png)
 
 3. $\min f(x) = (x_1 - 1)^2 + x_2^2, \quad \text{subject to} \quad x_1 - x_2^2 \le 0$
 
@@ -310,4 +343,22 @@ $$
 
 So minima is at $(x_1,x_2) = (\frac{1}{2},\frac{1}{\sqrt{2}})$ and minimum value is $(\frac{1}{2} - 1)^2 + \frac{1}{\sqrt{2}}^2 = \frac{3}{4}$.
 
-TODO: plot feasible regions
+Plotting feasible region:
+
+```python
+import numpy as np
+from matplotlib import pyplot as plt
+x2 = np.linspace(-2, 2, 400)
+x1 = np.linspace(-1, 3, 400)
+X1, X2 = np.meshgrid(x1, x2)
+feasible = X1 <= X2**2
+plt.contourf(X1, X2, feasible, levels=[0,1], alpha=0.3)
+plt.plot(x2**2, x2, color="black", linewidth=2)
+plt.scatter(0.5, 1/np.sqrt(2), color="red")  # minimizer
+plt.xlabel("x1")
+plt.ylabel("x2")
+plt.title("Feasible region: x1 ≤ x2²")
+plt.show()
+```
+
+![Feasible Region](images/Q10_3.png)
