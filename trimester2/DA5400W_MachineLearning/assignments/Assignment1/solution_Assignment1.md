@@ -5,6 +5,8 @@ ChangeDate:
 CurrentDate: 
 <!-- set all attributes used by VS Code Markdown Converter extension to blank above, so that it doesn't come in generated PDF -->
 
+<!-- SKIPPED Q3, Q5 (not required acc. later instructions) -->
+
 # DA5400W (Foundations of Machine Learning) Assignment 1
 
 Submitted by Sohang Chopra &lt;DA25M622&gt;
@@ -13,15 +15,46 @@ Submitted by Sohang Chopra &lt;DA25M622&gt;
 
 The following probability distribution function can describe the growth rate of finance:
 
-$$f(x) = \frac{1}{\alpha^2} x e^{x / \alpha}$$
+$$f(x) = \frac{1}{\alpha^2} x e^{-x / \alpha}$$
 
 with $\alpha \in (0, \infty)$ and $x \in [0, \infty]$. 
-Find an estimate of the parameter $\alpha$ using the maximum likelihood
-estimators and the method of moments given the datasets $x_1, x_2, \cdots x_n$ .
+Find an estimate of the parameter $\alpha$ using the maximum likelihood estimators and the method of moments given the datasets $x_1, x_2, \cdots x_n$ .
 
 ### Solution
 
-TODO
+Sample Size is denoted as $n$ here.
+
+* Estimating using **Maximum Likelihood Estimator** :
+
+Likelihood is joint probability of sample, i.e. product of probabilites of each input $x_i$ (given parameter $\alpha$):
+
+$$L(\alpha; \mathbf{x}) = \Pi_{i=1}^N f(x_i, \alpha) = \Pi_{i=1}^N \frac{1}{\alpha^2} x_i e^{-x_i / \alpha} = \frac{1}{\alpha^{2N}} \Pi_{i=1}^n x_i e^{-x_i / \alpha}$$
+
+We need to maximize likelihood, or equivalently maximize log-likelihood:
+
+$$l(\alpha; \mathbf{x}) = -2 n ln(\alpha) + \sum_{i=1}^n ln(x_i) - \sum_{i=1}^n \frac{x_i}{\alpha}$$
+
+Solving optimization problem $\max_\alpha l(\alpha; \mathbf{x})$:
+
+$$
+\frac{d}{d\alpha} l(\alpha; \mathbf{x}) = 0 \implies \frac{-2 n}{\alpha} + 0 + \frac{1}{\alpha^2} \sum_{i=1}^n x_i = 0 \implies \alpha = \frac{1}{2 n} \sum_{i=1}^n x_i\\
+\frac{d^2}{d\alpha^2} l(\alpha; \mathbf{x}) = \frac{2}{\alpha^2} + \frac{2}{\alpha^3} > 0 \implies \text{Stationary point is maxima}
+$$
+
+* Estimating using **Method of Moments**:
+
+As there is only 1 parameter, so only 1st moment of theoritical and sample mean needs to be equated:
+
+$$
+E[X | \theta] = E[x] \\
+\implies \int_0^\infty x f(x) dx = \frac{1}{n} \sum_{i=1}^n x_i \\
+\implies \int_0^\infty x \frac{1}{\alpha^2} x e^{-x / \alpha} dx = \frac{1}{n} \sum_{i=1}^n x_i \\
+\implies \frac{1}{\alpha^2} \int_0^\infty x^2 e^{-x / \alpha} dx = \frac{1}{n} \sum_{i=1}^n x_i \\
+\implies \frac{1}{\alpha^2} 2! \alpha^3 = \frac{1}{n} \sum_{i=1}^n x_i \quad (\text{using Gaussian integral:} \int_0^\infty x^2 e^{-x / \alpha} = 2! \alpha^3) \\
+\implies \alpha = \frac{1}{2 n} \sum_{i=1}^n x_i
+$$
+
+Therefore both methods give same estimated parameter.
 
 ## Problem 2
 
@@ -38,26 +71,11 @@ Which is the best estimator and why?
 Using $E[aX \pm bY] = a E[X] \pm a E[Y], Var(aX \pm bY) = a^2 Var(X) + b^2 Var(Y)$:
 
 $$
-E[\theta_{Mr}] =  \frac{\mu + \mu + 4 \mu}{6} = \mu,         \quad Var{\theta_{Mr}}  = \frac{\sigma^2 + \sigma^2 + 4^2 \sigma^2}{6^2} = 0.5 \sigma^2
+E[\theta_{Mr}] =  \frac{\mu + \mu + 4 \mu}{6} = \mu,         \quad Var{\theta_{Mr}}  = \frac{\sigma^2 + \sigma^2 + 4^2 \sigma^2}{6^2} = 0.5 \sigma^2 \\
 E[\theta_{Mrs}] = \frac{\mu - \mu + 2 \mu + 3 \mu}{5} = \mu, \quad Var(\theta_{Mrs}) = \frac{\sigma^2 + \sigma^2 + 2^2 \sigma^2 + 3^2 \sigma^2}{5^2} = 0.6 \sigma^2
 $$
 
-Both estimators have same expected value, but $\theta_{Mr}$ has less variance so it's better.
-
-## Problem 3
-
-The probability distribution functions of the Weibull distribution and the Rayleigh distribution are given below:
-
-* Weibull distribution: $f(x; k, \lambda) = \frac{k}{\lambda} (\frac{x}{\lambda})^{k1} e^{(x / \lambda)^k}, \quad x \ge 0$
-* Rayleigh distribution: $f(x; ) = \frac{x}{\sigma^2} e^{x^2 / (2 \sigma^2)}, \quad x \ge 0$
-
-Use the dataset [Weibull.csv](https://drive.google.com/file/d/1SNFkOio5wzENCsfCCsamSXxAOSjyaXna/view) provided to estimate the parameter $\lambda$ in Weibull distribution 
-using maximum likelihood estimation (MLE) (assume $k = 2$). 
-Use the property of invariance of MLE to estimate the parameter  of Rayleigh distribution.
-
-### Solution
-
-TODO
+Both estimators have expected value $\mu$ so are **unbiased**, but $\theta_{Mr}$ has lower variance so it's better estimator.
 
 ## Problem 4
 
@@ -65,30 +83,15 @@ Find the maximum likelihood estimate of the parameter $\theta$ of the following 
 
 $$f(y; \theta) = \frac{3 y^2}{\theta^3}$$
 
-with $\theta \in (0,\infty)$ and $y \in [0,\infty]$ using the data $y_1, y_2, \cdots y_n$ .
+with $\theta \in (0,\infty)$ and $y \in [0,\theta]$ using the data $y_1, y_2, \cdots, y_n$ .
 
 ### Solution
 
-TODO
+Likelihood is: $L(\theta; y) = \Pi_{i=1}^n \frac{3 y_i^2}{\theta^3} = \frac{3^n}{\theta^3} \Pi_{i=1}^n y_i^2$
 
-## Problem 5
+We need to find $\max_\theta l(\theta; y) = \max_\theta \frac{3^n}{\theta^3} \Pi_{i=1}^n y_i^2$.
 
-Dr. AAA collects samples of cancer patients to estimate the mean expression levels of an oncogene.
-Due to technical limitations, (s)he can collect only 20 samples per day and measure the expression levels of the oncogene. 
-It has been known that the gene expression levels follow normal distribution with standard deviation $8 (\sim \mathcal{N} (\mu, \sigma = 8))$. 
-Help him/her in estimating the mean gene-expression value using recursive Bayesian estimation. 
-The dataset [Gene_expression.csv](https://drive.google.com/file/d/17EgR8B-3nte1GEQkSytL0StuDZiuL81d/view) provided has gene expression levels
-of the oncogene collected for 10 days. 
-Do the following:
-
-1. Assume the prior distribution of $\mu$ to be a normal distribution. You can take the sample mean of Day 1 samples and variance as prior parameters.
-2. Estimate the posterior distribution of $\mu$ using samples from Day 1.
-3. Update the priors and repeat step 2 using data from each of the days.
-4. Plot the probability distribution of the mean of gene expression level each time after the update.
-
-### Solution
-
-TODO
+$\theta$ is in denominator so we want to minimize it. But $y \in [0,\theta]$ so minimum value it can take is max input $\theta = \max(y_1, y_2, \cdots, y_n)$.
 
 ## Problem 6
 
@@ -180,8 +183,90 @@ $$
 ### Solution
 
 1. 
-*
+* $f(x) = 1 - 8 x + 2 x^2 - \frac{10}{3} x^3 + \frac{1}{4} x^4 + \frac{4}{5} x^5 - \frac{1}{6} x^6$ :
 $$
-\nabla f = -8 + 4 x - 10 x^2 + x^3 + 4 x^4 - x^5 = 0 \\ 
+\nabla f = -8 + 4 x - 10 x^2 + x^3 + 4 x^4 - x^5 = (-x^5 + 2 x^4 + 5 x^3 + 4 x) + (2 x^4 - 4 x^3 - 10 x^2 - 8) = (x - 2) (-x^4 + 2 x^3 + 5 x^2 + 4) = 0 \\
 \nabla^2 f = 4 - 20 x + 16 x^3 - 5 x^4
 $$
+
+Here one root (stationary point) is 4; finding remaining roots approximately using Newton Direction descent: 
+
+Newton Direction update rule: $x_{k+1} = x_k - (\nabla^2 f(x_k))^{-1} \nabla f(x_k) = x_k - \frac{(x - 2) (-x^4 + 2 x^3 + 5 x^2 + 4)}{4 - 20 x + 16 x^3 - 5 x^4}$
+
+Taking starting point $x_0 = 0$:
+
+k  | $x_k$  | $x_{k+1} = x_k - \frac{(x - 2) (-x^4 + 2 x^3 + 5 x^2 + 4)}{4 - 20 x + 16 x^3 - 5 x^4}$
+-- | ------ | ---------------------------------------------------------------------------------------
+1  |  1     | -1
+2  | -1     |  5
+3  |  5     |  4.395
+4  |  4.395 |  3.978
+5  |  3.978 |  3.722
+6  |  3.722 |  3.592
+7  |  3.592 |  3.539
+
+TODO
+
+* $f(x_1, x_2) = x_1 + x_2 \quad \text{subject to} \quad x_1^2 + x_2^2 - 1 = 0$
+
+$(x_1, x_2)$ lies on a circle of radius 1 around origin. Let $\theta$ be angle of point wrt X axis such that $x = cos(\theta), y = sin(\theta)$. Then:
+
+$$
+f(\theta) = cos(\theta) + sin(\theta) \\
+\nabla_\theta f = - sin(\theta) + cos(\theta) = 0 \implies \theta = \frac{pi}{4} \\
+\nabla^2_\theta f = - cos(\theta) - sin(\theta) = -\frac{1}{\sqrt{2}} - \frac{1}{\sqrt{2}} = -\sqrt{2} < 0 \quad (\text{maxima})
+$$
+
+So maxima point is $(x_1, x_2) = (cos(\frac{\pi}{4}), sin(\frac{\pi}{4}) = (\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}})$ and maximum value is $\frac{1}{\sqrt{2}} + \frac{1}{\sqrt{2}} = \sqrt{2}$.
+
+2. 
+
+$$
+(x_1 - \frac{3}{2})^2 + (x_2 - \frac{1}{8})^2 \\
+\text{subject to} \quad \begin{pmatrix}1 - x_1 - x_2 \\ 1 - x_1 + x_2 \\ 1 + x_1 - x_2 \\ 1 + x_1 + x_2 \end{pmatrix} \ge 0
+$$
+
+Lagrangian: $L(x_1,x_2,\lambda_1,\lambda_2,\lambda_3,\lambda_4) = (x_1-\frac{3}{2})^2 + (x_2-\frac{1}{8})^2 + \lambda_1 (x_1+x_2-1) + \lambda_2 (x_1-x_2-1) + \lambda_3 (-x_1+x_2-1) + \lambda_4 (-x_1-x_2-1)$ where $\lambda_1,\lambda_2,\lambda_3,\lambda_4$ are Lagrangian multipliers.
+
+KKT Conditions are:
+* Stationarity: 
+$$\nabla_{x_1,x_2} L = \begin{pmatrix} 2 x_1 - 3 + \lambda_1 + \lambda_2 - \lambda_3 - \lambda_4 \\ 2 x_2 - \frac{1}{4} + \lambda_1 - \lambda_2 + \lambda_3 - \lambda_4 \end{pmatrix} = 0$$
+* Primal Feasability: 
+$$\begin{pmatrix} x_1 + x_2 - 1 \\ x_1 - x_2 - 1 \\ -x_1 + x_2 - 1 \\ -x_1 - x_2 - 1 \end{pmatrix} \le 0$$
+* Dual Feasability:
+$$\lambda_1, \lambda_2, \lambda_3, \lambda_4 \ge 0$$
+* Complementary Slackness:
+$$
+\lambda_1 (x_1+x_2-1) = 0 \\
+\lambda_2 (x_1-x_2-1) = 0 \\
+\lambda_3 (-x_1+x_2-1) = 0 \\
+\lambda_4 (-x_1-x_2-1) = 0
+$$
+
+At $(x_1=1, x_2=0)$:
+$$
+\lambda_1 (1 + 0 - 1) = 0 \implies 0 \lambda_1 = 0 \\
+\lambda_2 (1 - 0 - 1) = 0 \implies 0 \lambda_2 = 0 \\
+\lambda_3 (-1 + 0 - 1) = 0 \implies -2 \lambda_3 = 0 \implies \lambda_3 = 0 \\
+\lambda_4 (-1 - 0 - 1) = 0 \implies -2 \lambda_4 = 0 \implies \lambda_4 = 0
+$$
+
+$$
+\begin{pmatrix} 2(1) - 3 + \lambda_1 + \lambda_2 - 0 - 0 \\ 2(0) - \frac{1}{4} + \lambda_1 - \lambda_2 + 0 - 0 \end{pmatrix} = 0 \\
+\implies \begin{pmatrix} \lambda_1 + \lambda_2 - 1 \\ \lambda_1 - \lambda_2 - \frac{1}{4} \end{pmatrix} = 0 \\
+\implies \lambda_1 = \frac{5}{8}, \lambda_2 = \frac{3}{8}
+$$
+
+Therefore Lagrangian multipliers are $(\lambda_1,\lambda_2,\lambda_3,\lambda_4) = (\frac{5}{8}, \frac{3}{8}, 0, 0)$
+
+3. $\min f(x) = (x_1 - 1)^2 + x_2^2, \quad \text{subject to} \quad x_1 - x_2^2 \le 0$
+
+In terms of $x_2$:
+
+$$
+f(x_2) = x_1^2 - 2 x_1 + 1 + x_2^2 = x_2^4 - 2 x_2^2 + 1 + x_2^2 = x_2^4 - x_2^2 + 1 \\
+f'(x_2) = 4 x_2^3 - 2 x_2 = 0 \implies x_2 = 0, \frac{1}{\sqrt{2}} \\
+f''(x_2) = 12 x_2^2 - 2 \implies f''(0) = -2 < 0, f''(\frac{1}{\sqrt{2}}) = 4 > 0
+$$
+
+So minima is at $(x_1,x_2) = (\frac{1}{2},\frac{1}{\sqrt{2}})$ and minimum value is $(\frac{1}{2} - 1)^2 + \frac{1}{\sqrt{2}}^2 = \frac{3}{4}$.

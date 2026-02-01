@@ -108,14 +108,54 @@ So if relative efficiency here is $< 1$, then $\theta_1$ is more efficient.
 
 This is used in Cross-Validation and other places.
 
-**Method of Moments** (method to estimate parameters) (moments of sample & population are equated and then solve equation)
-- moment is just generalized average. kth moment is $E[X^k] = \frac{x_1^k + x_2^k + ... + x_n^k}{n}$
-- find sample mean, and equate it to theoritical population mean (according to assumed distribution). 
-  Eg. if assuming Poisson (rare event distrib), then set its mean $\lambda$ to found sample mean.
-  TODO: how to know which distribution to assume? Eg. Normal, Poisson etc.
+**Likelihood** [good explanation](https://www.statlect.com/glossary/log-likelihood):
+* Assuming a probability distribution having density function $p(x; \mathbf{\theta})$ (x is single input, $\mathbf{\theta}$ is vector of parameters to be estimated)
+* Likelihood is joint probability $P(\mathbf{x} | \mathbf{\theta})$ of observing sample (collection of inputs) $\mathbf{x}$ (in assumed distribution) given parameters $\mathbf{\theta}$ :
+    * during training, learn optimal parameter $\hat{\theta}$ to maximize likelihood in [Maximum Likelihood Estimator](#maximum-likelihood-estimator-mle)
+    * during validation, if likelihood on test data is low, it means train issue: model overfit on training data OR training data distribution is not representative of test data.
+* Since all inputs are assumed to be Independent & Identically Distributed, joint probability is simply product of probability of each input in sample (having $N$ inputs):
 
-**Maximum Likelihood Estimator**: another method to estimate parameters
+$$L(\mathbf{\theta}; \mathbf{x}) = P(x | \theta) = \Pi_{i=1}^N x_i$$
 
+### Estimating Parameters
+
+Estimator = Set of estimated parameters
+
+#### Method of Moments
+
+**Moment** is just generalized average. k'th moment is $E[X^k] = \frac{x_1^k + x_2^k + ... + x_n^k}{n}$ where $n$ is sample size (no. of inputs)
+
+If probability distribution density function $p(x; \mathbf{\theta})$ has $m$ parameters to be estimated, then equate theoritical and sample moments to estimate all paramteters:
+
+$$
+\begin{pmatrix} E[X^1 | \theta] \\ E[X^2 | \theta] \\ \vdots \\ E[X^m | \theta] \end{pmatrix} 
+= \begin{pmatrix} \frac{1}{n} \sum x_i^1 \\ \frac{1}{n} \sum x_i^2 \\ \vdots \\ \frac{1}{n} \sum {x_i^m} \end{pmatrix}
+$$
+
+In general this is non-linear system of equations. In case of linear estimation, this reduces to linear regression using **Ordinary Least Squares**:
+
+$$(X^T X) \beta = X^T y$$
+
+#### Maximum Likelihood Estimator (MLE) 
+
+Assuming training data follows a particular probability distribution, learn optimal parameter $\hat{\theta}$ to maximize likelihood:
+
+$$\hat{\theta} = \argmax{L(\theta; X_{train})}$$
+
+This should maximize accuracy on test data also assuming it follows same distribution.
+
+#### Finding best Estimator
+
+For a probability distribution with density $(p(x; \theta)$, compare 2 estimators (set of estimated parameters) $\hat{\theta_1}$, $\hat{\theta_2}$ (of true value $\theta$) by:
+* **Bias**: Find biases of estimators: $Bias(\hat{\theta}) = E[\hat{\theta}] - \theta$
+* **Variance**: Find variances of estimators: $Var(\hat{\theta}) = \sigma^2 = \frac{1}{n-1} \sum (x_i - E[x])^2$ (sample variance so denominator is $n-1$ due to Bessel's Correction)
+    * Estimator with lower variance is called **Minimum Variance Unbiased Estimator**.
+    * If both estimators are unbiased or have equal bias, then this only is better estimator as its MSE will automatically be lower.
+* **MSE (Mean Squared Error)**: Lower is better: $MSE = E[(f(X) - X)^2]$
+
+NOTES: 
+* **Better to do all 3 checks using test data rather than training data.**
+* Estimator with lower MSE is always better. But bias, variance tell why (high bias means underfitting, high variance means overfitting).
 
 ## WIP Lecture 4 - PCA (Principal Components Analysis) - Linear Algebra Revision
 
@@ -169,5 +209,14 @@ K (No. of clusters) is determined heuristically / with trial and error.
 For large dimensional data, PCA can be done to reduce dimensionality before Clustering.
 
 
+## Misc
 
+### Calculus
+
+- **Gamma Integral**: $\int_0^\infty x^2 e^{-x / \alpha} dx = 2! \alpha^3$
+
+
+## TODO Practice Questions
+
+* (Coding Questions) Q3, 5 of Assignment 1 (skipped as not required for submission)
 
