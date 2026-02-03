@@ -34,6 +34,27 @@ Table of all courses (core & elective) with credits info for all trimesters is a
 - [Trimester 1: September - December 2025](trimester1/)
 - [Trimester 2: January - April 2026](trimester2/)
 
+### Course Grades
+
+Grade Code | Grade Points | Remarks
+---------- | ------------ | ---------
+S          | 10           | _
+A          |  9           | _
+B          |  8           | _
+C          |  7           | _
+D          |  6           | _
+E          |  4           | _
+U          |  0           | _
+P          |  0           | Pass
+F          |  0           | Fail
+I          |  0           | Course incomplete / with hold
+
+**Grades 'S' to 'E' indicate successful completion of course.**
+
+Total CGPA of a semester is calculated as average of course grade points $GP_i$, weighted by course credits $C_i$:
+
+$$CGPA = \frac{\sum (C_i \times GP_i)}{\sum C_i}$$
+
 ## IITM Links
 
 For any help / queries, send email at webmtech@code.iitm.ac.in .

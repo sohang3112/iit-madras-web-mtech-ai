@@ -397,12 +397,47 @@ DON'T initialize all weights to same value like 0 (else very bad performance). I
 
 Control variance of randomness (U - Uniform, N - Normal distribution):
 
-Technique  | Activations         | Distribution                                      | Remark
----------- | ------------------- | ------------------------------------------------- | -------------------
-Xavier     | tanh, sigmoid       | $\mathcal{U}(\pm \sqrt{6 / (n_{l+1} + n_{l-1})})$ | NOT applicable for RELU because unlike tanh, sigmoid RELU doesn't have symmetric mean around 0
-Kaiming He | RELU & its variants | $\mathcal{N}(0, 2 / n_{l-1})$                     |
-LeCun      | SELU                | $\mathcal{U}(\pm \sqrt{3 / n_{l-1}})$             |
+Technique  | Activations           | Distribution                                      | Remark
+---------- | --------------------- | ------------------------------------------------- | -------------------
+Xavier     | tanh, sigmoid         | $\mathcal{U}(\pm \sqrt{6 / (n_{l+1} + n_{l-1})})$ | NOT applicable for RELU because unlike tanh, sigmoid RELU doesn't have symmetric mean around 0
+Kaiming He | RELU, Leaky RELU etc. | $\mathcal{N}(0, 2 / n_{l-1})$                     |
+LeCun      | SELU                  | $\mathcal{U}(\pm \sqrt{3 / n_{l-1}})$             |
 
 Random orthogonal matrix is used for any arbitary activation in libraries.
 
 NOTE: in each both uniform and normal distributions with specific values can be used. What are listed here are best.
+
+
+## WIP Forward pass, Back propogation, Autograd (Lecture 7) (slides not uploaded yet)
+
+Autograd:
+* automatically (dynamically) create model layers graph from function (pytorch looks at it line by line AT TRAIN & INFERENCE TIME -- NOT before hand from function AST)
+    * so unlike static graphs in tensorflow (model layers defined & fixed at train & inference time), here model layers can change at runtime based on input in pytorch!!
+      TODO: i think dynamic graphs are supported in tensorflow also - check.
+      static graph (faster as avoids some computation), dynamic (slower) -- 
+      NOTE: dynamic graph only advantage is if and for loops (ie at runtime on getting input different layers), otherwise use static graph only for faster
+```python
+def model(x):
+    if x > 0:
+        y = 1
+    else:
+        y = 0
+    z = 2 * x
+    for i in range(2):
+        y = z*y + i
+    return y
+```
+* auto called in back propogation `.backward()`
+TODO
+
+In forward pass (required first), no gradients are calculated, just graph is constructed.
+Then in backpropogation, gradients of loss are calculated at each layer to finally get total.
+
+TODO: Backpropogation gradient calculation autograd process
+
+Backpropogation:
+* Autograd computes gradients through backpropogation
+    * Gradients *flow* from one node to another.
+    * Recursion and matrix operations (eg. SVD) can have derivatives, according to research [Auto-Differentiating Linear Algebra (2019) by M. Seeger et al](https://arxiv.org/abs/1710.08717)
+* **Vanishing** or **Exploding** gradient problems: gradients don't flow
+TODO
