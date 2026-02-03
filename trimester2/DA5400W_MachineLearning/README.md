@@ -196,7 +196,7 @@ $$
 TODO: optimization problem
 
 
-## WIP Lecture - Clustering Analysis
+## WIP Lecture 5 & 6 - Clustering Analysis
 
 Definitions:
 * Centroid is mean of all point vectors. $\mu = \frac{\sum x_i}{N}$
@@ -207,6 +207,22 @@ First, simplest method is K-means Clustering. (slower for larger data)
 K (No. of clusters) is determined heuristically / with trial and error.
 
 For large dimensional data, PCA can be done to reduce dimensionality before Clustering.
+
+### WIP K-Means Clustering 
+
+Criticisms / Weaknesses:
+
+* Finds local optima only, not global
+* Works with numeric data ony
+  * Centroids & distance not defined for other types
+  * Use actual data points: medoids (medoid is an alternative way of calculating centroid even for other data types)
+* Does not scale well to large data sets
+  * Workaround: Sampling (ie train on a sample subset of whole large data)
+* Pre-specify number of clusters
+
+#### TODO Heirachical Clustering Types
+
+
 
 
 ## Misc
