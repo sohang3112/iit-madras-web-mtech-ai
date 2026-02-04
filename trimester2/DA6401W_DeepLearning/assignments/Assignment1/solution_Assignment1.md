@@ -28,16 +28,35 @@ TODO: code
 
 ## Problem 2
 
-Let $X = {x1,x2,x3}$. Two discrete probability distributions $P$ and $Q$ over $X$ are given as $P = [0.5, 0.3, 0.2], Q = [0.4, 0.4, 0.2]$.
+Let $X = \{x_1,x_2,x_3\}$. Two discrete probability distributions $P$ and $Q$ over $X$ are given as $P = [0.5, 0.3, 0.2], Q = [0.4, 0.4, 0.2]$.
 
 * Compute the cross-entropy $H(P,Q)$.
-* Compute the Kullback-Leibler divergence $DKL(P||Q)$.
+* Compute the Kullback-Leibler divergence $D_{KL}(P||Q)$.
 * Compute the entropy $H(P)$.
 * Derive the relationship between Cross-entropy and KL divergence.
 
 ### Solution 2
 
-TODO: theory
+Formulae:
+
+$$
+Entropy = H(P) = - \sum_{i=1}^{classes} p(x_i) \ln(p(x_i)) \\
+CrossEntropy = H(P,Q) = - \sum_{i=1}^{classes} p(x_i) \ln(q(x_i)) \\
+KLDivergence = D_{KL} = \sum_{i=1}^{classes} p(x_i) \ln(\frac{p(x_i)}{q(x_i)})
+$$
+
+* Cross Entropy: $H(P,Q) = - 0.5 * ln(0.4) - 0.3 * ln(0.4) - 0.2 * ln(0.2) \approx 1.05$
+* KL Divergence: $D_{KL}(P || Q) = 0.5 * ln(0.5 / 0.4) + 0.3 * ln(0.3 / 0.4) + 0.2 * ln(0.2 / 0.2) \approx 0.02$
+* Entropy $H(P) = - 0.5 * ln(0.5) - 0.3 * ln(0.3) - 0.2 * ln(0.2) \approx 1.03$
+* Relationship between Cross-Entropy and KL-Divergence:
+  
+$$
+D_{KL}(P || Q) = \sum_{i=1}^{classes} p(x_i) \ln(\frac{p(x_i)}{q(x_i)}) 
+\implies D_{KL}(P || Q) = - \sum_{i=1}^{classes} q(x_i) \ln(p(x_i)) - (- \sum_{i=1}^{classes} p(x_i) \ln(p(x_i)))
+\implies D_{KL}(P || Q) = H(P,Q) - H(P)
+$$
+
+Therefore, $KLDivergence(P || Q) = CrossEntropy(P,Q) - Entropy(P)$
 
 
 ## Problem 3: Bias-Variance Tradeoff -- Plot Matching and Justification
@@ -61,7 +80,14 @@ For each plot, complete the following tasks:
 
 ### Solution 3
 
-TODO: theory
+Plot | Bias-Variance Category   | Reason
+---- | ------------------------ | --------
+A    | High Bias, Low Variance  | Bias is high as model is too simple (underfits data); Variance is low as model has low sensitivity to noise in training data, so model is stable with respect to changes in training data
+B    | Low Bias, High Variance  | Bias is low as model is complex; Variance is high as model overfits data and is highly sensitive to noise / changes in training data
+C    | Low Bias, Low Variance   | Bias and Variance are both low as model is sufficiently complex to fit data without underfitting or overfitting; It isn't sensitive to noise in training data.
+D    | High Bias, Low Variance  | Bias is high as model is too simple (underfits data); Variance is low as model has low sensitivity to noise in training data, so model is stable with respect to changes in training data
+E    | Low Bias, High Variance  | Bias is low as model is complex; Variance is high as model overfits data and is highly sensitive to noise / changes in training data
+F    | Low Bias, Low Variance   | Bias and Variance are both low as model is sufficiently complex to fit data without underfitting or overfitting; It isn't sensitive to noise in training data.
 
 
 ## Problem 4: Implement XOR gate using neural network 
@@ -118,7 +144,28 @@ The behavior of training and validation losses provides insight into the learnin
 
 ### Solution 5
 
-TODO: theory
+1. This indicates **Overfitting** on training data, i.e., model has learnt even noise in training data and so can't generalize leading to high validation loss.
+   Two **Regularization** strategies to tackle this are:
+    * Early Stopping: save model at the epoch where validation loss was minimum, and stop training after say 5 epochs if validation loss does not improve.
+    * L1 or L2 Norms: add an L1 or L2 norm term in loss function that promotes model sparsity, i.e., pushes weights towards 0. 
+      This penalizes large weights and prevents model from relying too heavily on any single feature which smoothens decision boundary.
+
+2. As Network B has more hidden layers, it will generalize better for complex features than Network A provided both have similar number of total neurons. 
+   This is because each hidden layer takes previous layer's learnt simple features as input and learns more complex features from them, so overall model can better learn complex features.
+   So to achieve same training loss, Network B may require fewer epochs. But it can also be a bit harder to train due to problem of vanishing gradients.
+
+   On the other hand, Network A tends to memorize patterns (works well for simple features) instead of learning to generalize in case of complex features.
+
+3. During backpropogation, using Sigmoid activation in hidden layers can cause **Vanishing Gradient** problem - since Sigmoid activation forces inputs into a narrow range $[0,1]$,
+   gradient multiplication can very rapidly reduce gradients to near 0, i.e., "vanish" before reaching earlier layers. This hinders learning.
+   On the other hand, ReLU activation does not saturate for positive values, so gradients flow easily and hence ReLU is a good fit for activation in hidden layers.
+   Sigmoid activation is preferred with multi-class classification output layers as it naturally represents class probabilities due to its range $[0,1]$.
+
+4. If all weights are identical (0), then every neuron in a layer will calculate same output in forward pass, and recieve same gradient update in backward pass.
+   So all weights in a layer will remain identical, causing whole layer to effectively function as just one big neuron. This is called **Symmetry Breaking** failure.
+
+5. This indicates Overfitting (Low Bias but High Variance) where model has learnt even the noise in training data and so fails to generalize to unseen test data.
+   Increasing the dataset size significantly will help as model will no longer be able to just memorize patterns and will be forced to generalize in training.
 
 
 ## Problem 6: Comparison of Loss Functions: Mean Squared Error vs Cross-Entropy
@@ -136,7 +183,11 @@ Loss functions play a crucial role in training machine learning models by quanti
 
 ### Solution 6
 
-TODO: theory
+1. For a binary classification problem, loss functions (where $y_i$ is true output, $\hat{y_i}$ is predicted output, $p$ is probability of getting predicted output $\hat{y_i} = 1$):
+    * Mean Squared Error is $MSE = \frac{1}{n} \sum (\hat{y_i} - y_i)^2$ . For binary classification, $MSE \in [0,1]$.
+    * Binary Cross-Entropy (Log Loss) is $- \ln(p)$ if output = 1, else $- \ln(1 - p)$ if output = 0.
+
+2. TODO: theory
 
 
 ## Problem 7: Programming Question: Implement Loss Functions from Scratch

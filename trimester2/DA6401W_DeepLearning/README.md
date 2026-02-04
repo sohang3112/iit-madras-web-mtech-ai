@@ -144,6 +144,14 @@ Information Theory definitions:
 * Relative Entropy is how many bits (ie log 2 of information) you need to encode distribution
 * Cross Entropy is how many bits used if you wrongly assume distribution P is actually distribution Q + entropy of P
 
+For true probability distribution $P$ and assumed probability distribution $Q$ (NOTE: **KL Divergence is also called Relative Entropy**):
+
+$$
+Entropy = H(P) = - \sum_{i=1}^{classes} p(x_i) \ln(p(x_i)) \\
+CrossEntropy = H(P,Q) = - \sum_{i=1}^{classes} p(x_i) \ln(q(x_i)) \\
+KLDivergence = D_{KL}(P || Q) = H(P,Q) - H(P) = \sum_{i=1}^{classes} p(x_i) \ln(\frac{p(x_i)}{q(x_i)})
+$$
+
 ### Machine Learning
 
 #### Supervised vs Unsupervised learning
@@ -263,8 +271,9 @@ Cross-Validation: multiple (train,val) splits & trains, then average all the mod
 
 #### Bias-Variance tradeoff
 
-* Overfitting: High model variance & low training MSE
-* Underfitting: Low model variance & high training MSE
+Bias: high if model is too simple (underfitting), low if model has sufficient complexity according to data.
+
+Variance: sensitivity from small fluctuations in training set. High variance means overfitting.
 
 ![Bias-Variance tradeoff](images/bias_variance_tradeoff.png)
 
@@ -274,7 +283,7 @@ and then do inference with all the trained models on fixed validation point (TOD
 Bias, Variance values are different at different chosen validation points.
 
 $$
-Bias(x) = E[y_{pred}] - f(x) \\
+Bias(x) = E[y_{pred}] - y_{true}, \quad \text{where } y_{true} = f(x) \\
 Variance(x) = Var(y_{pred}) \\
 $$
 
