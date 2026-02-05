@@ -184,10 +184,11 @@ Loss functions play a crucial role in training machine learning models by quanti
 ### Solution 6
 
 1. For a binary classification problem, loss functions (where $y_i$ is true output, $\hat{y_i}$ is predicted output, $p$ is probability of getting predicted output $\hat{y_i} = 1$):
-    * Mean Squared Error is $MSE = \frac{1}{n} \sum (\hat{y_i} - y_i)^2$ . For binary classification, $MSE \in [0,1]$.
-    * Binary Cross-Entropy (Log Loss) is $- \ln(p)$ if output = 1, else $- \ln(1 - p)$ if output = 0.
-
-2. TODO: theory
+    * Mean Squared Error is $MSE = \frac{1}{n} \sum_i^n (\hat{y_i} - y_i)^2$ . For binary classification, $MSE \in [0,1]$.
+    * Binary Cross-Entropy (Log Loss) is average of losses for each output $\frac{1}{n} \sum_i^n - [y_i \ln(\hat{y_i}) + (1 - y_i) \ln(1 - \hat{y_i})]$ - each individual output's loss simplifies to $- \ln(p)$ if output = 1, else $- \ln(1 - p)$ if output = 0 (range is $[0,\infty]$)
+2. TODO
+3. TODO
+4. MSE is used for regression, Cross Entropy for classification. TODO: reason
 
 
 ## Problem 7: Programming Question: Implement Loss Functions from Scratch
