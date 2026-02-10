@@ -7,3 +7,5 @@ This will have practical session for theory that is taught in [Machine Learning]
 Libraries to be used: Numpy, Pandas, Scipy (for optimization - it's similar to Matlab), Scikit-learn (Xgboost ?), visualize (seaborn, Dash)
 
 Exams will be open book (ie can google things but not ask ChatGPT).
+
+TODO: K-Means Clustering, DB Scan, Spectral Clustering

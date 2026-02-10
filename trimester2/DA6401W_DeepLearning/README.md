@@ -168,10 +168,10 @@ Loss functions quantify error obtained during parameter optimization.
 
 $$\argmin Loss \{ f(x,\theta) - label(x) \}$$
 
-* L0  norm (sparsity -promoting), 0 -1 loss:  $\|y  – y true \|_0$
-* L1  norm, absolute error: $\|y  – y true \|_1$
-* Squared L2  norm, Euclidean distance: $\|y  – y true \|^2_2$
-* Mixed norms: linear combination of different p-norms $p ge 1$ – convex losses
+* L0  norm (sparsity -promoting), 0 -1 loss:  $\|y  - y true \|_0$
+* L1  norm, absolute error: $\|y  - y true \|_1$
+* Squared L2  norm, Euclidean distance: $\|y  - y true \|^2_2$
+* Mixed norms: linear combination of different p-norms $p ge 1$ - convex losses
 * Cross entropy, F-score, etc.
 
 #### Classification
@@ -191,6 +191,8 @@ For binary classification, this simplifies to **Sigmoid** (using log posteriors 
 
 $$P(y=1 | x) = \sigma(a_1) = \frac{1}{1 + e^{-a}}$$
 
+**Derivative / Gradient of Sigmoid**: $\sigma'(z) = \sigma(z) * (1 - \sigma(z))$
+
 Finally after sigmoid gives us the probabilities, just choose class with higher probability.
 
 ##### Multi-Class Classification
@@ -201,7 +203,7 @@ This simplifies to **Softmax** function (using log posterior vector $a$ having e
 
 $$P(y=C_k | x) = \sigma_k(a) = \frac{e^{\alpha_k}}{\sum_j e^{\alpha_j}}$$
 
-TODO: Logistic Regression (name has regression but actually final output is classification)
+**Logistic Regression** is equivalent to a single neural network layer with Sigmoid activation (name has regression but actually final output is classification probabilities).
 
 #### Regression
 
@@ -414,8 +416,9 @@ LeCun      | SELU                  | $\mathcal{U}(\pm \sqrt{3 / n_{l-1}})$      
 
 Random orthogonal matrix is used for any arbitary activation in libraries.
 
-NOTE: in each both uniform and normal distributions with specific values can be used. What are listed here are best.
-
+NOTES: 
+* In each both uniform and normal distributions with specific values can be used. What are listed here are best.
+* $n_{l-1}, n_l, n_{l+1}$ are no. of neurons in previous (i.e. no. of inputs), current and next (i.e. no. of outputs) layers repsectively.
 
 ## WIP Forward pass, Back propogation, Autograd (Lecture 7) (slides not uploaded yet)
 
