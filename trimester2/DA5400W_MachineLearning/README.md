@@ -223,7 +223,36 @@ Criticisms / Weaknesses:
 #### TODO Heirachical Clustering Types
 
 
+## WIP Lecture - Regression by Prof Jayadev
 
+We find relationship between independent and dependent variables.
+
+Sample value types are:
+* *True Value*: ground-truth actual value, perfectly related to independent variable. Generally unknown.
+* *Observed Value*: measured value in data. Usually different from true value due to measurement error.
+* *Predicted Value*: estimated value by regression model.
+
+Noise is always assumed to be gaussian / normal.
+
+Linear Regression is of multiple types:
+* *Simple Linear Regression*: single dependent and single independent variable: $y(x, w) = w_0 + w_1 x + \epsilon$
+* *Multiple Linear Regression*: single dependent, multiple independent variables: $y(x,w) = w_0 + w_1 x_1 + w_2 x_2 + \cdots + w_D x_D + \epsilon$
+
+Generalization of Linear Regression (linear combination of functions of variables):
+
+$$y(x,w) = w_0 + w_1 \phi_1(x) + w_2 \phi_2(x) + \cdots + w_D \phi_D(x) + \epsilon$$
+
+In matrix form we can write general equation using *augmented* input $X^*$ (it just has a column of 1s appended to it):
+
+$$
+y = [1_n X] w  + \epsilon \\
+y = X^* w + \epsilon
+$$
+
+Assumptions on Random Error $\epsilon$:
+- $E[\epsilon] = 0$ expected/average error should be 0 (i.e. average residual value).
+- i.e. actual values of output should be equally-spread around predicted value.
+- Predicted value should NOT consistently over or under estimate actual output values.
 
 ## Misc
 
