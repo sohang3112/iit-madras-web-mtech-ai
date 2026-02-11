@@ -249,10 +249,12 @@ y = [1_n X] w  + \epsilon \\
 y = X^* w + \epsilon
 $$
 
-Assumptions on Random Error $\epsilon$:
-- $E[\epsilon] = 0$ expected/average error should be 0 (i.e. average residual value).
-- i.e. actual values of output should be equally-spread around predicted value.
-- Predicted value should NOT consistently over or under estimate actual output values.
+Assumptions on Random Error $\epsilon$ for Unbiased best-fit model:
+- $E[\epsilon] = 0$ expected/average error noise should be 0, i.e. actual values of output should be equally-spread around predicted value.
+- *Homoscedsatic errors*: $Cov[\epsilon] = \sigma^2 I$ Variance of error should be same for all independent variables, i.e. error residuals should NOT be correlated with input for best-fit unbiased model.
+- Errors should be normally distributed.
+
+Another assumption of OLS (Ordinary Least Squares) is that no 2 input variables should be *Multi-Collinear* (ie inputs themselves are correlated).
 
 ## Misc
 
