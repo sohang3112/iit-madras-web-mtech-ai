@@ -1,6 +1,6 @@
 # Project
 
-Added these to shared sheet, awaiting Approval or Modification suggested by Professor.
+Project Topic has been approved by Professor:
 
 * Project Title: SemanticEmoji: Multi-lingual Neural Emoji Search	
 * Project Topic: Natural Language Processing & Multi-class (3953 classes acc Wikipedia) Classification

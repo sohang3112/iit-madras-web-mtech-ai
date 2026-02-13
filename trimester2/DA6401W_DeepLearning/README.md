@@ -372,6 +372,16 @@ But in multiple layers (ie hidden layers) it works very well. And computationall
 
 sigmoid derivative is 1/4 -> less than 1 creates problem in gradient descent (vanishing gradient). 
 tanh is better (in hidden layers) - unlike sigmoid it can be negative, and has
+TODO: finish above sentence
+
+Here $z = W x + b, y = activation(z)$:
+
+Activation |                                       Gradient                  | Use
+------------------------------------------------- | ------------------------ | ---------------------------------------------
+$sigmoid(z) = \frac{1}{1 + e^{-z}}$               | $y (1-y)$                | Output layer (classification probabilities)
+$tanh(z) = \frac{1 - e^{-2 z}}{1 + e^{2 z}}$      | $1 - y^2$                | Hidden layer 
+$relu(z) = max(0, z)$                             | 1 if y > 0 else 0        | Hidden layer
+$leakyrelu_\alpha(z)$: 1 if z > 0 else $\alpha z$ | 1 if y > 0 else $\alpha$ | Hidden layer
 
 ## WIP Gradient Descent (Lecture 6)
 
@@ -410,7 +420,7 @@ Control variance of randomness (U - Uniform, N - Normal distribution):
 
 Technique  | Activations           | Distribution                                      | Remark
 ---------- | --------------------- | ------------------------------------------------- | -------------------
-Xavier     | tanh, sigmoid         | $\mathcal{U}(\pm \sqrt{6 / (n_{l+1} + n_{l-1})})$ | NOT applicable for RELU because unlike tanh, sigmoid RELU doesn't have symmetric mean around 0
+Xavier     | tanh, sigmoid, linear (no activation for regression output) | $\mathcal{U}(\pm \sqrt{6 / (n_{l+1} + n_{l-1})})$ | NOT applicable for RELU because unlike tanh, sigmoid RELU doesn't have symmetric mean around 0
 Kaiming He | RELU, Leaky RELU etc. | $\mathcal{N}(0, 2 / n_{l-1})$                     |
 LeCun      | SELU                  | $\mathcal{U}(\pm \sqrt{3 / n_{l-1}})$             |
 
@@ -453,3 +463,13 @@ Backpropogation:
     * Recursion and matrix operations (eg. SVD) can have derivatives, according to research [Auto-Differentiating Linear Algebra (2019) by M. Seeger et al](https://arxiv.org/abs/1710.08717)
 * **Vanishing** or **Exploding** gradient problems: gradients don't flow
 TODO
+
+**Universal Approximation Theorem** states that a feed-forward neural network having at least one hidden layer with non-linear activation can approximate any continous real function.
+
+## Misc Resources
+
+[Backprop Problems by Andrew Karpathy](https://karpathy.medium.com/yes-you-should-understand-backprop-e2f06eab496b):
+* **Vanishing Gradients** in `sigmoid`, `tanh` (esp if used in hidden layer), activation derivative small so overall gradient flow small => hardly any learning in earlier layers.
+* **Dying ReLU**: If $W x + b \le 0$, ReLU value and gradient are both 0 - meaning the neuron remains "dead" throughout training.
+* **Exploding Gradients** in RNN, recurrence matrix is multiplied over and over in gradient calc. If its eigen value > 1, then value explodes towards infinity.
+* **DQN Clipping**: TODO: didn't fully understand what is DQN

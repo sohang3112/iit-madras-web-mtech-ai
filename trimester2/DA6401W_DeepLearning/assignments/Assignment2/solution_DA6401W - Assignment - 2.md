@@ -77,25 +77,15 @@ Compare the two models and discuss the effect of depth in terms of:
 - Optimization difficulty
 - Generalization performance
 
-### Solution 1 (a)
+### Solution 1
 
-TODO: code
+Full data plot:
 
-### Solution 1 (b)
+![Scatter Plot](images/Q1a_plot.png)
 
-TODO: code
+A simple linear classifier cannot directly solve this problem as data is not linearly seperable.
 
-### Solution 1 (c)
-
-TODO: code
-
-### Solution 1 (d)
-
-TODO: code
-
-### Solution 1 (e)
-
-TODO: code
+TODO: code (WIP solution in assignment2.ipynb)
 
 
 ## Problem 2: Backpropagation in a Feedforward Neural Network
@@ -134,25 +124,37 @@ and why backpropagation is computationally efficient compared to naive different
 State whether the use of ReLU activation helps mitigate the vanishing gradient problem.
 Justify your answer.
 
-### Solution 2 (a)
+### Solution 2 
 
-TODO: theory
+Forward Pass:
 
-### Solution 2 (b)
+$$\hat{y} = W_2 ReLU(W_1 x + b_1) + b_2$$
 
-TODO: theory
+Loss Gradient of Output layer:
 
-### Solution 2 (c)
+$$
+L = \frac{1}{2} (y - \hat{y})^2 = \frac{1}{2} \hat{y}^2 - y \hat{y} + \frac{1}{2} y^2 \\
+\frac{\partial L}{\partial \hat{y}} = \hat{y} - y \\
+\frac{\partial L}{\partial W_2} = \frac{\partial L}{\partial \hat{y}} \frac{\partial \hat{y}}{\partial W_2} = (\hat{y} - y) h^T \\
+\frac{\partial L}{\partial b_2} = \frac{\partial L}{\partial \hat{y}} \frac{\partial \hat{y}}{\partial b_2} = \hat{y} - y
+$$
 
-TODO: theory
+Applying chain rule to get gradient of hidden layer weights (here $z_1 = W_1 x + b_1$):
 
-### Solution 2 (d)
+$$
+\frac{\partial L}{\partial W_1} \\
+= \frac{\partial L}{\partial \hat{y}} \frac{\partial \hat{y}}{\partial h} \frac{\partial h}{\partial z_1} \frac{\partial z_1}{\partial W_1} \\
+= (\hat{y} - y) W_2^T ReLU'(z_1) x^T
+$$
 
-TODO: theory
+Here derivative of ReLU ($\begin{cases} 1, & \text{if } z_1 > 0 \\ 0, & \text{otherwise} \end{cases}$) is multiplied with remaining terms.
+So gradient becomes 0 if $W_1 x + b_1 \le 0$ .
 
-### Solution 2 (e)
+Chain Rule allows more efficient gradient computation as it allows us to reuse gradients of already-calculated  outward layers in current layer's gradients.
+Naive differentiation would require differentiating loss wrt each layer's weights seperately, which becomes very slow for deep networks with many layers.
 
-TODO: theory
+ReLU activation helps mitigate vanishing gradient problem as derivative of ReLU remains 1 as long as $z > 0 \implies W x + b > 0$ (so in multiplication remaining terms are not reduced).
+This is unlike Sigmoid and Tanh activations in hidden layer whose derivatives are small for large inputs, so multiplying by them causes gradients of earlier layers to "vanish" (become close to 0).
 
 
 ## Problem 3: Simple Gradient Descent
@@ -169,11 +171,44 @@ You are optimizing a loss function $L(w) = w^4 - 10 w^2 + 5 w + 40$ .
 
 ### Solution 3
 
-TODO: theory
+Loss Gradient is $\frac{\partial L}{\partial w} = 4 w^3 - 20 w + 5$, Gradient Descent update rule is $w_{k+1} = w_k - \eta \frac{\partial L}{\partial w}$
+
+1. With $w_0 = 1, \eta = 0.01$:
+$$
+w_1 = 1 - 0.01(4 * 1^3 - 20 * 1 + 5) = 1.11 \\
+L(w_0) = 1^4 - 10 * 1^2 + 5 * 1 + 40 = 36 \\\
+L(w_1) = 1.11^4 - 10 * 1.11^2 + 5 * 1.11 + 40 = 34.747
+$$
+
+So Loss of $w_1$ is less than $w_0$.
+
+2. By looking at loss plot made in point 4, global minima is at $w = -2.37$, a local maxima is at $w = 0.1$ and a local minima at $w = 2.1$.
+$w_0 = 1$ won't reach global minima as it will get stuck at local minima $w = 2.1$ .
+To reach global minima -2.37 , $w_0 < 0.1$ (to left of local maxima so that it doesn't get stuck in local minima 2.1).
+
+3. With $w_0 = 1, \eta = 2$:
+$$
+w_1 = 1 - 2(4 * 1^3 - 20 * 1 + 5) = 23 \\
+L(w_1) = 23^4 - 10 * 23^2 + 5 * 23 + 40 = 274,706
+$$
+
+Loss increased a lot, indicating learning rate was too large and skipped over the global minima.
+
+4. Plotting loss function:
+
+```python
+import numpy as np
+from matplotlib import pyplot as plt
+w = np.linspace(-3, 3)
+L = w**4 - 10* w**2 + 5*w + 40
+plt.plot(w, L)
+plt.show()
+```
+
+![Loss function plot](images/Q3.4_plot.png)
 
 
 ## Problem 4: Code the Activation Functions
-
 
 1. Create a class or set of functions in Python (using numpy) for the following activation
 functions:
@@ -186,7 +221,45 @@ functions:
 
 ### Solution 4
 
-TODO: code
+```python
+import numpy as np
+from matplotlib import pyplot as plt
+
+class Activation:
+    sigmoid = {
+        'activation': lambda z: 1 / (1 + np.exp(-z)),
+        'gradient': lambda ypred: ypred * (1 - ypred)
+    }
+    tanh = {
+        'activation': lambda z: (1 - np.exp(-2*z)) / (1 + np.exp(-2*z)),
+        'gradient': lambda ypred: 1 - y**2
+    }
+    relu = {
+        'activation': lambda z: np.where(z > 0, z, 0),
+        'gradient': lambda ypred: np.where(ypred > 0, ypred, 0)
+    }
+    leaky_relu = {
+        'activation': lambda z: np.where(z > 0, z, 0.01),
+        'gradient': lambda ypred: np.where(ypred > 0, ypred, 0.01)
+    }
+
+z = np.linspace(-10, 10)
+activations = [['sigmoid', 'tanh'], ['relu', 'leaky_relu']]
+fig, axes = plt.subplots(nrows=2, ncols=2)
+for i, row in enumerate(activations):
+    for j, name in enumerate(row):
+        activation = getattr(Activation, name)
+        y = activation['activation'](z)
+        grad = activation['gradient'](y)
+        ax = axes[i][j]
+        ax.plot(z, y, label='Activation')
+        ax.plot(z, grad, label='Gradient')
+        ax.set_title(name)
+        ax.legend()
+fig.tight_layout()
+```
+
+![Activations & Gradients plots](images/Q4_plots.png)
 
 
 ## Problem 5: Numerical: Forward Pass in a Multilayer Perceptron
@@ -210,7 +283,12 @@ $$
 
 ### Solution 5
 
-TODO: theory
+$$
+W_1 x + b_1 = [3, 3]^T \quad (\text{Hidden layer pre-activation}) \\
+y_1 = ReLU(W_1 x + b_1) = [3, 3]^T \quad (text{Hidden layer output}) \\
+W_2 y_1 + b_2 = 2 \quad (\text{Output layer pre-activation}) \\
+y_2 = sigmoid(W_2 y_1 + b_2) = 0.377 \quad (\text{Final output})
+$$
 
 
 ## Problem 6: Numerical Verification of Universal Approximation Theorem
@@ -239,7 +317,12 @@ $$MSE = \frac{1}{3} \sum_{i=1}^3 (f(x_i) - \hat{f}(x_i))^2$$
 
 ### Solution 6
 
-TODO: theory
+$$
+f(0) = sin(0) + 0 = 0, \quad \hat{f}(0) = 1.5 / (1 + e^{-2*0}) - 1 / (1 + e^{3*0}) + 0.5 / (1 + e^{-4*0}) = 0.5 \\
+f(0.5) = sin(\pi) + 0.5^3 = 0.125,  \quad \hat{f}{0.5} = 1.5 / (1 + e^{-2*0.5}) - 1 / (1 + e^{3*0.5}) + 0.5 / (1 + e^{-4*0.5}) \approx 1.354 \\
+f(1) = sin(2 \pi) + 0.5 * 1^2 = 0.5, \quad \hat{f}{1} = 1.5 / (1 + e^{-2*1}) - 1 / (1 + e^{3*1}) + 0.5 / (1 + e^{-4*1}) \approx 1.764 \\
+MSE = ((0 - 0.5)^2 + (0.125 - 1.354)^2 + (0.5 - 1.764)^2) / 3 \approx 1.119
+$$
 
 
 ## Problem 7: Programming: Gradient Checking for Neural Network Training
@@ -377,7 +460,25 @@ where $\phi$ is an activation function. Show that if $\phi$ is the identity func
 
 ### Solution 9
 
-TODO: theory
+1. Activation functions are essential in a neural network so that model can learn non-linear functions. 
+   If no activation functions were used, then whole model would be equivalent to a single linear layer.
+
+2. Identity function as activation is equivalent to no activation:
+
+$$h_l = W_l h_{l-1} + b_l = W_l (W_{l-1} h_{l-2} + b_{l-1}) + b_l = (W_l W_{l-1}) h_{l-2} + (W_l b_{l-1} + b_l)$$
+
+So by repeating the above substitution process, $h_l$ can be written as a linear combination of model inputs. Therefore entire network reduces to a single linear transformation.
+
+3. **Universal Approximation Theorem** states that a feed-forward neural network having at least one hidden layer with non-linear activation can approximate any continous real function.
+   Non-linear activation functions allow model to approximate any continous function, else it would be limited to learning only linear functions.
+
+4. Comparing activations:
+
+Activation | Output Range  | Gradient Behaviour     | Suitability for Deep Networks
+---------- | ------------- | ---------------------- | ------------------------------
+Sigmoid    | $[0,1]$       | $y (1-y) \in [0,0.25]$ | Ideal for representing classification probabilities in output layer; Can cause **vanishing gradients** problem if used in hidden layers
+Tanh       | $[-1,1]$      | $1 - y^2 \in [0,1]$    | Useful in hidden layers and regression output layer. It's *zero-centered* (outputs roughly balanced between negative and positive), and max gradient is 1 (unlike max gradient 0.25 in Sigmoid), so Vanishing Gradient problem is reduced.
+ReLU       | $[0, \infty]$ | `1 if y > 0 else 0`    | Useful in hidden layers, doesn't diminish gradients during backpropogation as long as $W x + b > 0$ .
 
 
 ## Problem 10
