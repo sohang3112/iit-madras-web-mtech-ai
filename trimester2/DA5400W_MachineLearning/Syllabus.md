@@ -1,18 +1,18 @@
 # ML Syllabus
 
-1. Unsupervised Learning
+## Module 1: Unsupervised Learning
 * Estimation: Review of MLE, Bayesian optimization
 * Dimensionality Reduction
 * Clustering - K-means, Heirachical clustering, Spectral clustering
 
-1. Supervised Learning
+## Module 2: Supervised Learning
 * Functional Approximations and regression
 * Regression
 * Linear Regression: Ordinary Least Squares, PCR
 * Non-Linear Regression (bias functions)
 * Ridge Regression, LASSO
 
-1. Binary Classification
+## Module 3: Binary Classification
 * k-Nearest Neighbours
 * Decision trees, CART
 * Bias-Variance dichotomy, Model validation - Cross validation
@@ -24,7 +24,7 @@
     * Discrimination
 * Logistic Regression
 
-1. Advanced Methods of Classification
+## Module 4: Advanced Methods of Classification
 * Support Vector Machines - Kernels
 * Ensemble methods
     * Bagging - Random Forest
@@ -32,7 +32,7 @@
     * Artificial Neural Networks
     * multi-class classification - one vs all vs one vs one
 
-1. Sequential Decision making
+## Module 5: Sequential Decision making
 * Online learning
 * Bandit problem
 * Reinforcement learning

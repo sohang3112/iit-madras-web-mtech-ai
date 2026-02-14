@@ -89,9 +89,9 @@ with $\theta \in (0,\infty)$ and $y \in [0,\theta]$ using the data $y_1, y_2, \c
 
 ### Solution
 
-Likelihood is: $L(\theta; y) = \Pi_{i=1}^n \frac{3 y_i^2}{\theta^3} = \frac{3^n}{\theta^3} \Pi_{i=1}^n y_i^2$
+Likelihood is: $L(\theta; y) = \Pi_{i=1}^n \frac{3 y_i^2}{\theta^3} = \frac{3^n}{\theta^{3 n}} \Pi_{i=1}^n y_i^2$
 
-We need to find $\max_\theta l(\theta; y) = \max_\theta \frac{3^n}{\theta^3} \Pi_{i=1}^n y_i^2$.
+We need to find $\max_\theta l(\theta; y) = \max_\theta \frac{3^n}{\theta^{3 n}} \Pi_{i=1}^n y_i^2$.
 
 $\theta$ is in denominator so we want to minimize it. But $y \in [0,\theta]$ so minimum value it can take is max input $\theta = \max(y_1, y_2, \cdots, y_n)$.
 
@@ -125,9 +125,10 @@ Find the local extrema of the following functions and classify the points as min
 2. 
 $$
 \nabla f = cos(x) - sin(x) = 0 \implies x = \frac{sin^{-1}(1)}{2} \\
-\nabla^2 f = -sin(x) - cos(x) \implies \nabla^2 f(\frac{sin^{-1}(1)}{2}) = - \sqrt{1 + sin(2 x)} = - \sqrt{2}
+\nabla^2 f = -sin(x) - cos(x) = - \sqrt{1 + sin(2 x)} \quad (\text{since } (sin(x) + cos(x))^2 = sin(x)^2 + cos(x)^2 + 2 sin(x) cos(x) = 1 + sin(2 x)) \\
+\implies \nabla^2 f(\frac{sin^{-1}(1)}{2}) = - \sqrt{1 + sin(2 x)} = - \sqrt{2}
 $$
-So one extrema exists: $\frac{sin^{-1}(1)}{2}$ (maxima since $\nabla^2 f > 0$).
+So one extrema exists: $\frac{sin^{-1}(1)}{2}$ (minima since $\nabla^2 f < 0$).
 
 3. $f(x) = x - x^{-1}, \quad \nabla f = 1 + x^{-2} = 0$ : No real solutions exist for $x$ so no stationary points / extrema exist.
 
@@ -174,8 +175,8 @@ Determine the stationary points and classify their nature for the function $f(x,
 $$
 \nabla f   = \begin{pmatrix} 4 x^3 - 36 y \\ 4 y^3 - 36 x \end{pmatrix} = 0 \implies 4 x^3 = 30 y, 4 y^3 = 30 x \implies (x,y) = (0,0), (3,3), (-3,-3) \\
 \nabla^2 f = \begin{pmatrix} 12 x^2 & -36 \\ -36 & 12 y^2 \end{pmatrix} \\
-\nabla^2 f(0,0) = \begin{pmatrix} 0 & -36 \\ -36 & 0 \end{pmatrix} \implies det(\nabla^2 f(0,0)) = -  36^2 < 0 \implies \text{Saddle Point}
-\nabla^2 f(\pm 3, \pm 3) = \begin{pmatrix} 108 & -36 \\ -36 & 108 \end{pmatrix} \implies det(\nabla^2 f(\pm 3, \pm 3)) = 108^2 - 36^2 > 0, f_{xx} = 108 > 0 \implies \text{Saddle Point}
+\nabla^2 f(0,0) = \begin{pmatrix} 0 & -36 \\ -36 & 0 \end{pmatrix} \implies det(\nabla^2 f(0,0)) = -  36^2 < 0 \implies \text{Saddle Point} \\
+\nabla^2 f(\pm 3, \pm 3) = \begin{pmatrix} 108 & -36 \\ -36 & 108 \end{pmatrix} \implies det(\nabla^2 f(\pm 3, \pm 3)) = 108^2 - 36^2 > 0, \quad f_{xx} = 108 > 0 \implies \text{Saddle Point}
 $$
 
 So stationary points are (0,0) (saddle point) and (3,3), (-3,-3) (both local minima).
@@ -250,7 +251,7 @@ $(x_1, x_2)$ lies on a circle of radius 1 around origin. Let $\theta$ be angle o
 
 $$
 f(\theta) = cos(\theta) + sin(\theta) \\
-\nabla_\theta f = - sin(\theta) + cos(\theta) = 0 \implies \theta = \frac{pi}{4} \\
+\nabla_\theta f = - sin(\theta) + cos(\theta) = 0 \implies \theta = \frac{\pi}{4} \\
 \nabla^2_\theta f = - cos(\theta) - sin(\theta) = -\frac{1}{\sqrt{2}} - \frac{1}{\sqrt{2}} = -\sqrt{2} < 0 \quad (\text{maxima})
 $$
 
@@ -333,15 +334,22 @@ plt.show()
 
 3. $\min f(x) = (x_1 - 1)^2 + x_2^2, \quad \text{subject to} \quad x_1 - x_2^2 \le 0$
 
-In terms of $x_2$:
+First solving without constraint:
 
 $$
-f(x_2) = x_1^2 - 2 x_1 + 1 + x_2^2 = x_2^4 - 2 x_2^2 + 1 + x_2^2 = x_2^4 - x_2^2 + 1 \\
-f'(x_2) = 4 x_2^3 - 2 x_2 = 0 \implies x_2 = 0, \frac{1}{\sqrt{2}} \\
-f''(x_2) = 12 x_2^2 - 2 \implies f''(0) = -2 < 0, f''(\frac{1}{\sqrt{2}}) = 4 > 0
+\nabla f = \begin{pmatrix} 2 x_1 - 2 \\ 2 x_2 \end{pmatrix} = 0 \implies (x_1, x_2) = (1, 0) \\
+\nabla^2 f = \begin{pmatrix} 2 & 0 \\ 0 & 2 \end{pmatrix} > 0 \implies \text{minima}
 $$
 
-So minima is at $(x_1,x_2) = (\frac{1}{2},\frac{1}{\sqrt{2}})$ and minimum value is $(\frac{1}{2} - 1)^2 + \frac{1}{\sqrt{2}}^2 = \frac{3}{4}$.
+Since $1 - 0^2 = 1$, constraint isn't satisfied, so now we look for solution on the boundary $x_1 - x_2^2 = 0$.
+
+$$
+f(x_1) = (x_1 - 1)^2 + x_1 \\
+\frac{d f(x_1)}{d x_1} = 2 x_1 - 1 = 0 \implies x_1 = \frac{1}{2} \\
+\frac{d^2 f(x_1)}{d^2 x_1} = 2 > 0 \implies \text{Minima}
+$$
+
+So minima is at $(x_1, x_2) = (\frac{1}{2}, \frac{1}{\sqrt{2}})$
 
 Plotting feasible region:
 
