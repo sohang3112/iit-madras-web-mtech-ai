@@ -41,12 +41,10 @@
 
 Quiz 1 Topics:
 
-- [ ] MLE
-- [ ] MOM
-- [ ] PCA
-- [ ] Covariance
-- [ ] Dimensionality reduction 
-- [ ] K-means clustering
-- [ ] DBSCAN
-- [ ] Agglomerative 
-- [ ] Hierarchical
+- [x] MLE
+- [x] MOM
+- [x] PCA Dimensionality Reduction
+- [x] Covariance
+- [x] K-means clustering
+- [x] DBSCAN
+- [x] Heirachical: Agglomerative

@@ -46,6 +46,11 @@ One nice property of norms as loss for optimization is that they are convex, so 
 
 **Loss functions measure some kind of distance.**
 
+Loss                       | Application           | $L(y, \hat{y})$                           | $\frac{\partial L}{\partial \hat{y}}$
+-------------------------- | --------------------- | ----------------------------------------- | -----------------------------------------
+Binary Cross Entropy (BCE) | Binary Classification | $- y ln(\hat{y}) - (1-y) ln(1 - \hat{y})$ | $- y / \hat{y} + (1-y) / (1-\hat{y})$
+Mean Squared Error (MSE)   | Regression            | $\frac{1}{2} (\hat{y} - y)^2$             | $\hat{y} - y$
+
 #### Linear Hyper-plane
 
 It's an $n-1$ dimensional subspace of $\mathbf{R}^n$.

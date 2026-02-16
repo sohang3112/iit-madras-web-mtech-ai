@@ -268,7 +268,7 @@ So maxima is $x = v_1$ - eigen vector of largest eigen value.
 
 Data Matrix $X$ is $n \times p$ where $n$ is no. of samples, $p$ is no. of dimensions; rows are sample vectors $x_i^T$.
 
-Centered Matrix $X_c = H x$:
+Centered Matrix $X_c = H x$ (subtract mean of each feature column from the column so feature mean becomes 0):
 * $H = I_n - \frac{1}{n} 1_n 1_n^T$ where $1_n 1_n^T$ outer product $n \times n$ matrix is all 1s.
 * Each column of $H x$ sums to 0 - i.e. mean of all samples is 0: $\hat{x}^T = \frac{1}{n} (\hat{x_1}^T + \hat{x_2}^T + ... + \hat{x_n}^T) = 0_{1 \times p}$
 * For any vector $u$, projection $y = X_c u$ (ie dot product with all centered sample vectors) has mean 0: $\bar{y} = \bar{\hat{x}^T u} = \bar{\hat{x^T}} u = 0$
@@ -297,7 +297,7 @@ Maximizing $u^T S u$ essentially means maximizing direction $u$ of most variance
 
 **Scores Matrix**: $T = X_c U$
 
-## WIP Lecture 5 & 6 - Clustering (Unsupervised Learning) Analysis
+## Lecture 5 & 6 - Clustering (Unsupervised Learning) Analysis
 
 Clustering maximizes *Intra-Cluster* (similarity within a cluster), minimizes *Intra-Cluster* (similarity between clusters). Similarity is basically low variance.
 
@@ -315,8 +315,8 @@ For large dimensional data, PCA can be done to reduce dimensionality before Clus
 
 **Clustering Methods**:
 - *Partitional* searches among different partitions of data: **K-Means**, K-Medoids, PAM (partition around medoids), CLARANS (Clustering Large Applications via RANdom Search)
-- *Heirachical*: AGNES, DIANA, BIRCH
-- *Density-based* use connectability & reachability: **DBSCAN** (Density-Based Spatial Clustering of Applications with Noise), OPTICS, DENQUE, CLIQUE
+- *Heirachical*: **AGNES** (AGGlomerative NESting heirachical clustering algorithm), **DIANA** (DIvisive ANalysis clustering Algorithm), BIRCH
+- *Density-based* use connectability & reachability: **DBSCAN** (Density-Based Spatial Clustering of Applications with Noise), OPTICS (Ordering Points To Identify Clustering Structure), DENQUE, CLIQUE
 - *Graph-based* use graph theory concepts, Spectral clustering
 - *Grid-based*
 - *Model-based*
@@ -363,12 +363,12 @@ Try various K, plot K vs Distortion error. Choose in plot where there's a "knee"
 
 Dendograms = tree of clusters: root has all data, leaves are individual data points
 
-* MOST POPULAR: Agglomerative: Start with clusters = individual data points, repeatedly merge clusters based on criterion
+* MOST POPULAR: Agglomerative (aka AGNES): Start with clusters = individual data points, repeatedly merge clusters based on criterion
   * No. of clusters not specified so some stopping criterion required
   * Computationally expensive so Scale via Sampling, Clustering features
-* Divisive: Start with 1 cluster = all data, repeatedly divide based on criterion.
+* Divisive (aka DIANA): Start with 1 cluster = all data, repeatedly divide based on criterion.
 
-#### Agglomerative Clustering
+#### Agglomerative Clustering (aka AGNES)
 
 **Inter-Cluster Distance Linkage methods**:
 * Single link: shortest distance bw elem 1 from cluster 1, elem 2 from cluster 2

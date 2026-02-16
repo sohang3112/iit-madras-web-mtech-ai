@@ -502,7 +502,11 @@ and training settings:
 
 ### Solution 10
 
-TODO: theory
+1. All weights and biases having same value means they will also recieve same gradient update values. 
+   So each layer effectively has 1 neuron only. System is unable to learn meaningfully.
+2. Xavier initialization $W \sim \mathcal{N}(0, 2 / (n_{in} + n_{out}))$ is best for layers with sigmoid activation. 
+   Symmetry is broken as weights are initialized randomly. System learns meaningfully.
+3. System learns, but suffers from Vanishing Gradients problem as gradients of sigmoid tend to saturate around 0 or 1 (because weights aren't divided by layer size as in Xavier).
 
 
 ## Problem 11
@@ -565,6 +569,18 @@ networks.
 
 ### Solution 12
 
-TODO: theory
+Graph intermediate computations are $z_1 = x + y, z = z_1 y$.
+
+For $x=2, y=3, z_1=5, z=15$.
+
+Gradient calculation:
+
+* Wrt x, there's only one path to z: $x -> z_1 -> z$, so gradient is $\frac{\partial z}{\partial x} = \frac{\partial z}{\partial z_1} \frac{\partial z_1}{\partial x} = y * 1 = y = 3$
+* Wrt y, there are 2 paths to z:
+  * $y -> z_1 -> z$: $\frac{\partial (z_1 y)}{\partial z_1} \frac{\partial (x + y)}{\partial y} = y * 1 = y$
+  * $y -> z$ direct: $\frac{\partial (z_1 y)}{\partial y} = z_1 = x + y$
+  * Total gradient is sum $y + x + y = x + 2 y = 2 + 2 * 3 = 8$
+
+Computational graphs are useful as they allow **automatic differentiation** during backpropogation of arbitarily deep neural networks via small calculations at each layer.
 
 
