@@ -458,6 +458,24 @@ Assumptions on Random Error $\epsilon$ for Unbiased best-fit model:
 
 Another assumption of OLS (Ordinary Least Squares) is that no 2 input variables should be *Multi-Collinear* (ie inputs themselves are correlated).
 
+Bayesian Linear Regression (it gives same output as Ridge Regression, but in addition also gives variance in output), Bayesian Neural Network [only Ridge Regression is in course, will be covered]
+
+### Total Least Squares (TLS)
+
+It's less used instead of Ordinary Least Squares, when we know there's noise in both x and y.
+
+TODO
+
+### Polynomial Regression
+
+Mk $x$, $x^2$, $x^3$... as features and then do OLS linear regression. It's biased as features are correlated.
+
+### Log Regression
+
+Apply log transformation to one or both of x, y before regression.
+
+One scenario is when we're more interested in percent change rather than absolute difference: $d(ln y) = dy / y \approx (y_2 - y_1) / y_1$ 
+
 ## Misc
 
 ### Calculus

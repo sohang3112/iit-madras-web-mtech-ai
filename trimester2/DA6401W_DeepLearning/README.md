@@ -11,7 +11,7 @@ All of Deep Learning, especially supervised learning, is basically curve fitting
 
 While creating a new architecture, activation etc. we have to make sure everything is differentiable, otherwise Deep Learning optimization will not work.
 
-## Linear Algebra & Probability Revise (lecture 1 slides have material of lecture 2, 3, 4 as well)
+## Linear Algebra & Probability Revise (lecture 1 slides have material of remaining lectures as well)
 
 ### Linear Algebra Revision
 
@@ -435,7 +435,7 @@ NOTES:
 * In each both uniform and normal distributions with specific values can be used. What are listed here are best.
 * $n_{l-1}, n_l, n_{l+1}$ are no. of neurons in previous (i.e. no. of inputs), current and next (i.e. no. of outputs) layers repsectively.
 
-## WIP Forward pass, Back propogation, Autograd (Lecture 7) (slides not uploaded yet)
+### WIP Forward pass, Back propogation, Autograd, Adam Learning Rate Scheduler etc.
 
 Autograd:
 * automatically (dynamically) create model layers graph from function (pytorch looks at it line by line AT TRAIN & INFERENCE TIME -- NOT before hand from function AST)
@@ -472,6 +472,8 @@ TODO
 **Universal Approximation Theorem** states that a feed-forward neural network having at least one hidden layer with non-linear activation can approximate any continous real function.
 
 ## Misc Resources
+
+- [Training on MNIST using only Numpy](https://python-course.eu/machine-learning/training-and-testing-with-mnist.php)
 
 [Backprop Problems by Andrew Karpathy](https://karpathy.medium.com/yes-you-should-understand-backprop-e2f06eab496b):
 * **Vanishing Gradients** in `sigmoid`, `tanh` (esp if used in hidden layer), activation derivative small so overall gradient flow small => hardly any learning in earlier layers.
