@@ -13,19 +13,26 @@
 ## Probability
 
 * $Posterior \propto Likelihood \times Prior$
-* **Multi-Variate Gaussian**: $\mathbf{x} \sim \mathcal{N}(\mu, \Sigma) = \frac{1}{\sqrt{(2 \pi)^n det(\Sigma)}} e^{-(x - \mu)^T D^{-1} (x - \mu)}$
+* **Multi-Variate Gaussian**: a vector of normally distributed variables, such that any linear combination of them is also normal. Used in ML for eg. in detecting faces, where features are correlated.
+$$\mathbf{x} \sim \mathcal{N}(\mu, \Sigma) = \frac{1}{\sqrt{(2 \pi)^n det(\Sigma)}} e^{-(x - \mu)^T \Sigma^{-1} (x - \mu)}$$
   * $x = [X_1, X_2, \cdots, X_n]$ has $n$ random variables that are also *jointly Gaussian*.
   * $\mu = E[x]$ is the mean vector, $\Sigma = E[(x - \mu) (x - \mu)^T]$ is Positive Semi Definite covariance matrix
-  * If $z = \Sigma^{-1/2} x$: elements of $z$ are independent Gaussian Random Variables.
-  * *Precision* $\beta = Sigma^{-1}$
+  * If $z = \Sigma^{-1/2} x$: elements of $z$ are independent Gaussian Random Variables (which are converted to Multi-Variate Normal).
+  * *Precision* $\beta = \Sigma^{-1}$
+  * (additional, NOT in slides) *Extended Central Limit Theorem*: N i.i.d. random variables with commmon mean vector $\mu$, PSD covariance matrix $\Sigma$. 
+    Then $Y_n = \frac{1}{\sqrt{n}} \sum_{i=1}^n (x_i - \mu)$ converges to $Y_n \sim \mathcal{N}(0, \Sigma)$
+
+TODO: examples solved questions of multi-variate gaussian
   
 Entropy:
 * **Maximum Entropy Distributions**: Uniform for Discrete random variables, Normal for Continous
-* Entropy $H(P) = E_P(- ln(P)) = \sum_i - p_i ln(p_i) \ge 0$
-* Relative Entropy (KL Divergence) $D(P \parallel Q) = E_P(ln(P/Q)) = \sum_i p_i ln(p_i / q_i) \ge 0$
-* Cross Entropy $H(P; Q) = D(P \parallel Q) + H(P) = E_P(- ln Q) = \sum_i - p_i ln(q_i) \ge 0$
+* Entropy $H(P) = E_P(- ln(P)) = \sum_i - p_i ln(p_i) \in [0, \ln(n)]$
+* Relative Entropy (KL Divergence) $D(P \parallel Q) = E_P(ln(P/Q)) = \sum_i p_i ln(p_i / q_i) \in [0, \infty]$
+* Cross Entropy $H(P; Q) = D(P \parallel Q) + H(P) = E_P(- ln Q) = \sum_i - p_i ln(q_i) \in [0, \infty]$
 
-Classical (no prior) has poor performance if data isn't Uniform; Bayes has poor peformance if data doesn't fit prior assumption.
+Classical vs Bayes:
+* Classical (no prior) assumes fixed unknown param and has poor performance if data isn't Uniform; Bayes treats params as a random variable and has poor peformance if data doesn't fit prior assumption.
+* Classical estimation: MLE (Maximum Likelihood), Bayes: MAP (Maxima a Priori)
 
 Taylor Series:
 $$f(x) = f(a) + (x-a)^T \nabla f(a) + \frac{1}{2!} (x-a)^T \nabla^2 f(a) (x-a) + \cdots$$
@@ -35,19 +42,19 @@ $$f(x) = f(a) + (x-a)^T \nabla f(a) + \frac{1}{2!} (x-a)^T \nabla^2 f(a) (x-a) +
 Training $\theta = \argmin Loss(f(x,\theta); label(x))$
 
 Losses:
-* L0 Norm $\|y - y_true\|_0$ (sparsity-promoting): 0-1 loss: proportion of number of zeros in error (difference between predicted and true output)
-* L1 Norm $\|y - y_true\|_1$ : absolute error
-* Squared L2 Norm (Euclidean) $\|y - y_true\|^2$
+* L0 Norm $\|y - y_{true}\|_0$ (sparsity-promoting): 0-1 loss: proportion of number of zeros in error (difference between predicted and true output)
+* L1 Norm $\|y - y_{true}\|_1$ : absolute error
+* Squared L2 Norm (Euclidean) $\|y - y_{true}\|^2$
 * Mixed Norm: linear combination of $p \ge 1$ norms
 * Cross Entropy, F1-Score, etc.
 
 Regression: $y = x^T W + \epsilon$
 
 Classification Posterior Probabilities:
-* Binary (sigmoid): $P(y=1 | x) = \frac{1}{1 + e^{-a}}$ where logits $a = \ln(\frac{P(x | y=1) P(y=1)}{P(x | y=0) P(y=0)})$
-* Multi-class (softmax): $P(y=C_k | x) = \frac{e^{a_k}}{\sum_j e^{a_j}}$ where logits $a_j = \ln(P(x | y=C_k) P(y=C_k))$
+* Binary (sigmoid): $P(y=1 | x) = \frac{1}{1 + e^{-a}}$ where logits (log likelihood) $a = \ln(\frac{P(x | y=1) P(y=1)}{P(x | y=0) P(y=0)})$
+* Multi-class (softmax): $P(y=C_k | x) = \frac{e^{a_k}}{\sum_j e^{a_j}}$ where logits (log likelihood) $a_j = \ln(P(x | y=C_k) P(y=C_k))$
 
-TODO: SKIPPED complicated formulae of slide 35 "Inference on Gaussian Data": Binary Classification, Multi-class Classification, Ridge Regression
+TODO: SKIPPED complicated formulae of slide 35 "Inference on Gaussian Data": Binary Classification, Multi-class Classification, Ridge Regression [these seem to be MAP (Maximum a Posteriori) bayesian estimation where prior probability is assumed to be Multi-Variate Gaussian]
 
 Classifying Linearly Seperable Data (distance from hyper-plane): $z = x^T w + w_0$, followed by activation to get probability:
 * Binary $Sigmoid(z)$: Bernoulli output (0 or 1)   [on the plane probability: $\sigma(0) = 1/2$]
@@ -83,7 +90,7 @@ Training:
   * Mini-Batch SGD - at each step, find gradient and update for one mini-batch of samples
   * Stochastic Average Gradient (SAG) - biased: also stores some previous iteration gradients and averages gradients to move weights in direction. Reduces variance (zig-zag) compared to SGD.
   * Stochastic Average Gradient Ameliore (SAGA) - unbiased: makes SAG unbiased by incorporating difference between current and previous gradients
-* Backpropogation (gradients calculation and update):
+* Backpropogation (gradients calculation and update) [NOTE: feed-forward of each layer is $activation(W X)$]:
   * Start with $dX = \nabla_{output} Loss$
   * For each layer $i$ (starting from last/output layer):
     * $dX = \nabla_z activation_i W_i^T * dX$

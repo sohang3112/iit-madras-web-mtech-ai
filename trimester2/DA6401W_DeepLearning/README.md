@@ -221,9 +221,7 @@ TODO: Polynomial Regression uses Taylor's Expansion
 
 TODO: Multi-Class Regression
 
-TODO: Ridge Regression
-
-TODO
+TODO: Ridge Regression (MAP (Maximum a Posteriori) method where data is assumed to be Normal)
 
 
 #### Training & Generalization (Test) errors - Underfitting and Overfitting
@@ -473,6 +471,7 @@ TODO
 
 ## Misc Resources
 
+- [PyTorch Intro Tutorial](https://docs.pytorch.org/tutorials/beginner/basics/intro.html)
 - [Training on MNIST using only Numpy](https://python-course.eu/machine-learning/training-and-testing-with-mnist.php)
 
 [Backprop Problems by Andrew Karpathy](https://karpathy.medium.com/yes-you-should-understand-backprop-e2f06eab496b):
