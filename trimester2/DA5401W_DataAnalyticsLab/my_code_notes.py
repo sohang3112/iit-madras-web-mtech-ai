@@ -1,4 +1,4 @@
-# Industrial AI Week 1 - basic python, numpy, pandas, seaborn, scipy
+#region Industrial AI Week 1 - basic python, numpy, pandas, seaborn, scipy
 import numpy as np
 import seaborn as sns
 iris = sns.load_dataset('iris')    # pandas df
@@ -20,7 +20,9 @@ print(f(4.5))
 stats.norm.pdf(0)     # probability at x=0
 # TODO: scipy.optimize (last cell of Industrial AI Week 1 notebook)
 
-# Pandas 1 & 2
+#endregion
+
+#region Pandas 1 & 2
 import pandas as pd
 s = pd.Series([1,2,3,4], index=['a','b','c','d'])    # series with explicit index
 print(s.index)
@@ -46,3 +48,33 @@ temperatures = pd.Series([37,38,32,34,39,31], index=dates)
 # col = df.pop('column')
 
 # df1.join(df2)       # left join on index by default; args on='column', how='inner'
+
+#endregion
+
+#region Bootstrap_and_Method_of_Moments
+# all random distributions have size argument (how many data points to generate)
+lambda_true = 2
+np.random.exponential(scale=1 / lambda_true, size=10)   # scale is mean; in exponential dist, mean = 1 / lambda
+
+# Bootstrap (Standard Error, Confidence Interval) vs Method of Moments
+
+# Bootstrap: mk many samples of distribution (with replacement):
+sample = np.random.choice(population, size=n, replace=True)
+# since no. of samples is large, estimate (of Bootstrap) follows normal distribution around true value of population
+
+# Method of Moments: draw many independent samples (init with np.random.exponential())
+# apply MoM to each sample to get lambda, then get probability using formula
+# plot sample vs probab, sample vs lambda
+# true & MoM: y = lambda * np.exp(-lambda * x)   # exponential distribution probab formula
+
+from matplotlib import pyplot as plt
+plt.axhline(y)   # horizontal line at level y
+plt.fill_between(x, y1, y2)   # shade area (eg. feasible region in optimization)
+plt.plot(x, y, 'r-')   # r- -> r is red, - is dashed; g- -> green dashed line, etc.
+
+np.percentile(sample, [2.5, 97.5])     # one or more percentile values from sample, so this gives 95% CI range
+#endregion
+
+#region Probability_Statistics
+
+#endregion

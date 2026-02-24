@@ -10,3 +10,18 @@ Libraries:
 * Scipy
 * Scikit-learn
 * Seaborn
+
+## Notebooks
+
+- [x] Pandas 1 & 2 
+- [ ] ALMOST DONE: Industrial AI Week 1
+- [x] Bootstrap & MoM
+- [ ] Probability Statistics
+- [ ] Optimization Methods
+- [ ] Optimization_PCA
+- [ ] PCA Detailed Tutorial
+- [ ] Clustering
+
+## Problems
+
+- [x] *Part 4: Practice Exercises* cell in *Bootstrap_and_Method_of_Moments.ipynb*
