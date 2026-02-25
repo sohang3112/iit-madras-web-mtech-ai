@@ -425,7 +425,7 @@ No Information:
   * $Silhoutte = \frac{b(x_j) - a(x_j)}{max(a(x_j), b(x_j))}$: if -1 point should be assigned to neighbouring cluster instead, 1 means correct assign
   * Silhoutte Score = mean of silhouttes for all point -- closer to 1 is better
 
-## WIP Lecture - Regression by Prof Jayadev
+## WIP Lectures - Regression Part 1 by Prof Jayadev
 
 We find relationship between independent and dependent variables.
 
@@ -475,6 +475,41 @@ Mk $x$, $x^2$, $x^3$... as features and then do OLS linear regression. It's bias
 Apply log transformation to one or both of x, y before regression.
 
 One scenario is when we're more interested in percent change rather than absolute difference: $d(ln y) = dy / y \approx (y_2 - y_1) / y_1$ 
+
+### Multi-Variate Linear Regression
+
+When you have multiple outputs that are strongly correlated with each other.
+
+TODO
+
+## WIP Regression Part 2 (using gradient descent) - slides not yet uploaded
+
+In OLS ordinary least squares you have to compute $(X^T X)^{-1}$ -- this is very expensive / impossible when X data is very large, or data is streaming in batches.
+Then we use gradient descent
+
+Loss for simple linear regression: $\frac{1}{2 N} \sum_{i=1}^N (y_i - x_i^T w)^2$ - it's quadratic (convex), good loss candidate for gradient descent
+
+Gradient Descent of Linear Regression (doing it in mini-batches usually for large data):
+
+$$
+w_{k+1} = w_k - \eta \nabla L(w_k) \\
+\nabla L(w) = -\frac{1}{N} X^T (y - X w) \quad (\text{loss gradient for linear regression}) \\
+w_{k+1} = w_k + \frac{1}{N} X^T (y - X w) \quad (\text{gradient descent for linear regression})
+$$
+
+Feature Scaling should be done ideally by normalizing: $(x - \mu) / \sigma$
+
+TODO
+
+## WIP lecture
+
+TODO: supervised learning workflow
+
+High bias in predictions if model consistently gives too high or too low answer for data.
+
+Balanced model when test error/loss is close to training error.
+
+TODO: Generalized Linear Model
 
 ## Misc
 

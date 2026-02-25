@@ -76,5 +76,54 @@ np.percentile(sample, [2.5, 97.5])     # one or more percentile values from samp
 #endregion
 
 #region Probability_Statistics
+plt.imshow(grid)   # grid is a 2D numpy array of 0-1 (float) or 0-255 (int); (M,N) grayscale or (M,N,3) color image shape
+plt.xticks(range(6)); plt.xticklabels(range(1,7))   # xticks sets X marker points left to right, xticklabels sets actual labels at these; similarly yticks(), yticklabels() top to bottom
+
+# Bayes: Posterior P(y | x) = (Likelihood P(x | y) * Prior P(y)) / Marginal Probability P(x)
+# Sensitivity = P(Test+ | Disease)  [ True Positive rate ]
+# Specificity = P(Test- | No Disease)  [ True Negative rate ]
+
+# Central measure: Mode for categorical data, Median for skewed, Mean for symmetrical data
+
+plt.boxplot([array1, array2, ...])   # arrays whose box plots to plot (one box for each)
+
+# Hypothesis Tests:
+from scipy.stats import binomtest, ttest_1samp, ttest_ind
+binomtest(n_heads, n_total, p_null_hypothesis, alternative='two-sided').pvalue    # 0.05 p_null_hypothesis is usually used
+t_statistic, p_value = ttest_1samp(sample_array, population_mean)
+t_statistic, p_value = ttest_ind(sample1, sample2)    # 2-sample T Test
+#endregion
+
+#region Optimizaton_Methods
+x = np.linspace(-2, 2, 200)
+y = np.linspace(-2, 2, 200)
+X, Y = np.meshgrid(x, y)    # mesh req before contour
+# Z = a * X**2 + (b + c) * X * Y + d * Y**2
+# this is equivalent to matrix form x^T Q x
+Q = np.array([[a,b], [c,d]])
+quadratic = lambda x: x @ Q @ x    # x @ Q - x broadcast to (1,n) [1 dimension prepended], then back to 1D (n,) after multiply; Q @ x - 1 dimension appended and removed
+# quadratic = lambda x: np.dot(np.dot(x,Q), x)         # equivalent
+Z = np.zeros_like(X)
+for i in range(X.shape[0]):
+    for j in range(X.shape[1]):
+        Z[i,j] = quadratic(np.array([ X[i,j], Y[i,j] ]))
+
+# Both show 3D in 2D plot
+plt.contour(X, Y, Z, levels=20)      # shows 2D cutoff of 3D plot at different z (as many as specified levels)
+
+fig, axes = plt.subplots(nrows=1, ncols=1)
+axes[0,0].plot_surface(X, Y, Z)    # show whole surface; .plot_surface() method only there on axis, not available directly in plt
+
+import scipy
+result = scipy.optimize.minimize_scalar(lambda x: y(x), bounds=(0,5000), method='bounded')
+print(f'Optimal point: (x={result.x}, y={result.fun})')
+
+ax1.grid(True, alpha=0.3)   # TODO
+ax1.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, p: f'{x/1e6:.1f}M'))   # TODO
+
+# TODO: go through rem cells from Unconstrained Optimization
+#endregion
+
+#region Optimization_PCA
 
 #endregion

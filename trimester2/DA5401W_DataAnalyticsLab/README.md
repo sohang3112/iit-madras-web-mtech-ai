@@ -16,8 +16,8 @@ Libraries:
 - [x] Pandas 1 & 2 
 - [ ] ALMOST DONE: Industrial AI Week 1
 - [x] Bootstrap & MoM
-- [ ] Probability Statistics
-- [ ] Optimization Methods
+- [x] Probability Statistics
+- [ ] WIP Optimization Methods
 - [ ] Optimization_PCA
 - [ ] PCA Detailed Tutorial
 - [ ] Clustering
