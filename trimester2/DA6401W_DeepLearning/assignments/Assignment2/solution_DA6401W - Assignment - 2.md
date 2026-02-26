@@ -1,3 +1,12 @@
+---
+Author: 
+CreationDate: 
+ChangeDate: 
+CurrentDate: 
+---
+
+<!-- set all attributes used by VS Code Markdown Converter extension to blank above, so that it doesn't come in generated PDF -->
+
 # DA6401W - Assignment 2
 
 Author: Sohang Chopra &lt;DA25M622&gt;
@@ -79,13 +88,18 @@ Compare the two models and discuss the effect of depth in terms of:
 
 ### Solution 1
 
-Full data plot:
+Code is in attached .ipynb notebook.
 
-![Scatter Plot](images/Q1a_plot.png)
+As shown in plot, simple linear classifier cannot directly solve this problem as data is not linearly seperable.
 
-A simple linear classifier cannot directly solve this problem as data is not linearly seperable.
+Both models have same accuracy and confusion matrix on test set, but their train loss curves differ.
 
-TODO: code (WIP solution in assignment2.ipynb)
+Both have accuracy 61% and confusion matrix on test set:
+
+_               | Negative (Predicted) | Positive (Predicted)
+--------------- | -------------------- | ---------------------
+Negative (True) | 0                    | 78 
+Positive (True) | 0                    | 122
 
 
 ## Problem 2: Backpropagation in a Feedforward Neural Network
@@ -194,18 +208,7 @@ $$
 
 Loss increased a lot, indicating learning rate was too large and skipped over the global minima.
 
-4. Plotting loss function:
-
-```python
-import numpy as np
-from matplotlib import pyplot as plt
-w = np.linspace(-3, 3)
-L = w**4 - 10* w**2 + 5*w + 40
-plt.plot(w, L)
-plt.show()
-```
-
-![Loss function plot](images/Q3.4_plot.png)
+1. Plotting loss function is done in .ipynb notebook.
 
 
 ## Problem 4: Code the Activation Functions
@@ -221,46 +224,7 @@ functions:
 
 ### Solution 4
 
-```python
-import numpy as np
-from matplotlib import pyplot as plt
-
-class Activation:
-    sigmoid = {
-        'activation': lambda z: 1 / (1 + np.exp(-z)),
-        'gradient': lambda ypred: ypred * (1 - ypred)
-    }
-    tanh = {
-        'activation': lambda z: (1 - np.exp(-2*z)) / (1 + np.exp(-2*z)),
-        'gradient': lambda ypred: 1 - y**2
-    }
-    relu = {
-        'activation': lambda z: np.where(z > 0, z, 0),
-        'gradient': lambda ypred: np.where(ypred > 0, ypred, 0)
-    }
-    leaky_relu = {
-        'activation': lambda z: np.where(z > 0, z, 0.01),
-        'gradient': lambda ypred: np.where(ypred > 0, ypred, 0.01)
-    }
-
-z = np.linspace(-10, 10)
-activations = [['sigmoid', 'tanh'], ['relu', 'leaky_relu']]
-fig, axes = plt.subplots(nrows=2, ncols=2)
-for i, row in enumerate(activations):
-    for j, name in enumerate(row):
-        activation = getattr(Activation, name)
-        y = activation['activation'](z)
-        grad = activation['gradient'](y)
-        ax = axes[i][j]
-        ax.plot(z, y, label='Activation')
-        ax.plot(z, grad, label='Gradient')
-        ax.set_title(name)
-        ax.legend()
-fig.tight_layout()
-```
-
-![Activations & Gradients plots](images/Q4_plots.png)
-
+Code and plots are in attached .ipynb notebook.
 
 ## Problem 5: Numerical: Forward Pass in a Multilayer Perceptron
 
@@ -368,7 +332,15 @@ the correctness of your implementation.
 
 ### Solution 7
 
-TODO: code
+Code is in attached .ipynb notebook.
+
+Gradients comparision:
+
+Parameter  | Backpropogation  | Finite Difference    | Rel. Error  
+---------- | ---------------- | -------------------- | ------------
+W1         |   0.25456112 |   0.25456112 |     1.59e-11
+W2         |  -7.58879628 |  -7.58879628 |     4.57e-12
+b1         |  -2.13645972 |  -2.13645972 |     1.17e-11
 
 
 ## Problem 8: Programming
@@ -427,18 +399,15 @@ $$y = \sum_{k=0}^d w_k x^k$$
 Repeat the above experiments using different random samples from the same datagenerating process. 
 Compare training and test performance across models and comment on generalization.
 
-### Solution 8.1
+### Solution 8
 
-TODO: code
+Code & plots are in attached .ipynb notebook.
 
-### Solution 8.2
+From the plots of different cases:
 
-TODO: code
-
-### Solution 8.3
-
-TODO: code
-
+* Linear case (degree 1) does not fit training data well which is non-linear. It high bias and low variance.
+* As polynomial degree d increases, model gets more complex and fits training data better. So bias decreases and variance increases.
+* As degree d increases, test error MSE decreases to lowest 0.0150 at degree 5, after which it increases again.
 
 ## Problem 9
 
@@ -537,7 +506,20 @@ unless stated otherwise.
 
 ### Solution 11
 
-TODO: code
+Code & plots are in attached .ipynb notebook.
+
+1. Dying ReLU behaviour:
+   
+Case 1 and Case 3 (Bias = -5.0): These exhibit the most severe dying ReLU behavior. By initializing the bias to a large negative number, the pre-activation $z=Wx+b$ becomes negative for all inputs. Since ReLU(z)=0 for $z \le 0$, the neurons output zero immediately.
+
+Case 2 (High LR, Bias = 0): While it starts at 0, you may observe neurons dying during training. A large learning rate can cause a weight update so aggressive that the neuron's weights shift into a range where it never activates again for any data point in the set.
+
+2. 
+The gradient of the ReLU function is 1 if input $z$ is more than 0, else 0.
+ 
+When a neuron is "dead," it means $z \le 0$ for all inputs in your dataset. During backpropagation, the gradient is multiplied by the derivative of the activation function. Because the derivative is 0 for all $z \le 0$, the gradient becomes 0.
+
+Consequently, the weight update $w_{change} = - \eta \nabla L$ becomes zero. If the weights cannot update, the neuron stays in the negative territory forever, effectively becoming a permanent "zero" node in the network.
 
 
 ## Problem 12: Basics of Computational Graphs

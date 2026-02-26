@@ -509,7 +509,24 @@ High bias in predictions if model consistently gives too high or too low answer 
 
 Balanced model when test error/loss is close to training error.
 
-TODO: Generalized Linear Model
+### Generalized Linear Regression Model
+
+$$\min_w (y - X^* w)^T (y - X^* w) + \lambda \Omega (w)$$
+
+where $\lambda \ge 0$ is regularization hyperparam, $\Omega (w)$ is regularization penalty (balances against training loss - high for complex models, low for simple models)
+
+1. Ridge Regression (L2 Regression) - use L2 norm of weights
+
+$$
+min_w (y - X^* w)^T (y - X^* w) + \lambda \|w\|^2 \\
+w_{ridge} = (X^T X^* + \lambda I)^{-1} X^T y
+$$
+
+2. Lasso Regression (L1 Regression): when we are more interested in selecting features / eliminating unnecessary features
+
+$$min_w (y - X^* w)^T (y - X^* w) + \lambda \|w\|$$
+
+Solution has to be found iteratively, no equation as L1 norm is not differentiable (CHECK?)
 
 ## Misc
 
