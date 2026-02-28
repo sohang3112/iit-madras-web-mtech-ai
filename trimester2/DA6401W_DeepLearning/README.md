@@ -469,6 +469,46 @@ TODO
 
 **Universal Approximation Theorem** states that a feed-forward neural network having at least one hidden layer with non-linear activation can approximate any continous real function.
 
+## WIP lecture (slides not shared)
+
+**Conjugate gradient descent**: changes gradient computations instead of changing LR -- unlike standard gradient descent, it chooses direction based on curvature of loss surface & previous directions.
+* At step n, if $d_n$ is the direction along which we are descending:
+  * Avoid $d_n^T d_{n-1} = 0$ (orthogonal consecutive gradients) by setting $d_n = g_n + \beta d_{n-1}$ -- constraint, find $\beta$
+  * Such that they are *conjugate directions*: $d_n^T H d_{n-1} = 0$
+    * where $g_n$ is gradient of Loss, $H$ is Hessian Matrix of Loss wrt weights $w_n$; optimal directions are eigenvectors of $H$
+  * Substituting, we get $\beta = - g_n^T H d_{n-1} / d_{n-1}^T H d_{n-1}$
+  * *Flescher-Reeves approximation*: $\beta = - g_n^T g_{n-1} / g_{n-1}^T g_n$
+  * Update step: $w_n = w_{n-1} - \eta d_n$
+
+**Second-order Newton's Method**: if loss surface is quadratic, then it will reach minima in a single step!
+* $L(w + \epsilon) \approx L(w) + \nabla L(w)^T (w + \epsilon - w) + \epsilon^T H \epsilon / 2$ -- quadratic Taylor approx instead of linear
+* Similarly, $\nabla L(w + \epsilon) \approx \nabla L(w) + H \epsilon$
+  * $H \epsilon$ is the *change of gradient* along the direction $\epsilon$
+  * $v^T H \epsilon = 0$ is direction orthogonal to change of gradient
+  * If gradient in next step has to be zero, then $-\epsilon = H^{-1} \nabla L(w)$
+  * To prevent instability: $-\epsilon = (H + c I)^{-1} \nabla L(w)$
+  * Update step $w_n = w_{n-1} - \eta (H_{w_{n-1}} + c I)^{-1} \nabla L(w_{n-1})$
+  * Convergence: $O(1/n^2)$ - superlinear!
+
+**Broyden-Fletcher-Goldfarb-Shanno Optimizer (BNGS)**: second order (a faster approx is LBNGS - L stands for lower memory (major memory consumption is storage and calc of Hessian - LBNGS instead calculates only for a few eigenvecs instead of whole))
+* Change in weights $w_n - w_{n-1}$
+* Change in gradient: $h_n = g_n - g_{n-1}$
+* Hessian at that location: $H_n d_n \approx h_n$
+  * Can we find a matrix $H_n$ that satisfies this equation?
+  * Constraints: symmetric, positive definite, close to $H_{n-1}$
+  * Solve $\argmin | A - H_{n-1} |$ such that $A = A^T$ and $A d_n = h_n$
+    * Solution: $H_n^{-1} \approx B_n = B_{n-1} + d_{n-1}^T d_{n-1} / h_{n-1}^T d_{n-1} - B_{n-1} h_{n-1} / h_{n-1}^T B_{n-1} h_{n-1}$
+  * Initialization: $B_n = 0$; Update step $w_n = w_{n-1} - \eta B_{n-1} \nabla L(w_{n_1})$
+
+**Nesterov Optimization**: works really well if loss surface is smooth
+* Evaluate gradient / Hessian near update point.
+  * Predict next point and find gradient there: *gradient look-ahead*
+* Compute $\nabla w_{n-1 + \mu r_{n-1}} L_{i}$ instead of $\nabla_{w_{n-1}} L$
+  * $r_n$ is the paramter update term such that $w_n = w_{n-1} + r_n$
+  * Convergence rate: $O(1/n^2)$ - first order
+* This speed-up is applicable to all optimization techniques.
+  * NAdam is fastest convergence first order method.
+
 ## Misc Resources
 
 - [PyTorch Intro Tutorial](https://docs.pytorch.org/tutorials/beginner/basics/intro.html)

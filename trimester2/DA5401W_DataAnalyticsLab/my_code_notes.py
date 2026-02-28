@@ -124,6 +124,22 @@ ax1.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, p: f'{x/1e6:.1f}M'))  
 # TODO: go through rem cells from Unconstrained Optimization
 #endregion
 
-#region Optimization_PCA
+#region PCA_Detailed_Tutorial
+# TODO
+#endregion
 
+#region Optimization_PCA
+scipy.optimize.linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b_eq, bounds=(x_lo, x_high))
+# Linear Optimization (objective and constraints are all linear): params are numpy arrays, only c is required, rest are optional
+# minimize c @ x such that A_ub @ x <= b_ub, A_eq @ x = b_eq, x_lo <= x <= x_high
+
+# TODO
+#endregion
+
+#region Clustering_Tutorial
+# TODO
+#endregion
+
+#region Regression
+# TODO
 #endregion
