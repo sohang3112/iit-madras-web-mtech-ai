@@ -67,25 +67,16 @@ sample = np.random.choice(population, size=n, replace=True)
 # plot sample vs probab, sample vs lambda
 # true & MoM: y = lambda * np.exp(-lambda * x)   # exponential distribution probab formula
 
-from matplotlib import pyplot as plt
-plt.axhline(y)   # horizontal line at level y
-plt.fill_between(x, y1, y2)   # shade area (eg. feasible region in optimization)
-plt.plot(x, y, 'r-')   # r- -> r is red, - is dashed; g- -> green dashed line, etc.
-
 np.percentile(sample, [2.5, 97.5])     # one or more percentile values from sample, so this gives 95% CI range
 #endregion
 
 #region Probability_Statistics
-plt.imshow(grid)   # grid is a 2D numpy array of 0-1 (float) or 0-255 (int); (M,N) grayscale or (M,N,3) color image shape
-plt.xticks(range(6)); plt.xticklabels(range(1,7))   # xticks sets X marker points left to right, xticklabels sets actual labels at these; similarly yticks(), yticklabels() top to bottom
 
 # Bayes: Posterior P(y | x) = (Likelihood P(x | y) * Prior P(y)) / Marginal Probability P(x)
 # Sensitivity = P(Test+ | Disease)  [ True Positive rate ]
 # Specificity = P(Test- | No Disease)  [ True Negative rate ]
 
 # Central measure: Mode for categorical data, Median for skewed, Mean for symmetrical data
-
-plt.boxplot([array1, array2, ...])   # arrays whose box plots to plot (one box for each)
 
 # Hypothesis Tests:
 from scipy.stats import binomtest, ttest_1samp, ttest_ind
@@ -108,18 +99,9 @@ for i in range(X.shape[0]):
     for j in range(X.shape[1]):
         Z[i,j] = quadratic(np.array([ X[i,j], Y[i,j] ]))
 
-# Both show 3D in 2D plot
-plt.contour(X, Y, Z, levels=20)      # shows 2D cutoff of 3D plot at different z (as many as specified levels)
-
-fig, axes = plt.subplots(nrows=1, ncols=1)
-axes[0,0].plot_surface(X, Y, Z)    # show whole surface; .plot_surface() method only there on axis, not available directly in plt
-
 import scipy
 result = scipy.optimize.minimize_scalar(lambda x: y(x), bounds=(0,5000), method='bounded')
 print(f'Optimal point: (x={result.x}, y={result.fun})')
-
-ax1.grid(True, alpha=0.3)   # TODO
-ax1.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, p: f'{x/1e6:.1f}M'))   # TODO
 
 # TODO: go through rem cells from Unconstrained Optimization
 #endregion
@@ -129,11 +111,14 @@ ax1.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, p: f'{x/1e6:.1f}M'))  
 #endregion
 
 #region Optimization_PCA
-scipy.optimize.linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b_eq, bounds=(x_lo, x_high))
+result = scipy.optimize.linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b_eq, bounds=(x_lo, x_high))  # result.x (optimal point array), result.fun (objective func value at optimal point)
 # Linear Optimization (objective and constraints are all linear): params are numpy arrays, only c is required, rest are optional
 # minimize c @ x such that A_ub @ x <= b_ub, A_eq @ x = b_eq, x_lo <= x <= x_high
 
-# TODO
+constraint = scipy.optimize.LinearConstraint(A, lb, ub)   # lb <= A.dot(x) <= ub  (for open-ended, pass one bound np.inf, for exact eq, pass same lb, ub)
+bounds = [(x1_lo, x1_hi), (x2_lo, x2_hi), ...]   # list of bounds for each elem in 1D x
+result = scipy.optimize.minimize(lambda x: objective_function(x), initial_guess_x, method='SLSQP', jac=lambda x: objective_gradient(x),
+                  constraints=[constraint], bounds=bounds)
 #endregion
 
 #region Clustering_Tutorial

@@ -11,6 +11,8 @@ Libraries:
 * Scikit-learn
 * Seaborn
 
+### PCA
+
 [PCA Plots](https://bioturing.medium.com/how-to-read-pca-biplots-and-scree-plots-186246aae063):
 
 PCA Score (scatter) Plot:
@@ -27,6 +29,27 @@ PCA Loading Plot shows how strongly each characterstic influences a principal co
 PCA Biplot (score + loading):
 
 ![PCA Biplot](images/pca_biplot.png)
+
+### Optimize methods
+
+Scalar unconstrained minimization (requires strict bounds ie not open-ended `np.inf`): `scipy.optimize.minimize_scalar(lambda x: y(x), bounds=(0,5000), method='bounded')`
+
+Each of these is a method choice available in (vector minimization):
+
+```python
+from scipy.optimize import minimize, LinearConstraint, NonLinearConstraint
+constraint1 = LinearConstraint(A, lb, ub)    # lb <= A.dot(x) <= ub
+bounds = [(x1_lo, x1_hi), (x2_lo, x2_hi), ...]  # lower,upper for each elem in 1D x
+minimize(lambda x: objective(x), initial_guess_x, jac=lambda x: objective_gradient(x), method='METHOD', constraints=[constraint1], bounds=bounds)`
+```
+
+Feature | SLSQP | BFGS | Nelder-Mead | CG
+------- | ----- | ---- | ----------- | ----------
+Full Form | Sequential Least SQuares Programming | Broyden-Fletcher-Goldfarb-Shanno | _ | Conjugate Gradient
+Theory | Solves a sequence of quadratic subproblems. | A Quasi-Newton method that approximates the Hessian. | Geometric search using a moving simplex (triangle/tetrahedron). | Uses conjugate directions to find the minimum.
+Requires Gradient? | Yes | Yes | No | Yes
+Convergence | Fast (for constrained) | Very Fast (Superlinear) | Slow | Moderate
+Problem Type | Linear constraints | Smooth, medium-scale unconstrained | Noisy or non-differentiable functions. | Large-scale problems (memory efficient).
 
 ## Notebooks
 
