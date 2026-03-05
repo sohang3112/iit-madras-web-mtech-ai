@@ -1,16 +1,17 @@
-#%%
-from pylatexenc.latexencode import unicode_to_latex
+# #%%
+# from pylatexenc.latexencode import unicode_to_latex
 
-# This will convert the Unicode character back to its LaTeX equivalent
-char = "∈"
-latex_code = unicode_to_latex(char)
+# # This will convert the Unicode character back to its LaTeX equivalent
+# char = "∈"
+# latex_code = unicode_to_latex(char)
 
-print(latex_code)      # \ensuremath(\in)
-#%%
-from pathlib import Path
+# print(latex_code)      # \ensuremath(\in)
+# #%%
 from argparse import ArgumentParser
+from pathlib import Path
+from typing import cast
 
-import pymupdf4llm
+import pymupdf4llm          # package says: Consider using the pymupdf_layout for a greatly improved page layout analysis. TODO: use that library instead.
 
 header = """---
 Author: 
@@ -28,11 +29,14 @@ parser.add_argument('pdf_path', help='Path to Assignment PDF')
 args = parser.parse_args()
 
 pdf_path = Path(args.pdf_path)
-md_text: str = pymupdf4llm.to_markdown(pdf_path)
+md_text: str = cast(str, pymupdf4llm.to_markdown(pdf_path))        
 md_text = header + md_text
 # TODO: after title, add line (author Sohang, roll no.)
+# TODO: remove subtitle (has Department name)
 # TODO MAYBE: convert 1. <question> 2. <question> 3. <question> to format: ## Problem {i} <question> ### Solution {i}
 # TODO: correct math expressions (convert to MathJAX format expected by Github Markdown)
 # TODO: handle images in PDF (write them to images/ folder and include in Markdown)
 # TODO: remove page numbers
-(pdf_path.parent / f'solution_{pdf_path.stem}.md').write_text(md_text)
+md_path = pdf_path.parent / f'solution_{pdf_path.stem}.md'
+md_path.write_text(md_text)
+print('Saved Assignment Markdown at:', md_path)
