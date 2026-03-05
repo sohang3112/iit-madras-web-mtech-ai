@@ -499,6 +499,36 @@ $$
 
 Feature Scaling should be done ideally by normalizing: $(x - \mu) / \sigma$
 
+Univariate/simple - 1 input, 1 output
+Multivariate - multiple inputs, multiple outputs (so as many lin reg eqns as num of outputs) 
+Multiple - multiple inputs, 1 output
+
+True x vs Observed (having measuremenr error) 
+
+- E[error] = 0
+- Homeoscedatic CovarianceMatrix[error] = sigma^2 I (variance of error same for all features, no covariance between features) 
+- Inputs & errors shouldn't be correlated, ie model shouldn't consistently over or under estimate outputs
+- Normal error
+
+ORDINARY LEAST SQUARES
+minimize SSR (sum of squared residuals) = (y - X w)^T (y - X w) 
+y = X w + ey => w = P y where projection matrix  P = (X^T X)^-1 X^T
+Residual vector r = y - X w is perpendicular to column space of X
+
+TOTAL LEAST SSQUARES
+TODO low rank approximation of matrix
+Frobenius Matrix Norm - flatten matrix => L2 norm
+
+Observed x has error, predict both x, y
+minimize |(X, Y) - (Xtrue, Ytrue) |_frobenius
+ytrue = w0 + w1 xtrue
+Observed: y = w0 + w1 x + (w1 ex - ey) 
+No closed form solution, approx sol using SVD
+
+Tls steps
+1. Normalize each feature to 0 mean, 1 variance ((x-mean)/std). Reason: singular values affected by scale, so ensure all features treated same regardless of scale
+2. TODO
+
 TODO
 
 ## WIP lecture
@@ -527,6 +557,133 @@ $$
 $$min_w (y - X^* w)^T (y - X^* w) + \lambda \|w\|$$
 
 Solution has to be found iteratively, no equation as L1 norm is not differentiable (CHECK?)
+
+## WIP lecture
+
+**LASSO Solution using Coordinate Descent**: (these points specific to simple ML models, NOT neural net)
+* Issue: LASSO (L1) objective is not differentiable at 0. No closed form solution, so have to find iteratively.
+* Coordinate Descent optimizes objective one parameter at a time (holding other params constant).
+* Algorithm:
+  * Repeat till convergence:
+    * For each of the D input features, calc partial residual for all samples: $r_{i(-j)} = y_i - \sum_{k=1} x_{ik} w_k \forall j vars$
+     This gives what part of $y$ is left unexplained if we ignore variable $j$.
+     NOTE: At optimal values, residual will be 0 for all.
+     This is the target $w_j$ must explain.
+    * Compute OLS like contribution of feature j
+      * Regress this residual only on $x_j$ (all samples)
+      $$
+      r_{-j} = \rho_j x_j \\
+      \rho_j = \frac{x_j^T r_{-j}}{x_j^T x_j} (\text{scaled features})
+      $$
+      * Explains potential value for $w_j$
+    * Apply Soft Thresholding and update weights (L1 penalty introduced here):
+    $$
+    w_j = \frac{\rho_j - \lambda}{\|x_j\|^2}; \rho_j > \lambda \\
+    w_j  0; \quad |\rho_j| \le \lambda \\
+    w_j = \frac{\rho_j + \lambda}{\|x_j\|^2}; \rho_j < -\lambda
+    $$
+    $\lambda$ is strength of regularization
+        * No gradient, no matrix inverse and natural sparsity
+        * NOTE: $\lambda$ is chosen using validation techniques.
+  
+**Model Validation**:
+* User has to choose:
+  * Regularization rate $\lambda$
+  * Regularization type: Ridge or LASSO
+  * Learning rate
+  * Polynomial degree
+* Alternatively, it is chosen using a validation strategy.
+* To perform model validation & testing, the given dataset is split into Train, Validation (for model selection) & Test
+
+**Validation Strategies**:
+* Hold-out (large data): Train, Val, Test split (80:20 or 70:30 train:val are common) - sample bias due to random splitting especially if data is small
+* K-Fold Cross Validation (medium data, > 50): 
+    train & choose best model from all fold splits (train,val). Different fold data sizes is ok (eg. if total size N isn't divisible by k).
+    Validation performance is average performance of all folds (this is how sklearn does it) - unbiased because we trained on all folds. (Alternative approach: worst performance)
+    Final model is trained on all data.
+    Then finally test on unseen data.
+* Leave-one-out (small data, < 50): basically k-fold with k=1.
+
+**Regression Metrics**: (Cross-Entropy is used only for classification not regression)
+* Mean Absolute Error (MAE): can be used for test performance but not validation performance during train as not differentiable. 
+  It has same unit as output, treats all errors equally, doesn't amplify large errors.
+* Root Mean Squared Error (RMSE): Penalizes large errors, useful to detect outliers. Same unit as output. 
+  Suppresses small errors $< 1$ so not used when say output range is $[0,1]$ (like in logistic regression)
+* Mean Absolute Percentage Error (MAPE): Easy to interpret, eg. 5% error. But if actual values are very small, then relative error becomes large so misleading & avoid.
+  Scale / magnitude independent and can be used to compare models & outputs at different scales.
+* R^2 metric (how good does model fit data) = ratio of explained variance to total variance. 
+  Between -1 (worst fit) and 1 (perfect fit). 0 means performance is same as just using mean as the output in all cases.
+  Dependent on dataset (cannot compare across different datasets), so can't use in Cross Validation:
+$$R^2 = 1 - \frac{RSS}{TSS} = 1 - \frac{\sum (y_i - \hat{y_i}^2)}{\sum (y_i - \bar{y}^2)}$$
+  Issues:
+  * usually R^2 very close to 0 is bad. But it can also indicate that dataset itself is bad, i.e. very noisy, very low variance of actual outputs and variance of noise are very close.
+  * High R^2 usually indicates good model. But can be misleading in case of large variance in data.
+  * R^2 increases with no. of predictors in model even if actual performance isn't better.
+* Adjusted R^2 (unitelss and can be used to compare variety of models): $1 - (1-R^2) (n-1) / (n-p-1)$ where n is no. of samples, p is no. of features.
+  * Overcomes limitation that R^2 increases with no. of features. But limitation when very high or vey low variance in data remains.
+  * Can find out if there are unncessary features by comparing R^2 to Adjusted R^2.
+
+## WIP lecture
+
+### Regression
+
+**Recursive Feature Elimination**: Importance of feature $j$ is proportional to associated coefficient $w_j$, so Small $|w_j|$ -> Weak Contribution -> Candidate for removal
+* Algorithm:
+    * Let $S_0 = \{1,2,..,D\}$
+    * TODO
+
+**Sequential Feature Selection**: Importance of feature $j$ is proportional to associated coefficient $w_j$, so Small $|w_j|$ -> Weak Contribution -> Candidate for removal
+* Algorithm directly minimizes validation validation loss $L_{val}(S) = \frac{1}{N_val} \sum_i (y_i - \hat{y_i}_s)^2$
+    * Start with empty feature set $S_0 = \emptyset$
+    * At step $i$:
+        * For each candidate feature $j$ not in $S_i$
+        * Fit model using $S_i \cup \{j\}$
+        * Compute Validation loss $L_{val}(S_i \cup \{j\})$
+        * Choose feature $j^* = \argmin_j L_val(S_i \cup \{j\})$
+        * Update the feature set $S_{i+1} = S_i \cup \{j^*\}$
+* A variant of this algorithm can also be done backward - starting from full feature set and dropping one by one.
+
+**Bayesian Linear Regression**: (Non-Deterministic) Instead of normal (model has fixed parameters at inference), model parameters are chosen randomly from a multi-variate gaussian, so output can change for same input. Instead of training weights, we train the mean and covariance matrix values.
+* Assumption on noise $\epsilon \sim \mathcal{N}(0, \beta^{-1})$ (Precision = inverse variance $\beta = 1 / \sigma^2$)
+* Implies target values follow a Gaussian distribution $p(y|w) = \mathcal{N}(X w, \beta^{-1} I)$
+* Bayesian Idea:
+    * Estimate a distribution over parameters instead of point estimates.
+    * Assumes a prior distribution on paramters and infers a posterior based on data using Bayes rule (where $D$ is whole dataset (combination of $X$, $y$)):
+    $$P(w|D) = \frac{P(D|w) P(w)}{P(D)}$$
+* Not much used in practice, because in large enough data prior has negligible impact on posterior. Suited for very small datasets where there is high degree of uncertainity.
+
+**Non-Linear Least Squares Regression** (where cannot be converted into a linear form in terms of parameters)
+* Minimize sum of residuals between observed and predicted values:
+$$\min_{A,B,C} \sum_{i=1}^N (y_i - \hat{y_i})^2, \quad \text{s.t.} \ln{\hat{y_i}} = A - \frac{B}{x_i + C}$$
+* Choose initial values for A, B, C.
+  Use a non-linear least squares solver (Gradient Descent or Gauss-Newton) to minimize objective and obtain A, B, C.
+  Solver for this is inbuilt in Scipy.
+
+#### Further Reading
+* Generalized Least Squares and Bayesian Regression
+* Elastic Net: L1 + L2 regularization of a linear regression model
+* Confidence Intervals for parameters and predictions
+
+### Classification
+
+Types of Classification:
+* based on Decision Boudary - Linear, Non-Linear
+* based on No. of classes - Binary, Multi-Class
+* based on No. of output labels - Single-Label, Multi-Label
+
+Soft prediction (output is probabilities of belonging to each class) vs Hard prediction (directly gives class)
+
+#### KNN (k Nearest Neighbours)
+
+There's no model params, no training, only inference.
+
+TODO: formula
+
+Weighted KNN : (divide by distance so further points get less weightage)
+
+#### Naive Bayes
+
+#### Logistic Regression
 
 ## Misc
 
