@@ -122,9 +122,64 @@ result = scipy.optimize.minimize(lambda x: objective_function(x), initial_guess_
 #endregion
 
 #region Clustering_Tutorial
-# TODO
+from sklearn.cluster import KMeans, DBSCAN
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import silhouette_score, davies_bouldin_score
+
+# Input must be standardized (mean 0, variance 1) before PCA
+X_scaled = StandardScaler().fit_transform(X_raw)
+pca = PCA(n_components=3)  # n_components is optional
+X_pca = pca.fit_transform(X_scaled)
+# pca.explained_variance_ (absolute vals), pca.explained_variance_ratio_ (0-1 ratios)
+pca.components_ # shape=(n_components, n_original_features) - set of rows are bases (principal component vectors) for the new features returned
+                # "loadings" (eigenvectors of covariance matrix - directions of maximum variance in original data)
+                # tells for each PCA feature, how much did each original feature contribute?
+                # used for Loadings Plot
+
+# Input must also be standardized before K Means to deal with different units of measurement in each feature
+# Exception: when all features have same unit, as in PCA features
+inertias, silhoutte_scores = [], []
+for k in range(2,11):
+    kmeans = KMeans(n_clusters=k)
+    cluster_labels = kmeans.fit_predict(X_scaled)  # OR: kmeans.fit(X_scaled); kmeans.labels_
+    # Centroids of each clusters are in kmeans.cluster_centers_
+    inertias.append(kmeans.inertia_)
+    silhoutte_scores.append(sklearn.metrics.silhoutte_score(X_scaled, cluster_labels))
+# Elbow Plot: inertias vs k
+
+# Datasets where K-Means fails:
+# * crescent moon clusters (a circle with one semi-circle moved half a radius) -- DBSCAN works
+# * concentric circle clusters -- DBSCAN works
+
+# Datasets where DBSCAN fails:
+# * clusters with different densities (radius) -- K-Means works
+
+cluster_labels = DBSCAN(eps=0.5, min_samples=5).fit_predict(X_scaled)       # also requires standardized data
+# "noise" points (not in any cluster) are assigned label -1
+# epsilon determines max cluster / neighbourhood size, min_samples is min no. of points for a neighbourhood to be considered cluster
+# NOTE: we can't specify no. of clusters, it's automatically determined
+#endregion
+
+#region Complete_Cluster_Tutorial_full.ipynb
+from sklearn.cluster import AgglomerativeClustering
+from scipy.cluster.hierarchy import dendrogram, linkage
+
+# Agglomerative Dendtogram (tree-like heirachy of clusters)
+linkage_matrix = linkage(X, method='ward')   # ward (recommended usually: min within-cluster var), distance betwee any 2 points: Single (min), Complete (max), Average
+_agglo_info_dict = dendrogram(linkage_matrix)    
+plt.show()
+
+cluster_labels = AgglomerativeClustering(n_clusters=3, method='ward').fit_predict(X_scaled)    # also requires standardized data
+# choose best k (num_clusters) based on silhoutte score plot
+# TODO SKIPPED: Agglomerative Clustering from-scratch implementation
+
 #endregion
 
 #region Regression
-# TODO
+# Heirachical Clustering: Agglomerative (AGNES starts from every point is a cluster then merges iteratively), Divisive (DIANA starts with all data in a cluster, breaks iteratively)
+#endregion
+
+#region 5 Plots: K-Means (Elbow plot: Inertia vs k, Silhoutte Score vs k, colored clusters), KNN (distance plot, dendogram)
+plt.axvline(x=3, color='red', linestyle='--')
 #endregion

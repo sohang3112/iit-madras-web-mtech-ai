@@ -509,6 +509,24 @@ TODO
 * This speed-up is applicable to all optimization techniques.
   * NAdam is fastest convergence first order method.
 
+## WIP lecture: Reduce Overfitting
+
+Regularization improves weight selection through prior information:
+
+**Weight Decay Regularization** (only for weights, NOT biases since only weights get multiplied with inputs)
+* Loss function $L(w) + \lambda |w|^2$ -- added L2 loss term, smoothens loss surface
+* L2 or Tikhonov regularization, Ridge Regression
+* Update step: $w_n = (1 - \eta \lambda_n) -- TODO
+* TODO
+
+**Data Augmetation**: Icrease training dataset size to improve loss surface
+* *Noise Injection* / Perturbation: Add noise to dataset (adding Gaussian noise has same effect as L2 regularization)
+* *Label Smoothening*: Change 0/1 labels to $\epsilon$, $1 - \epsilon$ (label noise)
+* Unsupervised / semi-supervised learning: 
+    * Learn data distribution and sample from data
+    * Bootstrap through autoencoders
+
+
 ## Misc Resources
 
 - [PyTorch Intro Tutorial](https://docs.pytorch.org/tutorials/beginner/basics/intro.html)
