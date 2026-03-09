@@ -107,6 +107,9 @@ print(f'Optimal point: (x={result.x}, y={result.fun})')
 #endregion
 
 #region PCA_Detailed_Tutorial
+# PCA from scratch (standardize, covariance matrix > sort eigen-vectors descending by eigen-values, pick top k ; explained variance = eigen-value)
+covariance_matrix = np.cov(X)      
+eigenvalues, eigenvectors = np.linalg.eig(covariance_matrix)       # each column is an eigen-vector
 # TODO
 #endregion
 
@@ -125,7 +128,9 @@ result = scipy.optimize.minimize(lambda x: objective_function(x), initial_guess_
 from sklearn.cluster import KMeans, DBSCAN
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import silhouette_score, davies_bouldin_score
+from sklearn.metrics import silhouette_score
+
+# TODO: clustering from scratch: Agglomerative, DBSCAN, Spectral
 
 # Input must be standardized (mean 0, variance 1) before PCA
 X_scaled = StandardScaler().fit_transform(X_raw)
@@ -159,6 +164,13 @@ cluster_labels = DBSCAN(eps=0.5, min_samples=5).fit_predict(X_scaled)       # al
 # "noise" points (not in any cluster) are assigned label -1
 # epsilon determines max cluster / neighbourhood size, min_samples is min no. of points for a neighbourhood to be considered cluster
 # NOTE: we can't specify no. of clusters, it's automatically determined
+
+# K-Distance plot to choose epsilon for DBSCAN
+nbrs = sklearn.neighbours.NearestNeighbours(n_neighbours=min_samples)
+nbrs.fit(X_scaled)
+distances = nbrs.kneighbours(X_scaled)
+distances = np.sort(distances[:, k-1], axis=0)
+plt.plot(distances)       # y=distances, x=1,2,3..
 #endregion
 
 #region Complete_Cluster_Tutorial_full.ipynb
@@ -174,10 +186,46 @@ cluster_labels = AgglomerativeClustering(n_clusters=3, method='ward').fit_predic
 # choose best k (num_clusters) based on silhoutte score plot
 # TODO SKIPPED: Agglomerative Clustering from-scratch implementation
 
+# Heirachical Clustering: Agglomerative (AGNES starts from every point is a cluster then merges iteratively), Divisive (DIANA starts with all data in a cluster, breaks iteratively)
+
+# Spectral Clustering
+from sklearn.metrics.pairwise import rbf_kernel
+from sklearn.cluster import SpectralClustering
+
+cluster_labels = SpectralClustering(n_clusters=2, n_init=2).fit_predict(X_scaled)      # also requires standardized input
+
+# TODO: understand: Eigengap plot to find optimal k (k when largest difference between eigenvalues)
+W_full = rbf_kernel(X_circles, gamma=1.0)
+D_full = np.diag(W_full.sum(axis=1))
+D_inv_sqrt_full = np.diag(1.0 / np.sqrt(np.diag(D_full)))
+L_norm_full = np.eye(len(X_circles)) - D_inv_sqrt_full @ W_full @ D_inv_sqrt_full
+eigenvalues_full, _ = eigh(L_norm_full)
+plt.plot(eigenvalues_full)
+
+# Cluster Evaluation Metrics
+sklearn.metrics.silhoutte_score(X, labels_predicted)       # does not require ground-truth labels (higher better)
+# Req ground-truth labels: Purity in [0,1] (higher better): cluster label = most common label in cluster. Purity = no. of correctly matched ground-truth and cluster labels / total points
+# Req ground-truth labels: Entropy (higher better): entropy of a single cluster is H(C_i) = - sum(p_j log2(p_j)) where p is probability of class j being assigned to cluster i
+                           # total entropy = mean of all clusters' entropy, weighted by no. of points in each cluster
+#endregion
+
+#region Complete_Clustering_Tutorial_full2.ipynb
+# TODO: K-Means from scratch
 #endregion
 
 #region Regression
-# Heirachical Clustering: Agglomerative (AGNES starts from every point is a cluster then merges iteratively), Divisive (DIANA starts with all data in a cluster, breaks iteratively)
+from sklearn.linear_model import LinearRegression
+linreg = LinearRegression().fit(X, y)
+ypred = linreg.predict(X)
+
+# Ordinary Least Squares: w = (X^T X)^{-1} X^T y
+X = np.hstack([X, np.ones(X.shape[0])])    # add bias term
+w = np.linalg.solve(X.T @ X, X.T @ y)
+#P = (X.T @ X)**(-1) @ X.T        # projection matrix
+ypred = X @ w
+ssr = np.sum((ypred - y)**2)     # Sum of Squared Residuals (minimized)
+
+assert np.all(np.isclose(X.T @ (ypred - y), 0))    # X^T residual should be close to 0 (orthogonal)
 #endregion
 
 #region 5 Plots: K-Means (Elbow plot: Inertia vs k, Silhoutte Score vs k, colored clusters), KNN (distance plot, dendogram)

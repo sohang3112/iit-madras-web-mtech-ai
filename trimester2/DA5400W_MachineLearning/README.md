@@ -8,6 +8,16 @@ Course group email &lt;da5400w@code.iitm.ac.in&gt;
 
 Machine Learning usually requires significant feature engineering, but Deep Learning often automatically transforms features.
 
+$$
+\nabla x^n = n (x^{n-1})^T \\
+\nabla x^T A = \nabla(A^T x) = A^T \\
+\nabla x^T A x = (A + A^T) x \\
+\nabla (A x + b)^T (A x + b) = 2 A^T (A x + b) \\
+\nabla A x B = A^T B^T \\
+\nabla A x^{-1} B = -(x^{-1} B A x^{-1})^T \\
+\nabla Trace(p(x)) = \nabla p(x)
+$$
+
 ## Lecture 1 (Optimization) & Lecture 2 (Probability) revision (common lecture slides)
 
 ### Optimization Revision

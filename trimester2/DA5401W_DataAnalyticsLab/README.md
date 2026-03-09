@@ -53,56 +53,116 @@ Requires Gradient? | Yes | Yes | No | Yes
 Convergence | Fast (for constrained) | Very Fast (Superlinear) | Slow | Moderate
 Problem Type | Linear constraints | Smooth, medium-scale unconstrained | Noisy or non-differentiable functions. | Large-scale problems (memory efficient).
 
-### K-Means vs DBSCAN Clustering
+### Clustering
 
-## K-Means
-**Use when:**
-- Clusters are spherical/globular
-- Clusters are similar in size (but densities differ)
-- Number of clusters is known
-- Fast computation is needed
-- Data has no outliers
+Centroid = mean of all points in a cluster, Radius = max distance bw centroid and any point in cluster, Diameter = max pairwise distance bw any 2 points in cluster
 
-**Avoid when:**
-- Clusters have arbitrary shapes (moons, circles)
-- Clusters have very different sizes or densities
-- Data contains many outliers
-- Number of clusters is unknown
+Diameter is NOT 2*Radius
 
-## DBSCAN
-**Use when:**
+### Choosing Metric
+
+| Metric | Requires Labels | Range | Best Value | Use When |
+|--------|----------------|-------|------------|----------|
+| **Purity** | Yes | [0, 1] | 1 | Simple interpretation |
+| **Entropy** | Yes | [0, log k] | 0 | Information-theoretic view |
+| **RAND Index** | Yes | [0, 1] | 1 | Pair-wise agreement |
+| **Adj. RAND** | Yes | [-1, 1] | 1 | Corrects for chance |
+| **Silhouette** | No | [-1, 1] | 1 | No ground truth available |
+| **Adj. MI** | Yes | [0, 1] | 1 | Information-based, corrected |
+
+**Recommendations:**
+- **With ground truth**: Use Adjusted RAND or Adjusted Mutual Information
+- **Without ground truth**: Use Silhouette Score
+- **For interpretation**: Use Purity (easy to understand)
+- **For research**: Report multiple metrics
+
+### Choosing Cluster Algorithm
+
+| Algorithm | Cluster Shape | Requires k | Handles Noise | Time Complexity | Best For |
+|-----------|---------------|------------|---------------|-----------------|----------|
+| **K-Means** | Spherical | Yes | No | O(nkt) | Large datasets, spherical clusters |
+| **Hierarchical** | Any | No | No | O(n²log n) | Small datasets, hierarchy needed |
+| **DBSCAN** | Arbitrary | No | Yes | O(n log n) | Arbitrary shapes, noise detection |
+| **Spectral** | Non-convex | Yes | No | O(n³) | Graph data, complex shapes |
+
+##### Decision Guide
+
+**Use K-Means when:**
+- Clusters are roughly spherical
+- You know k in advance
+- You have large datasets
+- Speed is important
+
+**Use Hierarchical when:**
+- You need a hierarchy of clusters
+- You don't know k
+- Dataset is small (< 10,000 points)
+- You want to explore different k values
+
+**Use DBSCAN when:**
 - Clusters have arbitrary shapes
-- Number of clusters is unknown
-- Data contains outliers/noise
-- Outlier detection is important
-- Clusters are well-separated by density
+- You need to identify outliers
+- Cluster density is roughly uniform
+- You don't know k
 
-**Avoid when:**
-- Clusters have very different densities
-- High-dimensional data (curse of dimensionality)
-- Parameters (eps, min_samples) are hard to tune
-- All points must be assigned to clusters
+**Use Spectral when:**
+- Data has graph structure
+- Clusters are non-convex
+- You can afford computational cost
+- K-Means fails on your data
+
+#### Choosing Cluster Evaluation Metric
+
+| Metric | Requires Labels | Range | Best Value | Use When |
+|--------|----------------|-------|------------|----------|
+| **Purity** | Yes | [0, 1] | 1 | Simple interpretation |
+| **Entropy** | Yes | [0, log k] | 0 | Information-theoretic view |
+| **RAND Index** | Yes | [0, 1] | 1 | Pair-wise agreement |
+| **Adj. RAND** | Yes | [-1, 1] | 1 | Corrects for chance |
+| **Silhouette** | No | [-1, 1] | 1 | No ground truth available |
+| **Adj. MI** | Yes | [0, 1] | 1 | Information-based, corrected |
+
+**Recommendations:**
+- **With ground truth**: Use Adjusted RAND or Adjusted Mutual Information
+- **Without ground truth**: Use Silhouette Score
+- **For interpretation**: Use Purity (easy to understand)
+- **For research**: Report multiple metrics
 
 ### Agglomerative Clustering
 
-4 Linkage Methods: Ward (recommended usually: min within-cluster var), distance betwee any 2 points: Single (min), Complete (max), Average
+4 Linkage Methods: Ward (recommended usually: min within-cluster var), distance bw any 2 points: Single (min), Complete (max), Average
 
 ## Midsem Syllabus
 
-- [ ] Optimization: Linear `linalg` & Non-Linear `minimize_scalar`, `minimize` (SLSQP, BFGS, Nelder-Mead, CG)  (scipy.optimize) 
-- [ ] MLE, MOM, Bootstrapping (numpy) 
+- [x] Optimization: Linear `linalg` & Non-Linear `minimize_scalar`, `minimize` (SLSQP, BFGS, Nelder-Mead, CG)  (scipy.optimize) 
+- [x] MLE, MOM, Bootstrapping (numpy) 
 - [x] PCA `sklearn.preprocessing.StandardScaler, sklearn.decomposition.PCA`
-- Clustering (sklearn.cluster) : 
+    - [x] PCA from scratch (standardize, covariance matrix > sort eigen-vectors descending by eigen-values, pick top k ; explained-variance = eigen-value)
+- Clustering (sklearn.cluster) [`X_standard = StandardScaler().fit_transform(X)` befor PCA, all clustering algos]: 
     - [x] `KMeans(num_clusters=k)`
-    - [ ] `AgglomerativeClustering(num_clusters=k, method='ward')` (heirachical/tree-based clustering)
-        - TODO SKIPPED: Agglomerative from-scratch implementation
+    - [x] `AgglomerativeClustering(num_clusters=k, method='ward')` (heirachical/tree-based clustering)
     - [x] `DBSCAN(eps=0.5, num_samples=5)`
+    - `SpectralClustering(n_clusters=2, n_init=2)` (uses graph theory and eigen-values to find clusters)
+        - [ ] Choose k using eigen-gap plot
+        - [ ] Affinity Matrix methods: RBF Kernel, KNN, Epsilon-neighbourhood
+- Cluster Quality Evaluation (`sklearn.metrics`) (higher better in all except Entropy) (unsupervised - ground truth labels not required, supervised - required)
+    - [x] Unsupervised: `silhoutte_score(X, labels_predicted)` (how similar point is to own cluster compared to other clusters)
+    - [x] Superised: Purity (no sklearn func): cluster label = most common label in cluster. Purity = no. of correctly matched ground-truth and cluster labels / total points
+    - [x] Req ground-truth labels: Entropy (within clusters): entropy of a single cluster $H(C_i) = - sum(p_j log2(p_j))$ where p is probability of class j being assigned cluster i
+          Total entropy = mean of all clusters' entropy, weighted by no. of points in each cluster
+    - [x] `rand_score(labels_true, labels_predicted)` (in [0,1]) (agreement bw 2 set of cluster labels) 
+        - `adjusted_rand_score(labels_true, labels_predicted)` corrects for chance
+- Clustering from-scratch implementations:
+    - [ ] K-Means
+    - [ ] Agglomerative
+    - [ ] DBSCAN
+    - [ ] Spectral
 - [x] Linear Regression `sklearn.linear_model.LinearRegression` 
 - Plots (matplotlib):
     - [x] K-Means: kmeans elbow plot `kmeans.inertia_` vs k (NOTE: k-means fails on data with non-spherical clusters, eg. concentric circles)
     - [x] K-Means: silhouette score plot `sklearn.metrics.silhoutte_score(X, labels)` vs k
     - [x] K-Means: clusters plot `cluster_labels = kmeans.fit_predict(X_scaled)` OR `kmeans.fit(X_scaled); kmeans.labels_`
-    - [ ] KNN K-Distance plot to choose Epsilon for DBSCAN clustering: k'th nearest neighbour's distances (ascending) VS just indices (1,2...)
+    - [x] KNN K-Distance plot to choose Epsilon for DBSCAN clustering: k'th nearest neighbour's distances (ascending) VS just indices (1,2...)
     - [x] Agglomerative `from scipy.cluster.hierarchy import dendrogram, linkage`: dendogram plot is "tree" of cluster heirachies (on top is all data in one cluster, then divide into parts until each point is a cluster)
 
 ## Notebooks
@@ -112,19 +172,45 @@ Problem Type | Linear constraints | Smooth, medium-scale unconstrained | Noisy o
 - [x] Bootstrap & MoM
 - [x] Probability Statistics
 - [ ] WIP Optimization Methods
-- [ ] PCA_Detailed_Tutorial
+- [x] PCA_Detailed_Tutorial
 - [ ] WIP Optimization_PCA
-- [ ] Clustering
-- [ ] Regression (linear: ordinary & total least squares, logistic, etc.) - notebook not yet shared
-- [ ] 5 Plots: K Means Clustering (Elbow Plot (Inertia vs k), Silhoutte Score vs k, Scatter colored by cluster labels), KNN (distance plot, dendogram)
-
-SKIP (not coming in midsem exam): 
-* Spectre Clustering
+- [ ] ALMOST DONE: Clustering (from-scratch algo impls remaining)
+- [x] regression_notebook.ipynb
 
 ## Problems
 
 - [x] *Part 4: Practice Exercises* cell in *Bootstrap_and_Method_of_Moments.ipynb*
+- [ ] *Part 10: Practice Exercises* cell in *PCA_Detailed_Tutorial.ipynb*
 
-### NOT IN MIDSEM SYLLABUS
+## NOT IN MIDSEM SYLLABUS
 
-Manual gradient descent (diff types) in linear regression
+Manual gradient descent (diff types) in linear regression, Total Least Squares regression, Polynomial Regression
+
+## Additional (not in syllabus)
+
+### PCA
+
+#### Further Reading
+
+- **Kernel PCA**: Nonlinear extension using kernel trick
+- **t-SNE**: Nonlinear dimensionality reduction for visualization
+- **UMAP**: Modern alternative to t-SNE
+- **Autoencoders**: Neural network-based dimensionality reduction
+- **Factor Analysis**: Probabilistic alternative to PCA
+
+#### Practice Recommendations
+
+1. Apply PCA to real datasets (Kaggle, UCI ML Repository)
+2. Compare PCA with other dimensionality reduction methods
+3. Use PCA as preprocessing for classification/regression
+4. Experiment with different numbers of components
+5. Visualize high-dimensional data using PCA
+
+### K-Means Clustering - Further Reading
+
+- K-Means++: Improved initialization method
+- Mini-Batch K-Means: Faster variant for large datasets
+- DBSCAN: Density-based clustering (handles non-spherical clusters)
+- Hierarchical Clustering: Creates tree of clusters
+- Gaussian Mixture Models: Probabilistic clustering
+
