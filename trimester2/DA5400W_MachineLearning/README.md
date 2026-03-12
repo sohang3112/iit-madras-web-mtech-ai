@@ -337,11 +337,18 @@ For Outlier detection (noise removal, anamoly detection), Density-based methods 
 
 Numerosity Reduction (form tight clusters) is key idea behind many scaling techniques. Use representative points: centroids, medoids, many points per cluster.
 
+**Clustering Distance metrics**:
+- Manhattan (L1), Squared Euclidean (L2)
+- *Mahalanobis Distance* (b/w point and distribution / centroid) accounts for correlations between variables and differences in scaling. 
+  It's used in outlier detection, classification, clustering. It uses mean vector $\mu$ and covariance matrix $\Sigma$:
+
+$$D_M(x) = \sqrt{(x - \mu)^T \Sigma^{-1} (x - \mu)}$$
+
 ### K-Means Clustering
 
 K (No. of clusters) is determined heuristically / with trial and error.
 
-It uses Lloyd's Heuristic algorithm (usually Euclidean distance is used but other ways can also be used):
+It uses Lloyd's Heuristic algorithm (usually Euclidean distance is used, i.e. minimize *Within-Cluster Sum of Squares*, but other distance metrics can also be used):
 
 Starting with $k$ random centroids, Until Centroids converge:
 * Find clusters: each point assigned to the centroid it's closest to.
@@ -426,6 +433,7 @@ With a known ground-truth clustering set:
 No Information:
 * Diameter
 * Radius
+* Inertia is total of squared distances of each point from its cluster centroid: $\sum_{j=1}^k \sum_{x_i \in C_j} (x_i - \mu_j)^2$
 * Dunn Index (measures compactness of clusters):
   * $\min_{i < j} InterClusterDistance(C_i, C_j)$ / $\max_i Diameter(C_i)$ -- TODO: didn't understand, see example
   * Suffers from outliers
@@ -709,4 +717,6 @@ Weighted KNN : (divide by distance so further points get less weightage)
 ## TODO Practice Questions
 
 * (Coding Questions) Q3, 5 of Assignment 1 (skipped as not required for submission)
+
+TODO: Gaussian Mixture Model (GMM) - not taught in class I think, but came in Assignment 2
 

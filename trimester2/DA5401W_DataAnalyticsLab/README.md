@@ -163,6 +163,9 @@ Diameter is NOT 2*Radius
     - [x] K-Means: silhouette score plot `sklearn.metrics.silhoutte_score(X, labels)` vs k
     - [x] K-Means: clusters plot `cluster_labels = kmeans.fit_predict(X_scaled)` OR `kmeans.fit(X_scaled); kmeans.labels_`
     - [x] KNN K-Distance plot to choose Epsilon for DBSCAN clustering: k'th nearest neighbour's distances (ascending) VS just indices (1,2...)
+          Look for a "knee" (sudden increase), use that K-Distance as Epsilon. 
+          If there's no "knee" (i.e. line is increasing smoothly), that indicates that clusters of varying densities are present.
+          In that case alternatives like OPTICS clustering can be used (OPTICS doesn't require a fixed Epsilon).
     - [x] Agglomerative `from scipy.cluster.hierarchy import dendrogram, linkage`: dendogram plot is "tree" of cluster heirachies (on top is all data in one cluster, then divide into parts until each point is a cluster)
 
 ## Notebooks
@@ -182,9 +185,15 @@ Diameter is NOT 2*Radius
 - [x] *Part 4: Practice Exercises* cell in *Bootstrap_and_Method_of_Moments.ipynb*
 - [ ] *Part 10: Practice Exercises* cell in *PCA_Detailed_Tutorial.ipynb*
 
-## NOT IN MIDSEM SYLLABUS
+## ENDSEM -- NOT IN MIDSEM SYLLABUS
 
 Manual gradient descent (diff types) in linear regression, Total Least Squares regression, Polynomial Regression
+
+TODO
+
+Notebooks after Midsem:
+
+- [ ] DA5401W_Regression_I_unsolved.ipynb
 
 ## Additional (not in syllabus)
 

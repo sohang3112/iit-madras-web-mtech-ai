@@ -48,3 +48,14 @@ Quiz 1 Topics:
 - [x] K-means clustering
 - [x] DBSCAN
 - [x] Heirachical: Agglomerative
+
+------------
+
+Quiz 2 Topics:
+
+- Classification:
+    - [ ] KNN
+    - [ ] Naive Bayes
+    - [ ] Logistic Regression
+    - [ ] Classification metrics
+- [ ] Linear Regression & metrics
