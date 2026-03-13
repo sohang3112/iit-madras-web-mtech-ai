@@ -100,10 +100,10 @@ and the empirical risk over $m$ samples is
 $$J = \frac{-1}{m} \sum_{i=1}^m L[i]$$
 
 Here, $x[i]$ represents a single input example, and is of shape $\mathbb{R}^{D_x \times 1}$ . 
-$y[i] \in \mathbb{R}$ is single output label and is a scalar. There are $m$ samples in the dataset. The hidden layer $z_1$ has D_{a_1}$ neurons.
+$y[i] \in \mathbb{R}$ is single output label and is a scalar. There are $m$ samples in the dataset. The hidden layer $z_1$ has $D_{a_1}$ neurons.
 
 1. What are the shapes of $W_1$, $b_1$, $W_2$, $b_2$ for a single example? 
-   If the network is vectorized over $m$ examples, what are the shapes of the parameters? What are the shapes of $X$ and $Y$ after vectorization?
+   If the network is vectorized over $m$ examples, what are the shapes of the parameters? What are the shapes of $x, y$ after vectorization?
 2. Compute $\frac{\partial J}{\partial \hat{y}[i]}$. Refer to this quantity as $\delta_1[i]$. What is $\frac{\partial J}{\partial \hat{y}}$ ?
 3. Compute $\frac{\partial \hat{y}[i]}{\partial z_2}$. Refer to this quantity as $\delta_2[i]$.
 4. Compute $\frac{\partial z_2}{\partial a_1}$. Refer to this quantity as $\delta_3[i]$.
@@ -113,7 +113,37 @@ $y[i] \in \mathbb{R}$ is single output label and is a scalar. There are $m$ samp
 
 ### Solution 3
 
-TODO: numerical
+Rewriting formulae in terms of vectors of inputs and outputs $x, y$ (samples are rows, features are columns):
+
+$$
+z_1 = x W_1^T + b_1 \\
+a_1 = ReLU(z_1) \\
+z_2 = a_1 W_2^T + b_2 \\
+\hat{y} = \sigma(z_2) \quad (\text{Sigmoid}) \\
+J = \frac{1}{m} \sum -y \ln(\hat{y}) - (1 - y) \ln (1 - \hat{y}) \quad (\text{Loss/Risk over all samples})
+$$
+
+For vectorized network, shapes are (where $m$ is no. of samples, $d$ is no. of input dimensions, $l_1$ is no. of neurons in 1st layer (hidden)):
+* $W_1: (l_1, d)$, $b_1: (1, l_1)$
+* $W_2: (1, l_1)$, $b_2: (1, 1)$
+* $x: (m, d)$, $y: (m, 1)$
+
+NOTE: During vector addition, numpy automatically repeats the bias vectors $b_1, b_2$ via array shape broadcasting (to replace 1 in bias shape dimension) to make the shapes compatible.
+
+If passing only a single example, then $m = 1 \implies x: (1, d), y: (1, 1)$ - shapes of weights and biases aren't affected.
+
+In below, Unit Step Function $u(z) = ReLU'(z)$ is used, which is 1 if $z > 0$ else 0:
+
+$$
+\delta_1 = \frac{\partial J}{\partial \hat{y}} = \frac{1}{m} (-\frac{y}{\hat{y}} + \frac{1 - y}{1 - \hat{y}}) \quad (\text{Shape: } (m, 1)) \\
+\delta_2 = \frac{\partial \hat{y}}{\partial z_2} = \hat{y} (1 - \hat{y}) \quad (\text{Sigmoid derivative; Shape: } (m, 1)) \\
+\delta_3 = \frac{\partial z_2}{\partial a_1} = W_2 \quad (\text{Shape: } (1, l_1)) \\
+\delta_4 = \frac{\partial a_1}{\partial z_1} = u(z_1) \quad (\text{ReLU derivative; Shape: } (m, l_1)) \\
+\delta_5 = \frac{\partial z_1}{\partial W_1} = x^T \quad (\text{Shape: (d, m)}) \\
+\frac{\partial J}{\partial W_1} = ((\delta_1 \cdot \delta_2) \delta_3 \cdot \delta_4)^T x = \frac{1}{m} [((\hat{y} - y) W_2) \cdot u(z_1)]^T \quad (\text{Shape: } (l_1, d))
+$$
+
+NOTE: Here $x \cdot y = x^T y$ is dot product.
 
 ## Problem 5: Theory: Spectral Convergence of Optimization Methods
 

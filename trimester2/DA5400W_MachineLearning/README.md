@@ -10,7 +10,8 @@ Machine Learning usually requires significant feature engineering, but Deep Lear
 
 $$
 \nabla x^n = n (x^{n-1})^T \\
-\nabla x^T A = \nabla(A^T x) = A^T \\
+\nabla x A^T = A \\
+\nabla x^T A = \nabla A^T x = \nabla A x^T = A^T \\
 \nabla x^T A x = (A + A^T) x \\
 \nabla (A x + b)^T (A x + b) = 2 A^T (A x + b) \\
 \nabla A x B = A^T B^T \\
