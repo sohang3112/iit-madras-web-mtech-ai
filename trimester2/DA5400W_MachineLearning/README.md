@@ -549,6 +549,35 @@ Tls steps
 
 TODO
 
+## Classification
+
+TODO Naive Bayes (in syllabus but not in Prof slides) 
+
+Logistic Regression - know
+
+KNN - know
+Weighted KNN = KNN weighted by 1/d (distance of existing point from inference point) 
+
+TODO balanced accuracy, ROC-AUC
+
+What % of actual positives are correctly predicted
+Sensitivity = Recall = TP / (TP + FN) 
+
+What % of predicted positives are actually correct
+Precision = TP / (TP + FP) 
+
+1/F1 = 1/Precision + 1/Recall
+
+Specificity = TN / (TN+FP) 
+Balanced accuracy = mean of specificity, sensitivity
+
+True Positive Rate TPR = TP / (TP+FN) 
+False Positive Rate FPR = 1 - TPR
+ROC = plot TPR (y)  vs FPR (x) (while varying threshold for true pred between 0-1) -- helps to choose threshold
+AUC = Area Under Curve (no formula, have to sum/integrate) 
+One way for max threshold is maximize J = TPR - FPR
+Can be misleading for highly imbalanced data
+
 ## WIP lecture
 
 TODO: supervised learning workflow
