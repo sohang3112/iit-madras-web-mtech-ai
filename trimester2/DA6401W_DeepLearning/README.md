@@ -526,6 +526,19 @@ Regularization improves weight selection through prior information:
     * Learn data distribution and sample from data
     * Bootstrap through autoencoders
 
+**Dropout**: approximates training an exponential number of models simultaneously -- Dropout (multiplying noise with weights) has very similar effect to L2 regularization.
+* Mask $m_i \in \{0,1\}$ (in each mini-batch train, randomly some weights are disabled via mask, to ensure all weights forced to learn)
+$$
+L = (y - \sum w_i m_i xi)^2 \quad (\text{Loss}) \\
+\implies L = y^2 + (\sum w_i m_i x_i)^2 - 2 y \sum w_i m_i x_i \\
+\implies L = (y - p w^T x)^2 + p (1-p) \sum w_i^2 x_i^2 \quad (E[m_i] = E[m_i^2] = E[m_i m_j] = p) \\
+\implies L = (y - p w^T x)^2 + p (1-p) \|w\|^2 \quad (\text{if} \quad E[x_i^2] = 1)
+$$
+
+**Early Stopping** has similar effect as L2 regularization. makes sense when data is noisy. (more you train, more chances of overfitting - avoid oscillations of loss up & down, ie keep moving from one to a different local minima)
+* Patience parameter $p$ (how many epochs do we wait?)
+
+**Most often used**: L2 regularization + Dropout -- others are more on case-by-case basis of if it fits or not
 
 ## Misc Resources
 

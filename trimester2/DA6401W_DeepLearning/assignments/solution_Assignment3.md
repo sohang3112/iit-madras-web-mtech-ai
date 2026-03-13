@@ -77,7 +77,7 @@ when GPU memory cannot hold the entire batch simultaneously.
 
 ### Solution 2
 
-TODO:  theory
+TODO:  numerical
 
 
 ## Problem 3
@@ -113,7 +113,7 @@ $y[i] \in \mathbb{R}$ is single output label and is a scalar. There are $m$ samp
 
 ### Solution 3
 
-TODO: theory 
+TODO: numerical
 
 ## Problem 5: Theory: Spectral Convergence of Optimization Methods
 
@@ -150,7 +150,7 @@ where $K = \frac{\lambda_d}{\lambda_1}$
 
 ### Solution 5
 
-TODO: theory
+TODO: numerical
 
 
 ## Problem 7: Solve by hand
@@ -186,7 +186,7 @@ Your Task:
 
 ### Solution 7
 
-TODO: theory
+TODO: numerical
 
 
 ## Problem 9: Numerical: Two Steps of Adam Optimizer
@@ -213,7 +213,7 @@ $$w_0 = 2, \quad \eta = 0.1, \quad \beta_1 = 0.9, \quad \beta_2 = 0.999, \quad \
 
 ### Solution 9
 
-TODO: theory
+TODO: numerical
 
 
 ## Problem 11: Theoretical Question 
@@ -264,11 +264,10 @@ Explain how this ratio reflects AdaGrad's response to gradient starvation.
 
 ### Solution 11
 
-TODO: theory
+TODO: numerical
 
 
 ## Problem 13: Effect of Initialization on Gradient Flow
-
 
 Consider a deep neural network with 15 hidden layers using ReLU activation. All weights are initialized from $\mathcal{N}(0, 0.01^2)$ (very small variance).
 
@@ -281,7 +280,15 @@ Which of the following is MOST likely to happen during the first few training ep
 
 ### Solution 13
 
-TODO: theory
+No. 2 is most likely - Activations shrink toward zero as depth increases.
+
+**Reason**:
+
+Weights are very small as initialized with mean 0, small variance.
+During forward pass, inputs are multiplied by weights to get outputs and then passed through ReLU.
+Since weights are small, activation outputs are also small.
+Each subsequent layer's output gets smaller and smaller as all weights are very small.
+So Activations shrink twoards 0 as depth increases.
 
 
 ## Problem 16: Numerical: Adam Update in Two Dimensions
@@ -308,6 +315,6 @@ Compute the updated parameter vector $w_1$ after one Adam update step.
 
 ### Solution 16
 
-TODO: theory
+TODO: numerical
 
 
