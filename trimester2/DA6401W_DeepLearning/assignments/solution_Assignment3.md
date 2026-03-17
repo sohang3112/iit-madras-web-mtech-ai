@@ -196,7 +196,7 @@ Network Architecture:
 - Loss Function: Squared Error, defined as $L = (\hat{y} - y)^2
 
 Initial Values: 
-* Input Vector $X = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}$.
+* Input Vector $x = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}$.
 * Target Label $y = 1$
 * Learning Rate $\eta = 0.01$
 
@@ -216,7 +216,38 @@ Your Task:
 
 ### Solution 7
 
-TODO: numerical
+Activations:
+* `y = ReLU(z) = z if z > 0 else 0` -- its gradient is `ReLU'(z) = 1 if z > 0 else 0`
+* $y = Sigmoid(z) = \frac{1}{1 + e^{-z}}$ -- its gradient is $y (1 - y)$
+
+1. Forward Pass:
+
+$$
+z_1 = W_1 x + B_1 = \begin{bmatrix} 1 \\ -1 \\ 2 \end{bmatrix} \\
+a_1 = ReLU(z_1) = \begin{bmatrix} 1 \\ 0 \\ 2 \end{bmatrix} \\
+z_2 = W_2 a_1 + B_2 = \begin{bmatrix} -0.5 \\ 0.5 \\ -1 \end{bmatrix} \\
+a_2 = Sigmoid(z_2) \approx \begin{bmatrix} 0.37 \\ 0.62 \\ 0.73 \end{bmatrix} \\
+\hat{y} = W_3 a_2 + B_3 \approx 3.46 \quad (\text{Predicted Output}) \\
+L = (\hat{y} - y)^2 = (3.46 - 1)^2 \approx 6.05 \quad (\text{Loss: Squared Error})
+$$
+
+2. Backward Pass (Calculate Gradients):
+
+$$
+\frac{\partial L}{\partial \hat{y}} = 2 (\hat{y} - y) \approx 12.10 \quad (\text{Loss gradient}) \\
+
+\frac{\partial L}{\partial a_2} = 12.10 W_3^T \approx \begin{bmatrix} 24.20 \\ 24.20 \\ 24.20 \end{bmatrix} \\
+\frac{\partial L}{\partial W_3} = 12.10 a_2^T \approx \begin{bmatrix} 4.477 & 7.502 & 8.833 \end{bmatrix} \quad (\text{Layer 3 weights gradient}) \\
+
+\frac{\partial a_2}{\partial z_2} = a_2 (1 - a_2) = \begin{bmatrix} 0.2331 \\ 0.2356 \\ 0.1971 \end{bmatrix} \\
+\frac{\partial L}{\partial z_2} = \left( \frac{\partial L}{\partial a_2} \right)^T \frac{\partial a_2}{\partial z_2} = TODO
+$$
+
+3. Gradient Descent to update weights:
+
+$$
+TODO
+$$
 
 
 ## Problem 9: Numerical: Two Steps of Adam Optimizer

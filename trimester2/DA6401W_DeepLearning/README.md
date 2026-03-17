@@ -509,7 +509,9 @@ TODO
 * This speed-up is applicable to all optimization techniques.
   * NAdam is fastest convergence first order method.
 
-## WIP lecture: Reduce Overfitting
+## WIP lectures: Reduce Overfitting
+
+**Ensemble Neural Networks** - TODO (aggregates many neural networks at end)
 
 Regularization improves weight selection through prior information:
 
@@ -519,7 +521,7 @@ Regularization improves weight selection through prior information:
 * Update step: $w_n = (1 - \eta \lambda_n) -- TODO
 * TODO
 
-**Data Augmetation**: Icrease training dataset size to improve loss surface
+**Data Augmetation**: Increase training dataset size to improve loss surface
 * *Noise Injection* / Perturbation: Add noise to dataset (adding Gaussian noise has same effect as L2 regularization)
 * *Label Smoothening*: Change 0/1 labels to $\epsilon$, $1 - \epsilon$ (label noise)
 * Unsupervised / semi-supervised learning: 
@@ -534,11 +536,46 @@ L = (y - \sum w_i m_i xi)^2 \quad (\text{Loss}) \\
 \implies L = (y - p w^T x)^2 + p (1-p) \sum w_i^2 x_i^2 \quad (E[m_i] = E[m_i^2] = E[m_i m_j] = p) \\
 \implies L = (y - p w^T x)^2 + p (1-p) \|w\|^2 \quad (\text{if} \quad E[x_i^2] = 1)
 $$
+* This mask is probabilistic - changes every epoch (but not every batch). So in each epoch different weights are selected & rest are effectively dropped.
+* This is similar to *Ensemble Neural Networks* (aggregation of effectively many different neural networks), but more convinient.
+* Equivalent to L2 regularization.
+* At inference time no mask (all weights used).
+* *DON'T USE DROPOUT WHEN LAYER SIZE IS VERY SMALL (No. of neurons in layer) - AND NEVER IN INPUT & OUTPUT LAYERS*
 
 **Early Stopping** has similar effect as L2 regularization. makes sense when data is noisy. (more you train, more chances of overfitting - avoid oscillations of loss up & down, ie keep moving from one to a different local minima)
 * Patience parameter $p$ (how many epochs do we wait?)
+* Especially good for noisy training data (high variance)
+
+Early Stopping, Dropout, Weight Decay -- all 3 are equivalent to L2 regularization, but L2 can get computationally expensive whereas those 3 reduce computation.
+
+NOTE: this equivalence is exact for simple neural nets (with linear activations only), but it's only approx not exactly true for neural nets in general (due to various non-linear activations).
+In linear-only neural net, we can use only one regularization technique. But in actual non-linear neural net, multiple regularizations are generally used.
+
+In all these methods we're also trying to avoid problems of Exploding or Vanishing Gradients. All regularization techniques implicitly smoothen loss function gradients.
+Other loss function smoothening guidelines:
+* DON'T use Sigmoid, Softmax activation in hidden layers, only in hidden -- instead ReLU, Leaky ReLU, Tanh etc.
+* Do Input Normalization (*Min-Max Scaling* $(X - X_{min}) / (X_{max} - X_{min})$ (sensitive to outliers / corrupt data) or *Z-score Standardization* $(X - \mu) / \sigma$)
 
 **Most often used**: L2 regularization + Dropout -- others are more on case-by-case basis of if it fits or not
+
+**Distribution Shift Across Layers**
+* *Internal covariance shift* due to weights changing in training
+* TODO
+
+**Batch Norm** (also a regularization technique) stabilizes weights distribution shift across layers, for a mini-batch size $m$ and reduce gradient variance:
+* $\mu = \sum x_i / m ; \quad \sigma^2 = \sum (x_i - \mu)^2 / m$ (mean, variance of same neurons, different data points)
+* $y_i = \beta + \gamma (x_i - \mu) / (\sigma + \epsilon)$ (normalizes layer activation output (Z-score standardization))
+    * $\beta$ and $\gamma$ are learned parameters.
+* Behaves like noise injection so regularization
+* Larger batch sizes provide better estimate of statistics
+* Good for CNN architectures, esp when going from a larger (neurons/channels) to smaller (neurons/channels)
+* No *cross-connections*: prev layer's each neuron maps directly to a single BatchNorm neuron.
+
+**Layer Normalization** (unlike batch norm, does not depend on batch size)
+* [for a single data point not batch (mean, variance of different neurons, same data point)] --> then average of all data points' answers for whole batch
+* Has *cross-connections*: prev layer's every neuron maps to every LayerNorm neurons.
+* Computational complexity same as BatchNorm
+* Good for RNN architectures (Reinforcement Neural Nets)
 
 ## Misc Resources
 

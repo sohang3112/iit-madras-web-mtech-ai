@@ -481,9 +481,17 @@ Bayesian Linear Regression (it gives same output as Ridge Regression, but in add
 
 ### Total Least Squares (TLS)
 
-It's less used instead of Ordinary Least Squares, when we know there's noise in both x and y.
+**Pre-Requisites (linear algebra)**:
+* SVD: $X_{m \times n} = U_{m \times m} D_{m \times n} V^T_{n \times n}$
+    * Right singular vectors $v$ are directions along which variance in data is equal to singular values $\sigma$.
+    * Left singular vectors $u$ are projections along $v$ directions.
+    * *For largest singular value, its right singular vector is direction of maximum variance in data.*
+* Using SVD, matrix of rank $r$ can be written as sum of $r$ rank-1 matrices: $X = \sum_{i=1}^r u_i \sigma_i v_i^T$ -- each summed matrix is $(m,1) * (1,1) * (1,n) = (m,n)$
+* *Low-Rank Approximation*: Approx $X$ by $X_l$ of rank $l < r$ by summing largest $l$ rank-1 matrices: $X_l = \sum_{i=1}^l u_i \sigma_i v_i^T$
+* *Frobenium Norm of Matrix*: sqrt(sum of squares of all cells in matrix)
 
-TODO
+**TLS:**
+* It's less used instead of Ordinary Least Squares, when we know there's noise in both x and y.
 
 ### Polynomial Regression
 
@@ -501,7 +509,7 @@ When you have multiple outputs that are strongly correlated with each other.
 
 TODO
 
-## WIP Regression Part 2 (using gradient descent) - slides not yet uploaded
+## WIP Regression Part 2 (using gradient descent)
 
 In OLS ordinary least squares you have to compute $(X^T X)^{-1}$ -- this is very expensive / impossible when X data is very large, or data is streaming in batches.
 Then we use gradient descent
