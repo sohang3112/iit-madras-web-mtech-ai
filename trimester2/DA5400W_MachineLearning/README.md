@@ -490,8 +490,35 @@ Bayesian Linear Regression (it gives same output as Ridge Regression, but in add
 * *Low-Rank Approximation*: Approx $X$ by $X_l$ of rank $l < r$ by summing largest $l$ rank-1 matrices: $X_l = \sum_{i=1}^l u_i \sigma_i v_i^T$
 * *Frobenium Norm of Matrix*: sqrt(sum of squares of all cells in matrix)
 
-**TLS:**
-* It's less used instead of Ordinary Least Squares, when we know there's noise in both x and y.
+**TLS (Total Least Squares):** (No closed form solution, only iterative approx based on SVD)
+* It's less used instead of Ordinary Least Squares, when we know there's noise in both x and y so *values of both x, y to be estimated*.
+    * models: true $y_t = w_0 + w_1 x_t$ vs observed $y = w_0 + w_1 x + (w_1 \epsilon_x - \epsilon_y))$
+* Objective: $\min_w \|(X,y) - (\hat{X},\hat{y})\|, \quad \text{such that } \hat{y} \in ColumnSpace(\hat{X}), \hat{y} = \hat{X} w$
+* Algorithm:
+    * Z-Score Standardize input to 0 mean, 1 variance (singular values depend on variance, so standardize to ensure equal attention to each feature)
+    * Augmented $X_{aug} = [ X | y ]_{N \times (D+1)}$
+    * SVD $X_{aug} = U S V^T$ -- smallest singular value is $\sigma_{D+1}$ with corresponding right singular vector $v_{D+1}$
+    * Break augmented right singular vec $v_{D+1}$ back to components $v_X: n \times 1, v_y: 1 \times 1$ and calculate regression coefficients vector:
+    $$\hat{w} = \frac{-1}{v_y} v_X$$
+    * Get corrected estimates for X,y by taking *low-rank approximation* (upto D) of augmented matrix:
+    $$X_{aug}^c = \sum_{i=1}^D u_i \sigma_i v_i^T$$
+
+### Weighted OLS, TLS
+
+Needed when assumption of *Homoscedsatic errors* is broken. 
+i.e. variance (noise / probability of being wrong) is different for each sample row $Var(\epsilon_i) = \sigma_i^2$, so *Heteroscedastic errors*.
+NOTE: errors in data are due to unreliable measurements.
+
+![Error types](images/homoscedastic_vs_heteroscedastic_errors.png)
+
+$y$ in some samples (eg. from bank statement) are known to be more reliable than others (eg. a neighbourhood estimate).
+
+* Weighted OLS Objective: $min_w \sum_i \frac{(y_i - \hat{y_i})^2}{\sigma_i^2}$
+* Solution: $X w = y \implies X^T \Sigma^{-1} X w = X^T \Sigma^{-1} y \implies w = (X^T \Sigma^{-1} X)^{-1} X^T \Sigma^{-1} y$ 
+  where $\Sigma = diag([\sigma_1^2, \cdots, \sigma_n^2])$
+
+So weight matrix adjusts influence on regression model, i.e. more reliable (less error variance) samples will have more impact while calculating coefficients.
+NOTE: Here "weights" DOES NOT MEAN regression model coefficients, but instead how much "weight" is to be given to each sample row.
 
 ### Polynomial Regression
 
