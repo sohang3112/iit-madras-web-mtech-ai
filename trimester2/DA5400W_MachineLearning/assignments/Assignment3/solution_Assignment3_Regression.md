@@ -98,84 +98,53 @@ print('R^2 Score:', r2_score(df['Temp'], ypred))
 
 Consider the following data-generating process:
 
-_x_ 1 _,_ true _∼N_ (0 _,_ 1) _,_ _x_ 2 _,_ true _∼N_ (0 _,_ 1) _,_
-
-_y_ true = 3 _x_ 1 _,_ true _−_ 2 _x_ 2 _,_ true
+$$
+x_{1,true}, x_{2,true} \sim \mathcal{N}(0,1^2) \\
+y_{true} = 3 x_{1,true} - 2 x_{2,true}
+$$
 
 However, the observed variables are corrupted with measurement noise:
 
-_x_ 1 = _x_ 1 _,_ true + _ϵ_ 1 _,_ _x_ 2 = _x_ 2 _,_ true + _ϵ_ 2 _,_ _y_ = _y_ true + _ϵy_
+$$x_1 = x_{1,true} + \epsilon_1, \quad x_2 = x_{2,true} + \epsilon_2, \quad y = y_{true} + \epsilon_y$$
 
-where
+where $\epsilon_1, \epsilon_2 \sim \mathcal{N}(0, 0.5^2), \quad \epsilon_y \sim \mathcal{N}(0, 0.2^2)$
 
-_ϵ_ 1 _, ϵ_ 2 _∼N_ (0 _,_ 0 _._ 5 [2] ) _,_ _ϵy ∼N_ (0 _,_ 0 _._ 2 [2] ) _._
+Generate $N = 200$ samples.
 
-Generate _N_ = 200 samples.
-
-
-(a) Fit a multiple linear regression model using Ordinary Least Squares (OLS). Report the estimated coefficients.
-
-
-(b) Implement Total Least Squares (TLS) using Singular Value Decomposition (SVD) and report
-the TLS coefficient estimates.
-
-
-(c) Compare OLS and TLS estimates with the true parameters (3 _, −_ 2). Which method is closer
-to the true parameters? Explain.
+1. Fit a multiple linear regression model using Ordinary Least Squares (OLS). Report the estimated coefficients.
+2. Implement Total Least Squares (TLS) using Singular Value Decomposition (SVD) and report the TLS coefficient estimates.
+3. Compare OLS and TLS estimates with the true parameters $(3,-2)$. Which method is closer to the true parameters? Explain.
 
 ### Solution 4
 
-TODO
+TODO: WIP code in notebook (to copy here)
 
 
 ## Problem 5
 
-You are given a dataset of](https://drive.google.com/file/d/1VZy0HNLmtSPQiLIKlW7Gfi3S0vbIzcCk/view?usp=sharing) _N_ = 300 observations ( _xi, yi_ ) where the response _y_ is generated from a
-nonlinear function with noise:
+You are given a dataset *polynomial_regression_dataset.csv* of $N = 300$ observations $(x_i, y_i)$ where the response $y$ is generated from a nonlinear function with noise:
 
-_y_ = _f_ ( _x_ ) + _ϵ,_ _ϵ ∼N_ (0 _, σ_ [2] ) _,_
+$$y = f(x) + \epsilon, \quad \epsilon \sim \mathcal{N}(0, \sigma^2)$$
 
-but the form of _f_ ( _·_ ) is unknown.
+but the form of $f(.)$ is unknown.
 
-(a) Split the dataset into a training set (70%) and a validation set (30%).
-
-
-(b) For polynomial degrees _d ∈{_ 1 _,_ 2 _,_ 3 _,_ 4 _,_ 5 _,_ 6 _,_ 7 _,_ 8 _,_ 9 _,_ 10 _}_, fit a polynomial regression model (without regularization) using the training data. For each _d_, compute the Mean Squared Error
-(MSE) on both the training and validation sets. Plot the training and validation MSE as
-functions of _d_, and use the plot to select an appropriate degree _d_ _[∗]_ that balances underfitting
-and overfitting.
-
-(c) For the chosen degree _d_ _[∗]_, fit the following regularized polynomial models using the training
-data:
-
-i. Ridge regression with _λ ∈{_ 10 _[−]_ [4] _,_ 10 _[−]_ [3] _,_ 10 _[−]_ [2] _,_ 10 _[−]_ [1] _,_ 1 _,_ 10 _}_
-ii. Lasso regression with _λ ∈{_ 10 _[−]_ [4] _,_ 10 _[−]_ [3] _,_ 10 _[−]_ [2] _,_ 10 _[−]_ [1] _,_ 1 _,_ 10 _}_
-
-
-Use _K_ -fold cross-validation on the training set to select the best _λ_ for each method.
-
-
-(d) For each method above (Ridge, Lasso), report:
-
-
-     - The selected _λ_
-
-     - Training MSE and cross-validation MSE
-
-     - Validation set MSE using the final model
-
-     - Estimated model coefficients
-
-
-(e) Based on your results:
-
-
-i. Which regularization method performs best on the validation set? Explain why.
-
-ii. Does regularization improve generalization relative to the unregularized polynomial model?
-Justify using the plots and error values.
-
-iii. Discuss how the chosen regularizer affects model complexity and coefficient estimates.
+1. Split the dataset into a training set (70%) and a validation set (30%).
+2. For polynomial degrees $d \in 1,2..10$, fit a polynomial regression model (without regularization) using the training data. 
+   For each $d$, compute the Mean Squared Error (MSE) on both the training and validation sets. 
+   Plot the training and validation MSE as functions of $d$, and use the plot to select an appropriate degree $d^*$ that balances underfitting and overfitting.
+3. For the chosen degree $d^*$, fit the following regularized polynomial models using the training data 
+   (Use K-fold cross-validation on the training set to select the best $\lambda$ for each method.):
+    * Ridge regression with $\lambda \in \{10^{-4}, 10^{-3}, 10^{-2}, 10^{-1}, 1, 10\}$
+    * Lasso regression with $\lambda \in \{10^{-4}, 10^{-3}, 10^{-2}, 10^{-1}, 1, 10\}$
+4. For each method above (Ridge, Lasso), report:
+    - The selected $\lambda$
+    - Training MSE and cross-validation MSE
+    - Validation set MSE using the final model
+    - Estimated model coefficients
+5. Based on your results:
+    * Which regularization method performs best on the validation set? Explain why.
+    * Does regularization improve generalization relative to the unregularized polynomial model? Justify using the plots and error values.
+    * Discuss how the chosen regularizer affects model complexity and coefficient estimates.
 
 ### Solution 5
 
@@ -184,31 +153,22 @@ TODO
 
 ## Problem 6
 
-**Note:** Solve this problem manually using a calculator but do not use code. You submission should
-include manual calculations. Feel free to approximate the values to 2 or 3 decimals.
+**Note:** Solve this problem manually using a calculator but do not use code. 
+          Your submission should include manual calculations.
+          Feel free to approximate the values to 2 or 3 decimals.
 
-A company is studying how _monthly online sales S_ (in units) change with _monthly ad spend A_ (in
-lakhs of rupees). Management believes that the effect of ad spend is best described in terms of
-_percentage change in sales_ rather than absolute change.
+A company is studying how *monthly online sales* $S$ (in units) change with *monthly ad spend* $A$ (in lakhs of rupees). 
+Management believes that the effect of ad spend is best described in terms of *percentage change in sales* rather than absolute change.
 
 For the last 5 months, the data are:
 
+$A$ (lakhs) | 1   | 2   | 3   | 4   | 5
+----------- | --- | --- | --- | --- | ---
+$S$ (units) | 200 | 270 | 330 | 390 | 440
 
-_A_ (lakhs) 1 2 3 4 5
-_S_ (units) 200 270 330 390 440
-
-
-(a) Using the above data, estimate a model that makes the relationship between _A_ and _S approx-_
-_imately linear_ when the output is expressed in _percentage terms_ .
-
-
-(b) Using your fitted model, estimate the _approximate percentage increase in sales_ when ad spend
-increases from
-_A_ = 2 lakhs to _A_ = 3 lakhs _._
-
-
-(c) Is the model implying a _constant percentage gain per lakh_ or a _diminishing percentage gain per_
-_lakh_ ? Justify your answer.
+1. Using the above data, estimate a model that makes the relationship between $A$ and $S$ *approximately linear* when the output is expressed in *percentage terms* .
+2. Using your fitted model, estimate the *approximate percentage increase in sales* when ad spend increases $A$ from 2 lakhs to 3 lakhs .
+3. Is the model implying a *constant percentage gain per lakh* or a *diminishing percentage gain per lakh* ? Justify your answer.
 
 ### Solution 6
 
@@ -219,46 +179,18 @@ TODO
 
 Consider the simple linear regression model:
 
+$$y = w_0 + w_1 x$$
 
-_y_ = _w_ 0 + _w_ 1 _x,_
+Given $N$ samples of data, the Ordinary Least Squares (OLS) estimator minimizes the sum of squared residuals:
 
-
-
-Given _N_ samples of data, the Ordinary Least Squares (OLS) estimator minimizes the sum of squared
-residuals:
-
-
-
-_SSR_ =
-
-
-
-_N_
-
-
-
-
-
-- ( _yi −_ _w_ 0 _−_ _w_ 1 _xi_ ) [2] _._
-
-
-_i_ =1
-
-
+$$ SSR = \sum_{i=1}^N (y_i - w_0 - w_1 x_i)^2 $$
 
 to estimate the parameters.
 
+1. Derive the first-order conditions by differentiating $SSR$ with respect to $w_0$ and $w_1$ and setting the derivatives equal to zero.
+2. Using the result from part 1, show that the OLS estimator of the slope is
 
-(a) Derive the first-order conditions by differentiating _SSR_ with respect to _w_ 0 and _w_ 1 and setting
-the derivatives equal to zero.
-
-
-(b) Using the result from part (a), show that the OLS estimator of the slope is
-
-
-         - _n_
-_β_ ˆ1 = _i_ =1 ~~�~~ [(] ~~_n_~~ _[x][i][ −]_ _[x]_ [¯][)(] _[y][i][ −]_ _[y]_ [¯][)] _._
-_i_ =1 [(] _[x][i][ −]_ _[x]_ [¯][)][2]
+$$ \beta_1 = \frac{\sum_{i=1}^N (x_i - \bar{x}) (y_i - \bar{y})}{\sum_{i=1}^N (x_i - \bar{x})^2} $$
 
 ### Solution 7
 
