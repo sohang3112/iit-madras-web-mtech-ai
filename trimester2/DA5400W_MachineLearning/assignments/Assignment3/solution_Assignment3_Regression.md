@@ -117,7 +117,44 @@ Generate $N = 200$ samples.
 
 ### Solution 4
 
-TODO: WIP code in notebook (to copy here)
+```python
+import numpy as np
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+from scipy.linalg import svd
+
+rng = np.random.default_rng(seed=42)
+N = 200
+
+# generate random X, y
+x1_true = rng.normal(0, 1, size=N)
+x2_true = rng.normal(0, 1, size=N)
+y_true = 3 * x1_true - 2 * x2_true
+e1 = rng.normal(0, 0.5, size=N)
+e2 = rng.normal(0, 0.5, size=N) 
+ey = rng.normal(0, 0.2, size=N)
+x1 = x1_true + e1
+x2 = x2_true + e2
+y = y_true + ey
+X = np.vstack([x1, x2]).T
+
+linreg = LinearRegression().fit(X, y)
+print(f'OLS: coefficients={linreg.coef_}, intercept={linreg.intercept_}')
+
+aug = np.column_stack([X, y])
+aug = aug - np.mean(aug, axis=0)    # standardize X, y to 0 mean BUT NOT to 1 variance (since we want weights relation for original data, not transformed data)
+U, s, Vh = svd(aug)    # left singular vectors are columns of U, right are rows of Vh
+vX, vy = Vh[-1, :-1], Vh[-1, -1]
+w = - vX / vy
+print(f'TLS: coefficients={w}, intercept=0')
+```
+
+Calculated weights:
+
+* OLS: coefficients=[ 2.32678514 -1.76295545], intercept=0.015768849913575744
+* TLS: coefficients=[ 2.98468133 -2.12239001], intercept=0
+
+TLS solution is closer to true weights: coefficients=(3,-2), intercept=0
 
 
 ## Problem 5
@@ -148,7 +185,126 @@ but the form of $f(.)$ is unknown.
 
 ### Solution 5
 
-TODO
+Imports:
+
+```python
+import numpy as np
+import pandas as pd
+from matplotlib import pyplot as plt
+from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.linear_model import LinearRegression, Ridge, Lasso
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.metrics import mean_squared_error
+from sklearn.pipeline import make_pipeline
+```
+
+1. Split dataset into training set (70%) and validataion set (30%):
+
+```python
+df = pd.read_csv('polynomial_regression_dataset.csv')
+Xtrain, Xval, ytrain, yval = train_test_split(df['x'], df['y'], train_size=0.7, random_state=42)
+Xtrain, Xval = Xtrain.to_frame(), Xval.to_frame()
+```
+
+2. 
+
+```python
+train_mses = []
+val_mses = []
+weights = []
+degrees = np.arange(1,11)
+for d in degrees:
+    pipeline = make_pipeline(PolynomialFeatures(degree=d), LinearRegression()).fit(Xtrain, ytrain)
+    weights.append((pipeline[1].coef_, pipeline[1].intercept_))
+    train_mses.append(mean_squared_error(ytrain, pipeline.predict(Xtrain)))
+    val_mses.append(mean_squared_error(yval, pipeline.predict(Xval)))
+
+plt.plot(degrees, train_mses, label='Training')
+plt.plot(degrees, val_mses, label='Validation')
+plt.xlabel('Degree (d)')
+plt.ylabel('Mean Squared Error (MSE)')
+plt.legend()
+plt.show()
+```
+
+Training & Validation MSE vs $d$ Plot:
+
+![Train, Validation MSE vs d Plot](images/Q5_mse_vs_d_plot.png)
+
+From plot, best degree is $d=3$. For this model:
+
+```python
+# 3-1 = 2 since 0-based indexing
+print('Weights of best linear regression model:', weights[2])
+print('MSE on Hidden Validation set:', val_mses[2])   
+``` 
+
+```
+Weights of best linear regression model: (array([ 0.        ,  1.36115702, -0.83045106,  0.33329799]), np.float64(2.185583111621991))
+MSE on Hidden Validation set: 3.3784353777264475
+```
+
+3. Fit Regularized polynomial models (Ridge, Lasso regression):
+
+```python
+alphas = [1e-4, 1e-3, 1e-2, 1e-1, 1, 10]
+
+ridge_mses = []
+for alpha in alphas:
+    pipeline = make_pipeline(PolynomialFeatures(degree=3), Ridge(alpha, random_state=42))
+    folds_mse = cross_val_score(pipeline, Xtrain, ytrain, cv=10, scoring='neg_mean_squared_error')   # Cross Validation (k=10) using MSE
+    ridge_mses.append(np.mean(folds_mse))
+best_idx = np.argmin(ridge_mses)
+print('Best Ridge alpha:', alphas[best_idx])
+print('Best Ridge Cross-Validation MSE:', -ridge_mses[best_idx])
+
+lasso_mses = []
+for alpha in alphas:
+    pipeline = make_pipeline(PolynomialFeatures(degree=3), Lasso(alpha, random_state=42))
+    folds_mse = cross_val_score(pipeline, Xtrain, ytrain, cv=10, scoring='neg_mean_squared_error')   # Cross Validation (k=10) using MSE
+    lasso_mses.append(np.mean(folds_mse))
+best_idx = np.argmin(lasso_mses)
+print('Best Lasso alpha:', alphas[best_idx])
+print('Best Lasso Cross-Validation MSE:', -lasso_mses[best_idx])
+```
+
+```
+Best Ridge alpha: 10
+Best Ridge Cross-Validation MSE: 4.3378998651875
+Best Lasso alpha: 10
+Best Lasso Cross-Validation MSE: 11.072690472366679
+```
+
+4. 
+
+```python
+ridge_pipeline = make_pipeline(PolynomialFeatures(degree=3), Ridge(alpha=10, random_state=42)).fit(Xtrain, ytrain)
+print('Ridge Training MSE:', mean_squared_error(ytrain, ridge_pipeline.predict(Xtrain)))
+print('Ridge Hidden Validation set MSE:', mean_squared_error(yval, ridge_pipeline.predict(Xval)))
+print('Ridge Weights:', ridge_pipeline[1].coef_, ridge_pipeline[1].intercept_)
+
+lasso_pipeline = make_pipeline(PolynomialFeatures(degree=3), Lasso(alpha=10, random_state=42)).fit(Xtrain, ytrain)
+print('Lasso Training MSE:', mean_squared_error(ytrain, lasso_pipeline.predict(Xtrain)))
+print('Lasso Hidden Validation set MSE:', mean_squared_error(yval, lasso_pipeline.predict(Xval)))
+print('Lasso Weights:', lasso_pipeline[1].coef_, lasso_pipeline[1].intercept_)
+```
+
+```
+Ridge Training MSE: 4.1299298445990225
+Ridge Hidden Validation set MSE: 3.432545904186892
+Ridge Weights: [ 0.          1.24034723 -0.82431307  0.35195248] 2.167858892159883
+
+Lasso Training MSE: 10.829502537602314
+Lasso Hidden Validation set MSE: 10.38260606210781
+Lasso Weights: [ 0.          0.         -0.          0.45976504] -0.42862201003005257
+```
+
+* Ridge performs better on hidden validation set (MSE = 3.43) than Lasso.
+* Unregularized Linear Regression MSE (on hidden validation set) is 3.359. Ridge performs slightly better (MSE = 3.43) but Lasso is much worse (10.38).
+  So here Ridge Regression improved generalization with best $\lambda = 10$.
+* Ridge and unregularized regression both have same model complexity (4 coefficients & 1 intercept). Learnt coefficients in both are:
+    * Unregularized: $coefficients=[0, 1.36115702, -0.83045106, 0.33329799], \quad intercept=2.185583111621991$
+    * Ridge: $coefficients=[0, 1.24034723, -0.82431307, 0.35195248], \quad intercept=2.167858892159883$
 
 
 ## Problem 6
@@ -172,7 +328,32 @@ $S$ (units) | 200 | 270 | 330 | 390 | 440
 
 ### Solution 6
 
-TODO
+1.
+
+$A$ | $S$ | $S_\% = (S_i - S_{i-1}) / S_{i-1}$
+--- | --- | -----------------------------------
+1   | 200 | _
+2   | 270 | (270-200)/200 = 35%
+3   | 330 | (330-270)/270 = 22.22%
+4   | 390 | (390-330)/330 = 18.18%
+5   | 440 | (440-390)/390 = 12.82%  
+
+Linear Regression between $A$ and $S_\%$ (ignoring first row with $A=1$ as it has no appropriate corresponding % change in S):
+
+$$
+\bar{x} = (2+3+4+5) / 4 = 3.5 \quad (\text{Mean of } A) \\
+\bar{y} = (35+22.22+18.18+12.82) / 4 = 22.05 \quad (\text{Mean of } S_\%) \\
+\sum (x - \bar{x})^2 = (2-3.5)^2 + (3-3.5)^2 + (4-3.5)^2 + (5-3.5)^2 = 5 \\
+\sum (x - \bar{x}) (y - \bar{y}) = (2-3.5)*(35-22.05) + (3-3.5)*(22.22-22.05) + (4-3.5)*(18.18-22.05) + (5-3.5)*(12.82-22.05) = -35.29 \\
+m = \frac{\sum{(x - \bar{x}) (y - \bar{y})}}{\sum (x - \bar{x})^2} = -35.29 / 5 \approx -7.06 \quad (\text{Slope}) \\
+c = \bar{y} - m \bar{x} = 22.05 - (-7.06)*3.5 = 46.758
+$$
+
+So fitted model is: $S_\% = -7.06 A + 46.758$ (NOTE: here $A$ input is the value in lakhs AFTER change, not before)
+
+2. $S_\% = -7.06 * 3 + 46.758 \approx 25.58%$
+
+3. Model is implying a diminishing percentage gain per lakh (since slope is negative in fitted linear regression model).
 
 
 ## Problem 7
@@ -194,6 +375,42 @@ $$ \beta_1 = \frac{\sum_{i=1}^N (x_i - \bar{x}) (y_i - \bar{y})}{\sum_{i=1}^N (x
 
 ### Solution 7
 
-TODO
+Partial derivative of SSR wrt $w_0$ set to 0:
 
+$$
+\frac{\partial SSR}{\partial w_0} = \sum_{i=1}^N 2(y_i - w_0 - w_1 x_i)(-1) = 0 \\
+\implies -2 \sum_{i=1}^N (y_i - w_0 - w_1 x_i) = 0 \\ 
+\implies \sum_{i=1}^N y_i - \sum_{i=1}^N w_0 - \sum_{i=1}^N w_1 x_i = 0 \\
+\implies \sum y_i = N w_0 + w_1 \sum x_i \quad (\text{since } \sum_{i=1}^N w_0 = N w_0)
+$$
+
+Partial derivative of SSR wrt $w_1$ set to 0:
+
+$$
+\frac{\partial SSR}{\partial w_1} = \sum_{i=1}^N 2(y_i - w_0 - w_1 x_i)(-x_i) = 0 \\
+\implies -2 \sum_{i=1}^N x_i(y_i - w_0 - w_1 x_i) = 0 \\
+\implies \sum_{i=1}^N x_i y_i - w_0 \sum_{i=1}^N x_i - w_1 \sum_{i=1}^N x_i^2 = 0 \\
+\implies \sum x_i y_i = w_0 \sum x_i + w_1 \sum x_i^2
+$$
+
+First, we solve the first normal equation for $w_0$ by dividing by $N$:
+$$\bar{y} = w_0 + w_1 \bar{x} \implies w_0 = \bar{y} - w_1 \bar{x}$$
+
+Now, substitute $w_0$ into the second normal equation:
+$$\sum x_i y_i = (\bar{y} - w_1 \bar{x}) \sum x_i + w_1 \sum x_i^2$$
+$$\sum x_i y_i = \bar{y} \sum x_i - w_1 \bar{x} \sum x_i + w_1 \sum x_i^2$$
+
+Rearrange to group the $w_1$ terms:
+$$\sum x_i y_i - \bar{y} \sum x_i = w_1 \left( \sum x_i^2 - \bar{x} \sum x_i \right)$$
+
+Using the identities $\sum x_i = N\bar{x}$ and $\sum y_i = N\bar{y}$, we can rewrite the components:
+1. **Numerator:** $\sum x_i y_i - N\bar{x}\bar{y} = \sum (x_i - \bar{x})(y_i - \bar{y})$
+2. **Denominator:** $\sum x_i^2 - N\bar{x}^2 = \sum (x_i - \bar{x})^2$
+
+Thus, the OLS estimator for the slope $w_1$ and intercept $w_0$ is:
+
+$$
+w_1 = \frac{\sum_{i=1}^N (x_i - \bar{x}) (y_i - \bar{y})}{\sum_{i=1}^N (x_i - \bar{x})^2} \\
+w_0 = \bar{y} - w_1 \bar{x}
+$$
 

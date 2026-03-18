@@ -506,6 +506,8 @@ Bayesian Linear Regression (it gives same output as Ridge Regression, but in add
     * SVD $X_{aug} = U S V^T$ -- smallest singular value is $\sigma_{D+1}$ with corresponding right singular vector $v_{D+1}$
     * Break augmented right singular vec $v_{D+1}$ back to components $v_X: n \times 1, v_y: 1 \times 1$ and calculate regression coefficients vector:
     $$\hat{w} = \frac{-1}{v_y} v_X$$
+    NOTE: diagonal values in $S$ are sorted from largest to smallest (top to bottom). 
+          So we use $v_{D+1}$ - last column (right singular vector) since that always corresponds to smallest singular value.
     * Get corrected estimates for X,y by taking *low-rank approximation* (upto D) of augmented matrix:
     $$X_{aug}^c = \sum_{i=1}^D u_i \sigma_i v_i^T$$
 

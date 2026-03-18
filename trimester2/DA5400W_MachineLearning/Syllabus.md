@@ -59,9 +59,10 @@ Quiz 2 Topics:
     - [ ] Naive Bayes (in syllabus, but not there in lecture slides)
     - [x] Logistic Regression
     - [ ] WIP Classification metrics
-    - [ ] NOT SURE IF COMING IN QUIZ 2: Decision Trees, CART, Bayesian Decision theory, Hidden Markov model, Discriminative classification
 - Regression
     - [x] Ordinary Least Squares
     - [ ] Total Least Squares
     - [ ] Regression Metrics
-    - [ ] NOT SURE IF COMING IN QUIZ 2: PCR regression, Non-Linear Regression with bias functions
+    - [ ] Regression with Gradient Descent: L2, Lasso, Ridge, etc.
+
+NOTE: Bayesian Regression is NOT in syllabus for Quiz 2
