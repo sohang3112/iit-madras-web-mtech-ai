@@ -457,6 +457,12 @@ Noise is always assumed to be gaussian / normal.
 
 Linear Regression is of multiple types:
 * *Simple Linear Regression*: single dependent and single independent variable: $y(x, w) = w_0 + w_1 x + \epsilon$
+    * Solution to $y = m x + c$ is (here $s_x, s_y$ are standard deviations, $cov(x,y)$ is Co-Variance):
+    $$
+    r = cov(x,y) / s_x s_y \quad (\text{Regression Coefficient}) \\
+    m = r s_y / s_x = cov(x,y) / s_x^2 \quad (\text{Slope}) \\
+    c = \bar{y} - b \bar{x} \quad (\text{Intercept}) \\
+    $$
 * *Multiple Linear Regression*: single dependent, multiple independent variables: $y(x,w) = w_0 + w_1 x_1 + w_2 x_2 + \cdots + w_D x_D + \epsilon$
 
 Generalization of Linear Regression (linear combination of functions of variables):
@@ -613,6 +619,20 @@ ROC = plot TPR (y)  vs FPR (x) (while varying threshold for true pred between 0-
 AUC = Area Under Curve (no formula, have to sum/integrate) 
 One way for max threshold is maximize J = TPR - FPR
 Can be misleading for highly imbalanced data
+
+**Naive Bayes**:
+* Bernoulli Naive Bayes: 
+* Multinomial Naive Bayes: TODO formula
+* Gaussian Naive Bayes: TODO formula
+
+### Handling Data Imbalance (one class has much more than others)
+
+Accuracy misleading (very good on majority class, but very bad on small minority class).
+This is because Cross Entropy loss gives equal importance to any mis-classification but actually data is imbalanced.
+
+ways to deal:
+* Undersample majority class, Oversample / synthesis sample minority class or Resample to fix data imbalance, and better metric (give more weightage to minority class in loss function)
+* lower probability threshold for minority class
 
 ## WIP lecture
 
