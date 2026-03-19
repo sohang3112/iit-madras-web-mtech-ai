@@ -1,0 +1,8 @@
+In Q5 (of 1 point), they asked "percentage". I wrote 0.8571, they marked wrong with correct answer given as 85.71.
+Marks should be given as question is ambigous and could be interpreted as requiring answer between 0-1 not 0-100.
+Update: Prof refused :(
+
+Total 10 Qs (first 6 have 1 point each, last 4 have 2 points each)
+Questions: 4 correct / 14 total
+Points: 6 correct /14 total = 42.85%
+Marks they awarded out of 100: 47 (so I guess they gave slightly more?)

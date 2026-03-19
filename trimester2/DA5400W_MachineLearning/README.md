@@ -528,6 +528,8 @@ $y$ in some samples (eg. from bank statement) are known to be more reliable than
 So weight matrix adjusts influence on regression model, i.e. more reliable (less error variance) samples will have more impact while calculating coefficients.
 NOTE: Here "weights" DOES NOT MEAN regression model coefficients, but instead how much "weight" is to be given to each sample row.
 
+TODO
+
 ### Polynomial Regression
 
 Mk $x$, $x^2$, $x^3$... as features and then do OLS linear regression. It's biased as features are correlated.
