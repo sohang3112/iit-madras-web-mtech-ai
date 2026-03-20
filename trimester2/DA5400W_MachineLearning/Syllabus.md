@@ -66,3 +66,12 @@ Quiz 2 Topics:
     - [ ] Regression with Gradient Descent: L2, Lasso, Ridge, etc.
 
 NOTE: Bayesian Regression is NOT in syllabus for Quiz 2
+
+Quiz 2 Tutorials:
+
+- [ ] Tutorial 5 - Linear Regression
+- [ ] Tutorial 6 - Classification
+- [ ] Tutorial 7 - Regression
+- [x] Tutorial 9 - Naive Bayes
+
+Calculator TODO: mean, variance, standard deviation; normal probability calculate shortcut? (given x, mu, sigma)

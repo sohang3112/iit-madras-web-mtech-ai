@@ -597,8 +597,6 @@ TODO
 
 ## Classification
 
-TODO Naive Bayes (in syllabus but not in Prof slides) 
-
 Logistic Regression - know
 
 KNN - know
@@ -624,8 +622,76 @@ AUC = Area Under Curve (no formula, have to sum/integrate)
 One way for max threshold is maximize J = TPR - FPR
 Can be misleading for highly imbalanced data
 
-**Naive Bayes**:
-* Bernoulli Naive Bayes: 
+### Naive Bayes (not in Prof slides, instead from Tutorial 9)
+
+Problem example:
+
+Training Data:
+
+Age | Credit Score | Home | Owner | Default?
+--- | ------------ | ---- | ----- | ---------
+1 | 35 | High | Yes | No
+2 | 45 | Low | No | Yes
+3 | 28 | Medium | No | No
+4 | 52 | Low | No | Yes
+5 | 38 | High | Yes | No
+6 | 41 | Medium | Yes | No
+7 | 29 | Low | No | Yes
+8 | 55 | Medium | No | Yes
+9 | 33 | High | Yes | No
+10 | 47 | Low | No | Yes
+
+Inference Required for:
+
+Age | Credit Score | Home Owner
+--- | ------------ | -----------
+40  | Low          | No
+
+$$
+P(C|X) = \frac{P(X|C) P(C)}{P(X)} \quad (\text{Posterior  Likelihood * Prior / P(X)}) \\
+P(C|X) \propto P(C) P(x_1|C) P(x_2|C) \cdots P(x_n|C) \quad (\text{Naive Bayes assumption: all input features are conditionally independent, so in Likelihood all can be multiplied directly})
+$$
+
+NOTE: "Conditionally independent" means that within any particular output class, all input features are independent 
+
+Likelihood for features calculated by:
+* Discrete - Counting
+* Continous - Gaussian / Normal
+
+Discrete feature *Credit Score* table:
+
+Input class \ Output class | Default=Yes | Default=No
+-------------------------- | ----------- | ----------
+Credit Score = High        | 0           | 3
+Credit Score = Medium      | 1           | 2
+Credit Score = Low         | 4           | 0
+Total                      | 5           | 5
+
+only calculating what we need for this particular inference:
+
+P(Default=Yes) = P(Default=No) = 5/10 = 0.5 (priors)
+
+Direct likelihoods:
+
+P(Credit Score=Low | Default=Yes) = 4/5 = 0.8
+P(Credit Score=Low | Default=No) = 0/5 = 0   
+
+**Laplace Smoothening** to avoid 0 likelihood (as during multiply it will make whole 0): for both output classes, add "Dummy Rows" (one for each input class, output class combination), so formula becomes:
+
+P(Input Class | Output Class) = (Actual Count + 1) / (Total Count + No. of Input Categories)
+
+So likelihoods become:
+
+P(Credit Score=Low | Default=Yes) = (4+1) / (5+3) = 0.625
+P(Credit Score=Low | Default=No) = (0+1) / (5+3) = 0.125
+
+Continous feature *Age*: Mean, Std (Bessel's correction NOT done, divide directly by n): $\mu = 40.3, \sigma = 8.86$
+
+**Normal/Gaussian PDF**:
+
+$$P(x) = \frac{1}{\sqrt{2 \pi} \sigma} e^{\frac{-1}{2} (\frac{x-\mu}{\sigma})^2}$$
+
+* Bernoulli Naive Bayes: TODO
 * Multinomial Naive Bayes: TODO formula
 * Gaussian Naive Bayes: TODO formula
 

@@ -570,6 +570,7 @@ Other loss function smoothening guidelines:
 * Larger batch sizes provide better estimate of statistics
 * Good for CNN architectures, esp when going from a larger (neurons/channels) to smaller (neurons/channels)
 * No *cross-connections*: prev layer's each neuron maps directly to a single BatchNorm neuron.
+* Loss is computed by averaging data points in a mini-batch. Gradient update after 1 epoch.
 
 **Layer Normalization** (unlike batch norm, does not depend on batch size)
 * [for a single data point not batch (mean, variance of different neurons, same data point)] --> then average of all data points' answers for whole batch
