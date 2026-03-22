@@ -863,6 +863,19 @@ ways to deal:
 * Undersample majority class, Oversample / synthesis sample minority class or Resample to fix data imbalance, and better metric (give more weightage to minority class in loss function - eg. in cross entropy multiply each class term by its inverse number of data points)
 * lower probability threshold for minority class
 
+## Neural Networks
+
+Hyper-parameter Tuning methods (& python libraries for each):
+
+1. sklearn `GridSearchCV` -- search all possible hyper-params combinations
+2. sklearn `RandomizedSearchCV` -- search randomly within pre-defined ranges of each hyper-param
+3. Bayesian Optimization `HyperOpt` -- train bayesian model to predict best hyper-params, updating model iteratively based on performance. balances exploitation and exploration.
+4. Hyberband / Successive Halving `Optuna` -- start train & eval multiple configs at once in parallel, eliminates poor performing via early stopping, focus resources on promising candidates
+5. Evolutionary / Genetic `NeverGrad` -- start with random population of configs, select best (survival of fittest), randomly mutate & repeat.
+6. Neural Architecture Search (NAS) `Auto-Keras` -- automated model selection & hyper-param tuning
+
+`Keras-Tuner` can do both Grid Search and Randomized Search.
+
 ## Misc
 
 ### Calculus
