@@ -582,6 +582,7 @@ Other loss function smoothening guidelines:
 
 - [PyTorch Intro Tutorial](https://docs.pytorch.org/tutorials/beginner/basics/intro.html)
 - [Training on MNIST using only Numpy](https://python-course.eu/machine-learning/training-and-testing-with-mnist.php)
+- [Tensorflow Neural Nets Playground & Visualization](https://playground.tensorflow.org/)
 
 [Backprop Problems by Andrew Karpathy](https://karpathy.medium.com/yes-you-should-understand-backprop-e2f06eab496b):
 * **Vanishing Gradients** in `sigmoid`, `tanh` (esp if used in hidden layer), activation derivative small so overall gradient flow small => hardly any learning in earlier layers.
