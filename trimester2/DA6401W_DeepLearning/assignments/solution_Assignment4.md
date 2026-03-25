@@ -11,7 +11,7 @@ CurrentDate:
 
 Submitted by: Sohang Chopra &lt;DA25M622&gt;
 
-## Problem 1: Theoretical Question 
+## Problem 1: Theoritical
 
 Consider training a deep neural network using stochastic gradient
 descent (SGD) on a non-convex loss surface. Curriculum learning is implemented by first
@@ -22,14 +22,14 @@ Which of the following statements is **most theoretically accurate** ?
 1. Curriculum learning guarantees convergence to a flatter minimum.
 2. Curriculum learning modifies early gradient statistics, thereby influencing the optimization trajectory in parameter space.
 3. Curriculum learning changes the global minimum of the objective function.
-4. Curriculum learning eliminates the effect of random initialization.s
+4. Curriculum learning eliminates the effect of random initialization.
 
 ### Solution 1
 
 TODO: theory
 
 
-## Problem 5: (Conceptual MCQ) Nesterov Accelerated Gradient
+# Problem 5 (Conceptual MCQ) Nesterov Accelerated Gradient
 
 Momentum methods are commonly used to accelerate gradient-based optimization in deep
 learning. Nesterov Accelerated Gradient (NAG) modifies the classical momentum method.
@@ -48,33 +48,35 @@ term.
 TODO: theory
 
 
-## Problem 7
+## Problem 6
 
-Consider a fully connected neural network trained for a classification task. During training,
-**dropout** is applied to a hidden layer with dropout probability _p_ .
-
+Consider a fully connected neural network trained for a classification task. 
+During training, **dropout** is applied to a hidden layer with dropout probability $p$ .
 
 1. Explain how dropout helps prevent overfitting in neural networks. In your answer, discuss
 why dropout can be interpreted as implicitly training an ensemble of subnetworks.
 2. During training, neurons are randomly dropped with probability _p_ . However, during
-inference (testing), dropout is not applied
-    * Explain how the network output is adjusted during inference to account for dropout used during training.
-    * Why is this scaling necessary?
+inference (testing), dropout is not applied.
+   * Explain how the network output is adjusted during inference to account for dropout
+   used during training.
+   * Why is this scaling necessary?
 3. Suppose the output of a neuron before dropout is $h$ . 
-Let the dropout mask be $m \sim Bernoulli(1-p)$. The output after dropout during training is $\bar{h} = m h$.
-Compute $E[\bar{h}]$.
+   Let the dropout mask be $m \sim Bernoulli(1 - p)$. 
+   The output after dropout during training is $\bar{h} = m h$.
+   Compute _E_ [ _h_ [˜] ].
 4. Dropout is often applied to fully connected layers but less frequently to convolutional
 layers in modern architectures. Provide two reasons why dropout may be less effective
 in convolutional layers.
 
-### Solution 7
+### Solution 6
 
 TODO: theory
 
 
-## Problem 10: (Numerical Question) Label Smoothing
+## Problem 10 (Numerical Question) Label Smoothing
 
-A classification task has _K_ = 4 classes. Label smoothing with parameter $\epsilon = 0.1$ is applied.
+A classification task has $k = 4$ classes. 
+Label smoothing with parameter $\epsilon = 0.1$ is applied.
 If the true class is class 2, compute the smoothed target distribution.
 
 ### Solution 10
@@ -84,50 +86,49 @@ TODO: numerical
 
 ## Problem 11: Numerical: One Iteration of Steepest Descent
 
-Consider the quadratic objective function
+Consider the quadratic objective function:
 
 $$f(w_1, w_2) = 2 w_1^2 + w_1 w_2 + w_2^2$$
 
-The steepest descent update rule is
+The steepest descent update rule is:
 
-$$w_{t+1} = w_t - \eta \nabla f(w_t)$$
+$$w_{t+1} = w_t - \eta \nabla f(w_1)$$
 
 Given:
 
-$$w_0 = \begin{pmatrix} 2 \\ -1 \end{pmatrix}, \quad \eta = 0.1$$
+$$w_0 = \begin{bmatrix} 2 \\ -1 \end{bmatrix}, \quad \eta = 0.1$$
 
-Compute the updated parameter vector $w_1$ after one iteration of steepest descent.
+Compute the updated parameter vector _w_ 1 after one iteration of steepest descent.
 
-### Solution 10
+### Solution 11
 
 TODO: numerical
 
 
 ## Problem 13: Numerical: One Iteration of ADMM for Lasso Problem
 
-*Note (ADMM intuition):* The Alternating Direction Method of Multipliers (ADMM) is an
-optimization algorithm used to solve problems where the objective function can be split into
-multiple components with simple structure.
+*Note (ADMM intuition):* The Alternating Direction Method of Multipliers (ADMM) is an optimization algorithm used to solve problems 
+where the objective function can be split into multiple components with simple structure.
 
 In ADMM, the constrained problem
 
-$$\min_{w,z} f(w) + g(z), \text{subject to } w = z$$
+$$\min_{w,z} f(w) + g(z), \quad \text{subject to } \quad w = z$$
 
-is solved by performing *alternating updates*:
+is solved by performing *alternating updates* :
 
-- A quadratic minimization step for $w$
-- A proximal (soft-thresholding) step for $z$
-- A dual variable update enforcing consistency between $w$ and $z$
+- A quadratic minimization step for _w_
+- A proximal (soft-thresholding) step for _z_
+- A dual variable update enforcing consistency between _w_ and _z_
 
 For the Lasso problem, the $z$-update corresponds to applying the **soft-thresholding operator**, which promotes sparsity in the solution.
 
-Consider the Lasso optimization problem
+Consider the Lasso optimization problem:
 
-$$min_w \frac{1}{2} \|A w - b\|_2^2 + \lambda \|z\|_1, \quad \text{subject to } w = z$$
+$$\min_w \frac{1}{2} \|A w - b\|_2^2 + \lambda \|z\|_1, \quad \text{subject to } \quad w = z$$
 
-Using the ADMM formulation, the augmented Lagrangian is
+Using the ADMM formulation, the augmented Lagrangian is:
 
-$$\mathcal{L}_p(w,z,u) = \frac{1}{2} \|A w - b\|_2^2 + \lambda \|z\|_1  + \frac{\rho}{2} \|w - z + u\|_2^2$$
+$$L_p(w,z,u) = \frac{1}{2} \|A w - b\|_2^2 + \lambda \|z\|_1 + \frac{\rho}{2} \|w - z + u\|_2^2$$
 
 where $u$ is the scaled dual variable.
 
@@ -135,13 +136,12 @@ Given:
 
 $$A = \begin{bmatrix} 1 & 0 \\ 0 & 2 \end{bmatrix}, \quad b = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$$
 
-Initial Values:
+Initial values:
 
-$$w_0 = z_0 = u_0 = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$$
+$$w_0 = z_0 = u_0 = \begin{bmatrix} 0 \\ 0 \end{bmatrix}$$
 
-Parameters:
+Parameters: $\lambda = 0.5, \quad \rho = 1$
 
-$$\lambda = 0.5, \quad \rho = 1$$
 
 Compute:
 

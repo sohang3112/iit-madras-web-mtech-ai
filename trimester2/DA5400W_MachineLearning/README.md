@@ -876,6 +876,39 @@ Hyper-parameter Tuning methods (& python libraries for each):
 
 `Keras-Tuner` can do both Grid Search and Randomized Search.
 
+## WIP Decision Trees (classification, regression)
+
+It's a non-linear classifier. It's about most interpretable model for classifiers.
+
+it's also basis for other techniques like bagging, random forest, boosting, etc.
+
+Decision tree allows you to split whole feature space into regions where each region has a dominant majority of one class, not just simple majority (i.e. not just 51 of 1 class vs 49 of other class). So we ideally recurse (create more decision tree depth) till each leaf region has dominant majority. Eeach region is a *hyper-rectangle*.
+
+(If we can't achieve dominant majority in regions, we should at least try to keep low no. of data points in each region).
+
+Purity measures if majority of points belong to same class.
+
+**Splitting Condition**: 2 metrics (both are measures of impurity - ideal score is 0 in both):
+* Entropy $\sum_j p_j \log_2(p_j)$ (between 0 to 1 for binary classify, not for multi-class) -- NOTE: base 2 of log is important here
+* Gini Index (probab of misclassification if label is assigned at random according to class proportions of node) $Gini = 1 - \sum_j p_j^2$. For 2 classes, max score (impure) is 0.5 .
+
+After each decision tree split, total Entropy / Gini Index should decrease. Usually both produce identical splits, but different sometimes.
+
+**Information Gain** (entropy gain / gini gain) (choose best split that maximizes reduction in total information metric) -- here $i$ is information (entropy or gini), $c_1$, $c_2$ are 2 child nodes after split (we split by at least 2):
+
+$$\delta i = \delta p - (w_{c1} * i(c_1) + w_{c2} * i(c_2))$$
+
+Objective is to maximize Information Gain after split.
+
+Splitting decision (when input feature is continous) - we can split in middle (median or mean), or we can cluster and choose mid-values between cluster centres (but usually mid-value only is done as clustering is more expensive).
+
+**Stopping Criteria**: ideally we want each leaf region to have all data of only one class, but practically we want to avoid overfitting (each leaf has only one data):
+* Early-Stopping (practically all 3 are used at once, i.e. stop when any becomes true)
+  * Max tree depth
+  * Min samples in a leaf node (eg. at least 3)
+  * Minimum information gain
+* Prune leaves & branches after building full decision tree: pick a random leaf, drop its split, compare validation loss on original and pruned tree to decide if to prune that leaf or not.
+
 ## Misc
 
 ### Calculus

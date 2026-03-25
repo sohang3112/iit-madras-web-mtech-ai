@@ -135,7 +135,7 @@ Linear Decay: $\eta_n = (1 - \alpha) \eta_0 + \alpha \eta_t$ where $t$ is termin
 [AdaGrad](https://datascience.stackexchange.com/questions/77308/why-l2-norm-in-adagrad-update-equation-not-l1) uses L2 norm:
 $$
 v_t = v_t + (\nabla w_t)^2 \\
-w_{t+1} = w_t - \frac{\eta}{\sqrt{v_t + \epsilon}} \nabla w_t
+w_{t+1} = w_t - \frac{\eta}{\sqrt{v_t}  + \epsilon} \nabla w_t
 $$
 * Change LR according to magnitude of slope of each coordinate
 * Element-wise learning rate $\epsilon$ is for numerical stability, i.e. to avoid division by 0
@@ -146,7 +146,7 @@ $$
 [RMS Prop](https://medium.com/deepkapha-notes/optimization-algorithms-and-interactive-visualization-part-2-4d6d9791e1d3) modifies accumulated gradient in AdaGrad - accumulation is averaged to prevent early decrease in LR
 $$
 v_t = \beta v_{t-1} + (1 - \beta) (\nabla w_t)^2 \\
-w_{t+1} = w_t - \frac{\eta}{\sqrt{v_t + \epsilon}} \nabla w_t
+w_{t+1} = w_t - \frac{\eta}{\sqrt{v_t}  + \epsilon} \nabla w_t
 $$
 
 #### Adaptive Moment Estimation - Adam
@@ -155,9 +155,13 @@ NOTE: Multiple variants of Adam exist in literature.
 
 $$
 m_n = \beta_1 m_{n-1} + (1 - \beta_1) g_n, \quad k_n = m_n / (1 - \beta_1^n) \quad (\text{first moment}) \\
-v_n = \beta_2 v_{n-1} + (1 - \beta_2) g_n^2, \quad s_n = \sqrt{v_n / (1 - \beta_2^n)} \quad (\text{non-central second moment}) \\
-w_{n+1} = w_n - \frac{\eta k_n}{\sqrt{s_n + \epsilon}} \nabla w_n \quad (\epsilon \text{ to avoid division by 0})
+v_n = \beta_2 v_{n-1} + (1 - \beta_2) g_n^2, \quad s_n = v_n / (1 - \beta_2^n) \quad (\text{non-central second moment}) \\
+w_{n+1} = w_n - \frac{\eta k_n}{\sqrt{s_n} + \epsilon} \quad (\epsilon \text{ to avoid division by 0})
 $$
+
+NOTE: in $k_n$, $s_n$, betas are raised to $n$ (no. of epochs)
+
+In adam weight update rule, we DON'T multiply by gradient since it's already factored in.
 
 * $m_n$ is moving weighted average of gradients for smoother trajectory (skip small local minima) - it builds **momentum** to help get out of small wells
   * For $m_0 = 0$ and constant gradient $g_n = g$, $m_t \to \beta_1 g_n$
