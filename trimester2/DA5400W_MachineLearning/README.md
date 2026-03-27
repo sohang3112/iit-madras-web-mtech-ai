@@ -909,6 +909,8 @@ Splitting decision (when input feature is continous) - we can split in middle (m
   * Minimum information gain
 * Prune leaves & branches after building full decision tree: pick a random leaf, drop its split, compare validation loss on original and pruned tree to decide if to prune that leaf or not.
 
+*Weighted Gini Index*: TODO
+
 ## Misc
 
 ### Calculus

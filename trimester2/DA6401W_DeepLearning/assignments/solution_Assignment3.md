@@ -66,19 +66,34 @@ Assume we divide the batch into $K$ mini-batches each of size $b = B / K$ .
 1. Write the gradient of the full batch loss $\nabla_\theta L(\theta)$.
 2. Let $g_k$ be the gradient computed from mini-batch $k$ :
 
-$$g_k = \frac{1}{b} \sum_{i \in B_k} l(x_i, \theta)$$
+$$g_k = \frac{1}{b} \sum_{i \in B_k} \nabla_\theta l(x_i, \theta)$$
 
 Show that:
 
-$$L(x_i, \theta) = \frac{1}{K} \sum_{k=1}^K g_k$$
+$$\nabla_\theta L(x_i, \theta) = \frac{1}{K} \sum_{k=1}^K g_k$$
 
-3. Explain why gradient accumulation allows training with large effective batch sizes even
-when GPU memory cannot hold the entire batch simultaneously.
+3. Explain why gradient accumulation allows training with large effective batch sizes even when GPU memory cannot hold the entire batch simultaneously.
 
 ### Solution 2
 
-TODO:  numerical
+**Memory-Footprint of Optimizers**:
+1. SGD without Momentum: memory to store parameters is $P$, gradients is $P$, so total is $2P$.
+2. SGD with momentum: Additional momentum vector of same size as params is $P$, so total is $3P$.
+3. Adam optimizer: $m_t$, $v_t$ are also same size as gradients, so they are $2P$ and total is $5P$.
+4. $P = 10^9$, each param is float (4 bytes), so total is $2 \times 10^{10}$ bytes.
 
+**Batch Size and Activation Memory**:
+1. Total activation memory for batch is $AB$.
+2. $AB \le M$
+3. Increasing batch size too much is infeasible due to memory limits of GPU.
+
+**Convergence vs Batch Size**:
+Divide large batch $B_{large}$ into smaller mini-batches of size $b$, calculate & accumulate gradients using each mini-batch, and only update weights using gradients once all those smaller mini-batches are done. So $B_{large} = bK$.
+
+**Equivalence of Gradient Accumulation and large Batch Updates**:
+1. Gradient for full batch is just average of gradients for each sample: $\nabla_\theta L(\theta) = \frac{1}{B} \sum_{i=1}^B \nabla_\theta l(x_i, \theta)$.
+2. $\nabla L(\theta) = \frac{1}{B} \sum_{i=1}^B \nabla l(x_i, \theta) = \frac{1}{bK} \sum_{k=1}^K \sum_{i \in B_k} \nabla l(x_i, \theta) = \frac{1}{K} \sum_{k=1}^K g_k$
+3. Even when whole large batch cannot fit into GPU memory, gradient accumulation of smaller mini-batches allows us to do equivalent weight update using above result.
 
 ## Problem 3
 
@@ -147,11 +162,11 @@ NOTE: Here $x \cdot y = x^T y$ is dot product.
 
 ## Problem 5: Theory: Spectral Convergence of Optimization Methods
 
-Let $f(w) = \frac{1}{2} w^T a w$ where $A \in \mathbb{R}^{d \times d}$ is symmetric positive definite with eigenvalues $\lambda_1 \le \cdots \le \lambda_d$.
+Let $f(w) = \frac{1}{2} w^T A w$ where $A \in \mathbb{R}^{d \times d}$ is symmetric positive definite with eigenvalues $\lambda_1 \le \cdots \le \lambda_d$.
 
 Let the spectral decomposition of $A$ be $A = Q D Q^T$ where $D = diag(\lambda_1, \cdots, \lambda_d)$.
 
-(a) Show that Gradient Descent with optimal fixed step size
+1. Show that Gradient Descent with optimal fixed step size
 
 $$\eta^* = \frac{2}{\lambda_1 + \lambda_d}$$
 
@@ -180,7 +195,13 @@ where $K = \frac{\lambda_d}{\lambda_1}$
 
 ### Solution 5
 
-TODO: numerical
+1.
+$$
+\nabla f(w) = A w \quad (\text{Gradient}) \\
+TODO
+$$
+
+2. TODO
 
 
 ## Problem 7: Solve by hand
@@ -220,6 +241,8 @@ Activations:
 * `y = ReLU(z) = z if z > 0 else 0` -- its gradient is `ReLU'(z) = 1 if z > 0 else 0`
 * $y = Sigmoid(z) = \frac{1}{1 + e^{-z}}$ -- its gradient is $y (1 - y)$
 
+NOTE: $A \odot B$ denotes element-wise multiplication of 2 vectors.
+
 1. Forward Pass:
 
 $$
@@ -240,18 +263,29 @@ $$
 \frac{\partial L}{\partial W_3} = 12.10 a_2^T \approx \begin{bmatrix} 4.477 & 7.502 & 8.833 \end{bmatrix} \quad (\text{Layer 3 weights gradient}) \\
 
 \frac{\partial a_2}{\partial z_2} = a_2 (1 - a_2) = \begin{bmatrix} 0.2331 \\ 0.2356 \\ 0.1971 \end{bmatrix} \\
-\frac{\partial L}{\partial z_2} = \left( \frac{\partial L}{\partial a_2} \right)^T \frac{\partial a_2}{\partial z_2} = TODO
+\frac{\partial L}{\partial z_2} = \frac{\partial L}{\partial a_2} \odot \frac{\partial a_2}{\partial z_2} = \begin{bmatrix} 5.641 \\ 5.701 \\ 4.769 \end{bmatrix} \\
+\frac{\partial L}{\partial a_1} = W_2^T \frac{\partial L}{\partial z_2} = \begin{bmatrix} 9.598 \\ 0 \\ -4.799 \end{bmatrix} \\
+\frac{\partial L}{\partial W_2} = \frac{\partial L}{\partial z_2} a_1^T = \begin{bmatrix} 5.641 & 0 & 11.282 \\ 5.701 & 0 & 11.402 \\ 4.769 & 0 & 9.538 \end{bmatrix} \quad (\text{Layer 2 weights gradient}) \\
+\frac{\partial L}{\partial B_2} = \frac{\partial L}{\partial z_2} = \begin{bmatrix} 5.641 \\ 5.701 \\ 4.769 \end{bmatrix} \quad (\text{Layer 2 bias gradients}) \\
+
+\frac{\partial a_1}{\partial z_1} = \begin{bmatrix} 1 \\ 0 \\ 1 \end{bmatrix} \quad (\text{ReLU gradient: 1 if >0 else 0}) \\
+\frac{\partial L}{\partial z_1} = \frac{\partial L}{\partial a_1} \odot \frac{\partial a_1}{\partial z_1} = \begin{bmatrix} 9.598 \\ 0 \\ -4.799 \end{bmatrix} \\
+\frac{\partial L}{\partial W_1} = \frac{\partial L}{\partial z_1} x^T = \begin{bmatrix} 9.598 & 9.598 & 9.598 \\ 0 & 0 & 0 \\ -4.799 & -4.799 & -4.799 \end{bmatrix} \quad (\text{Layer 1 weights gradient}) \\
+\frac{\partial L}{\partial B_1} = \frac{\partial L}{\partial z_1} = \begin{bmatrix} 9.598 \\ 0 \\ -4.799 \end{bmatrix} \quad (\text{Layer 1 bias gradient})
 $$
 
-3. Gradient Descent to update weights:
+3. Update weights using gradients and $\eta = 0.01$:
 
 $$
-TODO
+W_3 = W_3 - \eta \frac{\partial L}{\partial W_3} \approx \begin{bmatrix} 1.95 & 1.92 & 1.91 \end{bmatrix} \\
+W_2 = W_2 - \eta \frac{\partial L}{\partial W_2} \approx \begin{bmatrix} -1.06 & 0 & 0.39 \\ 0.94 & 0 & -0.61 \\ 1.95 & 0 & -1.09 \end{bmatrix} \\
+B_2 = B_2 - \eta \frac{\partial L}{\partial B_2} \approx \begin{bmatrix} -0.056 \\ -0.057 \\ -0.047 \end{bmatrix} \\
+W_1 = W_1 - \eta \frac{\partial L}{\partial W_1} \approx \begin{bmatrix} 0.904 & -0.0959 & -0.0959 \\ 0 & -1 & 0 \\ 0.048 &  0.048 & 2.05 \end{bmatrix}\\
+B_1 = B_1 - \eta \frac{\partial L}{\partial B_1} \approx \begin{bmatrix} -0.095 \\ 0 \\ -0.047 \end{bmatrix} \\
 $$
 
 
 ## Problem 9: Numerical: Two Steps of Adam Optimizer
-
 
 Consider minimizing the scalar function:
 
@@ -274,7 +308,31 @@ $$w_0 = 2, \quad \eta = 0.1, \quad \beta_1 = 0.9, \quad \beta_2 = 0.999, \quad \
 
 ### Solution 9
 
-TODO: numerical
+Adam update formulae:
+
+$$
+m_n = \beta_1 m_{n-1} + (1 - \beta_1) g_n, \quad k_n = m_n / (1 - \beta_1^n) \quad (\text{first moment}) \\
+v_n = \beta_2 v_{n-1} + (1 - \beta_2) g_n^2, \quad s_n = v_n / (1 - \beta_2^n) \quad (\text{non-central second moment}) \\
+w_{n+1} = w_n - \frac{\eta k_n}{\sqrt{s_n} + \epsilon} \quad (\epsilon \text{ to avoid division by 0})
+$$
+
+First Iteration:
+
+$$
+g_1 = w_0 = 2 \\
+m_1 = 0.9 * 0 + (1-0.9) * 2 = 0.2 \quad k_1 = 0.2 / (1 - 0.9^1) = 2 \\
+v_1 = 0.999 * 0 + (1-0.999) * 2^2 = 0.004 \quad s_1 = 0.004 / (1 - 0.999^2) = 2.001 \\
+w_1 = 2 - 0.1 * 2 / (\sqrt{2.001} + 0) = 1.858
+$$
+
+Second Iteration:
+
+$$
+g_2 = w_1 = 1.858 \\
+m_2 = 0.9 * 0.2 + (1-0.9) * 1.858 = 0.3658 \quad k_2 = 0.3658 / (1 - 0.9^1) = 3.658 \\
+v_2 = 0.999 * 2.001 + (1-0.999) * 1.858^2 = 2.002 \quad s_2 = 2.002 / (1 - 0.999^2) = 1001.5 \\
+w_2 = 1.858 - 0.1 * 3.658 / (sqrt{1001.5} + 0) = 1.846
+$$
 
 
 ## Problem 11: Theoretical Question 
@@ -314,7 +372,7 @@ Show your working sample by sample for both $w_1$ and $w_2$.
 
 2. You should observe that $w_2$ receives far fewer non-zero gradient updates than $w_1$ across the epoch. 
    Explain precisely why sparsity of $x_2$ causes learning signal scarcity of $w_2$,
-   and why a uniform learning rate \eta cannot compensate for this imbalance even when $x_2$ is the stronger predictor.
+   and why a uniform learning rate $\eta$ cannot compensate for this imbalance even when $x_2$ is the stronger predictor.
 
 3. AdaGrad maintains a per-parameter sum of squared gradients $G_i = \sum_{t=1}^6 g_{i,t}^2$ and replaces the fixed learning rate with:
 
@@ -325,8 +383,37 @@ Explain how this ratio reflects AdaGrad's response to gradient starvation.
 
 ### Solution 11
 
-TODO: numerical
+Using $\hat{y} = 0.5$ (given):
 
+Sample | $x_1$ | $x_2$ | $y$ | $g_{1,1}$ | $g_{2,1}$
+------ | ----- | ----- | ----| --------- | -------
+1      | 1     | 0     | 1   | -0.5      | 0
+2      | 0     | 0     | 0   |  0        | 0
+3      | 1     | 0     | 1   | -0.5      | 0 
+4      | 0     | 0     | 0   |  0        | 0
+5      | 1     | 0     | 1   | -0.5      | 0
+6      | 0     | 1     | 1   |  0        | -0.5
+
+So net weight updates using $\eta = 0.5$:
+
+$$
+\Delta w_1 = -0.5 * (-0.5 + 0 - 0.5 + 0 - 0.5 + 0) = 0.75 \\
+\Delta w_2 = -0.5 * (0 + 0 + 0 + 0 + 0 - 0.5) = 0.25
+$$
+
+2. $w_2$ gets updated only once, whereas $w_1$ gets updated 3 times.
+   This is because $x_2$ is sparse (true in only one sample), so learning signal is sparse for it.
+   Uniform learning rate cannot compensate because updating $w_2$ more would cause $w_1$ to update far more and overshoot.
+
+3.   
+$$
+G_1 = (-0.5)^2 + 0^2 + (-0.5)^2 + 0^2 + (-0.5)^2 + 0^2 = 0.75, \quad G_2 = 0^2 + 0^2 + 0^2 + 0^2 + 0^2 + (-0.5)^2 = 0.25 \\
+\eta_1^{eff} = 0.5 / (0.75 + 10^{-8}) = 0.67, \quad \eta_2^{eff} = 0.5 / (0.25 + 10^{-8}) = 2 \\
+\frac{\eta_2^{eff}}{\eta_1^{eff}} = 2 / 0.25 = 8
+$$
+
+Here due to gradient starvation in the case of $x_2$, AdaGrad has increased its effective learning rate to compensate so that it learns better with fewer samples.
+Ratio 8 means $x_2$ is updated 8 times more with a single true sample than $x_1$ (assuming same gradients).
 
 ## Problem 13: Effect of Initialization on Gradient Flow
 

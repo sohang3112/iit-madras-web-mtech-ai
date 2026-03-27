@@ -578,12 +578,95 @@ Other loss function smoothening guidelines:
 * Computational complexity same as BatchNorm
 * Good for RNN architectures (Reinforcement Neural Nets)
 
+**Instance and Group Normalizations**: TODO
+
+### Curriculum Training
+
+* handle shift of variance by varying dataset used for training (ie change data distribution over epochs)
+  * train model from *easier* to *harder* to learn data
+* Curriculum: a sequence of training dataset - D1 .. Dt
+  * Each dataset is used of L epochs or until loss converges
+  * Entropy of training datasets increases over epochs
+  * TODO
+
+Scoring and Pacing Functions (both are domain-dependent):
+* Scoring function $s(d)$ tells how difficult it is to learn a data point
+* Pacing function $p(t)$ tells when to train with a difficult sample
+  * Discrete data: change dataset at fixed intervals
+  * Continous data: change dataset at each epoch - sample from a distribution
+    * Params of distribution can be updated over epochs
+    * Start with Gaussian and move to Uniform: $f(t,d) = p(t) \mathcal{N}(d) + (1 - p(t)) \mathcal{U}$
+  
+**Self-Paced Learning** (when we don't know appropriate scoring & pacing functions so we need to learn them)
+* Samples with smaller loss values are selected first
+* Loss function itself acts as scoring function -- "harder" samples have higher loss values - higher variance of gradients
+* Reduces gradient variance early in training
+* Reinforcement Learning can be used to dynamically change dataset
+* When earlier samples now have losses close to 0, shift to next set of harder data.
+* Often used in NLP & Computer Vision, wherever dataset has very high variance
+
+**Transfer Learning**: we initialize a neural network (or parts of it) with weights of another pre-trained model
+* It's a special case of curriculum or teacher learning
+* Two goals: parameter transfer or feature representation transfer
+* *Inductive* (different task) vs *transductive* (same task  -- retain only initial layers) transfer
+* Neural net output $y(w,x) = g(w_1, h(w_2, x))$ (i.e. 2 parts of weights)
+  * Feature extractor - $h()$, task-specific inference function - $g()$
+* Inductive: same features can be used across different tasks
+  * Different tasks may share same input dataset with different labels and loss functions
+  * Transfer feature representation function - $h()$ - share inital layers' weights
+* Transductive: Same task, different data - transfer inference func $g()$
+* Prevent too much model drift: $L(w) + \lambda |w - w_{pretrained}|^2$
+* Multi-task learning loss (learning same set of features for multiple tasks): $\min_w L_1(w_1, h(w_0, x)) + \lambda L_2(w_2, h(w_0, x))$
+
+**Meta-Learning & Few-Shot Learning**: (train not only for different task, but also different datasets with different features)
+* Learn different params for different tasks with different train & test (correlated) datasets
+  * Meta learning (outer loop): $\sum_i L_d(W_i, D_{i,MetaTraining})$
+  * Task-specific learning (inner loop): $W_i = U(W, D_{i,Train})$
+  * Model-agnostic meta learning
+  * Similar to a Bayesian model of learning the prior
+  * so in meta-learning we're optimizing gradients, so backpropogation involves gradient of gradient, i.e. Hessian
+  * (we often use first-order approx of meta-learning -- used because meta-learning is very computationally expensive)
+* Few-Shot learning: $D_{i,Test}$ is a small dataset
+* Idea in Meta-Learning is: the Meta-Weights by themselves are not used, but rather using those individual tasks' weights learn in just a few epochs using meta-weights.
+
+### Skip Connection
+
+avoid vanishing/exploding gradients by skipping between layers.
+
+types: short skip vs long skip (many hundreds of layers apart!)
+
+* Use in deep networks (>= 10 layers).
+  * Needed when for example, loss is not decreasing but maybe converging at a high value.
+* When features learned by earlier layers need to be preserved
+  * Adding residue requires some feature dimensions
+  * Concentrate where features need to be preserved
+  * In Conv nets, short skips are often used.
+  * In Autoencoder, long skips are often used (connect at very end).
+  * TODO
+
+### Hyperparameter Tuning
+
+Optimal way is to do a gradient descent to find best hyper-params on top of gradient descent -- but this is too expensive
+
+Typical hyperparameters: Learning rate, momentum factors, weight decay-regularization coefficient, dropout rate, label smoothening level,
+  batch size
+
+Tools: optuna (recommended by Prof), Hyperopt, skopt, raytune, wandb
+
+* Grid search: search from a predefined set of values
+* Random search: sample from a distribution
+  * Learning rate - log uniform, dropout -- uniform
+  * Bayesian search: fit a distribution (eg. Gaussian) to hyper-params, estimate its params and sample from it
+* Hyperband: Pick multiple candidates, TODO
+
+Unlike backprop training (where gradient updates need to be sequential), hyper-param tuning runs can run in parallel as they are independent.
+
 ---------
 Regularization (\ = reg param, n = lr) : all methods try to keep gradients stable, avoid vanishing / exploding
 
 Weight Decay (only weights not biases) 
-• L2/ridge/Tikhonov (smoothen loss surface) : loss L(x) + \ |w|^2, update w = (1 - n \) w - n g
-• L1
+* L2/ridge/Tikhonov (smoothen loss surface) : loss L(x) + \ |w|^2, update w = (1 - n \) w - n g
+* L1
 
 Param sharing (fine tuning) constrain weights to be similar to another model, loss L(x) + \ |w - wfixed|^2
 
@@ -597,25 +680,28 @@ NOT  SURE:
 Semi-Supervised (like augmentation but for unsupervised): learn train distrib, sample more data from it
 
 Bagging / Ensemble / Bootstrap:
-• multiple samples with replacement from train data, train on each
-• classify: max votes, regression: average
-• loss calc using all data, prediction yi using only models that did not see it during training
+* multiple samples with replacement from train data, train on each
+* classify: max votes, regression: average
+* loss calc using all data, prediction yi using only models that did not see it during training
 
 Dropout: bagging alternative, faster, approxes training exponential number of models
-• train: each epoch, disable random selection of weights with mask
+* train: each epoch, disable random selection of weights with mask
 
 Early stopping
-• patience param
-• typically model learns easy samples first
+* patience param
+* typically model learns easy samples first
 
 Skip Connection:
-• short skip (Add layers of same size, eg. ResNet) or (Concat layers of diff sizes, eg. DenseNet) 
-• long skip: RNN
+* short skip (Add layers of same size, eg. ResNet) or (Concat layers of diff sizes, eg. DenseNet) 
+* long skip: RNN
 
 Hyper-Param Tuning:
 Train models in parallel on different hyper-params, pick best
 
+## Convolutional Neural Networks
 
+TODO
+  
 ## Misc Resources
 
 - [PyTorch Intro Tutorial](https://docs.pytorch.org/tutorials/beginner/basics/intro.html)
