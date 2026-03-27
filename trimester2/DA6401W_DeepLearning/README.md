@@ -509,7 +509,7 @@ TODO
 * This speed-up is applicable to all optimization techniques.
   * NAdam is fastest convergence first order method.
 
-## WIP lectures: Reduce Overfitting
+## Reduce Overfitting / Regularization
 
 **Ensemble Neural Networks** - TODO (aggregates many neural networks at end)
 
@@ -577,6 +577,44 @@ Other loss function smoothening guidelines:
 * Has *cross-connections*: prev layer's every neuron maps to every LayerNorm neurons.
 * Computational complexity same as BatchNorm
 * Good for RNN architectures (Reinforcement Neural Nets)
+
+---------
+Regularization (\ = reg param, n = lr) : all methods try to keep gradients stable, avoid vanishing / exploding
+
+Weight Decay (only weights not biases) 
+• L2/ridge/Tikhonov (smoothen loss surface) : loss L(x) + \ |w|^2, update w = (1 - n \) w - n g
+• L1
+
+Param sharing (fine tuning) constrain weights to be similar to another model, loss L(x) + \ |w - wfixed|^2
+
+Data Augmentation: adding gaussian noise N(0, sigma^2) to train X has same effect as L2
+
+Label Smoothening: Replace y 0,1 with e, 1-e
+
+Teacher Train / Knowledge Distillation: train smaller model using outputs of larger model
+
+NOT  SURE:
+Semi-Supervised (like augmentation but for unsupervised): learn train distrib, sample more data from it
+
+Bagging / Ensemble / Bootstrap:
+• multiple samples with replacement from train data, train on each
+• classify: max votes, regression: average
+• loss calc using all data, prediction yi using only models that did not see it during training
+
+Dropout: bagging alternative, faster, approxes training exponential number of models
+• train: each epoch, disable random selection of weights with mask
+
+Early stopping
+• patience param
+• typically model learns easy samples first
+
+Skip Connection:
+• short skip (Add layers of same size, eg. ResNet) or (Concat layers of diff sizes, eg. DenseNet) 
+• long skip: RNN
+
+Hyper-Param Tuning:
+Train models in parallel on different hyper-params, pick best
+
 
 ## Misc Resources
 
