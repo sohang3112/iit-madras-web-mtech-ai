@@ -134,8 +134,8 @@ Linear Decay: $\eta_n = (1 - \alpha) \eta_0 + \alpha \eta_t$ where $t$ is termin
 
 [AdaGrad](https://datascience.stackexchange.com/questions/77308/why-l2-norm-in-adagrad-update-equation-not-l1) uses L2 norm:
 $$
-v_t = v_t + (\nabla w_t)^2 \\
-w_{t+1} = w_t - \frac{\eta}{\sqrt{v_t}  + \epsilon} \nabla w_t
+v_t = v_{t-1} + (\nabla g_t)^2 = \sum_{i=1}^t g_i^2 \\
+w_{t+1} = w_t - \frac{\eta}{\sqrt{v_t}  + \epsilon} g_t
 $$
 * Change LR according to magnitude of slope of each coordinate
 * Element-wise learning rate $\epsilon$ is for numerical stability, i.e. to avoid division by 0
@@ -145,8 +145,8 @@ $$
 
 [RMS Prop](https://medium.com/deepkapha-notes/optimization-algorithms-and-interactive-visualization-part-2-4d6d9791e1d3) modifies accumulated gradient in AdaGrad - accumulation is averaged to prevent early decrease in LR
 $$
-v_t = \beta v_{t-1} + (1 - \beta) (\nabla w_t)^2 \\
-w_{t+1} = w_t - \frac{\eta}{\sqrt{v_t}  + \epsilon} \nabla w_t
+v_ = \beta v_{t-1} + (1 - \beta) g_t^2 \\
+w_{t+1} = w_t - \frac{\eta}{\sqrt{v_t}  + \epsilon} g_t
 $$
 
 #### Adaptive Moment Estimation - Adam

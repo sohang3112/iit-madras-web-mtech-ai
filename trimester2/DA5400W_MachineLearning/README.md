@@ -750,6 +750,21 @@ AUC = Area Under Curve (no formula, have to sum/integrate)
 One way for max threshold is maximize J = TPR - FPR
 Can be misleading for highly imbalanced data
 
+---
+
+KNN: set k = sqrt(N) for small datasets
+          alpha (default 1) : smoothening param, how many dummy rows to insert
+
+Logistic: dLoss / dw = 1/N X^T (y - ypred) (considering loss, sigmoid gradients) 
+
+Class Data Imbalance: in cross entropy loss, weighted sum of each class by inverse of number of classes
+
+Precision = what% of predicted + are true
+Recall / Sensitivity / TPR = what% of actual + are true pred
+Specificity = what % of predict - are true
+
+In balanced data, F1 can mislead, Balanced Accuracy is better
+
 ### Naive Bayes (not in Prof slides, instead from Tutorial 9)
 
 Problem example:

@@ -8,6 +8,9 @@ for web MTech an internal entrance exam of IIT Madras is conducted.
 
 ### TODO
 
+NOTE: There's a minor rendering bug in Markdown Convert extension - it renders $\hat{y}$ (`\hat{y}`) with the "hat" too low over y so that it's overlapping and hard to read.
+Seems to affect only this, so workaround is to just use some other notation like $y_{predict}$.
+
 Scrape from course portals - module lecture slides PDFs (currently downloading them manually).
 
 Automate (pre-made solution or else program myself) digitally doing Linear Algebra assignments:

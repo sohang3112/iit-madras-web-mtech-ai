@@ -80,7 +80,7 @@ $$\nabla_\theta L(x_i, \theta) = \frac{1}{K} \sum_{k=1}^K g_k$$
 1. SGD without Momentum: memory to store parameters is $P$, gradients is $P$, so total is $2P$.
 2. SGD with momentum: Additional momentum vector of same size as params is $P$, so total is $3P$.
 3. Adam optimizer: $m_t$, $v_t$ are also same size as gradients, so they are $2P$ and total is $5P$.
-4. $P = 10^9$, each param is float (4 bytes), so total is $2 \times 10^{10}$ bytes.
+4. $P = 10^9$, each param is float (4 bytes), so total is 20 GB.
 
 **Batch Size and Activation Memory**:
 1. Total activation memory for batch is $AB$.
@@ -103,12 +103,12 @@ $$
 z_1[i] = W_1 x[i] + b_1 \\
 a_1[i] = ReLU(z_1[i]) \\
 z_2[i] = W_2 a_1[i] + b_2 \\
-\hat{y}[i] = \sigma(z_2[i])
+y_{predict}[i] = \sigma(z_2[i])
 $$
 
 The binary cross-entropy loss is given by
 
-$$L[i] = y[i] \ln(\hat{y}[i]) + (1 - y[i]) \ln(1 - \hat{y}[i])$$
+$$L[i] = y[i] \ln(y_{predict}[i]) + (1 - y[i]) \ln(1 - y_{predict}[i])$$
 
 and the empirical risk over $m$ samples is
 
@@ -119,8 +119,8 @@ $y[i] \in \mathbb{R}$ is single output label and is a scalar. There are $m$ samp
 
 1. What are the shapes of $W_1$, $b_1$, $W_2$, $b_2$ for a single example? 
    If the network is vectorized over $m$ examples, what are the shapes of the parameters? What are the shapes of $x, y$ after vectorization?
-2. Compute $\frac{\partial J}{\partial \hat{y}[i]}$. Refer to this quantity as $\delta_1[i]$. What is $\frac{\partial J}{\partial \hat{y}}$ ?
-3. Compute $\frac{\partial \hat{y}[i]}{\partial z_2}$. Refer to this quantity as $\delta_2[i]$.
+2. Compute $\frac{\partial J}{\partial y_{predict}[i]}$. Refer to this quantity as $\delta_1[i]$. What is $\frac{\partial J}{\partial y_{predict}}$ ?
+3. Compute $\frac{\partial y_{predict}[i]}{\partial z_2}$. Refer to this quantity as $\delta_2[i]$.
 4. Compute $\frac{\partial z_2}{\partial a_1}$. Refer to this quantity as $\delta_3[i]$.
 5. Compute $\frac{\partial a_1}{\partial z_1}$. Refer to this quantity as $\delta_4[i]$.
 6. Compute $\frac{\partial z_1}{\partial W_1}$. Refer to this quantity as $\delta_5[i]$.
@@ -134,8 +134,8 @@ $$
 z_1 = x W_1^T + b_1 \\
 a_1 = ReLU(z_1) \\
 z_2 = a_1 W_2^T + b_2 \\
-\hat{y} = \sigma(z_2) \quad (\text{Sigmoid}) \\
-J = \frac{1}{m} \sum -y \ln(\hat{y}) - (1 - y) \ln (1 - \hat{y}) \quad (\text{Loss/Risk over all samples})
+y_{predict} = \sigma(z_2) \quad (\text{Sigmoid}) \\
+J = \frac{1}{m} \sum -y \ln(y_{predict}) - (1 - y) \ln (1 - y_{predict}) \quad (\text{Loss/Risk over all samples})
 $$
 
 For vectorized network, shapes are (where $m$ is no. of samples, $d$ is no. of input dimensions, $l_1$ is no. of neurons in 1st layer (hidden)):
@@ -150,12 +150,12 @@ If passing only a single example, then $m = 1 \implies x: (1, d), y: (1, 1)$ - s
 In below, Unit Step Function $u(z) = ReLU'(z)$ is used, which is 1 if $z > 0$ else 0:
 
 $$
-\delta_1 = \frac{\partial J}{\partial \hat{y}} = \frac{1}{m} (-\frac{y}{\hat{y}} + \frac{1 - y}{1 - \hat{y}}) \quad (\text{Shape: } (m, 1)) \\
-\delta_2 = \frac{\partial \hat{y}}{\partial z_2} = \hat{y} (1 - \hat{y}) \quad (\text{Sigmoid derivative; Shape: } (m, 1)) \\
+\delta_1 = \frac{\partial J}{\partial y_{predict}} = \frac{1}{m} (-\frac{y}{y_{predict}} + \frac{1 - y}{1 - y_{predict}}) \quad (\text{Shape: } (m, 1)) \\
+\delta_2 = \frac{\partial y_{predict}}{\partial z_2} = y_{predict} (1 - y_{predict}) \quad (\text{Sigmoid derivative; Shape: } (m, 1)) \\
 \delta_3 = \frac{\partial z_2}{\partial a_1} = W_2 \quad (\text{Shape: } (1, l_1)) \\
 \delta_4 = \frac{\partial a_1}{\partial z_1} = u(z_1) \quad (\text{ReLU derivative; Shape: } (m, l_1)) \\
 \delta_5 = \frac{\partial z_1}{\partial W_1} = x^T \quad (\text{Shape: (d, m)}) \\
-\frac{\partial J}{\partial W_1} = ((\delta_1 \cdot \delta_2) \delta_3 \cdot \delta_4)^T x = \frac{1}{m} [((\hat{y} - y) W_2) \cdot u(z_1)]^T \quad (\text{Shape: } (l_1, d))
+\frac{\partial J}{\partial W_1} = ((\delta_1 \cdot \delta_2) \delta_3 \cdot \delta_4)^T x = \frac{1}{m} [((y_{predict} - y) W_2) \cdot u(z_1)]^T \quad (\text{Shape: } (l_1, d))
 $$
 
 NOTE: Here $x \cdot y = x^T y$ is dot product.
@@ -172,7 +172,7 @@ $$\eta^* = \frac{2}{\lambda_1 + \lambda_d}$$
 
 has convergence rate
 
-$$\|w_k - w^*\|_2 \le (\frac{K-1}{K+1})^K \|w_0 - w^*\|_2$$
+$$\|w_k - w^*\|_2 \le \left ( \frac{K-1}{K+1} \right)^K \|w_0 - w^*\|_2$$
 
 where $K = \frac{\lambda_d}{\lambda_1}$
 
@@ -183,9 +183,8 @@ where $K = \frac{\lambda_d}{\lambda_1}$
 
 2. Explain mathematically why (using spectral arguments):
 - Newton's method converges in one step.
-- Conjugate Gradient converges in at most _d_ steps.
-- AdaGrad cannot eliminate dependence on k completely.
-
+- Conjugate Gradient converges in at most $d$ steps.
+- AdaGrad cannot eliminate dependence on $K$ completely.
 
 *Hint*:
 - Compute the gradient and Hessian of $f(w)$.
@@ -195,14 +194,99 @@ where $K = \frac{\lambda_d}{\lambda_1}$
 
 ### Solution 5
 
-1.
+1. 
+
+At optimal params $w^*$:
+
 $$
-\nabla f(w) = A w \quad (\text{Gradient}) \\
-TODO
+\nabla f(w^*) = A w^* = 0 \\
+\implies w^* = 0 \quad (\text{since A is positive definite})
 $$
 
-2. TODO
+Gradient Descent:
+   
+$$
+w_{k+1} = w_k - \eta \nabla f(w_k) \\
+\implies w_{k+1} = w_k - \eta A w \\
+\implies w_{k+1} = (I - \eta A) w_k \\
+\implies w_{k+1} = (I - \eta Q D Q^T) w_k 
+$$
 
+Error $e_k = w_{k+1} - w^* = w_{k+1} - 0 = w_{k+1}$, so:
+
+$$
+e_{k+1} = (I - \eta Q D Q^T) e_k \\
+\implies e_{k+1} = Q (I - \eta D) Q^T e_k \quad (\text{since symmetric } Q Q^T = I \implies Q I Q^T = I)
+$$
+
+Let $v_k = Q^T e_k$ be error vector represented in eigen-bases of A. Then $v_{k+1} = (I - \eta D) v_k$.
+
+But $D = diag(\lambda_1, \cdots, \lambda_d)$. So each dimension of $v_k$ is independent: $v_{k+1,i} = (1 - \eta \lambda_i) v_{k,i}$.
+
+Contraction factor $1 - \eta \lambda_i$ is maximized at $1 - \eta \lambda_1$ (since $\lambda_1 \le \cdots \lambda_d$).
+
+Substituting optimal learning rate (given) $\eta^* = \frac{2}{\lambda_1 + \lambda_d}$, Max contraction factor is:
+
+$$\frac{\lambda_1 + \lambda_d - 2 \eta \lambda_1}{\lambda_1 + \lambda_d} = \frac{\lambda_d - \lambda_1}{\lambda_1 + \lambda_d}$$
+
+Since $K = \frac{\lambda_d}{\lambda_1}$, Max contraction factor is $\frac{K-1}{K+1}$.
+
+After $K$ epochs, it's raised to $K$ power. So:
+
+$$\|w_k - w^*\|_2 \le \left ( \frac{K-1}{K+1} \right)^K \|w_0 - w^*\|_2$$
+
+Hence proved.
+
+2.
+
+* Newton Update converges in one step to optimal $w^* = 0$ because:
+
+$$
+\nabla f(w) = A w, \quad \nabla^2 f(w) = A \quad (\text{Gradient, Hessian}) \\
+w_{k+1} = w_k - (\nabla^2 f(w_k))^{-1} \nabla f(w_k) \quad (\text{Newton-Update}) \\
+\implies w_{k+1} = w_k - A^{-1} A w_k = w_k - w_k = 0 
+$$
+
+* Conjugate Descent:
+
+Here Conjugate Gradient (a Krylov subspace method) generates a sequence of iterates $w_k$ such that:
+
+$$w_k \in \mathcal{K}_k(A, r_0) = \text{span}\{r_0, Ar_0, A^2r_0, \dots, A^{k-1}r_0\}$$
+
+where $r_0 = \nabla f(w_0) = Aw_0$.
+
+Using the spectral decomposition $A = QDQ^T$, any power $A^m$ can be written as $QD^mQ^T$. 
+So the subspace is effectively a span of polynomials in $A$ acting on $r_0$.
+
+By the Cayley-Hamilton theorem, there exists a polynomial $P(x)$ of degree at most $d$ such that $P(A) = 0$.
+
+Therefore Conjugate Gradient converges in at most $d$ steps. Hence proved.
+
+* AdaGrad:
+
+In the eigen-basis $v = Q^T w$, the quadratic objective $f(w) = \frac{1}{2} w^T A w$ decouples into $d$ independent 1D problems:
+
+$$f(v) = \frac{1}{2} \sum_{i=1}^d \lambda_i v_i^2$$
+
+For each dimension $i$, the gradient is $g_{t,i} = \lambda_i v_{t,i}$. 
+AdaGrad updates as:
+
+$$v_{t+1,i} = v_{t,i} - \frac{\eta}{\sqrt{G_{t,i} + \epsilon}} g_{t,i}$$
+
+where $G_{t,i} = \sum_{\tau=1}^t g_{\tau,i}^2$ is the sum of squared past gradients.
+
+Substituting $g_{t,i}$, the update becomes:
+
+$$v_{t+1,i} = v_{t,i} \left( 1 - \frac{\eta \lambda_i}{\sqrt{\sum_{\tau=1}^t (\lambda_i v_{\tau,i})^2 + \epsilon}} \right)$$
+
+Newton's method eliminates $K = \lambda_d / \lambda_1$ by scaling exactly by $1/\lambda_i$ (the inverse Hessian).
+AdaGrad scales by $1/\sqrt{G_{t,i}}$. 
+Since $G_{t,i}$ is a function of $\lambda_i^2$, the term $\frac{\lambda_i}{\sqrt{G_{t,i}}}$ approaches a constant scale, theoretically reducing the impact of the condition number.
+
+Because $G_{t,i}$ accumulates over time, the effective learning rate decays at a rate of $1/\sqrt{t}$. 
+In directions with very small $\lambda_1$, the gradient magnitude is tiny, meaning $G_{t,1}$ stays small for many iterations.
+
+So AdaGrad cannot eliminate dependence on $K$ completely. Hence proved.
 
 ## Problem 7: Solve by hand
 
@@ -214,7 +298,7 @@ Network Architecture:
 - Layer 1 (Hidden): 3 nodes. Activation: ReLU.
 - Layer 2 (Hidden): 3 nodes. Activation: Sigmoid.
 - Layer 3 (Output): 1 node. Activation: Linear (None).
-- Loss Function: Squared Error, defined as $L = (\hat{y} - y)^2
+- Loss Function: Squared Error, defined as $L = (y_{predict} - y)^2
 
 Initial Values: 
 * Input Vector $x = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}$.
@@ -231,7 +315,7 @@ $$
 
 Your Task:
 
-1. Perform a forward pass to compute the network's prediction $\hat{y}$ and the Loss $L$.
+1. Perform a forward pass to compute the network's prediction $y_{predict}$ and the Loss $L$.
 2. Perform a backward pass to compute the gradients of the loss with respect to all weights and biases.
 3. Execute one step of Gradient Descent to calculate the updated weights $W_1, W_2, W_3$ and biases $B_1, B_2, B_3$.
 
@@ -246,44 +330,52 @@ NOTE: $A \odot B$ denotes element-wise multiplication of 2 vectors.
 1. Forward Pass:
 
 $$
-z_1 = W_1 x + B_1 = \begin{bmatrix} 1 \\ -1 \\ 2 \end{bmatrix} \\
+z_1 = W_1 x + B_1 = \begin{bmatrix} 1 & 0 & 0 \\ 0 & -1 & 0 \\ 0 & 0 & 2 \end{bmatrix} \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix} + \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix} = \begin{bmatrix} 1 \\ -1 \\ 2 \end{bmatrix} \\
 a_1 = ReLU(z_1) = \begin{bmatrix} 1 \\ 0 \\ 2 \end{bmatrix} \\
-z_2 = W_2 a_1 + B_2 = \begin{bmatrix} -0.5 \\ 0.5 \\ -1 \end{bmatrix} \\
-a_2 = Sigmoid(z_2) \approx \begin{bmatrix} 0.37 \\ 0.62 \\ 0.73 \end{bmatrix} \\
-\hat{y} = W_3 a_2 + B_3 \approx 3.46 \quad (\text{Predicted Output}) \\
-L = (\hat{y} - y)^2 = (3.46 - 1)^2 \approx 6.05 \quad (\text{Loss: Squared Error})
+z_2 = W_2 a_1 + B_2 = \begin{bmatrix} -1 & 0 & 0.5 \\ 1 & 0 & -0.5 \\ 2 & 0 & -1 \end{bmatrix} \begin{bmatrix} 1 \\ 0 \\ 2 \end{bmatrix} + \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix} \\
+a_2 = Sigmoid(z_2) = \begin{bmatrix} 0.5 \\ 0.5 \\ 0.5 \end{bmatrix} \\
+y_{predict} = W_3 a_2 + B_3 = \begin{bmatrix} 2 & 2 & 2 \end{bmatrix} \begin{bmatrix} 0.5 \\ 0.5 \\ 0.5 \end{bmatrix} + 0 = 3.0 \\
+L = (y_{predict} - y)^2 = (3.0 - 1)^2 = 4.0
 $$
 
-2. Backward Pass (Calculate Gradients):
+2. Backward Pass (gradient calculation):
+
+Layer 3 (output layer):
 
 $$
-\frac{\partial L}{\partial \hat{y}} = 2 (\hat{y} - y) \approx 12.10 \quad (\text{Loss gradient}) \\
-
-\frac{\partial L}{\partial a_2} = 12.10 W_3^T \approx \begin{bmatrix} 24.20 \\ 24.20 \\ 24.20 \end{bmatrix} \\
-\frac{\partial L}{\partial W_3} = 12.10 a_2^T \approx \begin{bmatrix} 4.477 & 7.502 & 8.833 \end{bmatrix} \quad (\text{Layer 3 weights gradient}) \\
-
-\frac{\partial a_2}{\partial z_2} = a_2 (1 - a_2) = \begin{bmatrix} 0.2331 \\ 0.2356 \\ 0.1971 \end{bmatrix} \\
-\frac{\partial L}{\partial z_2} = \frac{\partial L}{\partial a_2} \odot \frac{\partial a_2}{\partial z_2} = \begin{bmatrix} 5.641 \\ 5.701 \\ 4.769 \end{bmatrix} \\
-\frac{\partial L}{\partial a_1} = W_2^T \frac{\partial L}{\partial z_2} = \begin{bmatrix} 9.598 \\ 0 \\ -4.799 \end{bmatrix} \\
-\frac{\partial L}{\partial W_2} = \frac{\partial L}{\partial z_2} a_1^T = \begin{bmatrix} 5.641 & 0 & 11.282 \\ 5.701 & 0 & 11.402 \\ 4.769 & 0 & 9.538 \end{bmatrix} \quad (\text{Layer 2 weights gradient}) \\
-\frac{\partial L}{\partial B_2} = \frac{\partial L}{\partial z_2} = \begin{bmatrix} 5.641 \\ 5.701 \\ 4.769 \end{bmatrix} \quad (\text{Layer 2 bias gradients}) \\
-
-\frac{\partial a_1}{\partial z_1} = \begin{bmatrix} 1 \\ 0 \\ 1 \end{bmatrix} \quad (\text{ReLU gradient: 1 if >0 else 0}) \\
-\frac{\partial L}{\partial z_1} = \frac{\partial L}{\partial a_1} \odot \frac{\partial a_1}{\partial z_1} = \begin{bmatrix} 9.598 \\ 0 \\ -4.799 \end{bmatrix} \\
-\frac{\partial L}{\partial W_1} = \frac{\partial L}{\partial z_1} x^T = \begin{bmatrix} 9.598 & 9.598 & 9.598 \\ 0 & 0 & 0 \\ -4.799 & -4.799 & -4.799 \end{bmatrix} \quad (\text{Layer 1 weights gradient}) \\
-\frac{\partial L}{\partial B_1} = \frac{\partial L}{\partial z_1} = \begin{bmatrix} 9.598 \\ 0 \\ -4.799 \end{bmatrix} \quad (\text{Layer 1 bias gradient})
+\frac{\partial L}{\partial y_{predict}} = 2(y_{predict} - y) = 2(3 - 1) = 4.0 \\
+\frac{\partial L}{\partial W_3} = \frac{\partial L}{\partial y_{predict}} a_2^T = 4.0 \begin{bmatrix} 0.5 & 0.5 & 0.5 \end{bmatrix} = \begin{bmatrix} 2.0 & 2.0 & 2.0 \end{bmatrix} \\
+\frac{\partial L}{\partial a_2} = W_3^T \frac{\partial L}{\partial y_{predict}} = \begin{bmatrix} 2 \\ 2 \\ 2 \end{bmatrix} (4.0) = \begin{bmatrix} 8.0 \\ 8.0 \\ 8.0 \end{bmatrix} 
 $$
 
-3. Update weights using gradients and $\eta = 0.01$:
+Layer 2:
 
 $$
-W_3 = W_3 - \eta \frac{\partial L}{\partial W_3} \approx \begin{bmatrix} 1.95 & 1.92 & 1.91 \end{bmatrix} \\
-W_2 = W_2 - \eta \frac{\partial L}{\partial W_2} \approx \begin{bmatrix} -1.06 & 0 & 0.39 \\ 0.94 & 0 & -0.61 \\ 1.95 & 0 & -1.09 \end{bmatrix} \\
-B_2 = B_2 - \eta \frac{\partial L}{\partial B_2} \approx \begin{bmatrix} -0.056 \\ -0.057 \\ -0.047 \end{bmatrix} \\
-W_1 = W_1 - \eta \frac{\partial L}{\partial W_1} \approx \begin{bmatrix} 0.904 & -0.0959 & -0.0959 \\ 0 & -1 & 0 \\ 0.048 &  0.048 & 2.05 \end{bmatrix}\\
-B_1 = B_1 - \eta \frac{\partial L}{\partial B_1} \approx \begin{bmatrix} -0.095 \\ 0 \\ -0.047 \end{bmatrix} \\
+\frac{\partial a_2}{\partial z_2} = a_2 \odot (1 - a_2) = \begin{bmatrix} 0.25 \\ 0.25 \\ 0.25 \end{bmatrix} \\
+\frac{\partial L}{\partial z_2} = \frac{\partial L}{\partial a_2} \odot \frac{\partial a_2}{\partial z_2} = \begin{bmatrix} 8.0 \times 0.25 \\ 8.0 \times 0.25 \\ 8.0 \times 0.25 \end{bmatrix} = \begin{bmatrix} 2.0 \\ 2.0 \\ 2.0 \end{bmatrix} \\
+\frac{\partial L}{\partial W_2} = \frac{\partial L}{\partial z_2} a_1^T = \begin{bmatrix} 2.0 \\ 2.0 \\ 2.0 \end{bmatrix} \begin{bmatrix} 1 & 0 & 2 \end{bmatrix} = \begin{bmatrix} 2.0 & 0 & 4.0 \\ 2.0 & 0 & 4.0 \\ 2.0 & 0 & 4.0 \end{bmatrix} \\
+\frac{\partial L}{\partial B_2} = \frac{\partial L}{\partial z_2} = \begin{bmatrix} 2.0 \\ 2.0 \\ 2.0 \end{bmatrix} \\
+\frac{\partial L}{\partial a_1} = W_2^T \frac{\partial L}{\partial z_2} = \begin{bmatrix} -1 & 1 & 2 \\ 0 & 0 & 0 \\ 0.5 & -0.5 & -1 \end{bmatrix} \begin{bmatrix} 2.0 \\ 2.0 \\ 2.0 \end{bmatrix} = \begin{bmatrix} 4.0 \\ 0 \\ -2.0 \end{bmatrix}
 $$
 
+Layer 1:
+
+$$
+\frac{\partial a_1}{\partial z_1} = \text{ReLU}'(z_1) = \begin{bmatrix} 1 \\ 0 \\ 1 \end{bmatrix} \\
+\frac{\partial L}{\partial z_1} = \frac{\partial L}{\partial a_1} \odot \frac{\partial a_1}{\partial z_1} = \begin{bmatrix} 4.0 \\ 0 \\ -2.0 \end{bmatrix} \\
+\frac{\partial L}{\partial W_1} = \frac{\partial L}{\partial z_1} x^T = \begin{bmatrix} 4.0 \\ 0 \\ -2.0 \end{bmatrix} \begin{bmatrix} 1 & 1 & 1 \end{bmatrix} = \begin{bmatrix} 4.0 & 4.0 & 4.0 \\ 0 & 0 & 0 \\ -2.0 & -2.0 & -2.0 \end{bmatrix} \\
+\frac{\partial L}{\partial B_1} = \frac{\partial L}{\partial z_1} = \begin{bmatrix} 4.0 \\ 0 \\ -2.0 \end{bmatrix}
+$$
+
+3. Weight Updates ($\eta = 0.01$):
+
+$$
+W_3 = \begin{bmatrix} 2 & 2 & 2 \end{bmatrix} - 0.01 \begin{bmatrix} 2 & 2 & 2 \end{bmatrix} = \begin{bmatrix} 1.98 & 1.98 & 1.98 \end{bmatrix} \\
+W_2 = \begin{bmatrix} -1 & 0 & 0.5 \\ 1 & 0 & -0.5 \\ 2 & 0 & -1 \end{bmatrix} - 0.01 \begin{bmatrix} 2 & 0 & 4 \\ 2 & 0 & 4 \\ 2 & 0 & 4 \end{bmatrix} = \begin{bmatrix} -1.02 & 0 & 0.46 \\ 0.98 & 0 & -0.54 \\ 1.98 & 0 & -1.04 \end{bmatrix} \\
+B_2 = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix} - 0.01 \begin{bmatrix} 2 \\ 2 \\ 2 \end{bmatrix} = \begin{bmatrix} -0.02 \\ -0.02 \\ -0.02 \end{bmatrix} \\
+W_1 = \begin{bmatrix} 1 & 0 & 0 \\ 0 & -1 & 0 \\ 0 & 0 & 2 \end{bmatrix} - 0.01 \begin{bmatrix} 4 & 4 & 4 \\ 0 & 0 & 0 \\ -2 & -2 & -2 \end{bmatrix} = \begin{bmatrix} 0.96 & -0.04 & -0.04 \\ 0 & -1 & 0 \\ 0.02 & 0.02 & 2.02 \end{bmatrix} \\
+B_1 = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix} - 0.01 \begin{bmatrix} 4 \\ 0 \\ -2 \end{bmatrix} = \begin{bmatrix} -0.04 \\ 0 \\ 0.02 \end{bmatrix}
+$$
 
 ## Problem 9: Numerical: Two Steps of Adam Optimizer
 
@@ -321,17 +413,17 @@ First Iteration:
 $$
 g_1 = w_0 = 2 \\
 m_1 = 0.9 * 0 + (1-0.9) * 2 = 0.2 \quad k_1 = 0.2 / (1 - 0.9^1) = 2 \\
-v_1 = 0.999 * 0 + (1-0.999) * 2^2 = 0.004 \quad s_1 = 0.004 / (1 - 0.999^2) = 2.001 \\
-w_1 = 2 - 0.1 * 2 / (\sqrt{2.001} + 0) = 1.858
+v_1 = 0.999 * 0 + (1-0.999) * 2^2 = 0.004 \quad s_1 = 0.004 / (1 - 0.999^1) = 4 \\
+w_1 = 2 - 0.1 * 2 / (\sqrt{4} + 0) = 1.9
 $$
 
 Second Iteration:
 
 $$
-g_2 = w_1 = 1.858 \\
-m_2 = 0.9 * 0.2 + (1-0.9) * 1.858 = 0.3658 \quad k_2 = 0.3658 / (1 - 0.9^1) = 3.658 \\
-v_2 = 0.999 * 2.001 + (1-0.999) * 1.858^2 = 2.002 \quad s_2 = 2.002 / (1 - 0.999^2) = 1001.5 \\
-w_2 = 1.858 - 0.1 * 3.658 / (sqrt{1001.5} + 0) = 1.846
+g_2 = w_1 = 1.9 \\
+m_2 = 0.9 * 0.2 + (1-0.9) * 1.9 = 0.37 \quad k_2 = 0.37 / (1 - 0.9^2) = 1.95 \\
+v_2 = 0.999 * 0.004 + (1-0.999) * 1.9^2 = 0.007 \quad s_2 = 0.007 / (1 - 0.999^2) = 3.5 \\
+w_2 = 1.9 - 0.1 * 1.95 / (\sqrt{3.5} + 0) = 1.795
 $$
 
 
@@ -344,12 +436,12 @@ A recommendation system predicts whether a user will **like** a movie $y = 1$ or
 - $x_2 \in \{0,1\}$ : whether the movie is **directed by Director Y** - a **sparse** feature, true for very few movies. 
   Whenever Director Y directs, the user likes the movie regardless of genre.
 
-The model is logistic regression $\hat{y} = w_1 x_1 + w_2 x_2$ with cross-entropy loss. 
+The model is logistic regression $y_{predict} = w_1 x_1 + w_2 x_2$ with cross-entropy loss. 
 The per-sample gradient is:
 
 $$g_{i,t} = (\hat{y_t} - y_t) x_{i,t}$$
 
-SGD is run for one epoch over the following 6 movies, with $\hat{y} \approx 0.5$ throughout and $\eta = 0.5$:
+SGD is run for one epoch over the following 6 movies, with $y_{predict} \approx 0.5$ throughout and $\eta = 0.5$:
 
 
 Sample | $x_1$ (fiction) | $x_2$ (Dir. Y) | $y$ (liked) | Reason
@@ -383,7 +475,7 @@ Explain how this ratio reflects AdaGrad's response to gradient starvation.
 
 ### Solution 11
 
-Using $\hat{y} = 0.5$ (given):
+Using $y_{predict} = 0.5$ (given):
 
 Sample | $x_1$ | $x_2$ | $y$ | $g_{1,1}$ | $g_{2,1}$
 ------ | ----- | ----- | ----| --------- | -------
@@ -463,6 +555,12 @@ Compute the updated parameter vector $w_1$ after one Adam update step.
 
 ### Solution 16
 
-TODO: numerical
+$$
+g_1 = [2 w_1, 8 w_2] = [2, 16] \\
+m_1 = 0.9 [0, 0] + (1 - 0.9) [2, 16] = [0.2, 1.6] \\
+v_1 = 0.999 [0, 0] + (1 - 0.999) [2, 16]^2 = [0.004, 0.256] \\
+\hat{m_1} = [0.2, 1.6] / (1 - 0.9) = [2, 16], \quad \hat{v_1} = [0.004, 0.256] / (1 - 0.999) = [4, 256] \quad (\text{Bias Correction}) \\
+w_1 = [1,2] - 0.1 [2, 16] / (\sqrt{[4, 256] + 10^{-8}}) = [1,2] - [0.1, 0.1] = [0.9, 1.9]
+$$
 
 
