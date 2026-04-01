@@ -168,7 +168,7 @@ Diameter is NOT 2*Radius
           In that case alternatives like OPTICS clustering can be used (OPTICS doesn't require a fixed Epsilon).
     - [x] Agglomerative `from scipy.cluster.hierarchy import dendrogram, linkage`: dendogram plot is "tree" of cluster heirachies (on top is all data in one cluster, then divide into parts until each point is a cluster)
 
-## Notebooks
+## Notebooks (midsem)
 
 - [x] Pandas 1 & 2 
 - [ ] ALMOST DONE: Industrial AI Week 1
@@ -194,6 +194,10 @@ TODO
 Notebooks after Midsem:
 
 - [ ] DA5401W_Regression_I_unsolved.ipynb
+- [ ] DA5401W_Logistic_Regression.ipynb
+- [ ] DA5401W_LogReg_Tutorial_Problems.ipynb (& solutions)
+- [ ] DA5401W_Gradient_Descent_Feature_Scaling.ipynb
+- [ ] DA5401W_Ridge_Lasso_Tutorial_Questions.ipynb (& solutions)
 
 ## Additional (not in syllabus)
 
