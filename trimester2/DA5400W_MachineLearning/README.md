@@ -891,7 +891,7 @@ Hyper-parameter Tuning methods (& python libraries for each):
 
 `Keras-Tuner` can do both Grid Search and Randomized Search.
 
-## WIP Decision Trees (classification, regression)
+## Decision Trees (classification, regression)
 
 It's a non-linear classifier. It's about most interpretable model for classifiers.
 
@@ -924,7 +924,70 @@ Splitting decision (when input feature is continous) - we can split in middle (m
   * Minimum information gain
 * Prune leaves & branches after building full decision tree: pick a random leaf, drop its split, compare validation loss on original and pruned tree to decide if to prune that leaf or not.
 
-*Weighted Gini Index*: TODO
+*Weighted Gini Index*: total = weighted by no. of data in each split child
+
+----
+
+Pure (ideal) : split has all of one class
+Impurity metrics (0 pure) :
+* Gini Index = 1 - sum(pi^2) ; pi = probab of class i ; 2-class max impure = 0.5
+* Entropy = sum(pi log2(pi)) -- NOTE log2
+
+Gini (default choice - fast, preferred for large data, splits quickly increase node purity towards dominant class) 
+VS
+Entropy (expensive due to log, more sensitive to class probabs, can prefer splits that increase overall purity more strongly) 
+In practice both result in similar splits
+
+Maximize on split Info Gain (i() = gini / entropy) 
+delta i = i(parent) - ratio1 i(child1) - ratio2(child2) [ ratios of no. of data points wrt parent ]
+
+Stop criteria:
+
+1. Early stopping
+* max tree depth
+* min samples in leaf node
+* min info gain
+
+2. Pruning (after mk full tree) - foreach split, test if validation accuracy improves after removing split
+
+Decision tree building algo: CART (for classify - gini index & regression - squared error / variance reduce & predict mean value of data in leaf, only binary split) 
+Older ID3 (split on info gain) , C4.5  algos - classify only, multi-way split (info gain normalized by ratio of split data) 
+
+Decision Tree tuning params:
+* max tree depth
+* min samples to split data
+* min samples in a leaf
+* min info gain
+* info algo: gini or entropy
+
+Pros: easy to interpret, no scaling required, both numerical & categorical inputs, both linear & non-linear relationship
+
+Cons: can overfit, sensitive / non-robust to small change in data
+
+Regression Trees: rarely used alone (cant extrapolate beyond train data min, max range) , more common in ensemble (cancels out sensitivity to outliers) 
+
+Ensemble:
+* Parallel / Independent trees: Bagging, Random Forest
+* Sequential (trees improve on previous) : Boosting
+
+Bagging:
+* bootstrap: many random samples with replacement, train, predict mean / mode of all on test data
+* Variance of ensemble = (p + (1-p) / B) sigma^2 (p = pairwiae correlation between two trees' predictions, B = no. of trees, sigma^2 = variance of tree prediction) 
+* So variance reduced assuming not perfect correlation between trees
+* improves stability / reduces fluctuations
+
+Limitations of Bagging: strong input features dominate, high tree correlation (p) due to similar tree structures
+
+Random Forest improves on Bagging: in each tree, random subset of features used
+* how many trees? Till validation error decreases
+* r (no. of features in split) - classify: sqrt(D), regression: D/3 (D = original no. of features) 
+* deeper trees than usual, not pruned as overfit handled by ensemble
+
+Limitations of Random Forest: trees independent, many can struggle with same difficulties but persistent error can't be corrected
+
+Boosting: 
+* called Boosted Trees, depend on each previous
+* Types: gradient boost, extreme gradient boost (xgboost), light gradient boosting machine (light GBM) 
 
 ## Misc
 

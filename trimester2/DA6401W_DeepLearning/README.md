@@ -490,15 +490,19 @@ TODO
   * Update step $w_n = w_{n-1} - \eta (H_{w_{n-1}} + c I)^{-1} \nabla L(w_{n-1})$
   * Convergence: $O(1/n^2)$ - superlinear!
 
-**Broyden-Fletcher-Goldfarb-Shanno Optimizer (BNGS)**: second order (a faster approx is LBNGS - L stands for lower memory (major memory consumption is storage and calc of Hessian - LBNGS instead calculates only for a few eigenvecs instead of whole))
-* Change in weights $w_n - w_{n-1}$
+**Broyden-Fletcher-Goldfarb-Shanno Optimizer (BFGS)**: like second-order Newton, but faster as it estimates Hessian inverse which is expensive to calculate (an even faster approx is LBNGS - L stands for lower memory (major memory consumption is storage and calc of Hessian - LBNGS instead calculates only for a few eigenvecs instead of whole))
+* Change in weights $d_n = w_n - w_{n-1}$
 * Change in gradient: $h_n = g_n - g_{n-1}$
 * Hessian at that location: $H_n d_n \approx h_n$
   * Can we find a matrix $H_n$ that satisfies this equation?
   * Constraints: symmetric, positive definite, close to $H_{n-1}$
   * Solve $\argmin | A - H_{n-1} |$ such that $A = A^T$ and $A d_n = h_n$
-    * Solution: $H_n^{-1} \approx B_n = B_{n-1} + d_{n-1}^T d_{n-1} / h_{n-1}^T d_{n-1} - B_{n-1} h_{n-1} / h_{n-1}^T B_{n-1} h_{n-1}$
-  * Initialization: $B_n = 0$; Update step $w_n = w_{n-1} - \eta B_{n-1} \nabla L(w_{n_1})$
+    * *Hessian-inverse is estimated, not directly calculated as it's expensive*.
+    * In below formula, notice that numerators are matrices (eg. outer product of $d_{n-1}$ in RHS second term), denominators are scalars (inner product and quadratic respectively)
+  $$
+  H_n^{-1} \approx B_n = B_{n-1} + \frac{d_{n-1}T d_{n-1}^T}{h_{n-1}^T d_{n-1}} - \frac{B_{n-1} h_{n-1}^T h_{n-1} B_{n-1}}{h_{n-1}^T B_{n-1} h_{n-1}} \\
+  w_n = w_{n-1} - \eta B_{n-1} \nabla L(w_{n_1}) \quad (\text{Update; Initial } B_0 = 0)
+  $$
 
 **Nesterov Optimization**: works really well if loss surface is smooth
 * Evaluate gradient / Hessian near update point.
@@ -541,6 +545,7 @@ $$
 * Equivalent to L2 regularization.
 * At inference time no mask (all weights used).
 * *DON'T USE DROPOUT WHEN LAYER SIZE IS VERY SMALL (No. of neurons in layer) - AND NEVER IN INPUT & OUTPUT LAYERS*
+* At inference time, each neuron's output is scaled by retention probability $p$. This is necessary to approximate averaging all possible sub-networks, to account for the fact that some weights were randomly disabled during training.
 
 **Early Stopping** has similar effect as L2 regularization. makes sense when data is noisy. (more you train, more chances of overfitting - avoid oscillations of loss up & down, ie keep moving from one to a different local minima)
 * Patience parameter $p$ (how many epochs do we wait?)
@@ -580,7 +585,7 @@ Other loss function smoothening guidelines:
 
 **Instance and Group Normalizations**: TODO
 
-### Curriculum Training
+### Curriculum Training: Teacher Training & Knowledge Distillation
 
 * handle shift of variance by varying dataset used for training (ie change data distribution over epochs)
   * train model from *easier* to *harder* to learn data
@@ -600,7 +605,7 @@ Scoring and Pacing Functions (both are domain-dependent):
 **Self-Paced Learning** (when we don't know appropriate scoring & pacing functions so we need to learn them)
 * Samples with smaller loss values are selected first
 * Loss function itself acts as scoring function -- "harder" samples have higher loss values - higher variance of gradients
-* Reduces gradient variance early in training
+* *Reduces gradient variance early in training*
 * Reinforcement Learning can be used to dynamically change dataset
 * When earlier samples now have losses close to 0, shift to next set of harder data.
 * Often used in NLP & Computer Vision, wherever dataset has very high variance
@@ -672,7 +677,8 @@ Param sharing (fine tuning) constrain weights to be similar to another model, lo
 
 Data Augmentation: adding gaussian noise N(0, sigma^2) to train X has same effect as L2
 
-Label Smoothening: Replace y 0,1 with e, 1-e
+Label Smoothening: Replace y 0,1 with $\epsilon$, $1-\epsilon$ (for 2-class).
+* For multi-class output, replaced with $1-\epsilon$ (true class), or $\epsilon / (K-1)$ for other classes - i.e. $\epsilon$ is distributed across classes.
 
 Teacher Train / Knowledge Distillation: train smaller model using outputs of larger model
 
