@@ -989,6 +989,72 @@ Boosting:
 * called Boosted Trees, depend on each previous
 * Types: gradient boost, extreme gradient boost (xgboost), light gradient boosting machine (light GBM) 
 
+## WIP lecture Boosting
+
+### AdaBoost - Adaptive Boosting (only binary classification)
+
+This is a **parallel** ensemble method -- 
+
+Adaptive Boosting works only for binary classification - the 2 class labels are -1 and 1.
+
+* Intialize all wieghts equal $w_i = 1/N$ (all samples are equally important). NOTE: This is how much weight to give to each data, it's NOT model weight!
+* Keep adding more weak learners, Repeat till desired validataion loss improves:
+  * Fit a weak classifier (small decision tree) using weighted training data. Minimize weighted classifier error $e_m$ (sum of weights of correctly predicted samples / sum of all weights).
+  * Calculate learner weight $\eta_m = \frac{1}{2} \ln(\frac{1 - e_m}{e_m})$ (it is the importance associated with each weak learner model; $m$ is no. of weak learners).
+  * Update sample weights as $w_{m+1} = w_{m,i} \exp(-\eta_m y_i f_m(x_i))$
+* Prediction: $\hat{y}(x) = sign(F_M)$ (using learner weights)
+
+### Gradient Boosting (classification, regression)
+
+This is a **sequential** method -- each subsequent model tries to improve previous model.
+
+If there are many hard-to-classify samples, Gradient Boosting performs better than Random Forests. Each weak tree is kept shallow (maybe 3 depth) as it should correct only pseudo-residual.
+
+learning rate is generally kept constant at all iterations - it's a hyper-parameter (it's not exactly same as lr in gradient descent).
+
+*Pseudo-residual* is computed after adding each new weak learner tree (boosting iteration) :
+It tells for each sample, how much and in which direction prediction should change to reduce loss.
+At iteration $m$ (using output of whole ensemble $F(x_i)$):
+
+$$r_i^{(m)} = \frac{-\partial}{\partial F(x_i)} L(y_i, F(x_i))$$
+
+In case of regression with squared-error loss, this simplifies to (again NOTE: this is loss of whole ensemble, *not* necessarily of the individual learners):
+
+$$r_i^{(m)} = y_i - F_{m-1}(x_i)$$
+
+* Start with initial predictions for all samples: mean (for regression) or log-odds $log(\frac{p}{1-p})$ (for classification).
+* For each sample, calculate error (pseudo-residual) between true and current prediction.
+* Train a simple decision tree fitting pseudo-residuals (gradients). This tree learns to reduce error in previous prediction.
+* Add predictions of latest tree to current prediction, scaled by a *learning rate* parameter $\eta$ to control overfitting.
+* Keep adding trees to ensemble until pseudo-residuals are close to 0 or there is no room for improvement. So each new learner tries to "boost" previous prediction.
+
+There's chance of overfitting - we're fitting pseudo-residuals, at some point that's just noise.
+
+### XGBoost (Extreme Gradient Boosting)
+
+It's fundamentally same algorithm but made more efficient.
+
+* Efficient, scalable version of gradient boosting.
+* Adds regularization on tree complexity to reduce overfitting.
+* It uses both gradient and Hessian of loss.
+* TODO
+* Parallel Split Search (split in decision trees):
+  * For each split of decision trees, possible split points are evaluated independently.
+  * All split can be run in parallel.
+  * This speeds up tree construction.
+* Sparsity-Aware Learning (automatically handles missing values)
+  * If missing value at a node, try both left,right branches and calculate losses. The branch that's better - that's chosen to be run always at inference time also when missing value.
+* Cache Optimization:
+  * TODO
+
+XGBoost is also used for time series forecasting.
+
+### LightGBM (faster than XGBoost, not necessarily more accurate)
+
+TODO: not covered in lecture yet 
+
+### CatBoost (better than XGBoost when a large no. of categorical data)
+
 ## Misc
 
 ### Calculus

@@ -170,4 +170,51 @@ Compute:
 
 ### Solution 13
 
-TODO: numerical
+The ADMM $w$-update is
+
+$$w_{k+1} = (A^TA + \rho I)^{-1}(A^Tb + \rho(z_k - u_k))$$
+
+$$
+A^T A =\begin{bmatrix} 1 & 0 \\ 0 & 4 \end{bmatrix} \\
+A^T A + \rho I = \begin{bmatrix} 2 & 0 \\ 0 & 5 \end{bmatrix} \\
+(A^T A+\rho I)^{-1} = \begin{bmatrix} \frac{1}{2} & 0 \\ 0 & \frac{1}{5} \end{bmatrix} \\
+A^T b = \begin{bmatrix} 1 \\ 4 \end{bmatrix} \\
+A^T b + \rho(z_0-u_0) = \begin{bmatrix} 1 \\ 4 \end{bmatrix} \quad (\text{since } z_0-u_0=0) \\
+w_1 = (A^T A+\rho I)^{-1} (A^T b + \rho(z_0-u_0)) = \begin{bmatrix} 0.5 \\ 0.8 \end{bmatrix}
+$$
+
+z-update (soft thresholding):
+
+* z-update rule: $z_{k+1} = S_{\lambda / \rho}(w_{k+1}+u_k)$
+*Threshold: $\lambda/\rho = 0.5$
+* Input vector: $w_1 + u_0 = \begin{bmatrix} 0.5 \\ 0.8 \end{bmatrix}$
+* Soft-threshold rule: $S_\kappa(x) = \text{sign}(x)\max(|x|-\kappa,0)$
+
+Apply elementwise.
+
+**First element**: $S_{0.5}(0.5) = \max(0.5-0.5,0)=0$
+
+**Second element**: $S_{0.5}(0.8)=0.8-0.5=0.3$
+
+So
+
+$$z_1 = \begin{bmatrix} 0 \\ 0.3 \end{bmatrix}$$
+
+Dual Variable Update:
+
+$$u_{k+1} = u_k + w_{k+1} - z_{k+1}$$
+
+Substitute values:
+
+$$
+u_1 = \begin{bmatrix} 0 \\ 0 \end{bmatrix} + \begin{bmatrix} 0.5 \\ 0.8 \end{bmatrix} = \begin{bmatrix} 0 \\ 0.3 \end{bmatrix} \\
+u_1 = \begin{bmatrix} 0.5 \\ 0.5 \end{bmatrix}
+$$
+
+Final Results:
+
+$$
+w_1 = \begin{bmatrix} 0.5 \\ 0.8 \end{bmatrix} \\
+z_1 = \begin{bmatrix} 0 \\ 0.3 \end{bmatrix} \\
+u_1 = \begin{bmatrix} 0.5 \\ 0.5 \end{bmatrix}
+$$
