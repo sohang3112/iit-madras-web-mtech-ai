@@ -193,11 +193,14 @@ TODO
 
 Notebooks after Midsem:
 
-- [ ] DA5401W_Regression_I_unsolved.ipynb
+- [ ] DA5401W_Naive_Bayes.ipynb
+- [ ] DA5401W_Regression_I_Instructor.ipynb
 - [ ] DA5401W_Logistic_Regression.ipynb
 - [ ] DA5401W_LogReg_Tutorial_Problems.ipynb (& solutions)
 - [ ] DA5401W_Gradient_Descent_Feature_Scaling.ipynb
 - [ ] DA5401W_Ridge_Lasso_Tutorial_Questions.ipynb (& solutions)
+- [ ] DA5401W_Decision_Trees.ipynb
+- [ ] DA5401W_Random_forest_and_boosting.ipynb
 
 ## Additional (not in syllabus)
 
