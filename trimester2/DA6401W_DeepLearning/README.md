@@ -9,6 +9,12 @@ Head TAs :
 In this course we'll only do supervised learning, not unsupervised learning.
 All of Deep Learning, especially supervised learning, is basically curve fitting.
 
+**Marks Weightage**:
+- 25% Midsem
+- 25% Endsem
+- 20% Assignments (best 4 out of 6)
+- 30% Project (report + code) by April 22
+
 While creating a new architecture, activation etc. we have to make sure everything is differentiable, otherwise Deep Learning optimization will not work.
 
 ## Linear Algebra & Probability Revise (lecture 1 slides have material of remaining lectures as well)
@@ -707,6 +713,10 @@ Train models in parallel on different hyper-params, pick best
 ## Convolutional Neural Networks
 
 TODO
+
+VGGNet Model architecure (3x3 Conv2D, 2x2 MaxPool (kernel sizes)):
+
+![VGGNet](images/vggnet.png)
   
 ## Misc Resources
 

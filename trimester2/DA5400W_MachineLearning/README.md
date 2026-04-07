@@ -767,6 +767,8 @@ In balanced data, F1 can mislead, Balanced Accuracy is better
 
 ### Naive Bayes (not in Prof slides, instead from Tutorial 9)
 
+**Multinomial Naive Bayes** means all categorical input features. **Gaussian Naive Bayes** means all continous input features. **Vocablary Size** means no. of input features.
+
 Problem example:
 
 Training Data:
@@ -906,6 +908,7 @@ Purity measures if majority of points belong to same class.
 **Splitting Condition**: 2 metrics (both are measures of impurity - ideal score is 0 in both):
 * Entropy $\sum_j p_j \log_2(p_j)$ (between 0 to 1 for binary classify, not for multi-class) -- NOTE: base 2 of log is important here
 * Gini Index (probab of misclassification if label is assigned at random according to class proportions of node) $Gini = 1 - \sum_j p_j^2$. For 2 classes, max score (impure) is 0.5 .
+* Misclassification Rate = No. of Incorrect Predictions / No. of Correct Predictions
 
 After each decision tree split, total Entropy / Gini Index should decrease. Usually both produce identical splits, but different sometimes.
 
@@ -931,7 +934,7 @@ Splitting decision (when input feature is continous) - we can split in middle (m
 Pure (ideal) : split has all of one class
 Impurity metrics (0 pure) :
 * Gini Index = 1 - sum(pi^2) ; pi = probab of class i ; 2-class max impure = 0.5
-* Entropy = sum(pi log2(pi)) -- NOTE log2
+* Entropy = - sum(pi log2(pi)) -- NOTE log2
 
 Gini (default choice - fast, preferred for large data, splits quickly increase node purity towards dominant class) 
 VS
@@ -993,15 +996,15 @@ Boosting:
 
 ### AdaBoost - Adaptive Boosting (only binary classification)
 
-This is a **parallel** ensemble method -- 
+This is a **sequential** ensemble method -- each new weak classifier improves previous error.
 
 Adaptive Boosting works only for binary classification - the 2 class labels are -1 and 1.
 
 * Intialize all wieghts equal $w_i = 1/N$ (all samples are equally important). NOTE: This is how much weight to give to each data, it's NOT model weight!
 * Keep adding more weak learners, Repeat till desired validataion loss improves:
-  * Fit a weak classifier (small decision tree) using weighted training data. Minimize weighted classifier error $e_m$ (sum of weights of correctly predicted samples / sum of all weights).
-  * Calculate learner weight $\eta_m = \frac{1}{2} \ln(\frac{1 - e_m}{e_m})$ (it is the importance associated with each weak learner model; $m$ is no. of weak learners).
-  * Update sample weights as $w_{m+1} = w_{m,i} \exp(-\eta_m y_i f_m(x_i))$
+  * Fit a weak classifier (small decision tree) using weighted training data. Minimize weighted classifier error $e_m$ (sum of weights of **wrongly predicted** samples / sum of all weights).
+  * Calculate learner weight (also called "Amount of Say") $\eta_m = \frac{1}{2} \ln(\frac{1 - e_m}{e_m})$ (it is the importance associated with each weak learner model; $m$ is no. of weak learners).
+  * Update each sample weights as $w_{m+1,i} = w_{m,i} \exp(-\eta_m y_i f_m(x_i))$ and normalize them so they sum to 1 by dividing by their sum.
 * Prediction: $\hat{y}(x) = sign(F_M)$ (using learner weights)
 
 ### Gradient Boosting (classification, regression)
@@ -1054,6 +1057,14 @@ XGBoost is also used for time series forecasting.
 TODO: not covered in lecture yet 
 
 ### CatBoost (better than XGBoost when a large no. of categorical data)
+
+TODO: not covered in lecture yet
+
+## Adaboost Derivation (shared as new PDF in lecture slides)
+
+TODO: IMPORTANT presumably it's definitely gonna come as this derivation is shared seperately!
+
+TODO: Tutorials
 
 ## Misc
 
