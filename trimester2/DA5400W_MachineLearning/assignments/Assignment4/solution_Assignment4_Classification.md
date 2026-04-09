@@ -62,7 +62,8 @@ Sample | Standard Temperature  | Standard Vibration | Class | Distance from (-1.
 
 ## Problem 2
 
-A training dataset and a test dataset for a binary classification problem are provided in the accompanying Excel files. The target variable is `Class`, which takes values **Normal** and **Fault**. The training dataset is imbalanced, with the minority class corresponding to **Fault** .
+A training dataset and a test dataset for a binary classification problem are provided in the accompanying Excel file *knn_imbalanced_dataset_Q2.xlsx*. 
+The target variable is `Class`, which takes values **Normal** and **Fault**. The training dataset is imbalanced, with the minority class corresponding to **Fault** .
 
 Use the given datasets to answer the following questions:
 
@@ -93,7 +94,7 @@ Comment on whether handling class imbalance improves performance, especially for
 
 ### Solution 2
 
-TODO: code; ; CAN'T BE SOLVED AS DATASET NOT SHARED FOR THIS!!
+TODO: code
 
 
 ## Problem 3
