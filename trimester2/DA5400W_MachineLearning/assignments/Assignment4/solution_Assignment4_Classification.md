@@ -94,8 +94,109 @@ Comment on whether handling class imbalance improves performance, especially for
 
 ### Solution 2
 
-TODO: code
+Imports & load data for training, testing:
 
+```python
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import cross_val_score
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, accuracy_score, average_precision_score, recall_score, f1_score, balanced_accuracy_score
+from matplotlib import pyplot as plt
+import numpy as np
+import pandas as pd
+
+# load data
+train_df = pd.read_excel('knn_imbalanced_dataset_Q2.xlsx', sheet_name='Train')
+test_df = pd.read_excel('knn_imbalanced_dataset_Q2.xlsx', sheet_name='Test')
+
+# preprocess
+Xtrain, ytrain = train_df[['Temperature_C', 'Pressure_bar', 'Vibration_mm_s', 'Current_A', 'Acoustic_dB']], train_df['Class']
+ytrain = ytrain.apply(['Normal', 'Fault'].index)    # convert to 0,1 class index
+train_means, train_stds = Xtrain.mean(), Xtrain.std()
+Xtrain = (Xtrain - train_means) / train_stds    # z-standardize all features according to training data
+
+Xtest, ytest = test_df[['Temperature_C', 'Pressure_bar', 'Vibration_mm_s', 'Current_A', 'Acoustic_dB']], test_df['Class']
+ytest = ytest.apply(['Normal', 'Fault'].index)    # convert to 0,1 class index
+Xtest = (Xtest - train_means) / train_stds        # z-standardize all features according to training data
+```
+
+KNN Error Plot to choose Best K:
+
+```python
+folds = 10
+k_errors = []     # cross-validation errors for each k
+for k in range(2,11):
+    model = KNeighborsClassifier(n_neighbors=k)
+    fold_accuracies = cross_val_score(model, Xtrain, ytrain, cv=folds, scoring='accuracy')
+    k_errors.append(1 - sum(fold_accuracies) / folds)
+
+plt.plot(np.arange(2,11), k_errors)
+plt.xlabel('k')
+plt.ylabel('Cross-Validate Error (1-accuracy)')
+plt.show()
+```
+
+![KNN Error Plot](images/ans2_knn_error_plot.png)
+
+From KNN Error Plot, `best_k = 3` as cross-validation error is minimized. So fitting model:
+
+```python
+def show_model_metrics(model):
+    ypred = model.predict(Xtest)
+    print(f'Accuracy: {accuracy_score(ytest, ypred) :.2%}')
+    print(f'Avg Precision: {average_precision_score(ytest, ypred) :.2%}')
+    print(f'Avg Recall: {recall_score(ytest, ypred) :.2%}')
+    print(f'F1 Score: {f1_score(ytest, ypred) :.2%}')
+    print(f'Balanced Accuracy: {balanced_accuracy_score(ytest, ypred) :.2%}')
+
+    cm_np = confusion_matrix(ytest, ypred)
+    _ = ConfusionMatrixDisplay(cm_np, display_labels=['Normal', 'Fault']).plot()
+    plt.show()
+
+best_k = 3     
+model = KNeighborsClassifier(best_k).fit(Xtrain, ytrain)
+show_model_metrics(model)
+```
+
+Metrics of model:
+
+```
+Accuracy: 97.14%
+Avg Precision: 82.86%
+Avg Recall: 80.00%
+F1 Score: 88.89%
+Balanced Accuracy: 90.00%
+```
+
+Confusion Matrix:
+
+![Confusion Matrix](images/ans2_direct_confusion_matrix.png)
+
+Retrain using oversamping and weighted KNN to handle data imbalance in training:
+
+```python
+# Training data has 600 Normal (0), 60 Fault (1) rows -- oversample minority class (Fault)
+Xtrain_over = pd.concat([Xtrain[ytrain == 0], Xtrain[ytrain == 1].sample(600, replace=True)]) 
+ytrain_over = pd.Series([0]*600 + [1]*600)
+
+model = KNeighborsClassifier(best_k, weights='distance').fit(Xtrain_over, ytrain_over)      # Weighted KNN: weigh by inverse of distance
+show_model_metrics(model)
+```
+
+Metrics of model after handling data imbalance in training:
+
+```
+Accuracy: 96.67%
+Avg Precision: 79.61%
+Avg Recall: 86.67%
+F1 Score: 88.14%
+Balanced Accuracy: 92.50%
+```
+
+New Confusion Matrix:
+
+![Confusion Matrix](images/ans2_improved_confusion_matrix.png)
+
+New model (with over-sampled training data & weighted KNN) improved predictions for minority class (Fault) - true predictions of class Fault increased (24 -> 26) at the expense of some decline in true predictions of class Normal (180 -> 177). Balanced Accuracy increased (90% -> 92.5%).
 
 ## Problem 3
 
@@ -146,10 +247,18 @@ Suppose that for class $c$, the total count of feature $j$ aggregated over all t
 
 ### Solution 4
 
-1. Likelihood (product of each class's probability) is $L = \Pi_{c=1}^K \Pi_{j=1}^V \theta_{jc}$
-2. Log-Likelihood $\ln(L) = \sum_{c=1}^K \sum_{j=1}^V \ln(\theta_{jc})$ has to be maximized, subject to $\sum_{j=1}^V \theta_{jc} = 1$. TODO
-3. TODO
+1. Likelihood (product of each class's probability) is $L_c = \Pi_{j=1}^V \theta_{jc}^{N_{jc}}$
+   
+2. Derive MLE estimator of $\theta_{jc}$:
 
+$$
+l_c = \ln(L_c) = \sum_{j=1}^V N_{jc} \ln(\theta_{jc}) \quad (\text{Log Likelihood to maximize, subject to constraint } \sum_{j=1}^V \theta_{jc} - 1 = 0) \\
+\mathcal{L}(\theta, \lambda) = \sum_{j=1}^V N_{jc} \ln(\theta_{jc}) - \lambda (\sum_{j=1}^V \theta_{jc} - 1) \quad (\text{Lagrangian}) \\
+\frac{\partial \mathcal{L}}{\partial \theta} = \frac{N_{jc}}{\theta_{jc}} - \lambda = 0 \implies \theta_{jc} = \frac{N_{jc}}{\lambda} \\
+\sum_{j=1}^V \theta_{jc} = \sum_{j=1}^V \frac{N_{jc}}{\lambda} = 1 \implies \lambda = \sum_{j=1}^V N_{jc} \quad (\text{Using constraint})
+$$
+   
+3. So MLE Estimator is $\lambda = \sum_{j=1}^V N_{jc}$ .
 
 ## Problem 5
 
