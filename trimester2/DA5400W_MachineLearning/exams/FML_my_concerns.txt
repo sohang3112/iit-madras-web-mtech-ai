@@ -1,0 +1,26 @@
+---------- QUIZ 1 ------------------------
+
+In Q5 (of 1 point), they asked "percentage". I wrote 0.8571, they marked wrong with correct answer given as 85.71.
+Marks should be given as question is ambigous and could be interpreted as requiring answer between 0-1 not 0-100.
+Update: Prof refused :(
+
+Total 10 Qs (first 6 have 1 point each, last 4 have 2 points each)
+Questions: 4 correct / 14 total
+Points: 6 correct /14 total = 42.85%
+Marks they awarded out of 100: 47 (so I guess they gave slightly more?)
+
+----------- QUIZ 2 ---------------------------
+
+Marks: 12 / 19
+Total score awarded: 65%
+
+Q2,3 wrong slope & intercept calculated in linear regression
+
+Q6 I selected "R^2 cannot be negative" but that's wrong answer because 
+while for OLS linear regression with intercept, R^2 (on training data) is between 0-1 and equal to square of correlation coefficient r^2, it's NOT in general actually a "square":
+* (evaluation metric, generally measured on test data NOT training data) R^2 = 1 - SSE (sum of squared errors) / TSS (total sum of squares)
+* if we foce no intercept, even training R^2 can be negative
+* R^2 = 0 means model as good as just predicting mean value every time. >0 means better, <0 means worse than predicting mean value every time 
+  (latter is bad, can happen if test data is out of distribution)
+
+Q7 I did wrong, right ans was to do exp(-0.2) = 0.818, final ans = 1 - 0.818 = 18%

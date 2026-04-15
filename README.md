@@ -6,6 +6,8 @@ Company MoU (Memorandum of Understanding) or LoS (Letter of Support) is mandator
 Instead of GATE exam scores that are required for admission to regular MTech, 
 for web MTech an internal entrance exam of IIT Madras is conducted.
 
+**NOTE**: most files are text, but some are videos. GIT LFS is used to track these, so make sure to install it before cloning repo (eg. `sudo dnf install git-lfs` on Fedora linux).
+
 ### TODO
 
 NOTE: There's a minor rendering bug in Markdown Convert extension - it renders $\hat{y}$ (`\hat{y}`) with the "hat" too low over y so that it's overlapping and hard to read.

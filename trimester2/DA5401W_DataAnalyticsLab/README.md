@@ -202,6 +202,8 @@ Notebooks after Midsem:
 - [ ] DA5401W_Decision_Trees.ipynb
 - [ ] DA5401W_Random_forest_and_boosting.ipynb
 - [ ] SVM Classification, SHAP Model Interpretation *NOTEBOOKS NOT SHARED BUT STILL COMING I THINK*
+  
+**TODO**: CHECK WHY WRONG CODE/ANSWERS in my midsem exam notebook
 
 ## Additional (not in syllabus)
 

@@ -8,7 +8,7 @@
 ## Module 2: Supervised Learning
 * Functional Approximations and regression
 * Regression
-* Linear Regression: Ordinary Least Squares, PCR
+* Linear Regression: Ordinary Least Squares, PCR (Principal Components Regression = PCA before LinearRegression)
 * Non-Linear Regression (bias functions)
 * Ridge Regression, LASSO
 
@@ -16,12 +16,12 @@
 * k-Nearest Neighbours
 * Decision trees, CART
 * Bias-Variance dichotomy, Model validation - Cross validation
-* Bayesian Decision theory
-* Generative vs Discriminate Modeling for classification
+* Bayesian Decision theory -- superset (theory) of Naive Bayes (practical); whereas Naive Bayes assumes all features are conditionally independent, Bayes Nets (not in syllabus) allow to specify which features are conditionally independent with each other
+* Generative vs Discriminate Modeling for classification -- TODO: both meanings? i assume it's prior assumption made
     * Generative
         * Naive Bayes, Gaussian Discriminant analysis
-        * Hidden Markov model
-    * Discrimination
+        * Hidden Markov model -- TODO: NOT TAUGHT, is it coming??
+    * Discriminative -- which ones exactly? is it just everything besides naive bayes
 * Logistic Regression
 
 ## Module 4: Advanced Methods of Classification
@@ -32,7 +32,7 @@
     * Artificial Neural Networks
     * multi-class classification - one vs all vs one vs one
 
-## Module 5: Sequential Decision making
+## Module 5: Sequential Decision making - TODO: NOT TAUGHT, is it coming??
 * Online learning
 * Bandit problem
 * Reinforcement learning
@@ -96,3 +96,24 @@ Quiz 2 Tutorials:
 - [x] Tutorial 6 - Classification
 - [x] Tutorial 7 - Linear Regression
 - [x] Tutorial 9 - Naive Bayes
+
+-----------
+
+Topics after Quiz 2:
+
+- [ ] Neural Networks: Gradient Descent: Batch, SGD, Mini-Batch
+- [ ] Hyperparam tuning, Batch Norm, Regularization
+- [ ] Decision Tree, Random Forest
+- [ ] Boosting: AdaBoost, XGB, LGBM, CAt Boost
+- [ ] Caliberation
+
+**NOTE**: SVM, Reinforcement Learning lecture slides were shared but they are NOT coming in exam.
+
+TODO derivations:
+- [ ] Adaboost
+- [ ] PCA 
+- [ ] Derivative of sigmoid
+- [ ] Tanh to sigmoid and back
+- [ ] Derivation of ols estimator for simple linear regression
+
+TODO: FML Quiz 1, Quiz 2 -- practice questions where I got wrong answers

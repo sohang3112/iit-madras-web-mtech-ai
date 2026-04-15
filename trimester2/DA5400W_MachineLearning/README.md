@@ -56,20 +56,20 @@ Based on time:
 
 ##### KKT 
 
-Has to be used for non-linear optimization.
+Has to be used for non-linear optimization (minimize objective $f(x)$, $h(x) = 0$ equality constraints, $g(x) \le 0$ inequality constraints).
 
-Lagrangian $L(\mathbf{x}, \mathbf{\lambda}, \mathbf{\mu}) = f(\mathbf{x}) + \mathbf{\lambda}^T h(\mathbf{x}) + \mathbf{\mu}^T g(\mathbf{x})$
+Lagrangian $L(\mathbf{x}, \mathbf{\lambda}, \mathbf{\mu}) = f(\mathbf{x}) + \mathbf{\mu}^T h(\mathbf{x}) + \mathbf{\lambda}^T g(\mathbf{x})$
 
-* First-order necessary condition: 
+* First-order necessary condition (**only inequality constraint multiplier needs to be non-negative, equality constraint multiplier isn't restricted!**): 
 $$
 \nabla L(\mathbf{x^*}, \mathbf{\lambda}) = 0 \\
-h_i(\mathbf{x^*}) = 0, \quad g_j(\mathbf{x^*}) = 0 \\
-\lambda_i \ge 0, \mu_j \ge 0 \\
+h_i(\mathbf{x^*}) = 0, \quad g_j(\mathbf{x^*}) \le 0 \\
+\lambda_i \ge 0 \\
 $$
 
-Complementary condition $\mu_j g_j(\mathbf{x^*}) = 0$ (NOTE: $\mu_j$ is dependent on $x$, here we're talking only about values of $\mu_j$ at $x^*$)
+Complementary condition $\lambda_j g_j(\mathbf{x^*}) = 0$ (NOTE: $\mu_j$ is dependent on $x$, here we're talking only about values of $\mu_j$ at $x^*$)
 
-* Second-order necessary condition: TODO
+* Second-order necessary condition: Hessian of Lagrangian must be Positive Semi-Definite matrix (ie all eigen values positive)
 
 **LICQ**: Linearly Independent (TODO: rem full form)
 
@@ -114,7 +114,7 @@ $$
 E[X] = \int_{-\infty}^\infty x p(x) dx, \quad Var(X) = E[(X - \mu)^2] = \int_{-\infty}^\infty (x - \mu)^2 p(x) dx \\
 E[X + c] = E[X] + c, \quad Var(X + c) = Var(X) \\
 E[c X] = c E[X], \quad Var(c X) = c^2 X \\
-E[X + Y] = E[X] + E[Y], \quad Var(X + Y) = Var(X) + Var(Y) +
+E[X + Y] = E[X] + E[Y], \quad Var(X + Y) = Var(X) + Var(Y)
 $$
 
 **Covariance** (0 if X, Y have no linear relationship):
@@ -134,9 +134,11 @@ $$
 Type                 | Distribution | $P(X = x)$                          | $P(X \le x)$         | $E[X]$          | $Var(X)$
 -------------------- | ------------ | ----------------------------------- | -------------------- | --------------- | --------------------------
 Discrete & Continous | Uniform      | $\frac{1}{b-a}$                     | $\frac{x-a}{b-a}$    | $\frac{a+b}{2}$ | $\frac{(b-a)^2}{12}$
+Discrete             | Bernoulli    | $p$       | _                       | _                    | $n p$           | $p (1-p)$
 Discrete             | Binomial     | $\binom{n,x} p^x (1-p)^{n-x}$       | _                    | $n p$           | $n p (1-p)$
 Discrete             | Poisson      | $e^{-\lambda} \frac{\lambda^x}{x!}$ | $1 - e^{-\lambda x}$ | $\lambda$       | $\lambda$
-Discrete             | Exponential  | $\lambda e^{-\lambda x}$            |                      | $1 / \lambda$   |
+Discrete             | Exponential  | $\lambda e^{-\lambda x}$            |                      | $1 / \lambda$   | _
+Discrete             | Geometric    | $(1-p)^{x-1} p$                     | $1 - (1-p)^x$        | $1 / p$         | $\frac{1-p}{p^2}$
 Continous            | Normal       | $\frac{1}{\sigma \sqrt{2 \pi}} e^{- \frac{1}{2} (\frac{x-\mu}{\sigma})^2}$ | _ | $\mu$ | $\sigma$
 
 $$X_1, X_2 ... X_n \sim \mathcal{N}(\mu, \sigma^2) \implies E[\bar{X}] = \mu, \quad SE[\bar{X}] = \frac{\sigma}{\sqrt{n}}$$
@@ -178,9 +180,9 @@ This is used in Cross-Validation and other places.
 * Likelihood is joint probability $P(\mathbf{x} | \mathbf{\theta})$ of observing sample (collection of inputs) $\mathbf{x}$ (in assumed distribution) given parameters $\mathbf{\theta}$ :
     * during training, learn optimal parameter $\hat{\theta}$ to maximize likelihood in [Maximum Likelihood Estimator](#maximum-likelihood-estimator-mle)
     * during validation, if likelihood on test data is low, it means train issue: model overfit on training data OR training data distribution is not representative of test data.
-* Since all inputs are assumed to be Independent & Identically Distributed, joint probability is simply product of probability of each input in sample (having $N$ inputs):
+* Since all inputs are assumed to be Independent & Identically Distributed, joint probability is simply product of probability of each input in sample (having $N$ inputs), given probability density function $P(x_i, \theta)$:
 
-$$L(\mathbf{\theta}; \mathbf{x}) = P(x | \theta) = \Pi_{i=1}^N x_i$$
+$$L(\mathbf{\theta}; \mathbf{x}) = P(x | \theta) = \Pi_{i=1}^N P(x_i, \theta)$$
 
 ### Estimating Parameters
 
@@ -1079,6 +1081,7 @@ TODO: Tutorials
 
 ## TODO Practice Questions
 
+* KKT lagrangian question practice (maybe not too much, unlikely to come in detail)
 * (Coding Questions) Q3, 5 of Assignment 1 (skipped as not required for submission)
 
 TODO: Gaussian Mixture Model (GMM) - not taught in class I think, but came in Assignment 2

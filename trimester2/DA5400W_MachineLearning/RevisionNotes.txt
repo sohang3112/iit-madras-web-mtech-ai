@@ -1,0 +1,121 @@
+(trying to write as much as I remember without consulting lectures/notes)
+
+PROBAB REVISION + OPTIMIZATION REVISION + MODULE 1 (estimation, bayesian, PCA, clustering)
+
+TODO: multinomial gaussian formula
+
+Bernoulli P(1)=p, P(0)=1-p, E[X] = p, Var[X] = p(1-p)
+Binomial P(x)=nCx p^x (1-p)^{1-x}, E[X] = np, Var[X] = np(1-p)
+Poisson P(x) = e^\ \^x / x!, E[X] = \, Var[X] = \    (\ = lambda)
+Exponential P(x) = TODO, E[X] = 1 / \, Var[X] = TODO
+Geometric P(x) = (1-p)^{x-1} p, CDF = 1 - p^x, E[X] = TODO, Var[X] = TODO
+Normal P(x) = 1/sqrt(2 pi) sigma * exp[-1/2 ((x - mu) / sigma)^2]
+
+Hypothesis Tests Confidence Intervals formulae TODO (though unlikely to come)
+
+Entropy (P) = - sum p_i ln(p_i)
+Cross-Entropy (P,Q) = - sum p_i ln(q_i)
+Relative Entropy (KL Divergence) = Cross-Entropy(P,Q) - Entropy(P) = sum p_i ln(p_i / q_i) - TODO: verify
+
+optimization: static vs dynamic (vary with time)
+
+KKT optimization: minimize f(x) such that g_i(x) <= 0, h_j(x) = 0
+Lagrangian: L = f(x) + sum(mu_j h_j(x)) + sum(lambda_i g_i(x))
+grad L = 0, grad^2 L > 0, lambda >= 0 (not mu necessarily), lambda g(x) = 0, 
+TODO: active inequality constraints
+
+MLE Estimation: argmax_w Likelihood(w,x) = argmax_w P(x|w) = argmax_w Product(P(x_i|w))
+MOM Estimation: E[X^1], E[X^2] ... = E[X^1], E[X^2] ... (theoritical = actual, upto no. of params in assumed distribution, eg. 2 in Normal distrib)
+
+Estimators comparision:
+* calc biases
+* calc variances. if baises equal, lower bias wins
+* better (MSE = Bias^2 + Variance + IrreducibleError)
+
+TODO: Bayesian estimation (not sure, is it same as one of MLE ?)
+
+PCA Dimensionality Reduction:
+* z-standardize all features to mean 0, variance 1
+* principal components = eigenvectors corresponding to eigenvalues (largest to smallest)
+TODO: verify
+
+Clustering:
+* K-Means: pick k random centroids, calc clusters (each point closest to which centroid), re-calc centroids (means of all cluster points) and repeat till stable clusters
+    assumes roughly spherical clusters, cannot cluster for example concentric circle clusters
+    Elbow Plot (Inertia vs k), Silhoutte Score vs k
+* Heirachical (tree): Agglomerative (start with each point is a cluster, find 2 closest clusters and combine successively), TODO: top-down (cluster of all points and then splits), name starts with D
+    * Linkage: inter-cluster distance criteria:
+        * Single link: min distance between any 2 points of the 2 clusters -- weakness chaining
+        * Complete link (TODO: right name?): max distance between any 2 points of the 2 clusters -- very robust to outliers, but that leads to very similar clusters not merging till very late due to even a single outlier
+        * Average link: avg distance between any 2 points of the 2 clusters -- midway bw above
+        * (default) (forgot name & what it does) starts with W
+* DBSCAN (density-based clustering) (epsilon neighbourhood = radius of cluster, MinPoints (in cluster))
+    * designate as cluster centres points which fit criteria (MinPoints in epsilon neighbourhood) -- TODO: what are these called?
+    * TODO: is there any iteration?? (i don't think so)
+    * TODO: plot to pick epsilon using KNN error plot
+* TODO: Spectral
+
+cluster metrics:
+* supervised (or compare new clustering with existing "ground-truth" clustering):
+    * Purity: each cluster's class is its majority class; Purity = No. of misclassified data points / Total No.
+    * Entropy: - sum(y_i_true ln(y_i_predict_probability)) - TODO: verify
+* unsupervised:
+    * Inertia (accounts for only Cohesion: intra-cluster distances): TODO
+    * Silhoutte Score (accounts for both Cohesion (inter-cluster), Seperation (intra-cluster)): TODO
+TODO: more metrics
+
+------------
+
+REGRESSION (OLS, TLS, metrics Non-Linear, Ridge, LASSO)
+
+OLS linear regression (minimize SSE = sum of squared errors)
+X w = y => X^T X w = X^T y ; Projection Matrix = (X^T X)^{-1} X^T 
+y = m x + c => r (correlation coeff) = Covariance(X,y) / sx sy, m = r sy / sx = cov(x,y) / sx^2, c = ybar - m xbar
+Residual Plot should satisfy error assumptions:
+* error should NOT be correlated with input/output - should be about uniformly distributed around X axis
+* errors should be normal
+* homeoscedatic errors: meaning TODO
+
+Regression Metrics:
+* mean absolute error (L1 norm)
+* mean squared error (L2 norm)
+* R^2 = 1 - SSE / TSS (SSE = sum of squared errors, TSS = total sum of squares)
+* TODO more metrics
+
+Non-Linear Regression (other than just preprocessing X,y): TODO (i think slide on this was just how to formulate problem and then give it to library)
+
+Regression with regularization param lambda:
+* Ridge (L2 norm promotes low weight values): loss = SSE + lambda |w|^2, w = (X^T X + lambda I)^{-1} X^T y 
+* LASSO (L1 norm pushes most weights to exactly 0): loss = SSE + lambda |w|^1 no exact solution, TODO: iterative
+
+-----------------
+
+BINARY CLASSIFICATION (Cross-Validation, KNN, Naive Bayes, Logistic Regression, Decision Trees (CART), classify metrics)
+
+Validation: Hold-Out, Cross Validation, Leave-One-Out
+Cross-Validation fold techniques: K-Fold, TODO: other techniques
+
+KNN (k-nearest neighbours): knn error plot to choose k (minimum average cross-validation error)
+
+Logistic Regression: sigmoid(W x + b) or softmax()
+
+Naive Bayes: 
+* multinomial (continous features)
+* count ratio (discrete features)
+* TODO: forgot technique name (to prevent any probability going to 0): for each feature, add d dummy rows (each having 1 output class). so fraction becomes: (correct count + 1) / (total count + d)
+
+Decision Trees CART algo (latest, handles both classify & regression but only binary splits, earlier ones like ID3 did multiple splits but could only handle classification not regression)
+NOTE: in full tree, it's possible for some splits to be useless - ie both leaves lead to same answer (maybe one pure and one impure leaf) - can happen if not possible to isolate outlier with the features.
+* Purity measures (like accuracy, but smoother so like confidence) -- lower is better (Info Gain = parent - w1 child1 - w2 child2 where w1,w2 are fractions of how many data points from split went to each):
+    * Gini Index [0,1] = 1 - sum(p^2)
+    * Entropy [0, infinity] = - sum(p log2(p))
+    * Gini/Entropy of whole tree = weighted sum of leaves' purity
+* 
+
+-------------------
+
+TODO: make list of derivations since we know at least one will definitely come :
+* Adaboost derivation
+* PCA derivation\
+* OLS (I guess do X^T X w = X^T y and show it's unbiased solution?)
+* TLS derivation
