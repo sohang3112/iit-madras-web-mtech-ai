@@ -242,7 +242,7 @@ Covariance matrix $x^T x$ is square matrix.
 For an eigenvalue $\lambda_i$, which is a root of characterstic equation $det(A - \lambda I) x = 0 \implies (\lambda - \lambda_1)^{p_1} (\lambda_1 - \lambda_2)^{p_2} ... (\lambda - \lambda_n)^{p_n} = 0$
 * **Dimension of Eigenspace** is nullity of $A - \lambda_i I$ -  - i.e. no. of eigenvector bases (linearly independent).
 * **Algebraic Multiplicity** is no. of times it appears as a root - i.e. power $p_i$.
-* **Geometric Multiplicity** is *dimension of its eigen-space.
+* **Geometric Multiplicity** is dimension of its eigen-space.
 
 $$\forall \lambda_i, GeometricMultiplicity \le AlgebraicMultiplicity$$
 
@@ -717,6 +717,14 @@ $$\min_{A,B,C} \sum_{i=1}^N (y_i - \hat{y_i})^2, \quad \text{s.t.} \ln{\hat{y_i}
 
 ## Classification
 
+Ways to fix imbalanced classes in train data:
+* random under-sampling of majority class
+* random over-sampling of minority class
+* SMOTE synthetic oversampling of minority class -- for a % of minority data points A (how many depends on how much oversampling % is needed),
+    choose a random neighbour B among its k nearest neighbours which belong to minority class
+    on line from A to B, choose a random point and assign it minority class -- this is a new synthetic data point
+* model adjusted to account for imbalance, eg. Weighted KNN
+
 Types of Classification:
 * based on Decision Boudary - Linear, Non-Linear
 * based on No. of classes - Binary, Multi-Class
@@ -1002,34 +1010,46 @@ This is a **sequential** ensemble method -- each new weak classifier improves pr
 
 Adaptive Boosting works only for binary classification - the 2 class labels are -1 and 1.
 
+Exponential Loss after adding each weak learner is: (it's minimized by $\eta_m$ formula in steps):
+
+$$L_m = \sum_{i=1}^N e^{-y_i F_m(x_i)}$$
+
 * Intialize all wieghts equal $w_i = 1/N$ (all samples are equally important). NOTE: This is how much weight to give to each data, it's NOT model weight!
 * Keep adding more weak learners, Repeat till desired validataion loss improves:
-  * Fit a weak classifier (small decision tree) using weighted training data. Minimize weighted classifier error $e_m$ (sum of weights of **wrongly predicted** samples / sum of all weights).
+  * Fit a weak classifier (small decision tree) using weighted training data. Minimize weighted classifier error $\epsilon_m$ (sum of weights of **wrongly predicted** samples / sum of all weights).
   * Calculate learner weight (also called "Amount of Say") $\eta_m = \frac{1}{2} \ln(\frac{1 - e_m}{e_m})$ (it is the importance associated with each weak learner model; $m$ is no. of weak learners).
   * Update each sample weights as $w_{m+1,i} = w_{m,i} \exp(-\eta_m y_i f_m(x_i))$ and normalize them so they sum to 1 by dividing by their sum.
 * Prediction: $\hat{y}(x) = sign(F_M)$ (using learner weights)
 
 ### Gradient Boosting (classification, regression)
 
-This is a **sequential** method -- each subsequent model tries to improve previous model.
+DIFFERENCE FROM ADABOOST: Adaboost corrects mis-classified samples by increasing their sample weights; Gradient Boosting reduces loss function by fitting new weak learners to pseudo-residuals of previous models.
+
+This is a **sequential** method -- each subsequent model tries to improve previous model. Each tree should be shallow (1-3 depth usually)
 
 If there are many hard-to-classify samples, Gradient Boosting performs better than Random Forests. Each weak tree is kept shallow (maybe 3 depth) as it should correct only pseudo-residual.
 
 learning rate is generally kept constant at all iterations - it's a hyper-parameter (it's not exactly same as lr in gradient descent).
 
-*Pseudo-residual* is computed after adding each new weak learner tree (boosting iteration) :
+*Pseudo-residual* is computed after adding each new weak learner tree (boosting iteration) - **it's negative of whole ensemble's loss gradient wrt predicted output**:
 It tells for each sample, how much and in which direction prediction should change to reduce loss.
 At iteration $m$ (using output of whole ensemble $F(x_i)$):
 
 $$r_i^{(m)} = \frac{-\partial}{\partial F(x_i)} L(y_i, F(x_i))$$
 
+**Each sample has a different pseudo-residual**.
+
 In case of regression with squared-error loss, this simplifies to (again NOTE: this is loss of whole ensemble, *not* necessarily of the individual learners):
 
 $$r_i^{(m)} = y_i - F_{m-1}(x_i)$$
 
+Positive pseduo-residual means prediction should be increased. So **gradient boosting is an additive model**: $F_M(x) = F_{M-1}(x) + \eta f_m(x)$
+
 * Start with initial predictions for all samples: mean (for regression) or log-odds $log(\frac{p}{1-p})$ (for classification).
 * For each sample, calculate error (pseudo-residual) between true and current prediction.
 * Train a simple decision tree fitting pseudo-residuals (gradients). This tree learns to reduce error in previous prediction.
+    * This means that, instead of the original training outputs, pseduo-residuals themselves become output values in training data.
+    * NOTE: for classification, we predict **log-odds** NOT class labels. after that same pseduo-residual process works. (log-odds = $\ln(p / (1-p))$ where $p$ is probability). For classification (since we need to add tree output to log-odds), each leaf has value SUM(residuals) / SUM(p(1-p)) .
 * Add predictions of latest tree to current prediction, scaled by a *learning rate* parameter $\eta$ to control overfitting.
 * Keep adding trees to ensemble until pseudo-residuals are close to 0 or there is no room for improvement. So each new learner tries to "boost" previous prediction.
 
@@ -1041,8 +1061,8 @@ It's fundamentally same algorithm but made more efficient.
 
 * Efficient, scalable version of gradient boosting.
 * Adds regularization on tree complexity to reduce overfitting.
-* It uses both gradient and Hessian of loss.
-* TODO
+* It uses both gradient and Hessian of loss to determine tree splits.
+* Handles missing values in data natively.
 * Parallel Split Search (split in decision trees):
   * For each split of decision trees, possible split points are evaluated independently.
   * All split can be run in parallel.
@@ -1052,21 +1072,93 @@ It's fundamentally same algorithm but made more efficient.
 * Cache Optimization:
   * TODO
 
-XGBoost is also used for time series forecasting.
+XGBoost is also used for time series forecasting by framing as supervised ML with inputs like past k values / rolling averages / seasonal indicators etc.
+Handles non-linear trends, missing values, irregular time intervals.
 
 ### LightGBM (faster than XGBoost, not necessarily more accurate)
 
-TODO: not covered in lecture yet 
+even more aggressively optimized for memory, speed than XGBoost.
+
+* Histogram-based Splitting:
+  * Continous features are bucketed into bins
+  * Test split points only at bin boundaries
+  * Speeds up training and reduces memory usage for small accuracy loss
+* Leaf-wise Growth:
+  * all leaves at a level are split first to ensure tree balanced
+  * leaf with largest loss reduction is split first irrespective of loss. **Unlike standard gradient boost and XGBoost which split level-by-level (ie move on to next level only after all leaves in current level are split)**
+  * Reduces training loss faster
+  * Trees are deeper - more accurate but overfit so they use `max_depth` parameter
+* Native support for categorical splits, so one-hot encoding not required
 
 ### CatBoost (better than XGBoost when a large no. of categorical data)
 
-TODO: not covered in lecture yet
+Similar to XGBoost and LightGBM, except it does numerical encoding of categorical variables. Improve performance when there are many categorical features (stored using ordered statistics).
+
+### XGBoost vs LightGBM vs CatBoost
+
+_  | XGBoost | LightGBM | CatBoost
+-- | ------- | -------- | ----------
+Speed | Fast - parallel split search | Faster - histogram binning + leaf-wise growth | Medium - ordered target encoding
+Memory | High - gradients, hessians | Low - historgram binning, compressed features | Medium - category statistics
+Accuracy | Robust, stable, balanced trees | Often higher on large data, deeper trees | Stable - avoid label leakage
+Missing Values Handling | Native - default split direction | Native - seperate bin for missing | Native
+Categorical Features Support | Limited (One-Hot Encoding often required) | Very efficient - categorical grouping | Best - ordered target statistics
+Hyperparameter Tuning | High - many params to tune | Medium - depth & leaf control | Low - strong defaults
+When to Use | Stability & Robustness (default choice) | Very large data | Many Categorical Features
 
 ## Adaboost Derivation (shared as new PDF in lecture slides)
 
-TODO: IMPORTANT presumably it's definitely gonna come as this derivation is shared seperately!
+DONE (learnt but not noted here)
 
 TODO: Tutorials
+
+## Caliberation of Classification Models, Decision Thresholding
+
+Classifier score (probab of 1 / distance from decision boundary / log odds etc.) may be ranked correctly (among samples) yet probabilities can be wrong.
+We want to calibrate so that for each model predicted probability actual probab is roughly same. Matters when exact probability matters (cost sensitive  or resources constrained)-eg. medical screening, fraud detect, credit risk etc. Existing metrics like accuracy, precision,recall are discriminative (only care about class not probability)
+
+Overfit can mk extreme probabilities (over confidence)
+Strong regularisation can shrink probab too much
+Class imbalance can distort probabs
+Some model families (naive bayes, decision tree, boosted tree) can have scores sometimes unsuitable as probabilities 
+Distribution Shift: A model calibrated on one dataset (say one year) can become mis-caliberated on another (say next year)
+
+Mis-Caliberation Types:
+* Overconfident
+* Underconfident
+
+Brior score (should be lower after calibration, doesn't highlight specific area): MSE of actual vs expected probability 
+For exact diagonisis of *mis-caliberation*, use Caliberation Plot (Reliability Diagram): actual vs predicted probability (actual probab = observed fraction)
+
+Caliberation Plot for binary classifier model:
+* data = (X, true_label, predicted_probability) --> group into bins (eg. 3 bins of predicted probabilities: 0-0.33, 0.33-0.67, 0.67-1)
+* for each bin, calculate (actual-ratio = proportion of 1s, average predicted probability) and plot -- we expect both to be roughly equal, so ideal plot is x=y line (well-caliberated)
+* to right of line (predicted probab > actual) -> over-confident, else to left (probab < actual) -> under-confident
+
+RE-CALIBERATION OF A CLASSIFIER:
+Learn a caliberation mapping after model training using validation data, use caliberation mapping in future predictions
+
+Caliberation Mappings:
+* Platt Scaling - parametric logistic mapping (basically new model = sigmoid(original model score): convert raw scores to probabilities)
+  * Limitation: we assume miscaliberation can be corrected by logistic curve
+* Isotonic Regression - non-parametric monotonic mapping: learn from validataion data (learnt mapping scores are *monotonic* - non-increasing or non-decreasing)
+  * example: we learn probability bins (for each bin, answer probability now & for future predictions becomes observed class fraction),
+     so (actual label) points which were preventing monotonic scores originally get replaced
+  * Limitation: overfits on small validation data
+* Temperature Scaling - scale logits with a learned factor before softmax, common in deep learning
+
+DECISION THRESHOLDING: even after good probabs after caliberation, still need to convert to action
+default threshold 0.5 may not be appropriate when class imbalance / FP more important / FN more important / business objective may differ from classify error function
+
+Cost of false positive $C_{FP}$, Cost of false negative $C_{FN}$
+get model predict probab $p$, then choose 0 or 1 based on which has less expected cost (cost of 1 = $(1-p) C_{FP}$, cost of 0 = $(1-p) C_{FN}$)
+so this gives decision threshold probab $p > \frac{C_{FP}}{C_{FP} + C_{FN}}$
+
+Practically threshold may differ (may be decided based on a validation set)
+
+## SVM Classifier - TODO: not in exam
+
+## Reinforcement Learning - TODO: not in exam
 
 ## Misc
 
