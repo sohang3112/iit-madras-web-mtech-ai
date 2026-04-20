@@ -193,7 +193,7 @@ TODO
 
 Notebooks after Midsem:
 
-- [ ] DA5401W_Naive_Bayes.ipynb
+- [x] DA5401W_Naive_Bayes.ipynb
 - [ ] DA5401W_Regression_I_Instructor.ipynb
 - [ ] DA5401W_Logistic_Regression.ipynb
 - [ ] DA5401W_LogReg_Tutorial_Problems.ipynb (& solutions)
@@ -202,7 +202,8 @@ Notebooks after Midsem:
 - [ ] DA5401W_Decision_Trees.ipynb
 - [ ] DA5401W_Random_forest_and_boosting.ipynb
 - [ ] SVM Classification (pdf, notebook)
-- [ ] SHAP Model Interpretation
+
+SHAP Model Interpretation: has notebook but SHAP is not coming in Endsem exam
   
 **TODO**: CHECK WHY WRONG CODE/ANSWERS in my midsem exam notebook
 
