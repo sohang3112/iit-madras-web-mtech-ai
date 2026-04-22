@@ -430,8 +430,8 @@ Control variance of randomness (U - Uniform, N - Normal distribution):
 Technique  | Activations           | Distribution                                      | Remark
 ---------- | --------------------- | ------------------------------------------------- | -------------------
 Xavier     | tanh, sigmoid, linear (no activation for regression output) | $\mathcal{U}(\pm \sqrt{6 / (n_{l+1} + n_{l-1})})$ | NOT applicable for RELU because unlike tanh, sigmoid RELU doesn't have symmetric mean around 0
-Kaiming He | RELU, Leaky RELU etc. | $\mathcal{N}(0, 2 / n_{l-1})$                     |
-LeCun      | SELU                  | $\mathcal{U}(\pm \sqrt{3 / n_{l-1}})$             |
+Kaiming He | RELU, Leaky RELU etc. | $\mathcal{N}(0, \sigma=\sqrt{2/n_{l-1}})$                     |
+LeCun      | SELU                  | $\mathcal{U}(\pm \sqrt{6 / n_{l-1}})$             |
 
 Random orthogonal matrix is used for any arbitary activation in libraries.
 
@@ -576,18 +576,30 @@ Other loss function smoothening guidelines:
 **Batch Norm** (also a regularization technique) stabilizes weights distribution shift across layers, for a mini-batch size $m$ and reduce gradient variance:
 * $\mu = \sum x_i / m ; \quad \sigma^2 = \sum (x_i - \mu)^2 / m$ (mean, variance of same neurons, different data points)
 * $y_i = \beta + \gamma (x_i - \mu) / (\sigma + \epsilon)$ (normalizes layer activation output (Z-score standardization))
+* *It's calculated along batch dimension for each input feature.*
     * $\beta$ and $\gamma$ are learned parameters.
 * Behaves like noise injection so regularization
 * Larger batch sizes provide better estimate of statistics
 * Good for CNN architectures, esp when going from a larger (neurons/channels) to smaller (neurons/channels)
 * No *cross-connections*: prev layer's each neuron maps directly to a single BatchNorm neuron.
 * Loss is computed by averaging data points in a mini-batch. Gradient update after 1 epoch.
+* Normally used with CNN etc. (though layer norm can also be used for CNN).
 
 **Layer Normalization** (unlike batch norm, does not depend on batch size)
 * [for a single data point not batch (mean, variance of different neurons, same data point)] --> then average of all data points' answers for whole batch
 * Has *cross-connections*: prev layer's every neuron maps to every LayerNorm neurons.
+* *It's done along feature dimension, does not depend on batch size.*
+* Unlike BatchNorm, it DOESN'T save training data statistics so has no learnable parameters; for both train, inference it just normalizes over a single sample row's statistics.
 * Computational complexity same as BatchNorm
-* Good for RNN architectures (Reinforcement Neural Nets)
+* Good for sequential architectures: RNN (Recurrent Neural Nets), Transformers
+
+One way to remember these is, for input $X: (batch_size, num_features)$, batchnorm = column-wise avg,std (size=num_features), layernorm = row-wise avg,std (size=batch_size)
+
+Batch Normalization performance degrades when the batch size is very small, whereas Layer Normalization does not suffer from this issue.
+
+Batch vs Layer Norm:
+
+![Batch vs Layer Norm](images/batch_vs_layer_norm.png)
 
 **Instance and Group Normalizations**: TODO
 
@@ -710,13 +722,121 @@ Skip Connection:
 Hyper-Param Tuning:
 Train models in parallel on different hyper-params, pick best
 
-## Convolutional Neural Networks
+## Convolutional Neural Networks (CNN)
 
-TODO
+Convolution Layer formula (output) - sum (for each image depth/channel) of convolutions of each kernel's weight matrix with matched input regions: 
+
+$$Y_{out} = B + \sum_{k=0}^{C_{in}-1} W_k \circledast X_k$$
+
+where the convolution operation is:
+
+$$(W \circledast X)_{i,j} = \sum_m \sum_n w_{m,n} x_{i-m,j-n}$$
+
+No. of learnable parameters is $K (F^2 D + 1)$
+
+Shift invariant features
+Segment input vector, filters output scalars for each
+Matched filter = projecting input onto a filter
+Correlation over a region = sum(input * kernel over matched region)
+Segment, filter, convolution can be done with a MLP but weights are sparse, many shared weights. So warrants new layer type
+
+Input shape: W,H,D (width, height, depth)
+Kernel shape: F,F,D (F = filter's kernel size)
+Output of whole layer: W-F+1, H-F+1, K (K = no. of kernels); output of single kernel is first 2 dimensions ; without padding, stride 
+
+Padding P add to get feature info from corners, depends on kernel size F ("same" padding=F-1)
+Stride: non-continous filter, downsampled output with downsampled factor S
+
+Now output width: floor((W-F+2P)/S) [same for height]
+
+Pooling reduce feature size, get similar features even with greater stride, handle pixel jitter (local invariance but globally equivalent image) (slight shifts of few pixels due to minor cropping, rotation, translation)
+* MaxPool: for each block of pool size (say 2x2), replace it with scalar (max of block).
+  * NOTE: pooling also has padding, stride, output. width, height is same as in conv but input depth passes through unchanged: (floor((W-F+2P)/S + 1), floor((H-F+2P)/S) + 1, D)
+  * We can set stride = kernel size so that we get non-overlapping blocks.
+* Average pool
+* pool after activation : This is used by default today in all modern neural nets. Some older models used to do pooling before activation. Both give similar result (not same), main reason for pooling before activation was to try to reduce computation a bit in activation layer.
+
+Globalaveragepooling: for each channel, take avg of entire image, so order of values doesn't matter and can use when spatial location doesn't matter for final output (eg. Image classify; can't use for object detection as we need bounding box there). 1D output (K,)
+
+AlexNet (62M params)
+* Relu, sgd with momentum, batch 128, MaxPool, dropout
+* augmentation: flipping, jittering (random adjusts to bright, contrast, saturation, hue), cropping, color normalisation 
+* early layers (large kernels, strides) -> later layers (smaller kernels, strides)
+* final receptive field is almost whole image (receptive field is how much of image a single kernel sees at once, grows with layers)
+
+All these seem to have blocks of (conv 1 or more, MaxPool)
+
+AlexNet: not deep enough, too big kernels, no proper normalisation 
+
+VGGNet (138M params)
+* Smaller filters, stride 2
+* more depth (but that means more vanishing gradient)
+* receptive field grows gradually, capturing more features
 
 VGGNet Model architecure (3x3 Conv2D, 2x2 MaxPool (kernel sizes)):
 
 ![VGGNet](images/vggnet.png)
+
+GoogleNet (6.8M params)
+* Has "Inception" blocks with different conv kernel sizes in branches, concat output 
+* 1x1 conv (weighted sum across channels) - reduces only channel dimension
+* Global Pooling (before fully-connected FC) reduces params
+* Vanishing gradient: 3 output heads (1 main, 2 auxiliary) lead to softmax in train (to solve vanishing gradient) -- only main output is used during testing. Loss = 0.3 Ld1 + 0.3 Ld2 + Lend
+* can't make this deeper to generalize
+
+Resnet 18 (12M params)
+* Skip connection
+* batch norm
+* "Bottleneck" (name of blocks of layers) allows only important features to pass through 
+* variants: densenet (feature reuse, concats instead of adds skip connection), resnext (Inception+ resnet), neural ode (ordinary differentiatial equation)
+
+U-Net (31M params) - it is an AutoEncoder variant
+* Downsample then upsample, so denoise (regression), segmentation (classification)
+* blocks of same width in encoder, decoder are connected by skip connection - this provides feature location info & compensates for info loss
+
+DeepLabV3 (also Encoder-Decoder) TODO
+
+LATEST MODELS 
+
+Vision Transformer (ViT): global attention & context understanding 
+
+YOLO26
+
+GradCAM (Class Activation Mapping) - which spatial region caused decision 
+TODO
+
+## RNN (Recurrent Neural Network)
+
+Handle varying length causal sequence (inputs & outputs), out sequence can be infinite 
+
+AR vs NARX process 
+Autoregressive (AR(N) process): append out to input sequence then out again
+moving average (MA(N) process): ARMA (Autoregressive Moving Average): sum1toN(Wi xi) + sum1toM(Vi yi) (linear layer) (sums autoregressive part + weighted moving average of past forecast errors)
+Wold's Representation Theorem: ARMA is universal (any WSS (Weakly Stationary ie statistical properties remain const, eg. No big upward trend in sequence) process is deterministic part + stochastic part)
+Non linear autoregressive exogenous process (NARX): yi = f(x0..t, y0..t-1) -- Exogenous just means external input to system
+
+State Space Model
+Ht = g(ht-1, xt) , yi = f(xi)
+Hidden state has info about all past inputs (eg. statistics), model learns state predictor g(), output predictor f() (their params shared for all t)
+
+Applications:
+* Time series predictor 
+* sequence (next word) predict: speech recognition, sentence classification, etc.
+* Sequence to sequence: language translation, text to speech etc.
+
+Train RNN
+Unfolding an RNN over time gives an MLP (backprop over time = over unfolded MLP)
+Output & gradient will shrink / expand by power t of eigenvalues of weight matrix, so exploding / vanishing gradient 
+Long-term memory loss: gradients from deeper layers or very past values vanish
+
+TODO
+
+
+## Self-Attention 
+
+TODO
+
+## AutoEncoder, Transformers, SOTA (State of the Art) models -- TODO: (in slides, but not coming in endsem exam)
   
 ## Misc Resources
 

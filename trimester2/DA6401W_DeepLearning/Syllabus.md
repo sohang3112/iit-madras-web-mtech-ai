@@ -53,3 +53,7 @@
 * Physics informed neural networks
 * Kolmogorov Arnold neural networks
 * Diffusion and generative models
+
+----------------
+
+IN ENDSEM only till self-attention (of module 6) is coming. Rest Transformers, Autoencoders, State-of-the-Art (module 6-8) are not coming.
