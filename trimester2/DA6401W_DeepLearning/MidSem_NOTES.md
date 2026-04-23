@@ -134,7 +134,7 @@ Linear Decay: $\eta_n = (1 - \alpha) \eta_0 + \alpha \eta_t$ where $t$ is termin
 
 [AdaGrad](https://datascience.stackexchange.com/questions/77308/why-l2-norm-in-adagrad-update-equation-not-l1) uses L2 norm:
 $$
-v_t = v_{t-1} + (\nabla g_t)^2 = \sum_{i=1}^t g_i^2 \\
+v_t = v_{t-1} + g_t^2 = \sum_{i=1}^t g_i^2 \\
 w_{t+1} = w_t - \frac{\eta}{\sqrt{v_t}  + \epsilon} g_t
 $$
 * Change LR according to magnitude of slope of each coordinate

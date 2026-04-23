@@ -475,7 +475,65 @@ TODO
 
 **Universal Approximation Theorem** states that a feed-forward neural network having at least one hidden layer with non-linear activation can approximate any continous real function.
 
-## WIP lecture (slides not shared)
+  
+### Learning Rate Schedulers
+
+LR Schedulers: AdaGrad, RMSProp, Adam
+
+Optimal LR (for each individual epoch, not always computable) $\eta^* = \argmin_\eta L(w_{n-1} - \eta g_n)$ where $g_n = \nabla w_{n-1} L$ is gradient :
+* At optimal $\eta^*$, $\nabla_\eta L(w_{n-1} - \eta g_n) = 0$. But $w_n = w_{n-1} - \eta g_n$, so by chain rule $\nabla_\eta L(w_n) \dot (-g_n) = g_{n+1}^T g_n = 0$
+* This is called **Steepest Descent with Line Search** - try to use "perfect" LR in each epoch to get closest possible to minimum.
+
+Consecutive gradients are orthogonal, so updates cause inefficient zig-zag movement. Fix: adaptive L
+
+#### Adaptive Learning Rate
+
+Linear Decay: $\eta_n = (1 - \alpha) \eta_0 + \alpha \eta_t$ where $t$ is terminal rate instance, $\alpha = min(1, n/t)$
+
+[AdaGrad](https://datascience.stackexchange.com/questions/77308/why-l2-norm-in-adagrad-update-equation-not-l1) uses L2 norm:
+$$
+v_t = v_{t-1} + g_t^2 = \sum_{i=1}^t g_i^2 \\
+w_{t+1} = w_t - \frac{\eta}{\sqrt{v_t}  + \epsilon} g_t
+$$
+* Change LR according to magnitude of slope of each coordinate
+* Element-wise learning rate $\epsilon$ is for numerical stability, i.e. to avoid division by 0
+* Reduces LR when accumulated gradient is large and vice-versa
+* PRO: good for sparse gradients
+* CON: causes LR to decrease early; vanishing - problem when gradient is noisy
+
+[RMS Prop](https://medium.com/deepkapha-notes/optimization-algorithms-and-interactive-visualization-part-2-4d6d9791e1d3) modifies accumulated gradient in AdaGrad - accumulation is averaged to prevent early decrease in LR
+$$
+v_ = \beta v_{t-1} + (1 - \beta) g_t^2 \\
+w_{t+1} = w_t - \frac{\eta}{\sqrt{v_t}  + \epsilon} g_t
+$$
+
+#### Adaptive Moment Estimation - Adam
+
+NOTE: Multiple variants of Adam exist in literature.
+
+$$
+m_n = \beta_1 m_{n-1} + (1 - \beta_1) g_n, \quad k_n = m_n / (1 - \beta_1^n) \quad (\text{first moment}) \\
+v_n = \beta_2 v_{n-1} + (1 - \beta_2) g_n^2, \quad s_n = v_n / (1 - \beta_2^n) \quad (\text{non-central second moment}) \\
+w_{n+1} = w_n - \frac{\eta k_n}{\sqrt{s_n} + \epsilon} \quad (\epsilon \text{ to avoid division by 0})
+$$
+
+NOTE: in $k_n$, $s_n$, betas are raised to $n$ (no. of epochs)
+
+In adam weight update rule, we DON'T multiply by gradient since it's already factored in.
+
+* $m_n$ is moving weighted average of gradients for smoother trajectory (skip small local minima) - it builds **momentum** to help get out of small wells
+  * For $m_0 = 0$ and constant gradient $g_n = g$, $m_t \to \beta_1 g_n$
+* Too large momentum can lead to skipping significant minima - so use second moment to take smaller steps when variance of gradient is high and vice-versa. It helps reduce oscillations.
+* $\beta_1, \beta_2$ both are less than 1 but close to 1
+* Biased towards 0 as initial starting points of moments are 0
+  * Unbiased first moment is $k_n$
+  * Unbiased second moment is $s_n$
+
+Example plots:
+
+![Adam Plots](images/adam_optimizer_plots.png)
+
+## WIP lecture: Second-order optimization gradient descent
 
 **Conjugate gradient descent**: changes gradient computations instead of changing LR -- unlike standard gradient descent, it chooses direction based on curvature of loss surface & previous directions.
 * At step n, if $d_n$ is the direction along which we are descending:
@@ -483,7 +541,7 @@ TODO
   * Such that they are *conjugate directions*: $d_n^T H d_{n-1} = 0$
     * where $g_n$ is gradient of Loss, $H$ is Hessian Matrix of Loss wrt weights $w_n$; optimal directions are eigenvectors of $H$
   * Substituting, we get $\beta = - g_n^T H d_{n-1} / d_{n-1}^T H d_{n-1}$
-  * *Flescher-Reeves approximation*: $\beta = - g_n^T g_{n-1} / g_{n-1}^T g_n$
+  * *Flescher-Reeves approximation* (new gradient norm / old gradient norm): $\beta = - g_n^T g_n / g_{n-1}^T g_n$
   * Update step: $w_n = w_{n-1} - \eta d_n$
 
 **Second-order Newton's Method**: if loss surface is quadratic, then it will reach minima in a single step!
@@ -506,7 +564,7 @@ TODO
     * *Hessian-inverse is estimated, not directly calculated as it's expensive*.
     * In below formula, notice that numerators are matrices (eg. outer product of $d_{n-1}$ in RHS second term), denominators are scalars (inner product and quadratic respectively)
   $$
-  H_n^{-1} \approx B_n = B_{n-1} + \frac{d_{n-1}T d_{n-1}^T}{h_{n-1}^T d_{n-1}} - \frac{B_{n-1} h_{n-1}^T h_{n-1} B_{n-1}}{h_{n-1}^T B_{n-1} h_{n-1}} \\
+  H_n^{-1} \approx B_n = B_{n-1} + \frac{d_{n-1} d_{n-1}^T}{h_{n-1}^T d_{n-1}} - \frac{B_{n-1} h_{n-1}^T h_{n-1} B_{n-1}}{h_{n-1}^T B_{n-1} h_{n-1}} \\
   w_n = w_{n-1} - \eta B_{n-1} \nabla L(w_{n_1}) \quad (\text{Update; Initial } B_0 = 0)
   $$
 
@@ -557,7 +615,7 @@ $$
 * Patience parameter $p$ (how many epochs do we wait?)
 * Especially good for noisy training data (high variance)
 
-Early Stopping, Dropout, Weight Decay -- all 3 are equivalent to L2 regularization, but L2 can get computationally expensive whereas those 3 reduce computation.
+Early Stopping, Dropout, Weight Decay, Augment (add gaussian noise to X) -- all are equivalent to L2 regularization, but L2 can get computationally expensive whereas those reduce computation.
 
 NOTE: this equivalence is exact for simple neural nets (with linear activations only), but it's only approx not exactly true for neural nets in general (due to various non-linear activations).
 In linear-only neural net, we can use only one regularization technique. But in actual non-linear neural net, multiple regularizations are generally used.
