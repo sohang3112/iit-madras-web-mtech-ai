@@ -392,6 +392,11 @@ $tanh(z) = \frac{1 - e^{-2 z}}{1 + e^{2 z}}$      | $1 - y^2$                | H
 $relu(z) = max(0, z)$                             | 1 if y > 0 else 0        | Hidden layer
 $leakyrelu_\alpha(z)$: 1 if z > 0 else $\alpha z$ | 1 if y > 0 else $\alpha$ | Hidden layer
 
+Bagging / Ensemble / Bootstrap:
+* multiple samples with replacement from train data, train on each
+* classify: max votes, regression: average
+* loss calc using all data, prediction yi using only models that did not see it during training
+
 ## WIP Gradient Descent (Lecture 6)
 
 * how to find roots of derivative of loss function ?
@@ -738,47 +743,9 @@ Tools: optuna (recommended by Prof), Hyperopt, skopt, raytune, wandb
 * Random search: sample from a distribution
   * Learning rate - log uniform, dropout -- uniform
   * Bayesian search: fit a distribution (eg. Gaussian) to hyper-params, estimate its params and sample from it
-* Hyperband: Pick multiple candidates, TODO
+* Hyperband: Pick multiple candidates, train with early stop, drop high-loss trainings & keep only promising ones (dynamically allot more or less epochs)
 
 Unlike backprop training (where gradient updates need to be sequential), hyper-param tuning runs can run in parallel as they are independent.
-
----------
-Regularization (\ = reg param, n = lr) : all methods try to keep gradients stable, avoid vanishing / exploding
-
-Weight Decay (only weights not biases) 
-* L2/ridge/Tikhonov (smoothen loss surface) : loss L(x) + \ |w|^2, update w = (1 - n \) w - n g
-* L1
-
-Param sharing (fine tuning) constrain weights to be similar to another model, loss L(x) + \ |w - wfixed|^2
-
-Data Augmentation: adding gaussian noise N(0, sigma^2) to train X has same effect as L2
-
-Label Smoothening: Replace y 0,1 with $\epsilon$, $1-\epsilon$ (for 2-class).
-* For multi-class output, replaced with $1-\epsilon$ (true class), or $\epsilon / (K-1)$ for other classes - i.e. $\epsilon$ is distributed across classes.
-
-Teacher Train / Knowledge Distillation: train smaller model using outputs of larger model
-
-NOT  SURE:
-Semi-Supervised (like augmentation but for unsupervised): learn train distrib, sample more data from it
-
-Bagging / Ensemble / Bootstrap:
-* multiple samples with replacement from train data, train on each
-* classify: max votes, regression: average
-* loss calc using all data, prediction yi using only models that did not see it during training
-
-Dropout: bagging alternative, faster, approxes training exponential number of models
-* train: each epoch, disable random selection of weights with mask
-
-Early stopping
-* patience param
-* typically model learns easy samples first
-
-Skip Connection:
-* short skip (Add layers of same size, eg. ResNet) or (Concat layers of diff sizes, eg. DenseNet) 
-* long skip: RNN
-
-Hyper-Param Tuning:
-Train models in parallel on different hyper-params, pick best
 
 ## Convolutional Neural Networks (CNN)
 
@@ -792,20 +759,21 @@ $$(W \circledast X)_{i,j} = \sum_m \sum_n w_{m,n} x_{i-m,j-n}$$
 
 No. of learnable parameters is $K (F^2 D + 1)$
 
-Shift invariant features
-Segment input vector, filters output scalars for each
-Matched filter = projecting input onto a filter
-Correlation over a region = sum(input * kernel over matched region)
-Segment, filter, convolution can be done with a MLP but weights are sparse, many shared weights. So warrants new layer type
+* Shift invariant features
+* Segment input vector, filters output scalars for each
+* Matched filter = projecting input onto a filter
+* Correlation over a region = sum(input * kernel over matched region)
+* Segment, filter, convolution can be done with a MLP but weights are sparse, many shared weights. So warrants new layer type
 
-Input shape: W,H,D (width, height, depth)
-Kernel shape: F,F,D (F = filter's kernel size)
-Output of whole layer: W-F+1, H-F+1, K (K = no. of kernels); output of single kernel is first 2 dimensions ; without padding, stride 
+Shapes:
+* Input shape: W,H,D (width, height, depth)
+* Kernel shape: F,F,D (F = filter's kernel size)
+* Output of whole layer: W-F+1, H-F+1, K (K = no. of kernels); output of single kernel is first 2 dimensions ; without padding, stride 
 
-Padding P add to get feature info from corners, depends on kernel size F ("same" padding=F-1)
-Stride: non-continous filter, downsampled output with downsampled factor S
-
-Now output width: floor((W-F+2P)/S) [same for height]
+Padding, Stride:
+* Padding P add to get feature info from corners, depends on kernel size F ("same" padding=F-1)
+* Stride: non-continous filter, downsampled output with downsampled factor S
+* Now output width: floor((W-F+2P)/S) [same for height]
 
 Pooling reduce feature size, get similar features even with greater stride, handle pixel jitter (local invariance but globally equivalent image) (slight shifts of few pixels due to minor cropping, rotation, translation)
 * MaxPool: for each block of pool size (say 2x2), replace it with scalar (max of block).
@@ -821,10 +789,7 @@ AlexNet (62M params)
 * augmentation: flipping, jittering (random adjusts to bright, contrast, saturation, hue), cropping, color normalisation 
 * early layers (large kernels, strides) -> later layers (smaller kernels, strides)
 * final receptive field is almost whole image (receptive field is how much of image a single kernel sees at once, grows with layers)
-
-All these seem to have blocks of (conv 1 or more, MaxPool)
-
-AlexNet: not deep enough, too big kernels, no proper normalisation 
+* not deep enough, too big kernels, no proper normalisation 
 
 VGGNet (138M params)
 * Smaller filters, stride 2
@@ -867,25 +832,25 @@ TODO
 
 Handle varying length causal sequence (inputs & outputs), out sequence can be infinite 
 
-AR vs NARX process 
-Autoregressive (AR(N) process): append out to input sequence then out again
-moving average (MA(N) process): ARMA (Autoregressive Moving Average): sum1toN(Wi xi) + sum1toM(Vi yi) (linear layer) (sums autoregressive part + weighted moving average of past forecast errors)
-Wold's Representation Theorem: ARMA is universal (any WSS (Weakly Stationary ie statistical properties remain const, eg. No big upward trend in sequence) process is deterministic part + stochastic part)
-Non linear autoregressive exogenous process (NARX): yi = f(x0..t, y0..t-1) -- Exogenous just means external input to system
+AR vs NARX process:
+* Autoregressive (AR(N) process): append out to input sequence then out again
+* moving average (MA(N) process): ARMA (Autoregressive Moving Average): sum1toN(Wi xi) + sum1toM(Vi yi) (linear layer) (sums autoregressive part + weighted moving average of past forecast errors)
+* *Wold's Representation Theorem*: ARMA is universal (any WSS (Weakly Stationary ie statistical properties remain const, eg. No big upward trend in sequence) process is deterministic part + stochastic part)
+* *Non linear autoregressive exogenous process* (NARX): yi = f(x0..t, y0..t-1) -- Exogenous just means external input to system
 
 State Space Model
-ht = g(ht-1, xt) , yi = f(xi) ---> ORIGINAL RNN FORMULA
-Hidden state has info about all past inputs (eg. statistics), model learns state predictor g(), output predictor f() (their params shared for all t)
+* ht = g(ht-1, xt) , yi = f(xi) ---> ORIGINAL RNN FORMULA
+* Hidden state has info about all past inputs (eg. statistics), model learns state predictor g(), output predictor f() (their params shared for all t)
 
 Applications:
 * Time series predictor 
 * sequence (next word) predict: speech recognition, sentence classification, etc.
 * Sequence to sequence: language translation, text to speech etc.
 
-Train RNN
-Unfolding an RNN over time gives an MLP (backprop over time = over unfolded MLP)
-Output & gradient will shrink / expand by power t of eigenvalues of weight matrix, so exploding / vanishing gradient 
-Long-term memory loss: gradients from deeper layers or very past values vanish
+Train RNN:
+* Unfolding an RNN over time gives an MLP (backprop over time = over unfolded MLP)
+* Output & gradient will shrink / expand by power t of eigenvalues of weight matrix, so exploding / vanishing gradient 
+* Long-term memory loss: gradients from deeper layers or very past values vanish
 
 UNROLLED RNN (convert to regular MLP, now we can backpropogate): ht = g(xt, ht-1, yt-1); yt = f(xt, ht, yt-1)
 
@@ -938,7 +903,7 @@ $$
 Whole input sequence available at once.
 
 * Attention Score $a_i = s(h_t, x_i), i = 1..t$ -- attention score implemented with a MLP
-* Update state $h_t = g(h_{t-1}, \sum_i a_i g_v(x_i_))$
+* Update state $h_t = g(h_{t-1}, \sum_i a_i g_v(x_i))$
 
 For input $x_i$, learn :
 * **Key** $k_i = g_k(x_i) = W_k x_i$ - feature representing input, normalized to have norm 1
@@ -973,3 +938,16 @@ $$h_t = g(h_{t-1}, g_m(\sum_i a_{i1} g_{v1}(x_i), ..., \sum_i a_{iL} g_{vL}(x_i)
 * **Dying ReLU**: If $W x + b \le 0$, ReLU value and gradient are both 0 - meaning the neuron remains "dead" throughout training.
 * **Exploding Gradients** in RNN, recurrence matrix is multiplied over and over in gradient calc. If its eigen value > 1, then value explodes towards infinity.
 * **DQN Clipping**: TODO: didn't fully understand what is DQN
+
+## Questions I got wrong in Mock Test
+
+* Adam optimizer adapts learning rate for each parameter individually by using estimates of first and second order momentums of the gradients.
+* For $k$ multi-class, label smoothening converts 1 0 0 .. 0 (one-hot encoded category) into 1-e e/k e/k ... e/k . so true class probability = 1-e + e/k
+* Noise Injection into weights is also a form of regularization - it encourages model to find "flat minima".
+* In AdaGrad, if gradients remain small, its accumulated squared gradients sum remains small and *effective learning rate over parameter increases*.
+* VGG (small stacked filters), LeNet-5 (digit recognition model), AlexNet popularized ReLU + GPU, ResNet introduced skip connections.
+* Transfomer: positional encodings are added to inputs before encoder starts, not part of layers.
+* Transformer uses both Self-Attention and Multi-Head Attention.
+* (numerical calculation mistake (forgot bits to bytes conversion) - memory size calculation of weights, gradients, etc.)
+* **Multi-class** (exclusive output classes - use Softmax + Cross Entropy) vs **Multi-label** (image can belong to multiple classes, eg. can contain Dog, Cat -- use Sigmoid with Binary Cross Entropy (each binary output indepdendent))
+

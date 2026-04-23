@@ -1,0 +1,62 @@
+Q1 => c. Add some noise to input image, expect it to output original image
+Q2 => c. Newton's method uses second order derivatives
+Q3 => a,b,c. Dropout, early stopping, augmentation
+Q4 => b. skip connections improve gradient flow
+Q5 => floor((W-F+2P) / S) + 1 = floor((32-3+2)/1) + 1 = 32
+Q6 => DON'T KNOW (not SGD, maybe Nesterov?)
+Q7 => a,b,d. translation invariance, weight sharing, local connectivity
+Q8 => b. reduce spatial size
+Q9 => new norm = 5
+Q10 => b. normalize activations
+Q11 => b. Resnet
+Q12 => b. Cross-Entropy
+Q13 => NOT SURE, i think all options are correct
+Q14 => a. transfer learning reduces data requirement
+Q15 => 1-e = 0.9 (is it correct or do we need to do softmax(1-e, e, e) ~ 0.52)
+Q16 => b. nesterov calculates lookahead gradient
+Q17 => b. scaling gradient vector to threshold norm if its original norm was greater
+Q18 => e=0.1, softmax: e^0.9 / (e^0.9 + 3 e^0.1) = 0.425
+Q19 => b. freezes learnable stats (mean, variance)
+Q20 => a,b; d not sure
+Q21 => c. structured learning, easier training data first
+Q22 => d. softmax with mean-squared error
+Q23 => b. reduce overfitting
+Q24 => layer 1: floor((63-4+2)/2) + 1 = 32 ; layer 2: floor((32-3+0)/2) + 1 = 15 (final answer: 15,15)
+Q25 => a. learning rate becomes 0
+Q26 => 0.9*4 + 0.1*6^2 = 7.2
+Q27 => b. normalizes across features within a sample
+Q28 => NOT SURE, b. to prevent extremely large values leading to small gradients
+Q29 => mean=5, std=sqrt(20), normalized = (6-5)/sqrt(20) = 0.223
+Q30 => c. A-2, B-4, C-3, D-1 ; VGG (stacked small filters to approx large receptive fields), LeNet-5 (popularized ReLU + GPU), AlexNet (early use of conv + subsampling for digit recognize), ResNet (skip connections)
+Q31 => e^2 / (e^2 + e^1 + e^0 + e^-1) = 0.643
+Q32 => a, c. reduces internal covariance shift, depends on batch size for stable performance
+Q33 => b. dead neurons
+Q34 => b. vanishing gradients
+Q35 => b. order awareness
+Q36 => b. extremely slow convergence
+Q37 => b. overfitting
+Q38 => b. gradient clipping
+Q39 => b. spatial resolution of feature maps
+Q40 => a,b,c. sigmoid, deep net, small weights init
+Q41 => a,b,c,d. (all options)
+Q42 => a. increase kernel size
+Q43 => a,d. Multi-Head attention, Positional Encoding
+Q44 => a. large weights init
+Q45 => a,b,c. batchnorm, residual connections, gradient clipping
+Q46 => a,b,c. param sharing, translation invariance, local connectivity
+Q47 => a,c. self attention, Positional Encoding
+Q48 => a,c,d. lr, batch norm, gradient clipping
+Q49 => a,b,c. dropout, weight decay, early stopping
+Q50 => (16*10^9 + 32*10^9 + 8*2*10^9) / 10^9 = 72
+Q51 => b,c,d,f.
+Q52 => 12
+Q53 => a,c,d,e.
+Q54 => c. linear boundary limitation
+Q55 => c. symmetry problem (all gradients become same)
+Q56 => a. beta1 = 0
+Q57 => b. eigenvalues > 1
+Q58 => b,d. skip connections, He initialization
+Q59 => a,d. momentum can overshoot minima, Newton update depends on Hessian
+Q60 => a,d. dilated convolution (not sure what it is?), pooling
+Q61 => a,b. dropout approx ensemble, early stopping prevents overfitting (i don't think label smoothening has any effect on entropy?)
+Q62 => 0.25 (5/20)

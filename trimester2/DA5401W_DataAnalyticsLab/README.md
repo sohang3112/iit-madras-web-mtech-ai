@@ -194,7 +194,7 @@ TODO
 Notebooks after Midsem:
 
 - [x] DA5401W_Naive_Bayes.ipynb
-- [ ] DA5401W_Regression_I_Instructor.ipynb
+- [x] DA5401W_Regression_I_Instructor.ipynb
 - [ ] DA5401W_Logistic_Regression.ipynb
 - [ ] DA5401W_LogReg_Tutorial_Problems.ipynb (& solutions)
 - [ ] DA5401W_Gradient_Descent_Feature_Scaling.ipynb

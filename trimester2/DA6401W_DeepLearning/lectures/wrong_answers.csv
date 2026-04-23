@@ -1,0 +1,14 @@
+Q#, Topic          , Your Answer, Correct Answer, Explanation
+ 6, Optimizers     , Don't Know , B. Adam       , Adam adapts the learning rate for each parameter individually by using estimates of first and second moments of the gradients.+1
+15, Label Smoothing, 0.9        , 0.933         , "For 3 classes with ϵ=0.1, the true class probability is (1−ϵ)+Kϵ​=0.9+30.1​≈0.933."
+18, Label Smoothing, 0.425      , 0.925         , "For 4 classes with ϵ=0.1, the target probability for the true class is (1−ϵ)+Kϵ​=0.9+40.1​=0.925 ."
+20, Regularization , "A, B"     , "A, B, D"     , "D is also correct: Noise injection into weights encourages the model to find ""flat minima,"" which typically improves generalization.+1"
+22, Classification , D          , A             , Multi-label classification requires Sigmoid activation (to treat each class as an independent binary choice) and Binary Cross-Entropy loss .
+25, AdaGrad        , A          , B             , "In AdaGrad, if a gradient is consistently zero, its accumulated squared gradient sum remains small, making its effective learning rate higher relative to frequently updated parameters ."
+30, Architectures  , C          , A             , The correct match is: VGGNet uses stacked small filters (A-2); LeNet-5 is for digit recognition (B-3); AlexNet popularized ReLU/GPU (C-4); ResNet uses skip connections (D-1) .
+32, BatchNorm      , "A, C"     , "A, B, D"     , C is false because BatchNorm behaves differently during training (using batch stats) vs. inference (using running stats) .
+42, Receptive Field, A          , "A, B, C"     , Increasing depth (B) and stride (C) both increase the receptive field of subsequent layers by allowing them to see a larger portion of the original input .
+43, Transformers   , "A, D"     , "A, B, C"     , "Positional encoding is added to the input embeddings before the encoder layers, not as a component inside the layers themselves ."
+47, Transformers   , "A, C"     , "A, B, C"     , "Multi-head attention (B) is a core property that allows the model to attend to different parts of the sequence simultaneously, helping handle long-range dependencies ."
+50, Memory Calc    , 72         , 8 GB          , Weights (2B) + Gradients (4B) + Adam states (2x1B) = 8 bytes per parameter. 1×109 parameters×8 bytes=8 GB .
+53, NLP Padding    , "A,C,D,E"  , "A, C, D"     , "While sorting (E) is a common optimization (bucketing), it is not a primary mechanism for handling disparity during the computation itself like padding and masking are ."

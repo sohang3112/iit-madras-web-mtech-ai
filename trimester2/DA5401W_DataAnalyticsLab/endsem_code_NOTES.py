@@ -1,6 +1,10 @@
 import numpy as np
 import scipy
+from sklearn.pipeline import make_pipeline, Pipeline
+from sklearn.preprocessing import PolynomialFeatures, StandardScaler
+from sklearn.linear_model import LinearRegression
 from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB
+from matplotlib import pyplot as plt
 
 #region NaiveBayes
 
@@ -21,3 +25,12 @@ BernoulliNB().fit(X_train, y_train)          # binary categories input feautres 
 # normalize likelihoods to get probabilities
 
 #endregion NaiveBayes
+
+#region Regression_I_Instructor
+ypred = LinearRegression().fit_predict(X, y)  # linear regression: w = (X^T X)^-1 X^T y
+plt.plot(ypred, ypred - y)    # Residual Plot: errors vs predicted outputs - the 2 should NOT be correlated
+make_pipeline(PolynomialFeatures(degrees=5, include_bias=False), LinearRegression())     # polynomial regressions model
+
+# Gradient Descent: no func in sklearn so code yourself: w -= lr * gradient
+# for convex cost function (eg. as in linear regression), initialization doesn't matter all lead to same point. But matters for non-convex.
+#endregion Regression_I_Instructor
