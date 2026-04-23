@@ -32,6 +32,11 @@ Unlike Chatgpt, which generates Latex that can be copied easily, Gemini instead 
 I observed that when I tell it explicitly NOT to render answer but instead generate my answer as markdown code having embedded mathjax - 
 ChatGPT follows instructions, Gemini completely ignores it.
  
+## TODO: General Brush Up (Topics I don't really understand, need to impl from scratch)
+
+* RNN (Recurrent Neural Network) [it also has an attention mechanism]
+* Transformer
+
 ## Main Course Material
 
 Table of all courses (core & elective) with credits info for all trimesters is available at https://code.iitm.ac.in/artificial-intelligence in *Course Curriculum* tab.

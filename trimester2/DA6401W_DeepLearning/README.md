@@ -816,7 +816,7 @@ Wold's Representation Theorem: ARMA is universal (any WSS (Weakly Stationary ie 
 Non linear autoregressive exogenous process (NARX): yi = f(x0..t, y0..t-1) -- Exogenous just means external input to system
 
 State Space Model
-Ht = g(ht-1, xt) , yi = f(xi)
+ht = g(ht-1, xt) , yi = f(xi) ---> ORIGINAL RNN FORMULA
 Hidden state has info about all past inputs (eg. statistics), model learns state predictor g(), output predictor f() (their params shared for all t)
 
 Applications:
@@ -829,14 +829,80 @@ Unfolding an RNN over time gives an MLP (backprop over time = over unfolded MLP)
 Output & gradient will shrink / expand by power t of eigenvalues of weight matrix, so exploding / vanishing gradient 
 Long-term memory loss: gradients from deeper layers or very past values vanish
 
-TODO
+UNROLLED RNN (convert to regular MLP, now we can backpropogate): ht = g(xt, ht-1, yt-1); yt = f(xt, ht, yt-1)
 
+![Unrolled RNN](images/unrolled_rnn.png)
 
-## Self-Attention 
+BACKPROPOGATION THROUGH TIME: (gradient formulae in my assignment 6 solution.md)
 
-TODO
+"skipping through time" = addition of past state (gated with a counter) to retain memory
+* short-term memory (no long-term memory): ht = g(xt, rt * ht-1) where rt = reset gate (1/0) - if 0 then forgets old state else remembers
+* long-term memory:  ht = ut ht-1 + (1 - ut) g(xt, rt * ht-1) - when update gate ut = 1, gradient flows directly from past so avoids vanishing gradient
 
-## AutoEncoder, Transformers, SOTA (State of the Art) models -- TODO: (in slides, but not coming in endsem exam)
+**Gated Recurrent Unit** is just addition of the reset gate rt, update gate ut discussed above, so weighted sum of long and short-term states (it becomes same as regular RNN when rt = 1, ut = 0):
+$$
+r_t = \sigma(W_{rx} x_t + W_{rh} h_{t-1} + b_r) \quad (\text{Reset Gate (Short-term memory)}) \\
+u_t = \sigma(W_{ux} x_t + W_{uh} h_{t-1} + b_u) \quad (\text{Update Gate (Long-term memory)})
+$$
+
+![Gated Recurrent Unit](images/gated_recurrent_unit.png)
+
+**Long Short Term Memory (LSTM)** learns appropriate functions of long and short term memory
+* Long-term memory is retained via *cell memory / context* $c_t$
+* Update context: $C_t = f_t C_{t-1} + i_t g_c(x_t, h_{t-1})$ -- *forget gate* $f_t$, usefulness of current input decided with *input gate* $i_t$
+* Hidden state update: $h_t = o_t g_h(c_t)$ -- *output gate* $o_t$ decides if this context is relevant to be carried forward.
+* Output: $y_t = f(h_t)$
+* Gate calculations (context $C$ is a matrix, square brackets mean concat column vector to matrix) :
+$$
+f_t = \sigma(W_{fx} x_t + W_{fh} [C_{t-1} | h_{t-1}] + b_f) \quad (\text{Forget Gate}) \\
+i_t = \sigma(W_{ix} x_t + W_{ih} [C_{t-1} | h_{t-1}] + b_i) \quad (\text{Input Gate}) \\
+o_t = \sigma(W_{ox} x_t + W_{oh} [C_t | h_{t-1}] + b_o) \quad (\text{Output Gate; unlike other 2 it uses current context not old context})
+$$
+
+![LSTM](images/lstm.png)
+
+**Teacher Forcing**: sequential training of unrolled RNN takes long time to train but quick for inference. In teacher forcing we remove ht-1 -> ht (this allows parallelism and faster training) and instead feed ground truth yt-1 to calculate yt. *We have kept pre-calculated y1..t values in training data that we now use here.*
+* Curriculum training with Teacher forcing: mix of teacher forcing and using predicted output (teacher forcing gradually reduced over epochs) --> as it also requires predicted output it's no longer parallel
+
+**Stacking RNN cells**: multiple RNN "layers" can be stacked vertically, each learning different features, different contexts, possibly at different time steps. Deeper connections can be done (dropout, skip connections vertically).
+
+![Stacking RNN cells](images/stacked_rnn_cells.png)
+
+**Bi-directional RNN (breaks causuality - use when whole sequence available at once (eg. text))**: output at time t depends on both *forward state* $g_f(), h_{ft}$ 0,1..t-1 and *backward state* $g_b(), h_{bt}$ N,N-1..t+1 . Both use independent weights. All RNNs can be converted to Bi-RNN :
+* Bi-GRU
+* Bi-LSTM
+* The 2 unrolled networks trained almost independently: to get each gradient $\nabla x_t$, sum gradients of forward $g_f()$ and backward $g_b()$
+
+![Bi-RNN](images/bi_rnn.png)
+
+## Attention Mechanism in RNN
+
+Whole input sequence available at once.
+
+* Attention Score $a_i = s(h_t, x_i), i = 1..t$ -- attention score implemented with a MLP
+* Update state $h_t = g(h_{t-1}, \sum_i a_i g_v(x_i_))$
+
+For input $x_i$, learn :
+* **Key** $k_i = g_k(x_i) = W_k x_i$ - feature representing input, normalized to have norm 1
+* **Value** $v_i = g_v(x_i) = W_v x_i$ - feature of x_i useful for current task
+
+For state $h_t$ learn **query** $q_i = g_q(h_t) = W_q h_t$ - feature representing current state.
+
+Attention is (projection gives similarity score, softmax gives how much probability/relevance every input is to current input):
+
+$$a_t = \sigma_N(q_t^T k_t) v_t \quad \text{softmax(Query-Transpose Key) Value}$$
+
+weights $W_k$, $W_v$, $W_q$ are shared for all inputs i.
+
+**Multi-Head / Cross Attention** is computed between data and state (every feature j of i'th input has $k_{ij}, v_{ij}, q_i \forall i = 1,2..N$)
+
+$$h_t = g(h_{t-1}, g_m(\sum_i a_{i1} g_{v1}(x_i), ..., \sum_i a_{iL} g_{vL}(x_i)))$$
+
+**Self-Attention**: if query, key computed for same sentence, useful to learn a context-aware representation of input (words can mean different things at different positions)
+
+![Self & Multi-Head Attention](images/self_multihead_attention.png)
+
+## AutoEncoder (Unsupervised learning), Transformers (Causal Attention) -- TODO: (in slides, but not coming in endsem exam)
   
 ## Misc Resources
 
