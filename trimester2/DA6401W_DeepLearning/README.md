@@ -927,7 +927,7 @@ $$h_t = g(h_{t-1}, g_m(\sum_i a_{i1} g_{v1}(x_i), ..., \sum_i a_{iL} g_{vL}(x_i)
 
 ## AutoEncoder (Unsupervised learning), Transformers (Causal Attention) -- TODO: (in slides, but not coming in endsem exam)
   
-## Misc Resources
+## Misc Resources 
 
 - [PyTorch Intro Tutorial](https://docs.pytorch.org/tutorials/beginner/basics/intro.html)
 - [Training on MNIST using only Numpy](https://python-course.eu/machine-learning/training-and-testing-with-mnist.php)

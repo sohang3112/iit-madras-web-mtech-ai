@@ -195,7 +195,7 @@ Notebooks after Midsem:
 
 - [x] DA5401W_Naive_Bayes.ipynb
 - [x] DA5401W_Regression_I_Instructor.ipynb
-- [ ] DA5401W_Logistic_Regression.ipynb
+- [ ] DA5401W_Logistic_Regression.ipynb -- ALMOST DONE, TODO: ROC-AUC curve
 - [ ] DA5401W_LogReg_Tutorial_Problems.ipynb (& solutions)
 - [ ] DA5401W_Gradient_Descent_Feature_Scaling.ipynb
 - [ ] DA5401W_Ridge_Lasso_Tutorial_Questions.ipynb (& solutions)
@@ -206,6 +206,9 @@ Notebooks after Midsem:
 SHAP Model Interpretation: has notebook but SHAP is not coming in Endsem exam
   
 **TODO**: CHECK WHY WRONG CODE/ANSWERS in my midsem exam notebook
+
+Plots:
+- [ ] ROC-AUC curve
 
 ## Additional (not in syllabus)
 

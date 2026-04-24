@@ -2,8 +2,9 @@ import numpy as np
 import scipy
 from sklearn.pipeline import make_pipeline, Pipeline
 from sklearn.preprocessing import PolynomialFeatures, StandardScaler
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB
+from sklearn.multiclass import OneVsRestClassifier
 from matplotlib import pyplot as plt
 
 #region NaiveBayes
@@ -34,3 +35,14 @@ make_pipeline(PolynomialFeatures(degrees=5, include_bias=False), LinearRegressio
 # Gradient Descent: no func in sklearn so code yourself: w -= lr * gradient
 # for convex cost function (eg. as in linear regression), initialization doesn't matter all lead to same point. But matters for non-convex.
 #endregion Regression_I_Instructor
+
+#region LogisticRegression
+# for imbalanced classes, prefer F1 score and ROC-AUC over accuracy
+# tune classify threshold based on problems' cost of FP vs FN
+# TODO: check for multi-collinearity using correlation matrices
+# Use L1 regularization for feature selection (it promotes sparse weights, ie pushes some weights to 0), L2 for stability
+# inspect learning rate curves to diagonise under-fitting vs over-fitting
+regularization_strength = 2       # select optimal via cross-validation
+make_pipeline(StandardScaler(), LogisticRegression(C=1/regularization_strength, max_iter=100, random_state=42))
+# TODO: ROC-AUC plot
+#endregion LogisticRegression
