@@ -950,4 +950,7 @@ $$h_t = g(h_{t-1}, g_m(\sum_i a_{i1} g_{v1}(x_i), ..., \sum_i a_{iL} g_{vL}(x_i)
 * Transformer uses both Self-Attention and Multi-Head Attention.
 * (numerical calculation mistake (forgot bits to bytes conversion) - memory size calculation of weights, gradients, etc.)
 * **Multi-class** (exclusive output classes - use Softmax + Cross Entropy) vs **Multi-label** (image can belong to multiple classes, eg. can contain Dog, Cat -- use Sigmoid with Binary Cross Entropy (each binary output indepdendent))
-
+* Both *Sigmoid + Binary Cross Entropy* and *Softmax + Cross Entropy* have combined derivative $y_{pred} - y_{true}$
+* Cross-Entropy loss between 2 normal distributions is $\int_{-\infty}^\infty p(x) \ln(q(x)) dx = \ln(\sqrt{2 \pi} \sigma_Q) + \frac{\sigma_P^2 + (\mu_P - \mu_Q)^2}{\sigma_Q^2}$
+* a functionn is convex iff its Hessian matrix is Positive Semi-Definite $\nabla^2 f >= 0$
+* In RNN, same losses are used as in standard net (cross entropy, MSE) but for each input it outputs a sequence, so for the input its loss is average of loss at all these sequence values. This is part of **Backpropogating Through Time**.s
