@@ -184,6 +184,7 @@ Diameter is NOT 2*Radius
 
 - [x] *Part 4: Practice Exercises* cell in *Bootstrap_and_Method_of_Moments.ipynb*
 - [ ] *Part 10: Practice Exercises* cell in *PCA_Detailed_Tutorial.ipynb*
+- [ ] *Practice Exercises* last cell in *Gradient_Descent_Feature_Scaling.ipynb*
 
 ## ENDSEM -- NOT IN MIDSEM SYLLABUS
 
@@ -196,9 +197,9 @@ Notebooks after Midsem:
 - [x] DA5401W_Naive_Bayes.ipynb
 - [x] DA5401W_Regression_I_Instructor.ipynb
 - [ ] DA5401W_Logistic_Regression.ipynb -- ALMOST DONE, TODO: ROC-AUC curve
-- [ ] DA5401W_LogReg_Tutorial_Problems.ipynb (& solutions)
-- [ ] DA5401W_Gradient_Descent_Feature_Scaling.ipynb
-- [ ] DA5401W_Ridge_Lasso_Tutorial_Questions.ipynb (& solutions)
+- [x] DA5401W_LogReg_Tutorial_Problems.ipynb (& solutions)
+- [ ] DA5401W_Gradient_Descent_Feature_Scaling.ipynb -- DONE, TODO: exercises in last cell
+- [x] DA5401W_Ridge_Lasso_Tutorial_Questions.ipynb (& solutions)
 - [ ] DA5401W_Decision_Trees.ipynb
 - [ ] DA5401W_Random_forest_and_boosting.ipynb
 - [ ] SVM Classification (pdf, notebook)
@@ -209,6 +210,55 @@ SHAP Model Interpretation: has notebook but SHAP is not coming in Endsem exam
 
 Plots:
 - [ ] ROC-AUC curve
+
+### Logistic Regression options
+
+scikit-learn's `LogisticRegression` supports multiple **solvers** (optimization algorithms) and **penalty** types ('l1' | 'l2' | 'elasticnet'). Choosing the right combination affects:
+- **Convergence speed** (how fast the model trains)
+- **Accuracy** (some solvers are more precise)
+- **Sparsity** (only L1 penalty produces zero coefficients)
+
+**Solvers explained:**
+
+| Solver | Algorithm | Best For |
+|--------|-----------|----------|
+| `lbfgs` | Limited-memory BFGS | Small/medium datasets, L2 penalty |
+| `liblinear` | Coordinate descent | Small datasets, L1 or L2 |
+| `saga` | Stochastic Average Gradient | Large datasets, all penalties |
+| `sag` | Stochastic Average Gradient | Large datasets, L2 only |
+| `newton-cg` | Newton's method | Medium datasets, L2 only |
+
+Classification Metrics - when to use which:
+
+| Metric | When to Use | Sensitive To |
+|--------|-------------|-------------|
+| Accuracy | Balanced classes | Class imbalance |
+| Precision | When false positives are costly | Threshold |
+| Recall | When false negatives are costly | Threshold |
+| F1-Score | Balance precision and recall | Class imbalance |
+| AUC-ROC | Overall discriminative ability | Not threshold-dependent |
+
+### When to Scale and When Not to Scale
+
+**Feature scaling techniques**: z-standardize ((x-mu)/sigma), min-max normalize ((x-max)/(max-min)), mean normalize ((x-mu)/(max-min)), robust scaling ((x-Q2)/(Q3-Q1)) [Q=4 quartiles], log (log(x))
+* available: `from sklearn.preprocessing import StandardScaler, MinMaxScaler, RobustScaler`
+
+
+#### Algorithms that REQUIRE or BENEFIT from scaling:
+- **Distance-based**: KNN, K-Means, DBSCAN, SVM
+- **Gradient-based**: Linear/Logistic Regression, Neural Networks, SVMs with kernel
+- **Regularized models**: Ridge, Lasso, Elastic Net (L1/L2 penalties are scale-dependent)
+
+#### Algorithms that are SCALE-INVARIANT:
+- **Tree-based**: Decision Trees, Random Forests, Gradient Boosting, XGBoost
+- **Rule-based**: Naive Bayes (for some variants)
+
+#### Important Considerations:
+1. **Fit scaler on training data only**: Always fit the scaler on training data and apply to test data
+2. **Save the scaler**: For production, save the fitted scaler to apply to new data
+3. **Feature interpretation**: Scaling changes feature coefficients; keep original scale for interpretation
+4. **Outliers**: Use RobustScaler if data has outliers; StandardScaler is sensitive to outliers
+
 
 ## Additional (not in syllabus)
 

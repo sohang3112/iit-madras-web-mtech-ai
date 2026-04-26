@@ -1,10 +1,14 @@
 import numpy as np
 import scipy
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import make_pipeline, Pipeline
-from sklearn.preprocessing import PolynomialFeatures, StandardScaler
-from sklearn.linear_model import LinearRegression, LogisticRegression
+from sklearn.preprocessing import PolynomialFeatures, StandardScaler, MinMaxScaler, RobustScaler
+from sklearn.linear_model import LinearRegression, LogisticRegression, Ridge, Lasso, RidgeCV, LassoCV, SGDRegressor # linear model fitted with sgd gradient descent
 from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB
 from sklearn.multiclass import OneVsRestClassifier
+from sklearn.model_selection import train_test_split, cross_val_score, StratifiedGroupKFold, GridSearchCV
+from sklearn.svm import SVC
 from matplotlib import pyplot as plt
 
 #region NaiveBayes
@@ -46,3 +50,51 @@ regularization_strength = 2       # select optimal via cross-validation
 make_pipeline(StandardScaler(), LogisticRegression(C=1/regularization_strength, max_iter=100, random_state=42))
 # TODO: ROC-AUC plot
 #endregion LogisticRegression
+
+#region LogReg_Tutorial_Solutions
+# l1_ratio: 0 (full L2) - 0.5 (mix) - 1 (full L1)
+LogisticRegression(penalty='l1' | 'l2' | 'elasticnet', solver='lbfgs' | 'liblinear' | 'saga' | 'sag' | 'newton-cg', l1_ratio=0 to 1,
+                   class_weight=None (default) | 'balanced' | {0: w0, 1: w1} (manually list class index weights),     # handle class imbalance
+                   multi_class='auto' | 'ovr' (one vs rest) | 'multinomial' (softmax),   # it's binary classifier by default, can optionally give multi-class strategy
+                        # ovr is fast, simple; multinomial preferred when classes not well seperated
+                   C=1/regularization_strength, max_iter=1000, random_state=42) 
+
+# cross-validation ensuring proportions of classes preserved
+skf = StratifiedGroupKFold(n_splits=10, shuffle=True, random_state=42)
+scores = cross_val_score(model, X, y, cv=skf, scoring='accuracy' | 'precision_macro' | 'recall_macro' | 'f1_macro' | etc.)
+
+grid_search = GridSearchCV(model, param_grid={'param1': [...]}).fit(X, y)
+best_model = grid_search.best_estimator_
+print('best params:', grid_search.best_params_)
+#endregion
+
+#region Gradient_Descent_Feature_Scaling
+# gradient descent (batch | sgd | min-batch), lr schedule (momentum | rmsprop | adam) - no sklearn method, manually impl
+# scaling techniques: z-standardize ((x-mu)/sigma), min-max normalize ((x-max)/(max-min)), mean normalize ((x-mu)/(max-min)), robust scaling ((x-Q2)/(Q3-Q1)) [Q=quartiles], log (log(x))
+#endregion
+
+#region Ridge_Lasso_Tutorial_Solution
+Ridge(alpha=alpha, # alpha is regularization strength: any +ve float ; more alpha means weights more pushed towards 0
+      fit_intercept=True, max_iter=None, tol=0.001,   # convergence tolerance)   
+      solver='auto' | 'svd' | 'cholesky' | 'lsqr' | 'sag' | 'saga')
+
+Lasso(alpha=alpha, max_iter=50, tol=0.001, selection='cyclic' | 'random', 
+      warm_start=False, # reuse previous solution as starting point?
+      positive=True)    # force coefficients to be positive?
+
+RidgeCV(alphas=np.logspace(-3,4,100), cv=5).fit(X,y)   # LassoCV   # cross-validation to choose alpha
+# unlike ridge, lasso tends to select some arbitary features and set rest's weights to 0; so Lasso excels in sparse feature settings
+#endregion
+
+#region SVM_Classification
+#SVM needs balanced training data, standardized
+#SVM maximizes Margin: distance between HyperPlane and Support Vectors (nearest data points). Kernel Trick maps data to a higher dimensional space to make it linearly seperable.
+Xscaled = StandardScaler().fit_transform(X)
+SVC().fit(Xscaled, y)
+
+# Kernels (note: here x,y --> x, y are feature vectors; assuming single input single output model)
+# * linear K(x,y) = x^T y
+# * RBF (Radial Basis Function): default: exp(-gamma |x-y|^2) [gamma is hyperparam, can pass in SVC(gamma=gamma)]
+# * Polynomial: (gamma x^T y + r)^d  [gamma, degree are hyperparams]
+# * Sigmoid (gamma, r are hyperparams -- LEAST USED)
+#endregion

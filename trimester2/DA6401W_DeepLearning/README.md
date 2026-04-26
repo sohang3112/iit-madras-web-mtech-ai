@@ -939,7 +939,7 @@ $$h_t = g(h_{t-1}, g_m(\sum_i a_{i1} g_{v1}(x_i), ..., \sum_i a_{iL} g_{vL}(x_i)
 * **Exploding Gradients** in RNN, recurrence matrix is multiplied over and over in gradient calc. If its eigen value > 1, then value explodes towards infinity.
 * **DQN Clipping**: TODO: didn't fully understand what is DQN
 
-## Questions I got wrong in Mock Test
+## Questions I got wrong in Mock Test & Miscellenous
 
 * Adam optimizer adapts learning rate for each parameter individually by using estimates of first and second order momentums of the gradients.
 * For $k$ multi-class, label smoothening converts 1 0 0 .. 0 (one-hot encoded category) into 1-e e/k e/k ... e/k . so true class probability = 1-e + e/k
@@ -947,10 +947,11 @@ $$h_t = g(h_{t-1}, g_m(\sum_i a_{i1} g_{v1}(x_i), ..., \sum_i a_{iL} g_{vL}(x_i)
 * In AdaGrad, if gradients remain small, its accumulated squared gradients sum remains small and *effective learning rate over parameter increases*.
 * VGG (small stacked filters), LeNet-5 (digit recognition model), AlexNet popularized ReLU + GPU, ResNet introduced skip connections.
 * Transfomer: positional encodings are added to inputs before encoder starts, not part of layers.
-* Transformer uses both Self-Attention and Multi-Head Attention.
+* Transformer uses both Self-Attention (for input and output) and Multi-Head Attention (between encoder and decoder).
 * (numerical calculation mistake (forgot bits to bytes conversion) - memory size calculation of weights, gradients, etc.)
 * **Multi-class** (exclusive output classes - use Softmax + Cross Entropy) vs **Multi-label** (image can belong to multiple classes, eg. can contain Dog, Cat -- use Sigmoid with Binary Cross Entropy (each binary output indepdendent))
 * Both *Sigmoid + Binary Cross Entropy* and *Softmax + Cross Entropy* have combined derivative $y_{pred} - y_{true}$
 * Cross-Entropy loss between 2 normal distributions is $\int_{-\infty}^\infty p(x) \ln(q(x)) dx = \ln(\sqrt{2 \pi} \sigma_Q) + \frac{\sigma_P^2 + (\mu_P - \mu_Q)^2}{\sigma_Q^2}$
 * a functionn is convex iff its Hessian matrix is Positive Semi-Definite $\nabla^2 f >= 0$
-* In RNN, same losses are used as in standard net (cross entropy, MSE) but for each input it outputs a sequence, so for the input its loss is average of loss at all these sequence values. This is part of **Backpropogating Through Time**.s
+* In RNN, same losses are used as in standard net (cross entropy, MSE) but for each input it outputs a sequence, so for the input its loss is average of loss at all these sequence values. This is part of **Backpropogating Through Time**.
+* Gaussian Integral $\int_0^\infty e^{- x^2} dx = \sqrt{\pi} / 2$
