@@ -1,7 +1,7 @@
 Question   | Marks   | Remarks
 ---------- | ------- | ---------
-Q1A	       | 0       | wrong answer - TODO check why in code     
-Q1B	       | 0       | wrong answer - TODO check why in code
+Q1A	       | 0       | wrong answer - BFGS optimize: I passed `jac` (objective gradient) but they didn't!
+Q1B	       | 0       | wrong answer - SLSQP optimize: I passed `jac` (they didn't!), I passed LinearConstraint, they passed constraint dict
 Q1C	       | 1       |
 _          | _       |
 Q2A	       | 2       | 

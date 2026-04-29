@@ -1,0 +1,9 @@
+numpy
+pandas>=3
+scikit-learn>=1.8
+lightning
+sentence_transformers
+transformers
+matplotlib
+gradio
+nltk
