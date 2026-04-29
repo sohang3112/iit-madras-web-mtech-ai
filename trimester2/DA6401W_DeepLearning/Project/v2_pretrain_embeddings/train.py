@@ -14,6 +14,8 @@ class EmojiDataset(Dataset):
     
     def __init__(self, csv_path, model_name='all-MiniLM-L6-v2'):
         self.df = pd.read_csv(csv_path)
+        self.df = self.df.drop_duplicates()
+        self.df = self.df.dropna()        # drop any blank rows
         self.encoder = SentenceTransformer(model_name)
         
         self.embeddings = self.encoder.encode(self.df['Description'].tolist(), 
@@ -80,10 +82,12 @@ class EmojiClassifier(L.LightningModule):
 
 if __name__ == "__main__":
     data_dir = Path('../v1_scratch_embeddings/96emojis_50descriptions')           # same data as v1
+    # data_dir = Path('../v3_data_augment/')           # augmented data from v3 (although the v3 train.py proved to have horrible performance of 0.1% accuracy - hopefully at least data is ok!)
     # Note: SentenceTransformer handles the tokenization and vocab internally
+    # train_ds = EmojiDataset(data_dir / 'train_final.csv')
+    # val_ds = EmojiDataset(data_dir / 'val_final.csv')
     train_ds = EmojiDataset(data_dir / 'train.csv')
     val_ds = EmojiDataset(data_dir / 'val.csv')
-
     train_loader = DataLoader(train_ds, batch_size=32, shuffle=True)
     val_loader = DataLoader(val_ds, batch_size=32)
 

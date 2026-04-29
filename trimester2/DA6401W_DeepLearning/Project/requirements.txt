@@ -1,0 +1,9 @@
+numpy
+pandas>=3
+scikit-learn>=1.8
+lightning
+sentence_transformers
+# fixing nlpaug -- since at version 1.1.11 (latest), got error: BertTokenizer has no attribute _convert_token_to_id
+# nlpaug==1.1.1
+transformers
+matplotlib
