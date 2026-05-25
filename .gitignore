@@ -1,3 +1,10 @@
+# Temporary big data files (do not need to be commiitted as they are downloaded)
+*.parquet
+part*
+.part*
+_*
+._*
+
 # temporary backup files of LibreOffice
 .~lock*
 
