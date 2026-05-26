@@ -78,5 +78,13 @@ TODO
 
 ## Lecture 5 - Modelling as a Bandit Problem (ie how to use bandits for real-world problems)
 
+TODO
+
+## Lecture 6 - Thompson Sampling for Bandits
+
+Upper Confidence Bound (UCB) vs Thompson Sampling:
+
+![UCB vs Thompson Sampling](images/ucb_vs_thompson_sampling.png)
+
 
 
