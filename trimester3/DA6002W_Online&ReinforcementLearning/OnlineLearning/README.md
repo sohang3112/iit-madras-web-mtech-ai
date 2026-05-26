@@ -66,9 +66,17 @@ If arm i is suboptimal AND it is picked at time t (AND good event holds -- TODO 
 * UCB(t) = true mean + bonus(t) [diff for each arm i]
 * bonus_i(t) >= delta_i / 2
 
+UCB Algorithm steps / pseudocode are:
+
+![UCB Algorithm Steps](images/UCB_algorithm.png)
+
 Therefore, to get an upper bound of T (how many times we need to run the whole process):
 
-$$T \le 4 c \frac{\ln(T)}{\delta_i^2}$$
+$$T \le 4 c \frac{\ln(T)}{\delta_i^2}$$ -- TODO
+
+TODO
+
+## Lecture 5 - Modelling as a Bandit Problem (ie how to use bandits for real-world problems)
 
 
 

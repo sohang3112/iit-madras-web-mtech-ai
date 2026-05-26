@@ -18,3 +18,25 @@ NEW --> covariance matrix of weights $C = Cov(\beta, \beta) = (X^T X)^{-1} \sigm
 * covariance matrix of weights $C$ is *symmetric matrix* since $X^T X$ is symmetric
 * true $\sigma^2$ is unknown, so we must estimate it: $hat{\sigma}^2 = SSE / (n-p)$ where $n$ is no. of samples/rows, $p$ is no. of parameters/weights (size of covariance matrix of weights)
 * **Estimated Standard Error** (after using this estimate of error variance) is $SE[\hat{\beta_j}] = \sqrt{\hat{\sigma}^2 C_jj}$. Small errors for good precision.
+
+TODO
+
+## Lecture 2
+
+TODO
+
+## Lecture 3 -- LECTURE SLIDES NOT UPLOADED (BUT VIDEO IS UPLOADED)
+
+TODO
+
+## Lecture 4 -- LECTURE SLIDES NOT UPLOADED (BUT VIDEO IS UPLOADED)
+
+TODO
+
+## Lecture 5
+
+SUM[(y - y_{pred})^2] = TODO 
+
+sum of all deviations (from mean) = 0 [for linear regression solution line]
+
+TODO
