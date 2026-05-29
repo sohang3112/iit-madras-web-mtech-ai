@@ -1,7 +1,7 @@
 # DA5402W - ML Ops
 
 Professors:
-* Dr. Alka Bhushan: will cover first 3 modules of syllabus
+* Dr. Alka Bhushan &lt;ic39149@imail.iitm.ac.in&gt;: will cover first 3 modules of syllabus
 * Dr. Priyanka Naik
 * Dr. Aishwarya Chakraborty
 

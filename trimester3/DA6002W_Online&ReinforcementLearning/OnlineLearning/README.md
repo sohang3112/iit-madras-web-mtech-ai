@@ -80,11 +80,18 @@ TODO
 
 TODO
 
-## Lecture 6 - Thompson Sampling for Bandits
+## Lecture 6 - Thompson Sampling for Bandits (Randomized Algorithm - we generate some random numbers in algorithm)
 
 Upper Confidence Bound (UCB) vs Thompson Sampling:
 
 ![UCB vs Thompson Sampling](images/ucb_vs_thompson_sampling.png)
+
+True arm mean $\mu_i$ of arm i is fixed but unknown, so we're uncertain about what it is - it's described with a **belief distribution**.
+As we get more and more data, uncertainity reduces but some will still always be there as data is finite.
+
+We update the belief distribution probability via Bayes Theorem: Posterior = Likelihood * Prior
+
+TODO
 
 
 
