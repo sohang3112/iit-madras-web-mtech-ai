@@ -93,7 +93,7 @@ We update the belief distribution probability via Bayes Theorem: Posterior = Lik
 
 TODO
 
-## TODO Lecture 7 - Introduction to Contextual Bandits
+## WIP Lecture 7 - Introduction to Contextual Bandits
 
 Course so far: *Multi-Armed Bandits* > *Best-Arm Identification* > *Regret Minimization* > *Upper Confidence Bound* > *Thompson Sampling*
 
@@ -110,6 +110,17 @@ How to create features for contextual learning:
 *Recommended reading Yahoo research paper on this topic*
 
 TODO 
+
+## WIP Lecture 8 - Introduction to Linear Bandits
+
+A good algorithm (like UCB or Thompson) will get sub-linear regret growth (wrt number of epochs, aka time). BUT even then regret is still linear with respect to number of arms (because all arms must be tried at least a few times each).
+
+Assumption:
+
+* Each arm has a *fixed and known* context vector $v_i \in \mathcal{N}(\mu_i, 1)$
+* Mean of context vector $\mu_i = < \theta, x_i>$ -- $\theta$ is *fixed but unknown* .
+
+We can try to estimate $\theta$ vector using $x, y$ where $y$ at each point is the reward at that point, which we assume depends on $x$.
 
 
 
