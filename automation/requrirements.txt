@@ -1,0 +1,4 @@
+pymupdf4llm
+requests
+beautifulsoup4
+pandas

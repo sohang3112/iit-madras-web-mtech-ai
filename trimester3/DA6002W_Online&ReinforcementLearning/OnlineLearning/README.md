@@ -93,5 +93,23 @@ We update the belief distribution probability via Bayes Theorem: Posterior = Lik
 
 TODO
 
+## TODO Lecture 7 - Introduction to Contextual Bandits
+
+Course so far: *Multi-Armed Bandits* > *Best-Arm Identification* > *Regret Minimization* > *Upper Confidence Bound* > *Thompson Sampling*
+
+In practice any bandit algorithm in real world is contextual.
+
+Problem this solves - in vanilla bandit algorithms, there's no accounting for *personalization* (eg. general news recommendations vs personalized news recommendation).
+
+In vanilla bandit, an arm is just an index $i$. Now in contextual bandits, an arm is a feature vector $x_a$ .
+
+How to create features for contextual learning:
+
+![Contextual Feature Vectors: How to Create](images/contextual_features_how_to_create.png)
+
+*Recommended reading Yahoo research paper on this topic*
+
+TODO 
+
 
 
