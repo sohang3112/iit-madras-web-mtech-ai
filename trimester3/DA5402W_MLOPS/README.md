@@ -127,17 +127,45 @@ Data Engineering Architecture:
 TODO
 
 
-## TODO Lecture 4 (week 2) - Apache Airflow
+## Lecture 4 (week 2) - Apache Airflow for Data Engineering pipelines
 
-TODO
+* programmatic authoring, scheduling & monitoring of workflows as DAGs
+* contains a web server, meta store, queuing system, executors
+* can run single instance or on a cluster with many executor nodes
+* Uses DAGs where each node is a task
+
+When to Use:
+* When workflow has clear start & end and runs on a schedule
+* Prefers python coding to build workflow
+  * Provides version control, team collaboration, testing & extensibility
+* When pipeline is complex and recurring
+* Process historical data, rerun failed tasks
+* Designed for batched workflows
+
+Airflow Architecture:
+* Web Server (UI)
+* Scheduler: monitors DAGs and triggers tasks based on time or events
+* Executor: distributes tasks to workers. eg. `SequentialExecutor`, `CeleryExecutor`, `KubernetesExecutor`
+* Workers: execute tasks
+* Metadata database: store DAGs, task states and other metadata
+
+DAGs' key attributes:
+* Schedule: when workflows should run
+* Tasks: discrete units of tasks that are run on workers
+* Task Dependencies: order and conditions under which tasks execute
+* Callbacks: actions to take when entire workflow completes
+* Additional Parameters
+
+Usecases:
+* ETL (Extract / Data Ingestion, Transform, Load)
+* ML Workflows (train, eval, deploy)
+* Data Warehousing (pipelines for data lakes, warehouses)
+* Ad-hoc Job Scheduling> more flexible than cron
+* Code reusability, Fault tolerant, Visibility & control over data pipelines
 
 
 ## TODO Lecture 5 - Apache Kafka - SLIDES NOT UPLOADED YET (BUT VIDEO AVAILABLE)
 
 TODO
 
-
-## TODO Lecture 6 - MLFlow
-
-TODO
 
