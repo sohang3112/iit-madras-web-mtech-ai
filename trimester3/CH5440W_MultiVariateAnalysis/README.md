@@ -1,5 +1,7 @@
 # CH54402 - Multi Variate Analysis
 
+Suggested Book: *Kutner, M. H., C. J. Nachtschiem, J. Netner, Applied Linear Regression Models. 4th ed. New Delhi: McGraw Hill, 2004*
+
 ## Day 1: Linear Regression
 
 $Y$ is ground truth, $\beta$ is weights.
@@ -25,11 +27,11 @@ TODO
 
 TODO
 
-## Lecture 3 -- LECTURE SLIDES NOT UPLOADED (BUT VIDEO IS UPLOADED)
+## Lecture 3
 
 TODO
 
-## Lecture 4 -- LECTURE SLIDES NOT UPLOADED (BUT VIDEO IS UPLOADED)
+## Lecture 4
 
 TODO
 

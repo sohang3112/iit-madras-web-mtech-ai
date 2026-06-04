@@ -16,6 +16,8 @@ Bad intermediate actions must be penalized (ie model must perform best given all
 - Recommender systems for news
 - (Reinforcement Learning) chess AI
 
+**IMPORTANT TODO**: Refer to practice questions in the chapter exercises of book *Bandit Algorithms*.
+
 ## TODO Lecture 1
 
 ## TODO Lecture 2
@@ -70,9 +72,7 @@ UCB Algorithm steps / pseudocode are:
 
 ![UCB Algorithm Steps](images/UCB_algorithm.png)
 
-Therefore, to get an upper bound of T (how many times we need to run the whole process):
-
-$$T \le 4 c \frac{\ln(T)}{\delta_i^2}$$ -- TODO
+Therefore, to get an upper bound of T (how many times we need to run the whole process): $T \le 4 c \frac{\ln(T)}{\delta_i^2}$
 
 TODO
 
@@ -121,6 +121,12 @@ Assumption:
 * Mean of context vector $\mu_i = < \theta, x_i>$ -- $\theta$ is *fixed but unknown* .
 
 We can try to estimate $\theta$ vector using $x, y$ where $y$ at each point is the reward at that point, which we assume depends on $x$.
+
+For estimating $\theta$ we can use linear regression using $(x_1, y_1), (x_2, y_2) ... (x_T, y_T)$ -- specifically **Ridge Regression** (i.e. L2 norm in loss).
+
+So objective is to solve $\min_\theta (y(t) - \langle \theta, x(t) \rangle)^2$
+
+TODO
 
 
 
