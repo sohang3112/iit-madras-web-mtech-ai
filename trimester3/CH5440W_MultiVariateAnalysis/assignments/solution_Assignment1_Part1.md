@@ -18,7 +18,7 @@ A new washing machine prototype is developed by a Company. It’s unique design 
 
 The washing time is set for a standard 10-minute cycle. 
 
-It is assumed that the addition of powder does not induce additional heating or cooling of the water.  The data collected are given below.  The model to be considered is NOT known.  Since the two variables are of different magnitudes it is better to code the variables as shown in Table 1. Consider a linear regression model involving the main effects X1 and X2 only. 
+It is assumed that the addition of powder does not induce additional heating or cooling of the water. The data collected are given below. The model to be considered is NOT known. Since the two variables are of different magnitudes it is better to code the variables as shown in Table 1. Consider a linear regression model involving the main effects X1 and X2 only. 
 
 | S. No. | $T_c$ | $P_c$ | $C$ (ppm) |
 | ------ | ----- | ----- | --------- |
@@ -53,7 +53,50 @@ Find:
 
 ### Solution 1
 
-TODO
+$X$ matrix is (first 2 columns for $X_1$, $X_2$ and an extra column of 1s to handle intercept), and $y$ vector is::
+
+$$
+X = \begin{pmatrix}
+-1 & -1 & 1 \\
+ 0 & -1 & 1 \\
+ 1 & -1 & 1 \\
+-1 &  0 & 1 \\
+ 0 &  0 & 1 \\
+ 1 &  0 & 1 \\
+-1 &  1 & 1 \\
+ 0 &  1 & 1 \\
+ 1 &  1 & 1 \\
+0.5 & -0.5 & 1 \\
+-0.5 & -0.5 & 1 \\
+0.5 & 0.5 & 1 \\
+-0.5 & 0.5 & 1
+\end{pmatrix},
+\quad y = \begin{pmatrix} 234 \\ 257.5 \\ 282 \\ 193.5 \\ 187 \\ 181.5 \\ 153 \\ 116.5 \\ 81 \\ 226.9 \\ 217.9 \\ 141.4 \\ 162.4 \end{pmatrix}
+$$
+
+1. $(X^T X)^{-1}$ is actually a scalar (aka 1x1 matrix) whose value is $1 / ((-1)(-1) + 0(-1) + 1(-1) + (-1)(0) + 0(0) + 1(0) + (-1)(1) + 0(1) + 1(1) + 0.5 (-0.5) - 0.5(-0.5) + 0.5(0.5) + (-0.5)(0.5)) = 1 / 0.5 = 2$
+   
+2. Least square parameter estimates are $w = (X^T X)^{-1} X^T y = 2 (-234 + 282 - 193.5 + 181.5 - 153 + 81 + 0.5 * 226.9 - 0.5 * 217.9 + 0.5 * 141.4 - 0.5 * 162.4, -234 - 257.5 - 282 + 153 + 116.5 + 81 - 0.5 * 226.9 - 0.5 * 217.9 + 0.5 * 141.4 + 0.5 * 162.4, 234 + 257.5 + 282 + 193.5 + 187 + 181.5 + 153 + 116.5 + 81 + 226.9 + 217.9 + 141.4 + 162.4) = (-84, -987, 4869.2)$. So fitted model is:
+
+$$y = - 84 x_1 - 987 x_2 + 4869.2$$
+
+3. Actual $y$ vs Predicted values $\hat{y}$:
+
+| S. No. | $x_1$ | $x_2$ | $y$       | $\hat{y}$
+| ------ | ----- | ----- | --------- | ----------
+| 1      | -1    | -1    | 234       | 
+| 2      | 0     | -1    | 257.5     |
+| 3      | 1     | -1    | 282       |
+| 4      | -1    | 0     | 193.5     |
+| 5      | 0     | 0     | 187       |
+| 6      | 1     | 0     | 181.5     |
+| 7      | -1    | 1     | 153       |
+| 8      | 0     | 1     | 116.5     |
+| 9      | 1     | 1     | 81        |
+| 10     | 0.5   | -0.5  | 226.9     |
+| 11     | -0.5  | -0.5  | 217.9     |
+| 12     | 0.5   | 0.5   | 141.4     |
+| 13     | -0.5  | 0.5   | 162.4     |
 
 
 ## Question 2
