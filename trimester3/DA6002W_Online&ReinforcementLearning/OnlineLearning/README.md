@@ -39,7 +39,7 @@ So tension is to **explore** or **exploit**? So if estimated mean is reliable, t
 
 For each arm i we maintain in epochs:
 * mean mu (estimate of mean reward)
-* width of confidence interval, where T = 1,2,3,4.. (no. of rounds so far), $\sqrt{c \ln(T) / T}$ (c is a hyper-parameter that controls how much to explore)
+* width of confidence interval = $\sqrt{c \ln(T) / T_i(t)}$, **IMPORTANT** the numerator $T$ is current total round number, while denominator $T_i(t)$ is number of times arm i has been pulled. c is a hyper-parameter that controls how much to explore.
 
 **Large confidence interval indicates unreliable estimate, so more likelihood to explore**
 
@@ -127,6 +127,57 @@ For estimating $\theta$ we can use linear regression using $(x_1, y_1), (x_2, y_
 So objective is to solve $\min_\theta (y(t) - \langle \theta, x(t) \rangle)^2$
 
 TODO
+
+## WIP Lecture 9 -- Linear Upper Confidence Bound
+
+Unlike standard Upper Confidence Bound method (where each arm is assumed to be independent), here each arm is assumed to be depedent on others, so that pulling one arm also updates information about all other arms.
+
+Each arm is represented not as a single number but as a vector of characterstics of arm & environment. Because environment is shared, this updates info for all arms.
+
+In linear bandit, confidence interval DOES NOT DEPEND on T_i(t) (how many times arm has been pulled so far).
+
+Pseudocode:
+
+![Pseudocode -- Linear Upper Confidence Bound method](images/linear_upper_confidence_bound.png)
+
+TODO
+
+## Lecture 10 - More on Linear Bandits
+
+in standard multi-arm bandits, each arm is an indepdendent option we can choose, we assume no relation between arm reward means.
+in linear bandits each arm has a structured vector and we assume connected, so we can use one arm's reward info to learn about all arms.
+Goal is in both to minimize cumulative regret.
+
+in vanilla bandits we maintain arm averages and confidence bounds.
+in linear bandits we estimate theta (least squares) and confidence ellipsoid. (expected rewards is assumed to be linear combination of arm feature vectors and a vector theta)
+
+vanilla bandits: regret scales with K (number of arms)
+linear bandits: regret scales with d (dimensionality of feature space = no. of dimensions in arm vectors)
+
+TODO
+
+Standard vs Linear Bandits:
+
+![alt text](images/standard_vs_linear_bandits.png)
+
+![alt text](images/standard_vs_linear_bandits_table.png)
+
+linear bandit arm vector i ==> mean $\mu_i = < theta, x_i >$ -- arm mean is **dot product** of context vector of arm $x_i$ and shared environment vector $\theta$ (NOTE: the unknown ground truth $\theta$ is fixed for all t. But we don't know it, so we improve our estimated theta at each t)
+
+With probability at least $\delta$, $\|\theta - \hat{\theta}_i\|_{V_t}\| \le \beta$
+
+**Context vector $x_i$ need not be raw vectors.** Raw input (article text, image etc.) can instead be passed through a feature map (function) $\sai$ which captures all the complexity & non-linearity. This may be a matrix or may also be some other function.
+* *Feature map is fixed before running bandit algorithm*.
+* Richer feature map => larger $d$, more expressive learning, but slower learning (larger regret)
+
+### How do we get context vectors?
+
+an example: we have d categories of news, so each category context vector is simply one-hot encoded: <1,0,0..>, <0,1,0,..>, ..
+This is simple interpretable but also very low-dimensional and misses subtler differences between categories (eg. politics is closer to finance than entertainment) - we can do better 
+
+
+
+
 
 
 

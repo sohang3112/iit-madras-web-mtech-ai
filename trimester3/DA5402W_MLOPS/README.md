@@ -169,3 +169,80 @@ Usecases:
 TODO
 
 
+## WIP Lecture 7 - [Apache Beam](https://beam.apache.org) - SLIDES NOT UPLOADED YET (BUT VIDEO AVAILABLE)
+
+* Unified api for Batch & Streaming Data Processing
+* Execute locally for development, testing, debugging using small datasets
+* Same pipeline run on multiple engines/runners - Apache Flink, Apache Spark, Google Cloud DataFlow, Samza
+
+*Pipeline as a Directed Acyclic Graph (DAG)*
+* complete data workflow: read data, apply transforms (`PTransform`), write outputs. Data flows between them as `PCollection`.
+* handle both bounded (batch) and unbounded (streaming) data with same pipeline
+
+`PCollection`: core data structure in Beam
+* unordered, potentially distributed collection of data elements from dataset/stream processed in parallel by Beam transforms.
+* bounded (batch) or unbounded (streaming) data
+* Time-aware: every elem has timestamp, belongs to a window, and is tracked using watermarks to handle event-time processing & late-arriving data
+* Portable: Coder (serialization format) and Windowing Strategy (grouping, triggering, aggregation)
+
+`PTransform` (data processing operation)
+* It's a processing step in a pipeline: input & output are one or more `PCollection`
+* Parallel execution (each element) via multiple workers using user-defined code
+* Built-in transforms (`ParDo`, `GroupByKey`, `Combine`, `Count`), custom transforms
+* Types: Source (`Read`, `Create`), Processing (`ParDo`, `GroupByKey`, `Combine`), Output (`Write`), User-Defined Composite
+
+Aggregation:
+* group data with same key & window and apply operations like `Count`, `Sum`, `Max`, `Average`
+* Aggregation Transforms:
+  * `GroupByKey`: output no smaller than input
+  * `CombinePerKey`: group & apply combine function (sum, count) to produce smaller result set
+* (for streaming data) relies on Windowing, Watermarks & Triggers to determine when results are complete and should be emitted.
+* Parallel Scalability across millions of keys; when keys are few, they can be split into sub-keys and later recombined.
+
+Advanced:
+* Windowing: unbounded data streams are chunked into finite windows of types: Fixed, Sliding, Session, Global
+* Watermarks: estimate how complete incoming event-time data is
+* Triggers: control when window results are emitted. Supports early, on-time and late result generation.
+
+Beam Workflow example from https://beam.apache.org/documentation/ml/about-ml/ (TODO: go through rest of that docs page):
+
+![Beam Workflow Example](images/beam_workflow_example.png)
+
+### [Spark ML](https://spark.apache.org)
+
+TODO: go through https://spark.apache.org/docs/latest/ml-statistics.html , https://spark.apache.org/docs/latest/ml-datasource.html , https://spark.apache.org/docs/latest/ml-pipeline.html
+
+* Common ML agos: classification, regression, clustering, collaborative filtering
+* Featurization: feature extraction, reduction, dimensionality reduction, selection
+* Pipelines: construct, evaluate & tune ML pipeline
+* save & load model, algorithm, pipeline
+* linear algebra, statistics, data learning
+
+Basic statistics: Pearson & Spearman's correlation, hypothesis testing (`ChiSquareTest`), summarizer (available metrics are column-wise max, min, mean, sum, variance, std, number of non-zeros, total count)
+
+Data Sources: Parquet, CSV, JSON, JDBC, image, libsvm etc.
+
+Spark ML Pipelines (high level apis on top of DataFrames):
+* DataFrame (from SparkSQL): supports text, feature vectors, true labels, predictions
+* Transformer: DataFrame -> DataFrame
+* Estimator: fit on a DataFrame to get a Transformer
+
+Pipeline Components:
+* Transformers (DataFrame -> DataFrame by append one or more columns): uses feature transform methods or trained models. eg. text -> feature vectors, trained model -> predicted labels
+* Estimators: learns from input data and produces a trained model
+* `Transformer.transform()` and `estimator.fit()` are stateless, and each transformer, estimator has unique id
+
+Spark Pipeline (sequence of Stages) can be linear on non-linear DAG (like sequential or functional in keras):
+* Run-time checking of DataFrame schema
+* Unique pipeline stage objects (as each has unique id so cannot be reused, but can make different stage of same type)
+* Uniform parameter api (for `fit`, `transform`): eg. `lr.setMaxIter(10)` sets for one instance, while `ParamMap(lr1.maxIter -> 10, lr2.maxIter -> 20)` sets for different instances
+* ML Persistence: save & load models & pipelines using Scala, Java, Python; model saved in Spark 3.x can usually be loaded in later minor patch releases
+
+![Spark Pipeline Example](images/spark_pipeline_example.png)
+
+Model Selection & Tuning:
+* Tuning for single estimator (elem in pipeline) or full pipeline
+* Cross Validator (similar to `GridSearchCV`): 
+  * for each hyper-parameter combination:
+    * do k-fold (using average metric) & retrain on full data
+  * Parallel hyper-param eval: `cv.setParallelism(4)`
