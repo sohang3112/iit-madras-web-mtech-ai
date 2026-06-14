@@ -1,0 +1,33 @@
+The entry point in spark-core application is ?
+
+The entry point in spark SQL / Dataframe applicatioon is ?
+
+If using a textFile() function of a Spark Context, the number of partitions are equal to ?
+
+Launching spark application on yarn cluster with --deploy-mode as cluster will launch the driver… ?
+
+In Kafa Zookeeper is ?
+
+If a use case is talking about publishing the messages for consumers with decoupling between producers and consumers you  ?
+
+In Spark Which file format you will prefer to achieve predicate pushdown ?
+
+There are many benefits of using Spark for handling large volumes of data. What are they ?
+
+State True or False, In broadcast join a smaller DataFrame get shared across all worker nodes ?
+
+State True or False, In Kafla topic can be created without a partitionKafa fulfills the promise of fault tolarance by ?
+
+What are advantages of Spark DataFrames over RDDs ?
+
+What steps are there in creating a spark structured streaming application ?
+
+What is syntax for a Dataframe based streaming API ?
+
+How to use read only cache ?
+
+State True or False, HBase data is local when it is written, but when a region is moved, it is not local until compaction ?
+
+What is Apache Airflow? What are the main components of Airflow?
+
+Consider a Data Frame called users_df with columns as ID, Name, Age and State. If we wanted to return only the Name and S3000, which code snippet meets these requirements?

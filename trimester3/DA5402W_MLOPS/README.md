@@ -23,6 +23,9 @@ Datasets for Modules 1-3 :
 * [Intel Image Classification dataset](https://www.kaggle.com/datasets/puneet6060/intel-image-classification/data)
 * [New York Taxi records dataset](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page)
 
+**Resources**:
+* https://github.com/OBenner/data-engineering-interview-questions/ -- questions on Data Engineering tools like Apache Spark, Airflow, Kafka, Beam, etc.
+
 ## WIP Lecture 2 - Apache Spark, Data Engineering
 
 ### Course Overview
@@ -164,12 +167,12 @@ Usecases:
 * Code reusability, Fault tolerant, Visibility & control over data pipelines
 
 
-## TODO Lecture 5 - Apache Kafka - SLIDES NOT UPLOADED YET (BUT VIDEO AVAILABLE)
+## TODO Lecture 5 - Apache Kafka
 
 TODO
 
 
-## WIP Lecture 7 - [Apache Beam](https://beam.apache.org) - SLIDES NOT UPLOADED YET (BUT VIDEO AVAILABLE)
+## WIP Lecture 7 - [Apache Beam](https://beam.apache.org)
 
 * Unified api for Batch & Streaming Data Processing
 * Execute locally for development, testing, debugging using small datasets
@@ -246,3 +249,5 @@ Model Selection & Tuning:
   * for each hyper-parameter combination:
     * do k-fold (using average metric) & retrain on full data
   * Parallel hyper-param eval: `cv.setParallelism(4)`
+
+TODO
