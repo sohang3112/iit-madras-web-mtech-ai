@@ -26,6 +26,8 @@ Datasets for Modules 1-3 :
 **Resources**:
 * https://github.com/OBenner/data-engineering-interview-questions/ -- questions on Data Engineering tools like Apache Spark, Airflow, Kafka, Beam, etc.
 
+NOTE: Apache Ray was motivated by need for Reinforcement Learning (RL) applications - massive computation, low latency.
+
 ## WIP Lecture 2 - Apache Spark, Data Engineering
 
 ### Course Overview
