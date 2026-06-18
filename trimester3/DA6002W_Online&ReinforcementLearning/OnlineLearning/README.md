@@ -18,6 +18,12 @@ Bad intermediate actions must be penalized (ie model must perform best given all
 
 **IMPORTANT TODO**: Refer to practice questions in the chapter exercises of book *Bandit Algorithms*.
 
+BAI (Best Arm Identification) - *Pure Exploration* (instead of exploration + exploitation as in standard bandit algorithms to minimize regret) - use algorithms like Successive Elimination:
+* Play all arms uniformly.
+* At set intervals, look at the confidence bounds.
+* Statistically reject/kill the arms that are provably worse than the top performer.
+* Repeat only with the surviving "top tier" arms until only one remains
+
 ## TODO Lecture 1
 
 ## TODO Lecture 2
@@ -73,6 +79,8 @@ UCB Algorithm steps / pseudocode are:
 ![UCB Algorithm Steps](images/UCB_algorithm.png)
 
 Therefore, to get an upper bound of T (how many times we need to run the whole process): $T \le 4 c \frac{\ln(T)}{\delta_i^2}$
+
+(from take-home-work 2, part 1 notebook) for UCB, $T_i(T) \le 8 \log T / \Delta_i^2 + 1$, where $\Delta_i = \mu^\star - \mu_i$ is the gap.
 
 TODO
 
@@ -174,6 +182,70 @@ With probability at least $\delta$, $\|\theta - \hat{\theta}_i\|_{V_t}\| \le \be
 
 an example: we have d categories of news, so each category context vector is simply one-hot encoded: <1,0,0..>, <0,1,0,..>, ..
 This is simple interpretable but also very low-dimensional and misses subtler differences between categories (eg. politics is closer to finance than entertainment) - we can do better 
+
+TODO
+
+
+## Lecture 11 - Production Realities of Bandits
+
+Recap of Linear Bandits:
+
+![Linear Bandits Recap](images/recap_linear_bandits_steps.png)
+
+4 Challenges - here we'll see how to overcome:
+1. computational cost, esp. with large no. of arms - standard bandits scale linearly with no. of arms so totally can't handle, linear bandits don't - so can they practically be fast enough?
+2. designing correct reward function for what we want
+3. rewards may not be always available, or only available after a delay
+4. we assume stationary environment but that's not necessarily true (eg. user preference can change). So adapt to time-varying environments
+
+(NOT IN SYLLABUS -- what if rewards dont follow any model? Adverserial Bandits are used. In practice not much used.)
+
+(NOT IN SYLLABUS -- (part of non-stationary bandits problem) underlying probability distributions of arms change. Restless Bandits can be used.)
+
+(NOT IN SYLLABUS -- Bandits with Knapsacks (conditions))
+
+(LIKELY IN SYLLABUS -- State Bandits)
+
+Multi-Agent Bandits
+
+Solution to 1st: **Nearest Neighbours Search (Retrieval on Full Catalog)** (2 phases) (it solves *Exploration is limited by retrieval*):
+* Have pre-computed item embeddings (or calculate query/embeddings online)
+* compute *approximate* nearest neighbours to 'target' in embedding space (say 100 - exact ranking does NOT matter)
+* now in this reduced set apply bandit algorithms
+
+Solution to 2nd: Reward Design: **Using Reward Model** (proxy rewards are available easily, but true reward is only available after delay)
+* interpolate short-term proxy reward with long-term true reward (eg. use linear interpolation, or use a neural network to get predicted reward at time t)
+
+![Production Dilemna](images/reward_production_dilemna.png)
+
+
+## Lecture 12 - Off-Policy Evaluation in Bandits
+
+So far we have evaluated using regret (in theory, simulation). But in real world we don't know best arm so regret cannnot be calculated, instead we measure cumulative rewards.
+
+One standard evaluation way is A/B Testing (comparision between current and new policy -- run both a fixed number of times, then choose best).
+
+But A/B Testing is *expensive* -- many many users are shown a version that's untested (we aren't fully sure how it performs). Risks users leaving if sub-standard!
+
+**Off-Policy Evaluation**: Assuming we have detailed logs of current production policy, can we estimate from that alone what the new policy would have done and evaluate accordingly without actually running the new policy in production?
+
+ASSUMPTION: policies are NOT changing with time.
+
+*Policy* is a rule for picking action - which arm to pull. Deterministic or Randomized
+
+Algorithm vs Policy
+
+Value of Policy (logging (old) vs target policy (new under evaluation)):
+
+![Off-Policy Evaluation](images/off_policy_evaluation.png)
+
+Challenge is how can we know reward of the choice new policy would have picked?
+
+One way *Replay Method* (in case of a uniform 1/K logging policy) is to choose only the approx $N/K$ rounds where same arm would be chosen by new policy as logging policy (discarding rest), and calculate mean of these only. Cons of this:
+* we only use $1 / K$ of the data so wasteful
+* requires uniform logging only - not applicable to production policies
+
+### Inverse-Propensity Scoring Method
 
 
 
