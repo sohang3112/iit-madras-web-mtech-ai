@@ -202,3 +202,8 @@ So we have to find the six estimated parameters of the above model.
 5. Find the variance-covariance matrix in both cases and compare the matrices for the transformed $z$ and non-transformed $X$ cases. Which is better in terms of precision of the regression coefficient estimates? 
 6. Find $R^2$ , adj. $R^2$ , PRESS, $R^2_{PRESS}$ for both the cases. 
 
+## Question 6 - 10
+
+COPY FROM PDF!!
+
+

@@ -219,7 +219,7 @@ Solution to 2nd: Reward Design: **Using Reward Model** (proxy rewards are availa
 ![Production Dilemna](images/reward_production_dilemna.png)
 
 
-## Lecture 12 - Off-Policy Evaluation in Bandits
+## Lecture 12 - Off-Policy Evaluation in Bandits -- SLIDES NOT AVAILABLE YET BUT VIDEO IS THERE ON COURSE PORTAL
 
 So far we have evaluated using regret (in theory, simulation). But in real world we don't know best arm so regret cannnot be calculated, instead we measure cumulative rewards.
 
