@@ -247,9 +247,70 @@ One way *Replay Method* (in case of a uniform 1/K logging policy) is to choose o
 
 ### Inverse-Propensity Scoring Method
 
+TODO
 
 
+## Lecture 13
 
+### Slate Bandits 
 
+- items subset chosen from a larger list of N items
+- what user clicks on, if at all, depends on chosen list to show
+- order of items matters
 
+### How to model bandits with slate actions?
 
+**Naive Option 1**: 
+- treat entire ordered list of items as a single arm & a single reward for whole list (did user click on any item or not). 
+- very expensive.
+- also a user clicking on an item in (A,B,C) tells us almost nothing about (A,B,D)
+
+**Naive Option 2**: Individual scoring
+- pick top K items by top UCB scores
+- one item = one arm
+- reward = 1 (clicked) or 0 (not clicked)
+- simple & scalable
+- not good because:
+  - users pay high attention to top items, lower to others. so simply shuffling items matters, not accounted here
+
+#### The Cascade Click Model
+
+- user scans items from top to bottom, clicks on first item that interests them, then stops
+- if probability of clicking on item i is $w_i$, then probability of no click is $\Pi (1 - w_i)$. probability of at least one click is $1 - \Pi (1 - w_i)$
+
+**Cascade UCB**:
+- for each item maintain $\hat{w}_i(t)$ (estimated mean) and $N(i)$ (no. of times item i has been shown), then:
+$$UCB(i) = w_i + c \sqrt{\frac{\log t}{N(i)}}$$ (or log T)
+- top k items by UCB
+
+#### MNL Bandit Problem
+
+- Captures competition between items (not accounting for position)
+- each item has unknown attractiveness $v_i$
+- Assume user clicks one item in slate, or nothing.
+
+$$
+P(i | A_t) = \frac{v_i}{1 + \sum_{j \in A_t} v_j} \\
+P(\text{no click} | A_t) = \frac{1}{1 + \sum_{j \in A_t} v_j}
+$$
+
+**Context Effects**:
+- Similarity Effect: near duplicates split the user base
+- Decoy Effect: an inferior item makes other item look better
+- Compromise Effect: user prefers a middle option when extremes are present
+
+TODO
+
+#### Dueling Bandits - Bandits with pairwise preference feedback
+
+Disadvantages of previous:
+- Click/MNL still assume some observable reward/action
+- clicks can be misleading (click but dislike)
+
+Here:
+- choose 2 arms i, j; observe preference feedback P(i > j)
+- no numerical reward, only noisy preference feedback
+- Identify a "winner" arm (Condorcet winner) that is preferred over all other arms with probability > 0.5: $P(i^* > j) > 0.5 \forall j \neq i^*$
+
+**Learning from preferences use case** (similar but not same as *LLM alignment*)
+* for each prompt, multiple responses shown to user from which they choose. then learn on these preferences
