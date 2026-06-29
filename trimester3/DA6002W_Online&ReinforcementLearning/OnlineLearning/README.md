@@ -2,6 +2,8 @@
 
 Prof Surya &lt;suryanarayana@dsai.iitm.ac.in&gt; -- has website https://sanakari.github.io
 
+NOTE: Prof Surya wrote in lecture  11 -- exam largely covers lecture 1-9 (till LinUCB and LinTS), very light on rest.
+
 Offline (Batch) learning vs Online (real-time) learning
 
 More data => Better estimation => Better actions

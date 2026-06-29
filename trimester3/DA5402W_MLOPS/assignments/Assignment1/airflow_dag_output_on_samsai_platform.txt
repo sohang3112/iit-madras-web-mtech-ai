@@ -1,0 +1,140 @@
+===== task Analytics (try 1, state=skipped) =====
+
+ INFO - ::group::Log message source details
+*** Could not read served logs: Invalid URL 'http://:8793/log/dag_id=data_pipeline_ml_workflow/run_id=manual__2026-06-25T13:37:13.200510+00:00/task_id=Analytics/attempt=1.log': No host supplied
+ INFO - ::endgroup::
+
+
+
+===== task DataGeneration (try 1, state=success) =====
+9113b8186ca1
+ INFO - ::group::Log message source details
+*** Found local files:
+***   * /opt/airflow/logs/dag_id=data_pipeline_ml_workflow/run_id=manual__2026-06-25T13:37:13.200510+00:00/task_id=DataGeneration/attempt=1.log
+ INFO - ::endgroup::
+[2026-06-25T13:37:13.428+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-06-25T13:37:13.436+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_pipeline_ml_workflow.DataGeneration manual__2026-06-25T13:37:13.200510+00:00 [queued]>
+[2026-06-25T13:37:13.440+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_pipeline_ml_workflow.DataGeneration manual__2026-06-25T13:37:13.200510+00:00 [queued]>
+[2026-06-25T13:37:13.440+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 4
+[2026-06-25T13:37:13.445+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): DataGeneration> on 2026-06-25 13:37:13.200510+00:00
+[2026-06-25T13:37:13.451+0000] {standard_task_runner.py:72} INFO - Started process 42598 to run task
+[2026-06-25T13:37:13.452+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_pipeline_ml_workflow', 'DataGeneration', 'manual__2026-06-25T13:37:13.200510+00:00', '--job-id', '10402', '--raw', '--subdir', 'DAGS_FOLDER/student_submitted/student_da25m622_***-assignment_20260625_133655.py', '--cfg-path', '/tmp/tmpjvl3x1dl']
+[2026-06-25T13:37:13.453+0000] {standard_task_runner.py:105} INFO - Job 10402: Subtask DataGeneration
+[2026-06-25T13:37:13.476+0000] {task_command.py:467} INFO - Running <TaskInstance: data_pipeline_ml_workflow.DataGeneration manual__2026-06-25T13:37:13.200510+00:00 [running]> on host 9113b8186ca1
+[2026-06-25T13:37:13.511+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_pipeline_ml_workflow' AIRFLOW_CTX_TASK_ID='DataGeneration' AIRFLOW_CTX_EXECUTION_DATE='2026-06-25T13:37:13.200510+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-06-25T13:37:13.200510+00:00'
+[2026-06-25T13:37:13.511+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2026-06-25T13:37:13.517+0000] {logging_mixin.py:190} INFO - Generating synthetic data for the pipeline...
+[2026-06-25T13:37:13.517+0000] {python.py:240} INFO - Done. Returned value was: Data generated successfully.
+[2026-06-25T13:37:13.527+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2026-06-25T13:37:13.527+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_pipeline_ml_workflow, task_id=DataGeneration, run_id=manual__2026-06-25T13:37:13.200510+00:00, execution_date=20260625T133713, start_date=20260625T133713, end_date=20260625T133713
+[2026-06-25T13:37:13.544+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2026-06-25T13:37:13.558+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2026-06-25T13:37:13.559+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+
+
+===== task DataValidation (try 1, state=success) =====
+06b1be3cc4e9
+ INFO - ::group::Log message source details
+*** Found local files:
+***   * /opt/airflow/logs/dag_id=data_pipeline_ml_workflow/run_id=manual__2026-06-25T13:37:13.200510+00:00/task_id=DataValidation/attempt=1.log
+ INFO - ::endgroup::
+[2026-06-25T13:37:14.520+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-06-25T13:37:14.531+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_pipeline_ml_workflow.DataValidation manual__2026-06-25T13:37:13.200510+00:00 [queued]>
+[2026-06-25T13:37:14.535+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_pipeline_ml_workflow.DataValidation manual__2026-06-25T13:37:13.200510+00:00 [queued]>
+[2026-06-25T13:37:14.535+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 4
+[2026-06-25T13:37:14.540+0000] {taskinstance.py:2890} INFO - Executing <Task(BranchPythonOperator): DataValidation> on 2026-06-25 13:37:13.200510+00:00
+[2026-06-25T13:37:14.544+0000] {standard_task_runner.py:72} INFO - Started process 41611 to run task
+[2026-06-25T13:37:14.546+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_pipeline_ml_workflow', 'DataValidation', 'manual__2026-06-25T13:37:13.200510+00:00', '--job-id', '10403', '--raw', '--subdir', 'DAGS_FOLDER/student_submitted/student_da25m622_***-assignment_20260625_133655.py', '--cfg-path', '/tmp/tmpshcrl_2o']
+[2026-06-25T13:37:14.547+0000] {standard_task_runner.py:105} INFO - Job 10403: Subtask DataValidation
+[2026-06-25T13:37:14.569+0000] {task_command.py:467} INFO - Running <TaskInstance: data_pipeline_ml_workflow.DataValidation manual__2026-06-25T13:37:13.200510+00:00 [running]> on host 06b1be3cc4e9
+[2026-06-25T13:37:14.603+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_pipeline_ml_workflow' AIRFLOW_CTX_TASK_ID='DataValidation' AIRFLOW_CTX_EXECUTION_DATE='2026-06-25T13:37:13.200510+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-06-25T13:37:13.200510+00:00'
+[2026-06-25T13:37:14.603+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2026-06-25T13:37:14.609+0000] {baseoperator.py:423} WARNING - BranchPythonOperator.execute cannot be called outside TaskInstance!
+[2026-06-25T13:37:14.609+0000] {logging_mixin.py:190} INFO - Validating data quality and schema...
+[2026-06-25T13:37:14.609+0000] {python.py:240} INFO - Done. Returned value was: data_processing_group.DataPreprocessing
+[2026-06-25T13:37:14.609+0000] {branch.py:38} INFO - Branch into data_processing_group.DataPreprocessing
+[2026-06-25T13:37:14.609+0000] {skipmixin.py:233} INFO - Following branch ('data_processing_group.DataPreprocessing',)
+[2026-06-25T13:37:14.617+0000] {skipmixin.py:281} INFO - Skipping tasks [('Analytics', -1)]
+[2026-06-25T13:37:14.632+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2026-06-25T13:37:14.633+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_pipeline_ml_workflow, task_id=DataValidation, run_id=manual__2026-06-25T13:37:13.200510+00:00, execution_date=20260625T133713, start_date=20260625T133714, end_date=20260625T133714
+[2026-06-25T13:37:14.678+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2026-06-25T13:37:14.692+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2026-06-25T13:37:14.693+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+
+
+===== task data_processing_group.DataPreprocessing (try 1, state=success) =====
+9113b8186ca1
+ INFO - ::group::Log message source details
+*** Found local files:
+***   * /opt/airflow/logs/dag_id=data_pipeline_ml_workflow/run_id=manual__2026-06-25T13:37:13.200510+00:00/task_id=data_processing_group.DataPreprocessing/attempt=1.log
+ INFO - ::endgroup::
+[2026-06-25T13:37:15.625+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-06-25T13:37:15.635+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_pipeline_ml_workflow.data_processing_group.DataPreprocessing manual__2026-06-25T13:37:13.200510+00:00 [queued]>
+[2026-06-25T13:37:15.639+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_pipeline_ml_workflow.data_processing_group.DataPreprocessing manual__2026-06-25T13:37:13.200510+00:00 [queued]>
+[2026-06-25T13:37:15.639+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 4
+[2026-06-25T13:37:15.644+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): data_processing_group.DataPreprocessing> on 2026-06-25 13:37:13.200510+00:00
+[2026-06-25T13:37:15.649+0000] {standard_task_runner.py:72} INFO - Started process 42611 to run task
+[2026-06-25T13:37:15.650+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_pipeline_ml_workflow', 'data_processing_group.DataPreprocessing', 'manual__2026-06-25T13:37:13.200510+00:00', '--job-id', '10406', '--raw', '--subdir', 'DAGS_FOLDER/student_submitted/student_da25m622_***-assignment_20260625_133655.py', '--cfg-path', '/tmp/tmpye2ho2tn']
+[2026-06-25T13:37:15.651+0000] {standard_task_runner.py:105} INFO - Job 10406: Subtask data_processing_group.DataPreprocessing
+[2026-06-25T13:37:15.673+0000] {task_command.py:467} INFO - Running <TaskInstance: data_pipeline_ml_workflow.data_processing_group.DataPreprocessing manual__2026-06-25T13:37:13.200510+00:00 [running]> on host 9113b8186ca1
+[2026-06-25T13:37:15.713+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_pipeline_ml_workflow' AIRFLOW_CTX_TASK_ID='data_processing_group.DataPreprocessing' AIRFLOW_CTX_EXECUTION_DATE='2026-06-25T13:37:13.200510+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-06-25T13:37:13.200510+00:00'
+[2026-06-25T13:37:15.714+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2026-06-25T13:37:15.720+0000] {logging_mixin.py:190} INFO - Cleaning missing values and normalizing data...
+[2026-06-25T13:37:15.720+0000] {python.py:240} INFO - Done. Returned value was: None
+[2026-06-25T13:37:15.727+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2026-06-25T13:37:15.727+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_pipeline_ml_workflow, task_id=data_processing_group.DataPreprocessing, run_id=manual__2026-06-25T13:37:13.200510+00:00, execution_date=20260625T133713, start_date=20260625T133715, end_date=20260625T133715
+[2026-06-25T13:37:15.782+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2026-06-25T13:37:15.796+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2026-06-25T13:37:15.797+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+
+
+===== task data_processing_group.FeatureEngineering (try 1, state=success) =====
+06b1be3cc4e9
+ INFO - ::group::Log message source details
+*** Found local files:
+***   * /opt/airflow/logs/dag_id=data_pipeline_ml_workflow/run_id=manual__2026-06-25T13:37:13.200510+00:00/task_id=data_processing_group.FeatureEngineering/attempt=1.log
+ INFO - ::endgroup::
+[2026-06-25T13:37:16.728+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-06-25T13:37:16.739+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_pipeline_ml_workflow.data_processing_group.FeatureEngineering manual__2026-06-25T13:37:13.200510+00:00 [queued]>
+[2026-06-25T13:37:16.743+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_pipeline_ml_workflow.data_processing_group.FeatureEngineering manual__2026-06-25T13:37:13.200510+00:00 [queued]>
+[2026-06-25T13:37:16.743+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 4
+[2026-06-25T13:37:16.748+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): data_processing_group.FeatureEngineering> on 2026-06-25 13:37:13.200510+00:00
+[2026-06-25T13:37:16.752+0000] {standard_task_runner.py:72} INFO - Started process 41617 to run task
+[2026-06-25T13:37:16.754+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_pipeline_ml_workflow', 'data_processing_group.FeatureEngineering', 'manual__2026-06-25T13:37:13.200510+00:00', '--job-id', '10407', '--raw', '--subdir', 'DAGS_FOLDER/student_submitted/student_da25m622_***-assignment_20260625_133655.py', '--cfg-path', '/tmp/tmp9n9cncyq']
+[2026-06-25T13:37:16.754+0000] {standard_task_runner.py:105} INFO - Job 10407: Subtask data_processing_group.FeatureEngineering
+[2026-06-25T13:37:16.779+0000] {task_command.py:467} INFO - Running <TaskInstance: data_pipeline_ml_workflow.data_processing_group.FeatureEngineering manual__2026-06-25T13:37:13.200510+00:00 [running]> on host 06b1be3cc4e9
+[2026-06-25T13:37:16.818+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_pipeline_ml_workflow' AIRFLOW_CTX_TASK_ID='data_processing_group.FeatureEngineering' AIRFLOW_CTX_EXECUTION_DATE='2026-06-25T13:37:13.200510+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-06-25T13:37:13.200510+00:00'
+[2026-06-25T13:37:16.818+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2026-06-25T13:37:16.824+0000] {logging_mixin.py:190} INFO - Creating engineering features for analytics...
+[2026-06-25T13:37:16.824+0000] {python.py:240} INFO - Done. Returned value was: None
+[2026-06-25T13:37:16.830+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2026-06-25T13:37:16.830+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_pipeline_ml_workflow, task_id=data_processing_group.FeatureEngineering, run_id=manual__2026-06-25T13:37:13.200510+00:00, execution_date=20260625T133713, start_date=20260625T133716, end_date=20260625T133716
+[2026-06-25T13:37:16.886+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2026-06-25T13:37:16.898+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2026-06-25T13:37:16.899+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+
+
+===== task ReportGeneration (try 1, state=success) =====
+06b1be3cc4e9
+ INFO - ::group::Log message source details
+*** Found local files:
+***   * /opt/airflow/logs/dag_id=data_pipeline_ml_workflow/run_id=manual__2026-06-25T13:37:13.200510+00:00/task_id=ReportGeneration/attempt=1.log
+ INFO - ::endgroup::
+[2026-06-25T13:37:17.836+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2026-06-25T13:37:17.848+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_pipeline_ml_workflow.ReportGeneration manual__2026-06-25T13:37:13.200510+00:00 [queued]>
+[2026-06-25T13:37:17.853+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_pipeline_ml_workflow.ReportGeneration manual__2026-06-25T13:37:13.200510+00:00 [queued]>
+[2026-06-25T13:37:17.853+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 4
+[2026-06-25T13:37:17.859+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): ReportGeneration> on 2026-06-25 13:37:13.200510+00:00
+[2026-06-25T13:37:17.864+0000] {standard_task_runner.py:72} INFO - Started process 41620 to run task
+[2026-06-25T13:37:17.865+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_pipeline_ml_workflow', 'ReportGeneration', 'manual__2026-06-25T13:37:13.200510+00:00', '--job-id', '10410', '--raw', '--subdir', 'DAGS_FOLDER/student_submitted/student_da25m622_***-assignment_20260625_133655.py', '--cfg-path', '/tmp/tmpln9aar1p']
+[2026-06-25T13:37:17.866+0000] {standard_task_runner.py:105} INFO - Job 10410: Subtask ReportGeneration
+[2026-06-25T13:37:17.889+0000] {task_command.py:467} INFO - Running <TaskInstance: data_pipeline_ml_workflow.ReportGeneration manual__2026-06-25T13:37:13.200510+00:00 [running]> on host 06b1be3cc4e9
+[2026-06-25T13:37:17.925+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_pipeline_ml_workflow' AIRFLOW_CTX_TASK_ID='ReportGeneration' AIRFLOW_CTX_EXECUTION_DATE='2026-06-25T13:37:13.200510+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-06-25T13:37:13.200510+00:00'
+[2026-06-25T13:37:17.925+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2026-06-25T13:37:17.931+0000] {logging_mixin.py:190} INFO - Compiling results and generating the final pipeline report.
+[2026-06-25T13:37:17.931+0000] {python.py:240} INFO - Done. Returned value was: None
+[2026-06-25T13:37:17.937+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2026-06-25T13:37:17.937+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_pipeline_ml_workflow, task_id=ReportGeneration, run_id=manual__2026-06-25T13:37:13.200510+00:00, execution_date=20260625T133713, start_date=20260625T133717, end_date=20260625T133717
+[2026-06-25T13:37:17.957+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2026-06-25T13:37:17.966+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-06-25T13:37:17.967+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

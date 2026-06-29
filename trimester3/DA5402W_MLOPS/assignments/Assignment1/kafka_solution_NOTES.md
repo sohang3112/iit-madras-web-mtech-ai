@@ -7,7 +7,7 @@ openjdk 17.0.19 2026-04-21
 
 [Download & start Kafka server](https://kafka.apache.org/quickstart/) (latest Kafka version: 4.3.0) (requires Java 17+):
 
-```console
+```bash
 # Download
 $ wget https://dlcdn.apache.org/kafka/4.3.0/kafka_2.13-4.3.0.tgz
 $ tar -xzf kafka_2.13-4.3.0.tgz
@@ -73,4 +73,45 @@ Apparently I managed to publish twice (so total 4000!), so deleting and re-creat
 $ bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic sensor_DA25M622     
 $ bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic sensor_DA25M622 --partitions 3 --replication-factor 1
 $ python producer.py --topic sensor_DA25M622
+Published 500/2000 records...
+Published 1000/2000 records...
+Published 1500/2000 records...
+Published 2000/2000 records...
+Done. Published 2000 records to 'sensor_DA25M622' in 41.43s => throughput = 48.27 records/sec
 ```
+
+consumer script:
+
+```bash
+$ python consumer.py
+Number of records consumed: 0
+Records received per partition: {}
+Consumer throughput: 0.00 records/sec (elapsed 3.52s)
+kafka-metrics-count: 66.0
+Total number of metric entries returned by consumer.metrics(): 7
+
+=== Group 'demo-group-size' with 1 consumer(s) ===
+Consumer 0: 2715 records, partitions={0: 1377, 2: 1338}, throughput=631.54 rec/sec
+Total consumed by group 'demo-group-size': 2715
+
+=== Group 'demo-group-size' with 2 consumer(s) ===
+Consumer 0: 0 records, partitions={}, throughput=0.00 rec/sec
+Consumer 1: 0 records, partitions={}, throughput=0.00 rec/sec
+Total consumed by group 'demo-group-size': 0
+
+=== Group 'demo-group-size' with 4 consumer(s) ===
+Consumer 0: 0 records, partitions={}, throughput=0.00 rec/sec
+Consumer 1: 0 records, partitions={}, throughput=0.00 rec/sec
+Consumer 2: 0 records, partitions={}, throughput=0.00 rec/sec
+Consumer 3: 0 records, partitions={}, throughput=0.00 rec/sec
+Total consumed by group 'demo-group-size': 0
+
+Group demo-group-A consumed 0 records independently.
+Partition counts: {}
+Throughput: 0.00 records/sec
+
+Group demo-group-B consumed 0 records independently.
+Partition counts: {}
+Throughput: 0.00 records/sec
+```
+
