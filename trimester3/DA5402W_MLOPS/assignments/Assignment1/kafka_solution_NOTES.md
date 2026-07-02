@@ -1,3 +1,5 @@
+NOTE: There's a seperate community-built Kafka UI (https://github.com/provectus/kafka-ui) - it's available in Samsai portal, I haven't tried to install it locally.
+
 Pre-Requisites:
 
 ```
@@ -114,4 +116,3 @@ Group demo-group-B consumed 0 records independently.
 Partition counts: {}
 Throughput: 0.00 records/sec
 ```
-
