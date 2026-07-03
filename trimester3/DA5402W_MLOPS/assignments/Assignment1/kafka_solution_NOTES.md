@@ -46,7 +46,8 @@ Set partition count to 3 (replication factor is already 1 so don't need to chang
 Run the provided Kafka producer.py assignment script (`kafka-python` seems broken / not working, so use `kafka-python-ng` instead -- though unfortunately kafka-python-ng's github repo is archived) - using Python 3.13:
 
 ```bash
-$ pip install kafka-python-ng==2.2.3 
+# $ pip uninstall kafka kafka-python        # cleanup if previously installed wrong libs
+$ pip install kafka-python-ng==2.2.3
 $ python producer.py --topic sensor_DA25M622
 Published 500/2000 records...
 Published 1000/2000 records...
@@ -115,4 +116,38 @@ Throughput: 0.00 records/sec
 Group demo-group-B consumed 0 records independently.
 Partition counts: {}
 Throughput: 0.00 records/sec
+```
+
+Running `consumer.py` with fixed code & ensuring every time new consumer group name is used:
+
+```bash
+$ python consumer.py
+Number of records consumed: 2000
+Records received per partition: {2: 1020, 0: 980}
+Consumer throughput: 297.04 records/sec (elapsed 6.73s)
+kafka-metrics-count: 71.0
+Total number of metric entries returned by consumer.metrics(): 7
+=== Group 'demo-group-of-size-1' with 1 consumer(s) ===
+Consumer 0: 1500 records, partitions={0: 480, 2: 1020}, throughput=232.08 rec/sec
+Total consumed by group 'demo-group-of-size-1': 1500
+
+=== Group 'demo-group-of-size-2' with 2 consumer(s) ===
+Consumer 0: 480 records, partitions={0: 480}, throughput=50.57 rec/sec
+Consumer 1: 520 records, partitions={2: 520}, throughput=54.91 rec/sec
+Total consumed by group 'demo-group-of-size-2': 1000
+
+=== Group 'demo-group-of-size-4' with 4 consumer(s) ===
+Consumer 0: 0 records, partitions={}, throughput=0.00 rec/sec
+Consumer 1: 0 records, partitions={}, throughput=0.00 rec/sec
+Consumer 2: 520 records, partitions={2: 520}, throughput=54.91 rec/sec
+Consumer 3: 480 records, partitions={0: 480}, throughput=50.73 rec/sec
+Total consumed by group 'demo-group-of-size-4': 1000
+
+Group demo-group-A consumed 1500 records independently.
+Partition counts: {2: 520, 0: 980}
+Throughput: 231.63 records/sec
+
+Group demo-group-B consumed 1500 records independently.
+Partition counts: {0: 480, 2: 1020}
+Throughput: 231.61 records/sec
 ```

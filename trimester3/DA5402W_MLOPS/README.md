@@ -253,3 +253,34 @@ Model Selection & Tuning:
   * Parallel hyper-param eval: `cv.setParallelism(4)`
 
 TODO
+
+### Apache Ray
+
+Apache Ray Architecture:
+
+![Apache Ray](images/ray_architecture.png)
+
+Application Layer -- Driver, Workers (stateless, run remote tasks scheduled by driver), Actors (stateful, execute methods serially of a class)
+
+System Layer:
+- Global Control Store: stores metadata (task, object, function), lineage information; Fault tolerant, scalable & debugging support
+- In-Memory Distributed Object Store: shared-memory object on each node, immutable objects, Apache Arrow format, zero-copy data sharing; High throughput, low latency, efficient data transfer
+
+Distributed Scheduling is bottom-up:
+* local scheduler runs if resources available, else forward to global scheduler (it allocates node based on resource availability, queue length, data locality)
+* high scalability, low scheduling latency, data-local execution, supports millions of tasks / second
+
+![Bottom-Up Distributed Scheduler](images/ray_bottom_up_distributed_scheduler.png)
+
+Ray libraries:
+* Ray Data - stream b/w CPU & GPU, run on single machine or distributed cloud, any cloud (AWS, Azure, GCP)
+  * Dataset - distributed, lazy transforms (operations only execute when consumed or materialized)
+  * Block - basic building block of dataset for independent parallel processing, saved in Ray Object Store in Arrow / Pandas format
+* Ray Train
+* Ray Tune (hyper-parameters)
+* RLib (reinforcement learning)
+* Ray Serve
+
+Two-phase planning: Logical Plan (eg. Read -> Map -> Filter -> Select) needs to be converted to Physical Plan, i.e., logical operators to Ray physical tasks/actors
+
+Plans are optimized before execution. *Operator Fusion* fuses adjacent transformation. One logical operator may turn into multiple physical tasks.

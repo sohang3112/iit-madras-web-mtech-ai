@@ -77,9 +77,13 @@ Retrying behaviour (done by editing DAG script such that `DataGeneration` fails 
 
 ![Retry Execution](screenshots/airflow_retry_audit_logs.png)
 
+(before running retry behaviour, ensure to `rm /tmp/generate_data_failed_once` so that `DataGeneration` fails first time, then works on retry)
+
 Finally took branching screenshot by going to Graph View, clicking on `DataValidation` task, logs already show in the opened "Logs" tab:
 
 ![Branching Behavior](branching_logs_data_validation.png)
+
+Issue of Analytics getting skipped, fixed by editing `validate_data` to return both `["data_processing_group.DataPreprocessing", "Analytics"]` (instead of previous `"data_processing_group.DataPreprocessing"`)
 
 ----------
 
