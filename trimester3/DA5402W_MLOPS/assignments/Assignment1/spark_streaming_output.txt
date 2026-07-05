@@ -1,0 +1,1557 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+26/07/03 22:34:18 WARN Utils: Your hostname, sohang-VivoBook-ASUS-Laptop-X510UFO, resolves to a loopback address: 127.0.1.1; using 192.168.1.31 instead (on interface wlp2s0)
+26/07/03 22:34:18 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+:: loading settings :: url = jar:file:/home/sohang/Projects/iit-madras-web-mtech-ai/.venv/lib/python3.14/site-packages/pyspark/jars/ivy-2.5.3.jar!/org/apache/ivy/core/settings/ivysettings.xml
+Ivy Default Cache set to: /home/sohang/.ivy2.5.2/cache
+The jars for the packages stored in: /home/sohang/.ivy2.5.2/jars
+org.apache.spark#spark-sql-kafka-0-10_2.13 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-94b16eb8-5957-4771-a46a-698830e65fbe;1.0
+	confs: [default]
+	found org.apache.spark#spark-sql-kafka-0-10_2.13;4.1.2 in central
+	found org.apache.spark#spark-token-provider-kafka-0-10_2.13;4.1.2 in central
+	found org.apache.kafka#kafka-clients;3.9.1 in central
+	found org.lz4#lz4-java;1.8.0 in central
+	found org.xerial.snappy#snappy-java;1.1.10.8 in central
+	found org.slf4j#slf4j-api;2.0.17 in central
+	found org.apache.hadoop#hadoop-client-runtime;3.4.2 in central
+	found org.apache.hadoop#hadoop-client-api;3.4.2 in central
+	found com.google.code.findbugs#jsr305;3.0.0 in central
+	found org.scala-lang.modules#scala-parallel-collections_2.13;1.2.0 in central
+	found org.apache.commons#commons-pool2;2.12.1 in central
+:: resolution report :: resolve 577ms :: artifacts dl 18ms
+	:: modules in use:
+	com.google.code.findbugs#jsr305;3.0.0 from central in [default]
+	org.apache.commons#commons-pool2;2.12.1 from central in [default]
+	org.apache.hadoop#hadoop-client-api;3.4.2 from central in [default]
+	org.apache.hadoop#hadoop-client-runtime;3.4.2 from central in [default]
+	org.apache.kafka#kafka-clients;3.9.1 from central in [default]
+	org.apache.spark#spark-sql-kafka-0-10_2.13;4.1.2 from central in [default]
+	org.apache.spark#spark-token-provider-kafka-0-10_2.13;4.1.2 from central in [default]
+	org.lz4#lz4-java;1.8.0 from central in [default]
+	org.scala-lang.modules#scala-parallel-collections_2.13;1.2.0 from central in [default]
+	org.slf4j#slf4j-api;2.0.17 from central in [default]
+	org.xerial.snappy#snappy-java;1.1.10.8 from central in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   11  |   0   |   0   |   0   ||   11  |   0   |
+	---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-94b16eb8-5957-4771-a46a-698830e65fbe
+	confs: [default]
+	0 artifacts copied, 11 already retrieved (0kB/13ms)
+26/07/03 22:34:19 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+26/07/03 22:34:20 INFO SparkContext: Running Spark version 4.1.2
+26/07/03 22:34:20 INFO SparkContext: OS info Linux, 7.0.0-27-generic, amd64
+26/07/03 22:34:20 INFO SparkContext: Java version 17.0.19+10-1-26.04.2-Ubuntu
+26/07/03 22:34:20 INFO ResourceUtils: ==============================================================
+26/07/03 22:34:20 INFO ResourceUtils: No custom resources configured for spark.driver.
+26/07/03 22:34:20 INFO ResourceUtils: ==============================================================
+26/07/03 22:34:20 INFO SparkContext: Submitted application: SensorStreamingPipeline
+26/07/03 22:34:20 INFO SecurityManager: Changing view acls to: sohang
+26/07/03 22:34:20 INFO SecurityManager: Changing modify acls to: sohang
+26/07/03 22:34:20 INFO SecurityManager: Changing view acls groups to: sohang
+26/07/03 22:34:20 INFO SecurityManager: Changing modify acls groups to: sohang
+26/07/03 22:34:20 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: sohang groups with view permissions: EMPTY; users with modify permissions: sohang; groups with modify permissions: EMPTY; RPC SSL disabled
+26/07/03 22:34:21 INFO Utils: Successfully started service 'sparkDriver' on port 38773.
+26/07/03 22:34:21 INFO SparkEnv: Registering MapOutputTracker
+26/07/03 22:34:21 INFO SparkEnv: Registering BlockManagerMaster
+26/07/03 22:34:21 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+26/07/03 22:34:21 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+26/07/03 22:34:21 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+26/07/03 22:34:21 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-1ea5762a-7efa-4fcb-924b-027e23f3d280
+26/07/03 22:34:21 INFO SparkEnv: Registering OutputCommitCoordinator
+26/07/03 22:34:21 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+26/07/03 22:34:21 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+26/07/03 22:34:21 INFO SparkContext: Added JAR file:///home/sohang/.ivy2.5.2/jars/org.apache.spark_spark-sql-kafka-0-10_2.13-4.1.2.jar at spark://192.168.1.31:38773/jars/org.apache.spark_spark-sql-kafka-0-10_2.13-4.1.2.jar with timestamp 1783098260875
+26/07/03 22:34:21 INFO SparkContext: Added JAR file:///home/sohang/.ivy2.5.2/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.13-4.1.2.jar at spark://192.168.1.31:38773/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.13-4.1.2.jar with timestamp 1783098260875
+26/07/03 22:34:21 INFO SparkContext: Added JAR file:///home/sohang/.ivy2.5.2/jars/org.scala-lang.modules_scala-parallel-collections_2.13-1.2.0.jar at spark://192.168.1.31:38773/jars/org.scala-lang.modules_scala-parallel-collections_2.13-1.2.0.jar with timestamp 1783098260875
+26/07/03 22:34:21 INFO SparkContext: Added JAR file:///home/sohang/.ivy2.5.2/jars/org.apache.kafka_kafka-clients-3.9.1.jar at spark://192.168.1.31:38773/jars/org.apache.kafka_kafka-clients-3.9.1.jar with timestamp 1783098260875
+26/07/03 22:34:21 INFO SparkContext: Added JAR file:///home/sohang/.ivy2.5.2/jars/com.google.code.findbugs_jsr305-3.0.0.jar at spark://192.168.1.31:38773/jars/com.google.code.findbugs_jsr305-3.0.0.jar with timestamp 1783098260875
+26/07/03 22:34:21 INFO SparkContext: Added JAR file:///home/sohang/.ivy2.5.2/jars/org.apache.commons_commons-pool2-2.12.1.jar at spark://192.168.1.31:38773/jars/org.apache.commons_commons-pool2-2.12.1.jar with timestamp 1783098260875
+26/07/03 22:34:21 INFO SparkContext: Added JAR file:///home/sohang/.ivy2.5.2/jars/org.apache.hadoop_hadoop-client-runtime-3.4.2.jar at spark://192.168.1.31:38773/jars/org.apache.hadoop_hadoop-client-runtime-3.4.2.jar with timestamp 1783098260875
+26/07/03 22:34:21 INFO SparkContext: Added JAR file:///home/sohang/.ivy2.5.2/jars/org.lz4_lz4-java-1.8.0.jar at spark://192.168.1.31:38773/jars/org.lz4_lz4-java-1.8.0.jar with timestamp 1783098260875
+26/07/03 22:34:21 INFO SparkContext: Added JAR file:///home/sohang/.ivy2.5.2/jars/org.xerial.snappy_snappy-java-1.1.10.8.jar at spark://192.168.1.31:38773/jars/org.xerial.snappy_snappy-java-1.1.10.8.jar with timestamp 1783098260875
+26/07/03 22:34:21 INFO SparkContext: Added JAR file:///home/sohang/.ivy2.5.2/jars/org.slf4j_slf4j-api-2.0.17.jar at spark://192.168.1.31:38773/jars/org.slf4j_slf4j-api-2.0.17.jar with timestamp 1783098260875
+26/07/03 22:34:21 INFO SparkContext: Added JAR file:///home/sohang/.ivy2.5.2/jars/org.apache.hadoop_hadoop-client-api-3.4.2.jar at spark://192.168.1.31:38773/jars/org.apache.hadoop_hadoop-client-api-3.4.2.jar with timestamp 1783098260875
+26/07/03 22:34:21 INFO SparkContext: Added file file:///home/sohang/.ivy2.5.2/jars/org.apache.spark_spark-sql-kafka-0-10_2.13-4.1.2.jar at file:///home/sohang/.ivy2.5.2/jars/org.apache.spark_spark-sql-kafka-0-10_2.13-4.1.2.jar with timestamp 1783098260875
+26/07/03 22:34:21 INFO Utils: Copying /home/sohang/.ivy2.5.2/jars/org.apache.spark_spark-sql-kafka-0-10_2.13-4.1.2.jar to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.apache.spark_spark-sql-kafka-0-10_2.13-4.1.2.jar
+26/07/03 22:34:21 INFO SparkContext: Added file file:///home/sohang/.ivy2.5.2/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.13-4.1.2.jar at file:///home/sohang/.ivy2.5.2/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.13-4.1.2.jar with timestamp 1783098260875
+26/07/03 22:34:21 INFO Utils: Copying /home/sohang/.ivy2.5.2/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.13-4.1.2.jar to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.apache.spark_spark-token-provider-kafka-0-10_2.13-4.1.2.jar
+26/07/03 22:34:21 INFO SparkContext: Added file file:///home/sohang/.ivy2.5.2/jars/org.scala-lang.modules_scala-parallel-collections_2.13-1.2.0.jar at file:///home/sohang/.ivy2.5.2/jars/org.scala-lang.modules_scala-parallel-collections_2.13-1.2.0.jar with timestamp 1783098260875
+26/07/03 22:34:21 INFO Utils: Copying /home/sohang/.ivy2.5.2/jars/org.scala-lang.modules_scala-parallel-collections_2.13-1.2.0.jar to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.scala-lang.modules_scala-parallel-collections_2.13-1.2.0.jar
+26/07/03 22:34:21 INFO SparkContext: Added file file:///home/sohang/.ivy2.5.2/jars/org.apache.kafka_kafka-clients-3.9.1.jar at file:///home/sohang/.ivy2.5.2/jars/org.apache.kafka_kafka-clients-3.9.1.jar with timestamp 1783098260875
+26/07/03 22:34:21 INFO Utils: Copying /home/sohang/.ivy2.5.2/jars/org.apache.kafka_kafka-clients-3.9.1.jar to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.apache.kafka_kafka-clients-3.9.1.jar
+26/07/03 22:34:21 INFO SparkContext: Added file file:///home/sohang/.ivy2.5.2/jars/com.google.code.findbugs_jsr305-3.0.0.jar at file:///home/sohang/.ivy2.5.2/jars/com.google.code.findbugs_jsr305-3.0.0.jar with timestamp 1783098260875
+26/07/03 22:34:21 INFO Utils: Copying /home/sohang/.ivy2.5.2/jars/com.google.code.findbugs_jsr305-3.0.0.jar to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/com.google.code.findbugs_jsr305-3.0.0.jar
+26/07/03 22:34:21 INFO SparkContext: Added file file:///home/sohang/.ivy2.5.2/jars/org.apache.commons_commons-pool2-2.12.1.jar at file:///home/sohang/.ivy2.5.2/jars/org.apache.commons_commons-pool2-2.12.1.jar with timestamp 1783098260875
+26/07/03 22:34:21 INFO Utils: Copying /home/sohang/.ivy2.5.2/jars/org.apache.commons_commons-pool2-2.12.1.jar to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.apache.commons_commons-pool2-2.12.1.jar
+26/07/03 22:34:21 INFO SparkContext: Added file file:///home/sohang/.ivy2.5.2/jars/org.apache.hadoop_hadoop-client-runtime-3.4.2.jar at file:///home/sohang/.ivy2.5.2/jars/org.apache.hadoop_hadoop-client-runtime-3.4.2.jar with timestamp 1783098260875
+26/07/03 22:34:21 INFO Utils: Copying /home/sohang/.ivy2.5.2/jars/org.apache.hadoop_hadoop-client-runtime-3.4.2.jar to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.apache.hadoop_hadoop-client-runtime-3.4.2.jar
+26/07/03 22:34:21 INFO SparkContext: Added file file:///home/sohang/.ivy2.5.2/jars/org.lz4_lz4-java-1.8.0.jar at file:///home/sohang/.ivy2.5.2/jars/org.lz4_lz4-java-1.8.0.jar with timestamp 1783098260875
+26/07/03 22:34:21 INFO Utils: Copying /home/sohang/.ivy2.5.2/jars/org.lz4_lz4-java-1.8.0.jar to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.lz4_lz4-java-1.8.0.jar
+26/07/03 22:34:21 INFO SparkContext: Added file file:///home/sohang/.ivy2.5.2/jars/org.xerial.snappy_snappy-java-1.1.10.8.jar at file:///home/sohang/.ivy2.5.2/jars/org.xerial.snappy_snappy-java-1.1.10.8.jar with timestamp 1783098260875
+26/07/03 22:34:21 INFO Utils: Copying /home/sohang/.ivy2.5.2/jars/org.xerial.snappy_snappy-java-1.1.10.8.jar to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.xerial.snappy_snappy-java-1.1.10.8.jar
+26/07/03 22:34:21 INFO SparkContext: Added file file:///home/sohang/.ivy2.5.2/jars/org.slf4j_slf4j-api-2.0.17.jar at file:///home/sohang/.ivy2.5.2/jars/org.slf4j_slf4j-api-2.0.17.jar with timestamp 1783098260875
+26/07/03 22:34:21 INFO Utils: Copying /home/sohang/.ivy2.5.2/jars/org.slf4j_slf4j-api-2.0.17.jar to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.slf4j_slf4j-api-2.0.17.jar
+26/07/03 22:34:21 INFO SparkContext: Added file file:///home/sohang/.ivy2.5.2/jars/org.apache.hadoop_hadoop-client-api-3.4.2.jar at file:///home/sohang/.ivy2.5.2/jars/org.apache.hadoop_hadoop-client-api-3.4.2.jar with timestamp 1783098260875
+26/07/03 22:34:21 INFO Utils: Copying /home/sohang/.ivy2.5.2/jars/org.apache.hadoop_hadoop-client-api-3.4.2.jar to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.apache.hadoop_hadoop-client-api-3.4.2.jar
+26/07/03 22:34:21 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+26/07/03 22:34:21 INFO ResourceProfile: Limiting resource is cpu
+26/07/03 22:34:21 INFO ResourceProfileManager: Added ResourceProfile id: 0
+26/07/03 22:34:21 INFO SecurityManager: Changing view acls to: sohang
+26/07/03 22:34:21 INFO SecurityManager: Changing modify acls to: sohang
+26/07/03 22:34:21 INFO SecurityManager: Changing view acls groups to: sohang
+26/07/03 22:34:21 INFO SecurityManager: Changing modify acls groups to: sohang
+26/07/03 22:34:21 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: sohang groups with view permissions: EMPTY; users with modify permissions: sohang; groups with modify permissions: EMPTY; RPC SSL disabled
+26/07/03 22:34:21 INFO Executor: Starting executor ID driver on host 192.168.1.31
+26/07/03 22:34:21 INFO Executor: OS info Linux, 7.0.0-27-generic, amd64
+26/07/03 22:34:21 INFO Executor: Java version 17.0.19+10-1-26.04.2-Ubuntu
+26/07/03 22:34:21 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''
+26/07/03 22:34:21 INFO Executor: Created or updated repl class loader org.apache.spark.util.MutableURLClassLoader@5dc88b55 for default.
+26/07/03 22:34:21 INFO Executor: Fetching file:///home/sohang/.ivy2.5.2/jars/org.apache.spark_spark-sql-kafka-0-10_2.13-4.1.2.jar with timestamp 1783098260875
+26/07/03 22:34:21 INFO Utils: /home/sohang/.ivy2.5.2/jars/org.apache.spark_spark-sql-kafka-0-10_2.13-4.1.2.jar has been previously copied to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.apache.spark_spark-sql-kafka-0-10_2.13-4.1.2.jar
+26/07/03 22:34:21 INFO Executor: Fetching file:///home/sohang/.ivy2.5.2/jars/org.slf4j_slf4j-api-2.0.17.jar with timestamp 1783098260875
+26/07/03 22:34:21 INFO Utils: /home/sohang/.ivy2.5.2/jars/org.slf4j_slf4j-api-2.0.17.jar has been previously copied to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.slf4j_slf4j-api-2.0.17.jar
+26/07/03 22:34:21 INFO Executor: Fetching file:///home/sohang/.ivy2.5.2/jars/org.apache.hadoop_hadoop-client-runtime-3.4.2.jar with timestamp 1783098260875
+26/07/03 22:34:22 INFO Utils: /home/sohang/.ivy2.5.2/jars/org.apache.hadoop_hadoop-client-runtime-3.4.2.jar has been previously copied to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.apache.hadoop_hadoop-client-runtime-3.4.2.jar
+26/07/03 22:34:22 INFO Executor: Fetching file:///home/sohang/.ivy2.5.2/jars/org.apache.commons_commons-pool2-2.12.1.jar with timestamp 1783098260875
+26/07/03 22:34:22 INFO Utils: /home/sohang/.ivy2.5.2/jars/org.apache.commons_commons-pool2-2.12.1.jar has been previously copied to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.apache.commons_commons-pool2-2.12.1.jar
+26/07/03 22:34:22 INFO Executor: Fetching file:///home/sohang/.ivy2.5.2/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.13-4.1.2.jar with timestamp 1783098260875
+26/07/03 22:34:22 INFO Utils: /home/sohang/.ivy2.5.2/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.13-4.1.2.jar has been previously copied to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.apache.spark_spark-token-provider-kafka-0-10_2.13-4.1.2.jar
+26/07/03 22:34:22 INFO Executor: Fetching file:///home/sohang/.ivy2.5.2/jars/org.lz4_lz4-java-1.8.0.jar with timestamp 1783098260875
+26/07/03 22:34:22 INFO Utils: /home/sohang/.ivy2.5.2/jars/org.lz4_lz4-java-1.8.0.jar has been previously copied to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.lz4_lz4-java-1.8.0.jar
+26/07/03 22:34:22 INFO Executor: Fetching file:///home/sohang/.ivy2.5.2/jars/org.xerial.snappy_snappy-java-1.1.10.8.jar with timestamp 1783098260875
+26/07/03 22:34:22 INFO Utils: /home/sohang/.ivy2.5.2/jars/org.xerial.snappy_snappy-java-1.1.10.8.jar has been previously copied to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.xerial.snappy_snappy-java-1.1.10.8.jar
+26/07/03 22:34:22 INFO Executor: Fetching file:///home/sohang/.ivy2.5.2/jars/com.google.code.findbugs_jsr305-3.0.0.jar with timestamp 1783098260875
+26/07/03 22:34:22 INFO Utils: /home/sohang/.ivy2.5.2/jars/com.google.code.findbugs_jsr305-3.0.0.jar has been previously copied to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/com.google.code.findbugs_jsr305-3.0.0.jar
+26/07/03 22:34:22 INFO Executor: Fetching file:///home/sohang/.ivy2.5.2/jars/org.scala-lang.modules_scala-parallel-collections_2.13-1.2.0.jar with timestamp 1783098260875
+26/07/03 22:34:22 INFO Utils: /home/sohang/.ivy2.5.2/jars/org.scala-lang.modules_scala-parallel-collections_2.13-1.2.0.jar has been previously copied to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.scala-lang.modules_scala-parallel-collections_2.13-1.2.0.jar
+26/07/03 22:34:22 INFO Executor: Fetching file:///home/sohang/.ivy2.5.2/jars/org.apache.kafka_kafka-clients-3.9.1.jar with timestamp 1783098260875
+26/07/03 22:34:22 INFO Utils: /home/sohang/.ivy2.5.2/jars/org.apache.kafka_kafka-clients-3.9.1.jar has been previously copied to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.apache.kafka_kafka-clients-3.9.1.jar
+26/07/03 22:34:22 INFO Executor: Fetching file:///home/sohang/.ivy2.5.2/jars/org.apache.hadoop_hadoop-client-api-3.4.2.jar with timestamp 1783098260875
+26/07/03 22:34:22 INFO Utils: /home/sohang/.ivy2.5.2/jars/org.apache.hadoop_hadoop-client-api-3.4.2.jar has been previously copied to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.apache.hadoop_hadoop-client-api-3.4.2.jar
+26/07/03 22:34:22 INFO Executor: Fetching spark://192.168.1.31:38773/jars/org.slf4j_slf4j-api-2.0.17.jar with timestamp 1783098260875
+26/07/03 22:34:22 INFO TransportClientFactory: Successfully created connection to /192.168.1.31:38773 after 25 ms (0 ms spent in bootstraps)
+26/07/03 22:34:22 INFO Utils: Fetching spark://192.168.1.31:38773/jars/org.slf4j_slf4j-api-2.0.17.jar to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/fetchFileTemp1733403635672760663.tmp
+26/07/03 22:34:22 INFO Utils: /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/fetchFileTemp1733403635672760663.tmp has been previously copied to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.slf4j_slf4j-api-2.0.17.jar
+26/07/03 22:34:22 INFO Executor: Adding file:/tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.slf4j_slf4j-api-2.0.17.jar to class loader default
+26/07/03 22:34:22 INFO Executor: Fetching spark://192.168.1.31:38773/jars/org.scala-lang.modules_scala-parallel-collections_2.13-1.2.0.jar with timestamp 1783098260875
+26/07/03 22:34:22 INFO Utils: Fetching spark://192.168.1.31:38773/jars/org.scala-lang.modules_scala-parallel-collections_2.13-1.2.0.jar to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/fetchFileTemp1912716072077528264.tmp
+26/07/03 22:34:22 INFO Utils: /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/fetchFileTemp1912716072077528264.tmp has been previously copied to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.scala-lang.modules_scala-parallel-collections_2.13-1.2.0.jar
+26/07/03 22:34:22 INFO Executor: Adding file:/tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.scala-lang.modules_scala-parallel-collections_2.13-1.2.0.jar to class loader default
+26/07/03 22:34:22 INFO Executor: Fetching spark://192.168.1.31:38773/jars/org.apache.hadoop_hadoop-client-runtime-3.4.2.jar with timestamp 1783098260875
+26/07/03 22:34:22 INFO Utils: Fetching spark://192.168.1.31:38773/jars/org.apache.hadoop_hadoop-client-runtime-3.4.2.jar to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/fetchFileTemp16172051125242446574.tmp
+26/07/03 22:34:22 INFO Utils: /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/fetchFileTemp16172051125242446574.tmp has been previously copied to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.apache.hadoop_hadoop-client-runtime-3.4.2.jar
+26/07/03 22:34:22 INFO Executor: Adding file:/tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.apache.hadoop_hadoop-client-runtime-3.4.2.jar to class loader default
+26/07/03 22:34:22 INFO Executor: Fetching spark://192.168.1.31:38773/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.13-4.1.2.jar with timestamp 1783098260875
+26/07/03 22:34:22 INFO Utils: Fetching spark://192.168.1.31:38773/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.13-4.1.2.jar to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/fetchFileTemp5121959624144938217.tmp
+26/07/03 22:34:22 INFO Utils: /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/fetchFileTemp5121959624144938217.tmp has been previously copied to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.apache.spark_spark-token-provider-kafka-0-10_2.13-4.1.2.jar
+26/07/03 22:34:22 INFO Executor: Adding file:/tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.apache.spark_spark-token-provider-kafka-0-10_2.13-4.1.2.jar to class loader default
+26/07/03 22:34:22 INFO Executor: Fetching spark://192.168.1.31:38773/jars/org.apache.kafka_kafka-clients-3.9.1.jar with timestamp 1783098260875
+26/07/03 22:34:22 INFO Utils: Fetching spark://192.168.1.31:38773/jars/org.apache.kafka_kafka-clients-3.9.1.jar to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/fetchFileTemp3119677470912840303.tmp
+26/07/03 22:34:22 INFO Utils: /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/fetchFileTemp3119677470912840303.tmp has been previously copied to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.apache.kafka_kafka-clients-3.9.1.jar
+26/07/03 22:34:22 INFO Executor: Adding file:/tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.apache.kafka_kafka-clients-3.9.1.jar to class loader default
+26/07/03 22:34:22 INFO Executor: Fetching spark://192.168.1.31:38773/jars/com.google.code.findbugs_jsr305-3.0.0.jar with timestamp 1783098260875
+26/07/03 22:34:22 INFO Utils: Fetching spark://192.168.1.31:38773/jars/com.google.code.findbugs_jsr305-3.0.0.jar to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/fetchFileTemp15189391429559175298.tmp
+26/07/03 22:34:22 INFO Utils: /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/fetchFileTemp15189391429559175298.tmp has been previously copied to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/com.google.code.findbugs_jsr305-3.0.0.jar
+26/07/03 22:34:22 INFO Executor: Adding file:/tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/com.google.code.findbugs_jsr305-3.0.0.jar to class loader default
+26/07/03 22:34:22 INFO Executor: Fetching spark://192.168.1.31:38773/jars/org.xerial.snappy_snappy-java-1.1.10.8.jar with timestamp 1783098260875
+26/07/03 22:34:22 INFO Utils: Fetching spark://192.168.1.31:38773/jars/org.xerial.snappy_snappy-java-1.1.10.8.jar to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/fetchFileTemp14567790045505785192.tmp
+26/07/03 22:34:22 INFO Utils: /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/fetchFileTemp14567790045505785192.tmp has been previously copied to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.xerial.snappy_snappy-java-1.1.10.8.jar
+26/07/03 22:34:22 INFO Executor: Adding file:/tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.xerial.snappy_snappy-java-1.1.10.8.jar to class loader default
+26/07/03 22:34:22 INFO Executor: Fetching spark://192.168.1.31:38773/jars/org.apache.hadoop_hadoop-client-api-3.4.2.jar with timestamp 1783098260875
+26/07/03 22:34:22 INFO Utils: Fetching spark://192.168.1.31:38773/jars/org.apache.hadoop_hadoop-client-api-3.4.2.jar to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/fetchFileTemp14873511815559966872.tmp
+26/07/03 22:34:22 INFO Utils: /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/fetchFileTemp14873511815559966872.tmp has been previously copied to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.apache.hadoop_hadoop-client-api-3.4.2.jar
+26/07/03 22:34:22 INFO Executor: Adding file:/tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.apache.hadoop_hadoop-client-api-3.4.2.jar to class loader default
+26/07/03 22:34:22 INFO Executor: Fetching spark://192.168.1.31:38773/jars/org.apache.spark_spark-sql-kafka-0-10_2.13-4.1.2.jar with timestamp 1783098260875
+26/07/03 22:34:22 INFO Utils: Fetching spark://192.168.1.31:38773/jars/org.apache.spark_spark-sql-kafka-0-10_2.13-4.1.2.jar to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/fetchFileTemp12127696007078109374.tmp
+26/07/03 22:34:22 INFO Utils: /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/fetchFileTemp12127696007078109374.tmp has been previously copied to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.apache.spark_spark-sql-kafka-0-10_2.13-4.1.2.jar
+26/07/03 22:34:22 INFO Executor: Adding file:/tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.apache.spark_spark-sql-kafka-0-10_2.13-4.1.2.jar to class loader default
+26/07/03 22:34:22 INFO Executor: Fetching spark://192.168.1.31:38773/jars/org.lz4_lz4-java-1.8.0.jar with timestamp 1783098260875
+26/07/03 22:34:22 INFO Utils: Fetching spark://192.168.1.31:38773/jars/org.lz4_lz4-java-1.8.0.jar to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/fetchFileTemp4620505891782692656.tmp
+26/07/03 22:34:22 INFO Utils: /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/fetchFileTemp4620505891782692656.tmp has been previously copied to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.lz4_lz4-java-1.8.0.jar
+26/07/03 22:34:22 INFO Executor: Adding file:/tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.lz4_lz4-java-1.8.0.jar to class loader default
+26/07/03 22:34:22 INFO Executor: Fetching spark://192.168.1.31:38773/jars/org.apache.commons_commons-pool2-2.12.1.jar with timestamp 1783098260875
+26/07/03 22:34:22 INFO Utils: Fetching spark://192.168.1.31:38773/jars/org.apache.commons_commons-pool2-2.12.1.jar to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/fetchFileTemp9612068112519938692.tmp
+26/07/03 22:34:22 INFO Utils: /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/fetchFileTemp9612068112519938692.tmp has been previously copied to /tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.apache.commons_commons-pool2-2.12.1.jar
+26/07/03 22:34:22 INFO Executor: Adding file:/tmp/spark-3f2a0712-de51-4f0a-993d-98b285818c4b/userFiles-53606a17-b355-475c-a7b6-5b050b2fa34a/org.apache.commons_commons-pool2-2.12.1.jar to class loader default
+26/07/03 22:34:22 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 42969.
+26/07/03 22:34:22 INFO NettyBlockTransferService: Server created on 192.168.1.31:42969
+26/07/03 22:34:22 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+26/07/03 22:34:22 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 192.168.1.31, 42969, None)
+26/07/03 22:34:22 INFO BlockManagerMasterEndpoint: Registering block manager 192.168.1.31:42969 with 434.4 MiB RAM, BlockManagerId(driver, 192.168.1.31, 42969, None)
+26/07/03 22:34:22 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 192.168.1.31, 42969, None)
+26/07/03 22:34:22 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 192.168.1.31, 42969, None)
+Reading from Kafka topic: sensor_DA25M622
+26/07/03 22:34:25 INFO SharedState: Setting hive.metastore.warehouse.dir ('null') to the value of spark.sql.warehouse.dir.
+26/07/03 22:34:25 INFO SharedState: Warehouse path is 'file:/home/sohang/Projects/iit-madras-web-mtech-ai/trimester3/DA5402W_MLOPS/assignments/Assignment1/spark-warehouse'.
+Starting data preprocessing...
+================================================================================
+SCHEMA:
+root
+ |-- sensor_id: string (nullable = true)
+ |-- temperature: double (nullable = true)
+ |-- timestamp: string (nullable = true)
+ |-- status: string (nullable = true)
+
+================================================================================
+Data preprocessing completed.
+Cleaned checkpoint: /tmp/checkpoint_q1
+Cleaned checkpoint: /tmp/checkpoint_q2
+Cleaned checkpoint: /tmp/checkpoint_q3
+Starting streaming queries...
+26/07/03 22:34:28 INFO StateStoreCoordinatorRef: Registered StateStoreCoordinator endpoint
+26/07/03 22:34:28 INFO ResolveWriteToStream: Checkpoint root /tmp/checkpoint_q1 resolved to file:/tmp/checkpoint_q1.
+26/07/03 22:34:28 WARN ResolveWriteToStream: spark.sql.adaptive.enabled is not supported in streaming DataFrames/Datasets and will be disabled.
+26/07/03 22:34:28 INFO CheckpointFileManager: Writing atomically to file:/tmp/checkpoint_q1/metadata using temp file file:/tmp/checkpoint_q1/.metadata.64abcc36-46ca-4e32-8b8f-938f2288fa8f.tmp
+26/07/03 22:34:28 INFO CheckpointFileManager: Renamed temp file file:/tmp/checkpoint_q1/.metadata.64abcc36-46ca-4e32-8b8f-938f2288fa8f.tmp to file:/tmp/checkpoint_q1/metadata
+26/07/03 22:34:28 INFO MicroBatchExecution: Starting [id = 172b0fae-4837-4e3e-9112-1e93a4d8221a, runId = a94a470c-c9e9-4f3a-8e44-43775dd01994]. Use file:/tmp/checkpoint_q1 to store the query checkpoint.
+26/07/03 22:34:28 INFO MicroBatchExecution: Reading table [org.apache.spark.sql.kafka010.KafkaSourceProvider$KafkaTable@60b16b20] from DataSourceV2 named 'kafka' [org.apache.spark.sql.kafka010.KafkaSourceProvider@73151c7d]
+26/07/03 22:34:28 INFO ResolveWriteToStream: Checkpoint root /tmp/checkpoint_q2 resolved to file:/tmp/checkpoint_q2.
+26/07/03 22:34:28 WARN ResolveWriteToStream: spark.sql.adaptive.enabled is not supported in streaming DataFrames/Datasets and will be disabled.
+26/07/03 22:34:28 INFO CheckpointFileManager: Writing atomically to file:/tmp/checkpoint_q2/metadata using temp file file:/tmp/checkpoint_q2/.metadata.5dc23a16-e8e9-4cdf-97e4-6bbd0a64936b.tmp
+26/07/03 22:34:28 INFO MicroBatchExecution: Finish initializing with logical plan:
+~WriteToMicroBatchDataSource org.apache.spark.sql.execution.streaming.ConsoleTable$@54479cf3, 172b0fae-4837-4e3e-9112-1e93a4d8221a, [numRows=20, truncate=false, checkpointLocation=/tmp/checkpoint_q1], Append
++- ~Project [sensor_id#15, temperature#20, timestamp#19, status#18, hour_of_day#21, day_of_week#22, CASE WHEN ((day_of_week#22 = 1) OR (day_of_week#22 = 7)) THEN 1 ELSE 0 END AS is_weekend#23]
+   +- ~Project [sensor_id#15, temperature#20, timestamp#19, status#18, hour_of_day#21, dayofweek(cast(timestamp#19 as date)) AS day_of_week#22]
+      +- ~Project [sensor_id#15, temperature#20, timestamp#19, status#18, hour(timestamp#19, Some(Asia/Kolkata)) AS hour_of_day#21]
+         +- ~Filter isnotnull(temperature#20)
+            +- ~Project [sensor_id#15, CASE WHEN isnull(temperature#16) THEN 25.0 ELSE temperature#16 END AS temperature#20, timestamp#19, status#18]
+               +- ~Deduplicate [sensor_id#15, timestamp#19]
+                  +- ~Filter (((temperature#16 >= cast(-20 as double)) AND (temperature#16 <= cast(100 as double))) AND NOT isnull(timestamp#19))
+                     +- ~Project [sensor_id#15, temperature#16, try_to_timestamp(timestamp#17, Some(yyyy-MM-dd HH:mm:ss), TimestampType, Some(Asia/Kolkata), false) AS timestamp#19, status#18]
+                        +- ~Project [data#14.sensor_id AS sensor_id#15, data#14.temperature AS temperature#16, data#14.timestamp AS timestamp#17, data#14.status AS status#18]
+                           +- ~Project [from_json(StructField(sensor_id,StringType,false), StructField(temperature,DoubleType,true), StructField(timestamp,StringType,false), StructField(status,StringType,false), cast(value#8 as string), Some(Asia/Kolkata), false) AS data#14]
+                              +- ~StreamingDataSourceV2ScanRelation[key#7, value#8, topic#9, partition#10, offset#11L, timestamp#12, timestampType#13] KafkaTable
+
+26/07/03 22:34:28 INFO OffsetSeqLog: BatchIds found from listing: 
+26/07/03 22:34:28 INFO CommitLog: BatchIds found from listing: 
+26/07/03 22:34:28 INFO OffsetSeqLog: BatchIds found from listing: 
+26/07/03 22:34:28 INFO OffsetSeqLog: BatchIds found from listing: 
+26/07/03 22:34:28 INFO MicroBatchExecution: Starting new streaming query.
+26/07/03 22:34:28 WARN MicroBatchExecution: Disabling AQE since AQE is not supported in stateful workloads.
+26/07/03 22:34:28 INFO MicroBatchExecution: Stream started from {}
+26/07/03 22:34:28 INFO CheckpointFileManager: Renamed temp file file:/tmp/checkpoint_q2/.metadata.5dc23a16-e8e9-4cdf-97e4-6bbd0a64936b.tmp to file:/tmp/checkpoint_q2/metadata
+26/07/03 22:34:28 INFO MicroBatchExecution: Starting [id = 6bc244ad-e40b-4ae6-b674-01c1383021b8, runId = 9d4e598d-9162-47b4-a4c8-3a845c8466d4]. Use file:/tmp/checkpoint_q2 to store the query checkpoint.
+26/07/03 22:34:28 INFO MicroBatchExecution: Reading table [org.apache.spark.sql.kafka010.KafkaSourceProvider$KafkaTable@60b16b20] from DataSourceV2 named 'kafka' [org.apache.spark.sql.kafka010.KafkaSourceProvider@73151c7d]
+26/07/03 22:34:28 INFO MicroBatchExecution: Finish initializing with logical plan:
+~WriteToMicroBatchDataSource org.apache.spark.sql.execution.streaming.ConsoleTable$@54479cf3, 6bc244ad-e40b-4ae6-b674-01c1383021b8, [numRows=10, checkpointLocation=/tmp/checkpoint_q2], Update
++- ~Aggregate [window#72-T300000ms, sensor_id#15], [window#72-T300000ms, sensor_id#15, avg(temperature#20) AS window_avg_temperature#63]
+   +- ~Project [named_struct(start, knownnullable(precisetimestampconversion(((precisetimestampconversion(timestamp#19-T300000ms, TimestampType, LongType) - CASE WHEN (((precisetimestampconversion(timestamp#19-T300000ms, TimestampType, LongType) - 0) % 300000000) < cast(0 as bigint)) THEN (((precisetimestampconversion(timestamp#19-T300000ms, TimestampType, LongType) - 0) % 300000000) + 300000000) ELSE ((precisetimestampconversion(timestamp#19-T300000ms, TimestampType, LongType) - 0) % 300000000) END) - 0), LongType, TimestampType)), end, knownnullable(precisetimestampconversion((((precisetimestampconversion(timestamp#19-T300000ms, TimestampType, LongType) - CASE WHEN (((precisetimestampconversion(timestamp#19-T300000ms, TimestampType, LongType) - 0) % 300000000) < cast(0 as bigint)) THEN (((precisetimestampconversion(timestamp#19-T300000ms, TimestampType, LongType) - 0) % 300000000) + 300000000) ELSE ((precisetimestampconversion(timestamp#19-T300000ms, TimestampType, LongType) - 0) % 300000000) END) - 0) + 300000000), LongType, TimestampType))) AS window#72-T300000ms, sensor_id#15, temperature#20, timestamp#19-T300000ms, status#18, hour_of_day#21, day_of_week#22, is_weekend#23]
+      +- ~Filter isnotnull(timestamp#19-T300000ms)
+         +- ~EventTimeWatermark e7f26e80-b283-47c8-ada4-66a317a02cfa, timestamp#19: timestamp, 5 minutes
+            +- ~Project [sensor_id#15, temperature#20, timestamp#19, status#18, hour_of_day#21, day_of_week#22, CASE WHEN ((day_of_week#22 = 1) OR (day_of_week#22 = 7)) THEN 1 ELSE 0 END AS is_weekend#23]
+               +- ~Project [sensor_id#15, temperature#20, timestamp#19, status#18, hour_of_day#21, dayofweek(cast(timestamp#19 as date)) AS day_of_week#22]
+                  +- ~Project [sensor_id#15, temperature#20, timestamp#19, status#18, hour(timestamp#19, Some(Asia/Kolkata)) AS hour_of_day#21]
+                     +- ~Filter isnotnull(temperature#20)
+                        +- ~Project [sensor_id#15, CASE WHEN isnull(temperature#16) THEN 25.0 ELSE temperature#16 END AS temperature#20, timestamp#19, status#18]
+                           +- ~Deduplicate [sensor_id#15, timestamp#19]
+                              +- ~Filter (((temperature#16 >= cast(-20 as double)) AND (temperature#16 <= cast(100 as double))) AND NOT isnull(timestamp#19))
+                                 +- ~Project [sensor_id#15, temperature#16, try_to_timestamp(timestamp#17, Some(yyyy-MM-dd HH:mm:ss), TimestampType, Some(Asia/Kolkata), false) AS timestamp#19, status#18]
+                                    +- ~Project [data#14.sensor_id AS sensor_id#15, data#14.temperature AS temperature#16, data#14.timestamp AS timestamp#17, data#14.status AS status#18]
+                                       +- ~Project [from_json(StructField(sensor_id,StringType,false), StructField(temperature,DoubleType,true), StructField(timestamp,StringType,false), StructField(status,StringType,false), cast(value#8 as string), Some(Asia/Kolkata), false) AS data#14]
+                                          +- ~StreamingDataSourceV2ScanRelation[key#7, value#8, topic#9, partition#10, offset#11L, timestamp#12, timestampType#13] KafkaTable
+
+26/07/03 22:34:28 INFO ResolveWriteToStream: Checkpoint root /tmp/checkpoint_q3 resolved to file:/tmp/checkpoint_q3.
+26/07/03 22:34:28 WARN ResolveWriteToStream: spark.sql.adaptive.enabled is not supported in streaming DataFrames/Datasets and will be disabled.
+26/07/03 22:34:28 INFO OffsetSeqLog: BatchIds found from listing: 
+26/07/03 22:34:28 INFO CommitLog: BatchIds found from listing: 
+26/07/03 22:34:28 INFO OffsetSeqLog: BatchIds found from listing: 
+26/07/03 22:34:28 INFO OffsetSeqLog: BatchIds found from listing: 
+26/07/03 22:34:28 INFO MicroBatchExecution: Starting new streaming query.
+26/07/03 22:34:28 WARN MicroBatchExecution: Disabling AQE since AQE is not supported in stateful workloads.
+26/07/03 22:34:28 INFO MicroBatchExecution: Stream started from {}
+26/07/03 22:34:28 INFO CheckpointFileManager: Writing atomically to file:/tmp/checkpoint_q3/metadata using temp file file:/tmp/checkpoint_q3/.metadata.91d036a1-6d71-42c3-97bf-0cb764223082.tmp
+26/07/03 22:34:28 INFO AdminClientConfig: AdminClientConfig values: 
+	auto.include.jmx.reporter = true
+	bootstrap.controllers = []
+	bootstrap.servers = [localhost:9092]
+	client.dns.lookup = use_all_dns_ips
+	client.id = 
+	connections.max.idle.ms = 300000
+	default.api.timeout.ms = 60000
+	enable.metrics.push = true
+	metadata.max.age.ms = 300000
+	metadata.recovery.strategy = none
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.max.ms = 1000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.header.urlencode = false
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+
+26/07/03 22:34:28 INFO AdminClientConfig: AdminClientConfig values: 
+	auto.include.jmx.reporter = true
+	bootstrap.controllers = []
+	bootstrap.servers = [localhost:9092]
+	client.dns.lookup = use_all_dns_ips
+	client.id = 
+	connections.max.idle.ms = 300000
+	default.api.timeout.ms = 60000
+	enable.metrics.push = true
+	metadata.max.age.ms = 300000
+	metadata.recovery.strategy = none
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.max.ms = 1000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.header.urlencode = false
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+
+26/07/03 22:34:28 INFO CheckpointFileManager: Renamed temp file file:/tmp/checkpoint_q3/.metadata.91d036a1-6d71-42c3-97bf-0cb764223082.tmp to file:/tmp/checkpoint_q3/metadata
+26/07/03 22:34:28 INFO MicroBatchExecution: Starting [id = a2bcd5d4-7590-4b5d-a861-b787472e7b16, runId = 55a57b29-1302-47f4-86dc-c6760428ad47]. Use file:/tmp/checkpoint_q3 to store the query checkpoint.
+26/07/03 22:34:28 INFO MicroBatchExecution: Reading table [org.apache.spark.sql.kafka010.KafkaSourceProvider$KafkaTable@60b16b20] from DataSourceV2 named 'kafka' [org.apache.spark.sql.kafka010.KafkaSourceProvider@73151c7d]
+26/07/03 22:34:28 INFO MicroBatchExecution: Finish initializing with logical plan:
+~WriteToMicroBatchDataSource org.apache.spark.sql.execution.streaming.ConsoleTable$@54479cf3, a2bcd5d4-7590-4b5d-a861-b787472e7b16, [numRows=5, checkpointLocation=/tmp/checkpoint_q3], Append
++- ~Filter (((temperature#16 < cast(-20 as double)) OR (temperature#16 > cast(100 as double))) OR isnull(timestamp#19))
+   +- ~Project [sensor_id#15, temperature#16, try_to_timestamp(timestamp#17, Some(yyyy-MM-dd HH:mm:ss), TimestampType, Some(Asia/Kolkata), false) AS timestamp#19, status#18]
+      +- ~Project [data#14.sensor_id AS sensor_id#15, data#14.temperature AS temperature#16, data#14.timestamp AS timestamp#17, data#14.status AS status#18]
+         +- ~Project [from_json(StructField(sensor_id,StringType,false), StructField(temperature,DoubleType,true), StructField(timestamp,StringType,false), StructField(status,StringType,false), cast(value#8 as string), Some(Asia/Kolkata), false) AS data#14]
+            +- ~StreamingDataSourceV2ScanRelation[key#7, value#8, topic#9, partition#10, offset#11L, timestamp#12, timestampType#13] KafkaTable
+
+26/07/03 22:34:28 INFO ResolveWriteToStream: Checkpoint root /tmp/checkpoint_q4 resolved to file:/tmp/checkpoint_q4.
+26/07/03 22:34:28 WARN ResolveWriteToStream: spark.sql.adaptive.enabled is not supported in streaming DataFrames/Datasets and will be disabled.
+26/07/03 22:34:28 INFO OffsetSeqLog: BatchIds found from listing: 
+26/07/03 22:34:28 INFO CommitLog: BatchIds found from listing: 
+26/07/03 22:34:28 INFO OffsetSeqLog: BatchIds found from listing: 
+26/07/03 22:34:28 INFO OffsetSeqLog: BatchIds found from listing: 
+26/07/03 22:34:28 INFO MicroBatchExecution: Starting new streaming query.
+26/07/03 22:34:28 INFO MicroBatchExecution: Stream started from {}
+26/07/03 22:34:28 INFO AdminClientConfig: AdminClientConfig values: 
+	auto.include.jmx.reporter = true
+	bootstrap.controllers = []
+	bootstrap.servers = [localhost:9092]
+	client.dns.lookup = use_all_dns_ips
+	client.id = 
+	connections.max.idle.ms = 300000
+	default.api.timeout.ms = 60000
+	enable.metrics.push = true
+	metadata.max.age.ms = 300000
+	metadata.recovery.strategy = none
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.max.ms = 1000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.header.urlencode = false
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+
+26/07/03 22:34:28 INFO MicroBatchExecution: Starting [id = 9fbd19d7-4c65-44ea-a238-3ac13200e72d, runId = b44316b0-5c95-4939-aa6a-a6534d8e7ce6]. Use file:/tmp/checkpoint_q4 to store the query checkpoint.
+26/07/03 22:34:28 INFO MicroBatchExecution: Reading table [org.apache.spark.sql.kafka010.KafkaSourceProvider$KafkaTable@60b16b20] from DataSourceV2 named 'kafka' [org.apache.spark.sql.kafka010.KafkaSourceProvider@73151c7d]
+26/07/03 22:34:28 INFO MicroBatchExecution: Finish initializing with logical plan:
+~WriteToMicroBatchDataSource org.apache.spark.sql.execution.streaming.ConsoleTable$@54479cf3, 9fbd19d7-4c65-44ea-a238-3ac13200e72d, [numRows=10, truncate=false, checkpointLocation=/tmp/checkpoint_q4], Update
++- ~Aggregate [sensor_id#15], [sensor_id#15, avg(temperature#20) AS avg_temperature#24]
+   +- ~Project [sensor_id#15, temperature#20, timestamp#19, status#18, hour_of_day#21, day_of_week#22, CASE WHEN ((day_of_week#22 = 1) OR (day_of_week#22 = 7)) THEN 1 ELSE 0 END AS is_weekend#23]
+      +- ~Project [sensor_id#15, temperature#20, timestamp#19, status#18, hour_of_day#21, dayofweek(cast(timestamp#19 as date)) AS day_of_week#22]
+         +- ~Project [sensor_id#15, temperature#20, timestamp#19, status#18, hour(timestamp#19, Some(Asia/Kolkata)) AS hour_of_day#21]
+            +- ~Filter isnotnull(temperature#20)
+               +- ~Project [sensor_id#15, CASE WHEN isnull(temperature#16) THEN 25.0 ELSE temperature#16 END AS temperature#20, timestamp#19, status#18]
+                  +- ~Deduplicate [sensor_id#15, timestamp#19]
+                     +- ~Filter (((temperature#16 >= cast(-20 as double)) AND (temperature#16 <= cast(100 as double))) AND NOT isnull(timestamp#19))
+                        +- ~Project [sensor_id#15, temperature#16, try_to_timestamp(timestamp#17, Some(yyyy-MM-dd HH:mm:ss), TimestampType, Some(Asia/Kolkata), false) AS timestamp#19, status#18]
+                           +- ~Project [data#14.sensor_id AS sensor_id#15, data#14.temperature AS temperature#16, data#14.timestamp AS timestamp#17, data#14.status AS status#18]
+                              +- ~Project [from_json(StructField(sensor_id,StringType,false), StructField(temperature,DoubleType,true), StructField(timestamp,StringType,false), StructField(status,StringType,false), cast(value#8 as string), Some(Asia/Kolkata), false) AS data#14]
+                                 +- ~StreamingDataSourceV2ScanRelation[key#7, value#8, topic#9, partition#10, offset#11L, timestamp#12, timestampType#13] KafkaTable
+
+26/07/03 22:34:28 INFO OffsetSeqLog: BatchIds found from listing: 0, 1
+26/07/03 22:34:28 INFO AdminClientConfig: These configurations '[key.deserializer, value.deserializer, enable.auto.commit, max.poll.records, auto.offset.reset]' were supplied but are not used yet.
+26/07/03 22:34:28 INFO AdminClientConfig: These configurations '[key.deserializer, value.deserializer, enable.auto.commit, max.poll.records, auto.offset.reset]' were supplied but are not used yet.
+26/07/03 22:34:28 INFO AdminClientConfig: These configurations '[key.deserializer, value.deserializer, enable.auto.commit, max.poll.records, auto.offset.reset]' were supplied but are not used yet.
+26/07/03 22:34:28 INFO AppInfoParser: Kafka version: 3.9.1
+26/07/03 22:34:28 INFO AppInfoParser: Kafka commitId: f745dfdcee2b9851
+26/07/03 22:34:28 INFO AppInfoParser: Kafka startTimeMs: 1783098268940
+26/07/03 22:34:28 INFO ResolveWriteToStream: Checkpoint root /tmp/checkpoint_q5 resolved to file:/tmp/checkpoint_q5.
+26/07/03 22:34:28 WARN ResolveWriteToStream: spark.sql.adaptive.enabled is not supported in streaming DataFrames/Datasets and will be disabled.
+26/07/03 22:34:28 INFO AppInfoParser: Kafka version: 3.9.1
+26/07/03 22:34:28 INFO AppInfoParser: Kafka commitId: f745dfdcee2b9851
+26/07/03 22:34:28 INFO AppInfoParser: Kafka startTimeMs: 1783098268941
+26/07/03 22:34:28 INFO AppInfoParser: Kafka version: 3.9.1
+26/07/03 22:34:28 INFO AppInfoParser: Kafka commitId: f745dfdcee2b9851
+26/07/03 22:34:28 INFO AppInfoParser: Kafka startTimeMs: 1783098268940
+26/07/03 22:34:28 INFO MicroBatchExecution: Starting [id = fb09ed03-8ed4-4e16-a7c4-38f27fcb7f05, runId = b0607f76-7bca-4b5c-9caf-642356f2fa13]. Use file:/tmp/checkpoint_q5 to store the query checkpoint.
+26/07/03 22:34:28 INFO OffsetSeqLog: Getting latest batch 1
+26/07/03 22:34:28 INFO MicroBatchExecution: Reading table [org.apache.spark.sql.kafka010.KafkaSourceProvider$KafkaTable@60b16b20] from DataSourceV2 named 'kafka' [org.apache.spark.sql.kafka010.KafkaSourceProvider@73151c7d]
+26/07/03 22:34:28 INFO ResolveWriteToStream: Checkpoint root /tmp/checkpoint_q6 resolved to file:/tmp/checkpoint_q6.
+26/07/03 22:34:28 WARN ResolveWriteToStream: spark.sql.adaptive.enabled is not supported in streaming DataFrames/Datasets and will be disabled.
+26/07/03 22:34:28 INFO MicroBatchExecution: Finish initializing with logical plan:
+~WriteToMicroBatchDataSource org.apache.spark.sql.execution.streaming.ConsoleTable$@54479cf3, fb09ed03-8ed4-4e16-a7c4-38f27fcb7f05, [numRows=10, truncate=false, checkpointLocation=/tmp/checkpoint_q5], Update
++- ~Aggregate [sensor_id#15], [sensor_id#15, max(temperature#20) AS max_temperature#33]
+   +- ~Project [sensor_id#15, temperature#20, timestamp#19, status#18, hour_of_day#21, day_of_week#22, CASE WHEN ((day_of_week#22 = 1) OR (day_of_week#22 = 7)) THEN 1 ELSE 0 END AS is_weekend#23]
+      +- ~Project [sensor_id#15, temperature#20, timestamp#19, status#18, hour_of_day#21, dayofweek(cast(timestamp#19 as date)) AS day_of_week#22]
+         +- ~Project [sensor_id#15, temperature#20, timestamp#19, status#18, hour(timestamp#19, Some(Asia/Kolkata)) AS hour_of_day#21]
+            +- ~Filter isnotnull(temperature#20)
+               +- ~Project [sensor_id#15, CASE WHEN isnull(temperature#16) THEN 25.0 ELSE temperature#16 END AS temperature#20, timestamp#19, status#18]
+                  +- ~Deduplicate [sensor_id#15, timestamp#19]
+                     +- ~Filter (((temperature#16 >= cast(-20 as double)) AND (temperature#16 <= cast(100 as double))) AND NOT isnull(timestamp#19))
+                        +- ~Project [sensor_id#15, temperature#16, try_to_timestamp(timestamp#17, Some(yyyy-MM-dd HH:mm:ss), TimestampType, Some(Asia/Kolkata), false) AS timestamp#19, status#18]
+                           +- ~Project [data#14.sensor_id AS sensor_id#15, data#14.temperature AS temperature#16, data#14.timestamp AS timestamp#17, data#14.status AS status#18]
+                              +- ~Project [from_json(StructField(sensor_id,StringType,false), StructField(temperature,DoubleType,true), StructField(timestamp,StringType,false), StructField(status,StringType,false), cast(value#8 as string), Some(Asia/Kolkata), false) AS data#14]
+                                 +- ~StreamingDataSourceV2ScanRelation[key#7, value#8, topic#9, partition#10, offset#11L, timestamp#12, timestampType#13] KafkaTable
+
+26/07/03 22:34:28 INFO OffsetSeqLog: BatchIds found from listing: 0, 1
+26/07/03 22:34:28 INFO OffsetSeqLog: Getting latest batch 1
+26/07/03 22:34:28 INFO MicroBatchExecution: Starting [id = 8e6c4449-04e3-4be1-831e-1bb70dd29c0f, runId = 02100b69-b950-4d50-80b2-921c8c2eac15]. Use file:/tmp/checkpoint_q6 to store the query checkpoint.
+26/07/03 22:34:28 INFO CommitLog: BatchIds found from listing: 0
+26/07/03 22:34:28 INFO CommitLog: Getting latest batch 0
+26/07/03 22:34:28 INFO CommitLog: BatchIds found from listing: 0
+26/07/03 22:34:28 INFO MicroBatchExecution: Reading table [org.apache.spark.sql.kafka010.KafkaSourceProvider$KafkaTable@60b16b20] from DataSourceV2 named 'kafka' [org.apache.spark.sql.kafka010.KafkaSourceProvider@73151c7d]
+26/07/03 22:34:28 INFO CommitLog: Getting latest batch 0
+26/07/03 22:34:28 INFO MicroBatchExecution: Finish initializing with logical plan:
+~WriteToMicroBatchDataSource org.apache.spark.sql.execution.streaming.ConsoleTable$@54479cf3, 8e6c4449-04e3-4be1-831e-1bb70dd29c0f, [numRows=10, truncate=false, checkpointLocation=/tmp/checkpoint_q6], Update
++- ~Aggregate [window_time#42], [window_time#42, count(sensor_id#15) AS active_sensor_count#44L]
+   +- ~Project [sensor_id#15, temperature#20, timestamp#19, status#18, hour_of_day#21, day_of_week#22, is_weekend#23, window#43 AS window_time#42]
+      +- ~Project [named_struct(start, knownnullable(precisetimestampconversion(((precisetimestampconversion(timestamp#19, TimestampType, LongType) - CASE WHEN (((precisetimestampconversion(timestamp#19, TimestampType, LongType) - 0) % 300000000) < cast(0 as bigint)) THEN (((precisetimestampconversion(timestamp#19, TimestampType, LongType) - 0) % 300000000) + 300000000) ELSE ((precisetimestampconversion(timestamp#19, TimestampType, LongType) - 0) % 300000000) END) - 0), LongType, TimestampType)), end, knownnullable(precisetimestampconversion((((precisetimestampconversion(timestamp#19, TimestampType, LongType) - CASE WHEN (((precisetimestampconversion(timestamp#19, TimestampType, LongType) - 0) % 300000000) < cast(0 as bigint)) THEN (((precisetimestampconversion(timestamp#19, TimestampType, LongType) - 0) % 300000000) + 300000000) ELSE ((precisetimestampconversion(timestamp#19, TimestampType, LongType) - 0) % 300000000) END) - 0) + 300000000), LongType, TimestampType))) AS window#43, sensor_id#15, temperature#20, timestamp#19, status#18, hour_of_day#21, day_of_week#22, is_weekend#23]
+         +- ~Filter isnotnull(timestamp#19)
+            +- ~Project [sensor_id#15, temperature#20, timestamp#19, status#18, hour_of_day#21, day_of_week#22, CASE WHEN ((day_of_week#22 = 1) OR (day_of_week#22 = 7)) THEN 1 ELSE 0 END AS is_weekend#23]
+               +- ~Project [sensor_id#15, temperature#20, timestamp#19, status#18, hour_of_day#21, dayofweek(cast(timestamp#19 as date)) AS day_of_week#22]
+                  +- ~Project [sensor_id#15, temperature#20, timestamp#19, status#18, hour(timestamp#19, Some(Asia/Kolkata)) AS hour_of_day#21]
+                     +- ~Filter isnotnull(temperature#20)
+                        +- ~Project [sensor_id#15, CASE WHEN isnull(temperature#16) THEN 25.0 ELSE temperature#16 END AS temperature#20, timestamp#19, status#18]
+                           +- ~Deduplicate [sensor_id#15, timestamp#19]
+                              +- ~Filter (((temperature#16 >= cast(-20 as double)) AND (temperature#16 <= cast(100 as double))) AND NOT isnull(timestamp#19))
+                                 +- ~Project [sensor_id#15, temperature#16, try_to_timestamp(timestamp#17, Some(yyyy-MM-dd HH:mm:ss), TimestampType, Some(Asia/Kolkata), false) AS timestamp#19, status#18]
+                                    +- ~Project [data#14.sensor_id AS sensor_id#15, data#14.temperature AS temperature#16, data#14.timestamp AS timestamp#17, data#14.status AS status#18]
+                                       +- ~Project [from_json(StructField(sensor_id,StringType,false), StructField(temperature,DoubleType,true), StructField(timestamp,StringType,false), StructField(status,StringType,false), cast(value#8 as string), Some(Asia/Kolkata), false) AS data#14]
+                                          +- ~StreamingDataSourceV2ScanRelation[key#7, value#8, topic#9, partition#10, offset#11L, timestamp#12, timestampType#13] KafkaTable
+
+26/07/03 22:34:29 INFO OffsetSeqLog: BatchIds found from listing: 0
+26/07/03 22:34:29 INFO OffsetSeqLog: Getting latest batch 0
+26/07/03 22:34:29 INFO ResolveWriteToStream: Checkpoint root /tmp/checkpoint_q7 resolved to file:/tmp/checkpoint_q7.
+26/07/03 22:34:29 WARN ResolveWriteToStream: spark.sql.adaptive.enabled is not supported in streaming DataFrames/Datasets and will be disabled.
+26/07/03 22:34:29 INFO CommitLog: BatchIds found from listing: 
+26/07/03 22:34:29 INFO OffsetSeqLog: BatchIds found from listing: 0
+26/07/03 22:34:29 INFO OffsetSeqLog: Getting latest batch 0
+26/07/03 22:34:29 INFO OffsetSeqLog: BatchIds found from listing: 0
+26/07/03 22:34:29 INFO OffsetSeqLog: Getting latest batch 0
+26/07/03 22:34:29 INFO MicroBatchExecution: Starting [id = 76795699-d81e-439c-9060-df248cf2583c, runId = 2adfc1d4-f3f8-48f8-8e54-cd9c41cdcb98]. Use file:/tmp/checkpoint_q7 to store the query checkpoint.
+26/07/03 22:34:29 INFO CommitLog: BatchIds found from listing: 
+26/07/03 22:34:29 INFO MicroBatchExecution: Reading table [org.apache.spark.sql.kafka010.KafkaSourceProvider$KafkaTable@60b16b20] from DataSourceV2 named 'kafka' [org.apache.spark.sql.kafka010.KafkaSourceProvider@73151c7d]
+26/07/03 22:34:29 INFO MicroBatchExecution: no commit log present
+26/07/03 22:34:29 INFO MicroBatchExecution: Resuming at batch 0 with committed offsets {} and available offsets {KafkaV2[Subscribe[sensor_DA25M622]]: {"sensor_DA25M622":{"0":980,"1":0,"2":1020}}}
+26/07/03 22:34:29 WARN MicroBatchExecution: Disabling AQE since AQE is not supported in stateful workloads.
+All queries started. Awaiting termination...
+26/07/03 22:34:29 INFO MicroBatchExecution: Stream started from {}
+26/07/03 22:34:29 INFO MicroBatchExecution: Finish initializing with logical plan:
+~WriteToMicroBatchDataSource org.apache.spark.sql.execution.streaming.ConsoleTable$@54479cf3, 76795699-d81e-439c-9060-df248cf2583c, [numRows=10, truncate=false, checkpointLocation=/tmp/checkpoint_q7], Update
++- ~Aggregate [status#18], [status#18, count(1) AS count#54L]
+   +- ~Project [sensor_id#15, temperature#20, timestamp#19, status#18, hour_of_day#21, day_of_week#22, CASE WHEN ((day_of_week#22 = 1) OR (day_of_week#22 = 7)) THEN 1 ELSE 0 END AS is_weekend#23]
+      +- ~Project [sensor_id#15, temperature#20, timestamp#19, status#18, hour_of_day#21, dayofweek(cast(timestamp#19 as date)) AS day_of_week#22]
+         +- ~Project [sensor_id#15, temperature#20, timestamp#19, status#18, hour(timestamp#19, Some(Asia/Kolkata)) AS hour_of_day#21]
+            +- ~Filter isnotnull(temperature#20)
+               +- ~Project [sensor_id#15, CASE WHEN isnull(temperature#16) THEN 25.0 ELSE temperature#16 END AS temperature#20, timestamp#19, status#18]
+                  +- ~Deduplicate [sensor_id#15, timestamp#19]
+                     +- ~Filter (((temperature#16 >= cast(-20 as double)) AND (temperature#16 <= cast(100 as double))) AND NOT isnull(timestamp#19))
+                        +- ~Project [sensor_id#15, temperature#16, try_to_timestamp(timestamp#17, Some(yyyy-MM-dd HH:mm:ss), TimestampType, Some(Asia/Kolkata), false) AS timestamp#19, status#18]
+                           +- ~Project [data#14.sensor_id AS sensor_id#15, data#14.temperature AS temperature#16, data#14.timestamp AS timestamp#17, data#14.status AS status#18]
+                              +- ~Project [from_json(StructField(sensor_id,StringType,false), StructField(temperature,DoubleType,true), StructField(timestamp,StringType,false), StructField(status,StringType,false), cast(value#8 as string), Some(Asia/Kolkata), false) AS data#14]
+                                 +- ~StreamingDataSourceV2ScanRelation[key#7, value#8, topic#9, partition#10, offset#11L, timestamp#12, timestampType#13] KafkaTable
+
+26/07/03 22:34:29 INFO OffsetSeqLog: BatchIds found from listing: 0
+26/07/03 22:34:29 INFO OffsetSeqLog: Getting latest batch 0
+26/07/03 22:34:29 INFO CommitLog: BatchIds found from listing: 0
+26/07/03 22:34:29 INFO CommitLog: Getting latest batch 0
+26/07/03 22:34:29 INFO OffsetSeqLog: BatchIds found from listing: 0, 1
+26/07/03 22:34:29 INFO OffsetSeqLog: BatchIds found from listing: 0, 1
+26/07/03 22:34:29 INFO OffsetSeqLog: Getting latest batch 1
+26/07/03 22:34:29 INFO OffsetSeqLog: Getting latest batch 1
+26/07/03 22:34:29 INFO OffsetSeqLog: BatchIds found from listing: 0, 1
+26/07/03 22:34:29 INFO OffsetSeqLog: BatchIds found from listing: 0, 1
+26/07/03 22:34:29 INFO OffsetSeqLog: Getting latest batch 1
+26/07/03 22:34:29 INFO OffsetSeqLog: Getting latest batch 1
+26/07/03 22:34:29 INFO OffsetSeqLog: BatchIds found from listing: 0
+26/07/03 22:34:29 INFO OffsetSeqLog: Getting latest batch 0
+26/07/03 22:34:29 INFO OffsetSeqLog: BatchIds found from listing: 0
+26/07/03 22:34:29 INFO OffsetSeqLog: Getting latest batch 0
+26/07/03 22:34:29 INFO CommitLog: BatchIds found from listing: 0
+26/07/03 22:34:29 INFO CommitLog: Getting latest batch 0
+26/07/03 22:34:29 INFO CommitLog: BatchIds found from listing: 0
+26/07/03 22:34:29 INFO CommitLog: Getting latest batch 0
+26/07/03 22:34:29 INFO MicroBatchExecution: Resuming at batch 1 with committed offsets {KafkaV2[Subscribe[sensor_DA25M622]]: {"sensor_DA25M622":{"0":980,"1":0,"2":1020}}} and available offsets {KafkaV2[Subscribe[sensor_DA25M622]]: {"sensor_DA25M622":{"0":980,"1":0,"2":1020}}}
+26/07/03 22:34:29 WARN MicroBatchExecution: Disabling AQE since AQE is not supported in stateful workloads.
+26/07/03 22:34:29 INFO MicroBatchExecution: Stream started from {KafkaV2[Subscribe[sensor_DA25M622]]: {"sensor_DA25M622":{"0":980,"1":0,"2":1020}}}
+26/07/03 22:34:29 INFO CommitLog: BatchIds found from listing: 0
+26/07/03 22:34:29 INFO CommitLog: Getting latest batch 0
+26/07/03 22:34:29 INFO MicroBatchExecution: Resuming at batch 1 with committed offsets {KafkaV2[Subscribe[sensor_DA25M622]]: {"sensor_DA25M622":{"0":980,"1":0,"2":1020}}} and available offsets {KafkaV2[Subscribe[sensor_DA25M622]]: {"sensor_DA25M622":{"0":980,"1":0,"2":1020}}}
+26/07/03 22:34:29 INFO MicroBatchExecution: Resuming at batch 1 with committed offsets {KafkaV2[Subscribe[sensor_DA25M622]]: {"sensor_DA25M622":{"0":980,"1":0,"2":1020}}} and available offsets {KafkaV2[Subscribe[sensor_DA25M622]]: {"sensor_DA25M622":{"0":980,"1":0,"2":1020}}}
+26/07/03 22:34:29 WARN MicroBatchExecution: Disabling AQE since AQE is not supported in stateful workloads.
+26/07/03 22:34:29 INFO MicroBatchExecution: Stream started from {KafkaV2[Subscribe[sensor_DA25M622]]: {"sensor_DA25M622":{"0":980,"1":0,"2":1020}}}
+26/07/03 22:34:29 WARN MicroBatchExecution: Disabling AQE since AQE is not supported in stateful workloads.
+26/07/03 22:34:29 INFO MicroBatchExecution: Stream started from {KafkaV2[Subscribe[sensor_DA25M622]]: {"sensor_DA25M622":{"0":980,"1":0,"2":1020}}}
+26/07/03 22:34:29 INFO AdminClientConfig: AdminClientConfig values: 
+	auto.include.jmx.reporter = true
+	bootstrap.controllers = []
+	bootstrap.servers = [localhost:9092]
+	client.dns.lookup = use_all_dns_ips
+	client.id = 
+	connections.max.idle.ms = 300000
+	default.api.timeout.ms = 60000
+	enable.metrics.push = true
+	metadata.max.age.ms = 300000
+	metadata.recovery.strategy = none
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.max.ms = 1000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.header.urlencode = false
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+
+26/07/03 22:34:29 INFO AdminClientConfig: These configurations '[key.deserializer, value.deserializer, enable.auto.commit, max.poll.records, auto.offset.reset]' were supplied but are not used yet.
+26/07/03 22:34:29 INFO AppInfoParser: Kafka version: 3.9.1
+26/07/03 22:34:29 INFO AppInfoParser: Kafka commitId: f745dfdcee2b9851
+26/07/03 22:34:29 INFO AppInfoParser: Kafka startTimeMs: 1783098269325
+26/07/03 22:34:29 INFO CheckpointFileManager: Writing atomically to file:/tmp/checkpoint_q1/sources/0/0 using temp file file:/tmp/checkpoint_q1/sources/0/.0.466e91c9-f77c-487e-8635-bdee92d55712.tmp
+26/07/03 22:34:29 INFO CheckpointFileManager: Writing atomically to file:/tmp/checkpoint_q2/sources/0/0 using temp file file:/tmp/checkpoint_q2/sources/0/.0.b44eb49c-f465-421f-bcc2-4df0faed41e2.tmp
+26/07/03 22:34:29 INFO CheckpointFileManager: Writing atomically to file:/tmp/checkpoint_q3/sources/0/0 using temp file file:/tmp/checkpoint_q3/sources/0/.0.4d2f10b7-e18e-4ebe-b377-1697caa4b024.tmp
+26/07/03 22:34:29 INFO MicroBatchExecutionContext: Extracting source progress metrics for source=KafkaV2[Subscribe[sensor_DA25M622]] took duration_ms=7
+26/07/03 22:34:29 INFO MicroBatchExecutionContext: Extracting sink progress metrics for sink=org.apache.spark.sql.execution.streaming.ConsoleTable$@54479cf3 took duration_ms=1
+26/07/03 22:34:29 INFO CheckpointFileManager: Renamed temp file file:/tmp/checkpoint_q3/sources/0/.0.4d2f10b7-e18e-4ebe-b377-1697caa4b024.tmp to file:/tmp/checkpoint_q3/sources/0/0
+26/07/03 22:34:29 INFO KafkaMicroBatchStream: Initial offsets: {"sensor_DA25M622":{"0":0,"1":0,"2":0}}
+26/07/03 22:34:29 INFO CheckpointFileManager: Renamed temp file file:/tmp/checkpoint_q1/sources/0/.0.466e91c9-f77c-487e-8635-bdee92d55712.tmp to file:/tmp/checkpoint_q1/sources/0/0
+26/07/03 22:34:29 INFO KafkaMicroBatchStream: Initial offsets: {"sensor_DA25M622":{"0":0,"1":0,"2":0}}
+26/07/03 22:34:29 INFO CheckpointFileManager: Renamed temp file file:/tmp/checkpoint_q2/sources/0/.0.b44eb49c-f465-421f-bcc2-4df0faed41e2.tmp to file:/tmp/checkpoint_q2/sources/0/0
+26/07/03 22:34:29 INFO KafkaMicroBatchStream: Initial offsets: {"sensor_DA25M622":{"0":0,"1":0,"2":0}}
+26/07/03 22:34:29 INFO CheckpointFileManager: Writing atomically to file:/tmp/checkpoint_q3/offsets/0 using temp file file:/tmp/checkpoint_q3/offsets/.0.c350dfe3-e642-4212-9c81-7238817696d7.tmp
+26/07/03 22:34:30 INFO MicroBatchExecutionContext: Extracting source progress metrics for source=KafkaV2[Subscribe[sensor_DA25M622]] took duration_ms=0
+26/07/03 22:34:30 INFO MicroBatchExecutionContext: Extracting sink progress metrics for sink=org.apache.spark.sql.execution.streaming.ConsoleTable$@54479cf3 took duration_ms=0
+26/07/03 22:34:30 INFO CheckpointFileManager: Writing atomically to file:/tmp/checkpoint_q2/offsets/0 using temp file file:/tmp/checkpoint_q2/offsets/.0.1d130eef-4e8d-4caf-90ca-b80f93c47291.tmp
+26/07/03 22:34:30 INFO CheckpointFileManager: Writing atomically to file:/tmp/checkpoint_q1/offsets/0 using temp file file:/tmp/checkpoint_q1/offsets/.0.2eebd3fb-4d2b-4eff-86ad-a542a3eaea52.tmp
+26/07/03 22:34:30 INFO CheckpointFileManager: Renamed temp file file:/tmp/checkpoint_q3/offsets/.0.c350dfe3-e642-4212-9c81-7238817696d7.tmp to file:/tmp/checkpoint_q3/offsets/0
+26/07/03 22:34:30 INFO MicroBatchExecution: Committed offsets for batch 0. Metadata OffsetSeqMetadata(0,1783098269971,HashMap(spark.sql.streaming.stateStore.providerClass -> org.apache.spark.sql.execution.streaming.state.HDFSBackedStateStoreProvider, spark.sql.streaming.stateStore.rocksdb.formatVersion -> 5, spark.sql.streaming.stateStore.encodingFormat -> unsaferow, spark.sql.streaming.statefulOperator.useStrictDistribution -> true, spark.sql.streaming.flatMapGroupsWithState.stateFormatVersion -> 2, spark.sql.streaming.multipleWatermarkPolicy -> min, spark.sql.streaming.aggregation.stateFormatVersion -> 2, spark.sql.shuffle.partitions -> 200, spark.sql.streaming.join.stateFormatVersion -> 2, spark.sql.streaming.stateStore.compression.codec -> lz4, spark.sql.optimizer.pruneFiltersCanPruneStreamingSubplan -> false))
+26/07/03 22:34:30 INFO CheckpointFileManager: Renamed temp file file:/tmp/checkpoint_q1/offsets/.0.2eebd3fb-4d2b-4eff-86ad-a542a3eaea52.tmp to file:/tmp/checkpoint_q1/offsets/0
+26/07/03 22:34:30 INFO MicroBatchExecution: Committed offsets for batch 0. Metadata OffsetSeqMetadata(0,1783098269988,HashMap(spark.sql.streaming.stateStore.providerClass -> org.apache.spark.sql.execution.streaming.state.HDFSBackedStateStoreProvider, spark.sql.streaming.stateStore.rocksdb.formatVersion -> 5, spark.sql.streaming.stateStore.encodingFormat -> unsaferow, spark.sql.streaming.statefulOperator.useStrictDistribution -> true, spark.sql.streaming.flatMapGroupsWithState.stateFormatVersion -> 2, spark.sql.streaming.multipleWatermarkPolicy -> min, spark.sql.streaming.aggregation.stateFormatVersion -> 2, spark.sql.shuffle.partitions -> 200, spark.sql.streaming.join.stateFormatVersion -> 2, spark.sql.streaming.stateStore.compression.codec -> lz4, spark.sql.optimizer.pruneFiltersCanPruneStreamingSubplan -> false))
+26/07/03 22:34:30 INFO CheckpointFileManager: Renamed temp file file:/tmp/checkpoint_q2/offsets/.0.1d130eef-4e8d-4caf-90ca-b80f93c47291.tmp to file:/tmp/checkpoint_q2/offsets/0
+26/07/03 22:34:30 INFO MicroBatchExecution: Committed offsets for batch 0. Metadata OffsetSeqMetadata(0,1783098269992,HashMap(spark.sql.streaming.stateStore.providerClass -> org.apache.spark.sql.execution.streaming.state.HDFSBackedStateStoreProvider, spark.sql.streaming.stateStore.rocksdb.formatVersion -> 5, spark.sql.streaming.stateStore.encodingFormat -> unsaferow, spark.sql.streaming.statefulOperator.useStrictDistribution -> true, spark.sql.streaming.flatMapGroupsWithState.stateFormatVersion -> 2, spark.sql.streaming.multipleWatermarkPolicy -> min, spark.sql.streaming.aggregation.stateFormatVersion -> 2, spark.sql.shuffle.partitions -> 200, spark.sql.streaming.join.stateFormatVersion -> 2, spark.sql.streaming.stateStore.compression.codec -> lz4, spark.sql.optimizer.pruneFiltersCanPruneStreamingSubplan -> false))
+26/07/03 22:34:30 INFO CodeGenerator: Code generated in 425.297399 ms
+26/07/03 22:34:30 ERROR MicroBatchExecution: Query [id = 8e6c4449-04e3-4be1-831e-1bb70dd29c0f, runId = 02100b69-b950-4d50-80b2-921c8c2eac15] terminated with error
+org.apache.spark.sql.execution.streaming.state.StateStoreKeySchemaNotCompatible: [STATE_STORE_KEY_SCHEMA_NOT_COMPATIBLE] Provided key schema does not match existing state key schema.
+Please check number and type of fields.
+Existing key_schema=StructType(StructField(window,StructType(StructField(start,TimestampType,true),StructField(end,TimestampType,true)),false),StructField(sensor_id,StringType,true)) and new key_schema=StructType(StructField(window_time,StructType(StructField(start,TimestampType,true),StructField(end,TimestampType,true)),false)).
+If you want to force running the query without schema validation, please set spark.sql.streaming.stateStore.stateSchemaCheck to false.
+However, please note that running the query with incompatible schema could cause non-deterministic behavior. SQLSTATE: XXKST
+	at org.apache.spark.sql.execution.streaming.state.StateStoreErrors$.stateStoreKeySchemaNotCompatible(StateStoreErrors.scala:152)
+	at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker.check(StateSchemaCompatibilityChecker.scala:206)
+	at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker.$anonfun$validateAndMaybeEvolveStateSchema$4(StateSchemaCompatibilityChecker.scala:277)
+	at scala.collection.LinearSeqOps.foldLeft(LinearSeq.scala:183)
+	at scala.collection.LinearSeqOps.foldLeft$(LinearSeq.scala:179)
+	at scala.collection.immutable.List.foldLeft(List.scala:79)
+	at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker.validateAndMaybeEvolveStateSchema(StateSchemaCompatibilityChecker.scala:272)
+	at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker$.$anonfun$validateAndMaybeEvolveStateSchema$8(StateSchemaCompatibilityChecker.scala:395)
+	at scala.runtime.java8.JFunction0$mcZ$sp.apply(JFunction0$mcZ$sp.scala:17)
+	at scala.util.Try$.apply(Try.scala:217)
+	at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker$.validateAndMaybeEvolveStateSchema(StateSchemaCompatibilityChecker.scala:393)
+	at org.apache.spark.sql.execution.streaming.operators.stateful.StateStoreSaveExec.validateAndMaybeEvolveStateSchema(statefulOperators.scala:781)
+	at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$StateSchemaAndOperatorMetadataRule$$anonfun$5.applyOrElse(IncrementalExecution.scala:244)
+	at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$StateSchemaAndOperatorMetadataRule$$anonfun$5.applyOrElse(IncrementalExecution.scala:230)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$1(TreeNode.scala:491)
+	at org.apache.spark.sql.catalyst.trees.CurrentOrigin$.withOrigin(origin.scala:107)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:491)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$3(TreeNode.scala:496)
+	at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren(TreeNode.scala:1264)
+	at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren$(TreeNode.scala:1263)
+	at org.apache.spark.sql.execution.aggregate.HashAggregateExec.mapChildren(HashAggregateExec.scala:51)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:496)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$3(TreeNode.scala:496)
+	at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren(TreeNode.scala:1264)
+	at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren$(TreeNode.scala:1263)
+	at org.apache.spark.sql.execution.datasources.v2.WriteToDataSourceV2Exec.mapChildren(WriteToDataSourceV2Exec.scala:352)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:496)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transformDown(TreeNode.scala:467)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transform(TreeNode.scala:435)
+	at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$$anon$2.apply(IncrementalExecution.scala:617)
+	at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$$anon$2.apply(IncrementalExecution.scala:538)
+	at org.apache.spark.sql.execution.QueryExecution$.$anonfun$prepareForExecution$1(QueryExecution.scala:638)
+	at scala.collection.LinearSeqOps.foldLeft(LinearSeq.scala:183)
+	at scala.collection.LinearSeqOps.foldLeft$(LinearSeq.scala:179)
+	at scala.collection.immutable.List.foldLeft(List.scala:79)
+	at org.apache.spark.sql.execution.QueryExecution$.prepareForExecution(QueryExecution.scala:637)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyExecutedPlan$2(QueryExecution.scala:285)
+	at org.apache.spark.sql.catalyst.QueryPlanningTracker.measurePhase(QueryPlanningTracker.scala:148)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$2(QueryExecution.scala:330)
+	at org.apache.spark.sql.execution.QueryExecution$.withInternalError(QueryExecution.scala:717)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$1(QueryExecution.scala:330)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+	at org.apache.spark.sql.execution.QueryExecution.executePhase(QueryExecution.scala:329)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyExecutedPlan$1(QueryExecution.scala:285)
+	at scala.util.Try$.apply(Try.scala:217)
+	at org.apache.spark.util.Utils$.doTryWithCallerStacktrace(Utils.scala:1392)
+	at org.apache.spark.util.Utils$.getTryWithCallerStacktrace(Utils.scala:1453)
+	at org.apache.spark.util.LazyTry.get(LazyTry.scala:58)
+	at org.apache.spark.sql.execution.QueryExecution.executedPlan(QueryExecution.scala:295)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runBatch$17(MicroBatchExecution.scala:1041)
+	at org.apache.spark.sql.execution.streaming.runtime.ProgressContext.reportTimeTaken(ProgressReporter.scala:200)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.runBatch(MicroBatchExecution.scala:1025)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$executeOneBatch$2(MicroBatchExecution.scala:516)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+	at org.apache.spark.sql.execution.streaming.runtime.ProgressContext.reportTimeTaken(ProgressReporter.scala:200)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.executeOneBatch(MicroBatchExecution.scala:481)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runActivatedStream$1(MicroBatchExecution.scala:461)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runActivatedStream$1$adapted(MicroBatchExecution.scala:461)
+	at org.apache.spark.sql.execution.streaming.runtime.TriggerExecutor.runOneBatch(TriggerExecutor.scala:40)
+	at org.apache.spark.sql.execution.streaming.runtime.TriggerExecutor.runOneBatch$(TriggerExecutor.scala:38)
+	at org.apache.spark.sql.execution.streaming.runtime.ProcessingTimeExecutor.runOneBatch(TriggerExecutor.scala:71)
+	at org.apache.spark.sql.execution.streaming.runtime.ProcessingTimeExecutor.execute(TriggerExecutor.scala:83)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.runActivatedStream(MicroBatchExecution.scala:461)
+	at org.apache.spark.sql.execution.streaming.runtime.StreamExecution.$anonfun$runStream$1(StreamExecution.scala:347)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+	at org.apache.spark.sql.execution.streaming.runtime.StreamExecution.org$apache$spark$sql$execution$streaming$runtime$StreamExecution$$runStream(StreamExecution.scala:307)
+	at org.apache.spark.sql.execution.streaming.runtime.StreamExecution$$anon$1.run(StreamExecution.scala:230)
+	Suppressed: org.apache.spark.util.Utils$OriginalTryStackTraceException: Full stacktrace of original doTryWithCallerStacktrace caller
+		at org.apache.spark.sql.execution.streaming.state.StateStoreErrors$.stateStoreKeySchemaNotCompatible(StateStoreErrors.scala:152)
+		at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker.check(StateSchemaCompatibilityChecker.scala:206)
+		at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker.$anonfun$validateAndMaybeEvolveStateSchema$4(StateSchemaCompatibilityChecker.scala:277)
+		at scala.collection.LinearSeqOps.foldLeft(LinearSeq.scala:183)
+		at scala.collection.LinearSeqOps.foldLeft$(LinearSeq.scala:179)
+		at scala.collection.immutable.List.foldLeft(List.scala:79)
+		at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker.validateAndMaybeEvolveStateSchema(StateSchemaCompatibilityChecker.scala:272)
+		at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker$.$anonfun$validateAndMaybeEvolveStateSchema$8(StateSchemaCompatibilityChecker.scala:395)
+		at scala.runtime.java8.JFunction0$mcZ$sp.apply(JFunction0$mcZ$sp.scala:17)
+		at scala.util.Try$.apply(Try.scala:217)
+		at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker$.validateAndMaybeEvolveStateSchema(StateSchemaCompatibilityChecker.scala:393)
+		at org.apache.spark.sql.execution.streaming.operators.stateful.StateStoreSaveExec.validateAndMaybeEvolveStateSchema(statefulOperators.scala:781)
+		at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$StateSchemaAndOperatorMetadataRule$$anonfun$5.applyOrElse(IncrementalExecution.scala:244)
+		at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$StateSchemaAndOperatorMetadataRule$$anonfun$5.applyOrElse(IncrementalExecution.scala:230)
+		at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$1(TreeNode.scala:491)
+		at org.apache.spark.sql.catalyst.trees.CurrentOrigin$.withOrigin(origin.scala:107)
+		at org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:491)
+		at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$3(TreeNode.scala:496)
+		at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren(TreeNode.scala:1264)
+		at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren$(TreeNode.scala:1263)
+		at org.apache.spark.sql.execution.aggregate.HashAggregateExec.mapChildren(HashAggregateExec.scala:51)
+		at org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:496)
+		at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$3(TreeNode.scala:496)
+		at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren(TreeNode.scala:1264)
+		at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren$(TreeNode.scala:1263)
+		at org.apache.spark.sql.execution.datasources.v2.WriteToDataSourceV2Exec.mapChildren(WriteToDataSourceV2Exec.scala:352)
+		at org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:496)
+		at org.apache.spark.sql.catalyst.trees.TreeNode.transformDown(TreeNode.scala:467)
+		at org.apache.spark.sql.catalyst.trees.TreeNode.transform(TreeNode.scala:435)
+		at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$$anon$2.apply(IncrementalExecution.scala:617)
+		at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$$anon$2.apply(IncrementalExecution.scala:538)
+		at org.apache.spark.sql.execution.QueryExecution$.$anonfun$prepareForExecution$1(QueryExecution.scala:638)
+		at scala.collection.LinearSeqOps.foldLeft(LinearSeq.scala:183)
+		at scala.collection.LinearSeqOps.foldLeft$(LinearSeq.scala:179)
+		at scala.collection.immutable.List.foldLeft(List.scala:79)
+		at org.apache.spark.sql.execution.QueryExecution$.prepareForExecution(QueryExecution.scala:637)
+		at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyExecutedPlan$2(QueryExecution.scala:285)
+		at org.apache.spark.sql.catalyst.QueryPlanningTracker.measurePhase(QueryPlanningTracker.scala:148)
+		at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$2(QueryExecution.scala:330)
+		at org.apache.spark.sql.execution.QueryExecution$.withInternalError(QueryExecution.scala:717)
+		at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$1(QueryExecution.scala:330)
+		at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+		at org.apache.spark.sql.execution.QueryExecution.executePhase(QueryExecution.scala:329)
+		at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyExecutedPlan$1(QueryExecution.scala:285)
+		at scala.util.Try$.apply(Try.scala:217)
+		at org.apache.spark.util.Utils$.doTryWithCallerStacktrace(Utils.scala:1392)
+		at org.apache.spark.util.LazyTry.tryT$lzycompute(LazyTry.scala:46)
+		at org.apache.spark.util.LazyTry.tryT(LazyTry.scala:46)
+		... 21 more
+26/07/03 22:34:30 ERROR MicroBatchExecution: Query [id = fb09ed03-8ed4-4e16-a7c4-38f27fcb7f05, runId = b0607f76-7bca-4b5c-9caf-642356f2fa13] terminated with error
+org.apache.spark.sql.execution.streaming.state.StateStoreValueSchemaNotCompatible: [STATE_STORE_VALUE_SCHEMA_NOT_COMPATIBLE] Provided value schema does not match existing state value schema.
+Please check number and type of fields.
+Existing value_schema=StructType(StructField(count,LongType,false)) and new value_schema=StructType(StructField(max,DoubleType,true)).
+If you want to force running the query without schema validation, please set spark.sql.streaming.stateStore.stateSchemaCheck to false.
+However, please note that running the query with incompatible schema could cause non-deterministic behavior. SQLSTATE: XXKST
+	at org.apache.spark.sql.execution.streaming.state.StateStoreErrors$.stateStoreValueSchemaNotCompatible(StateStoreErrors.scala:158)
+	at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker.check(StateSchemaCompatibilityChecker.scala:241)
+	at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker.$anonfun$validateAndMaybeEvolveStateSchema$4(StateSchemaCompatibilityChecker.scala:277)
+	at scala.collection.LinearSeqOps.foldLeft(LinearSeq.scala:183)
+	at scala.collection.LinearSeqOps.foldLeft$(LinearSeq.scala:179)
+	at scala.collection.immutable.List.foldLeft(List.scala:79)
+	at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker.validateAndMaybeEvolveStateSchema(StateSchemaCompatibilityChecker.scala:272)
+	at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker$.$anonfun$validateAndMaybeEvolveStateSchema$8(StateSchemaCompatibilityChecker.scala:395)
+	at scala.runtime.java8.JFunction0$mcZ$sp.apply(JFunction0$mcZ$sp.scala:17)
+	at scala.util.Try$.apply(Try.scala:217)
+	at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker$.validateAndMaybeEvolveStateSchema(StateSchemaCompatibilityChecker.scala:393)
+	at org.apache.spark.sql.execution.streaming.operators.stateful.StateStoreSaveExec.validateAndMaybeEvolveStateSchema(statefulOperators.scala:781)
+	at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$StateSchemaAndOperatorMetadataRule$$anonfun$5.applyOrElse(IncrementalExecution.scala:244)
+	at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$StateSchemaAndOperatorMetadataRule$$anonfun$5.applyOrElse(IncrementalExecution.scala:230)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$1(TreeNode.scala:491)
+	at org.apache.spark.sql.catalyst.trees.CurrentOrigin$.withOrigin(origin.scala:107)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:491)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$3(TreeNode.scala:496)
+	at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren(TreeNode.scala:1264)
+	at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren$(TreeNode.scala:1263)
+	at org.apache.spark.sql.execution.aggregate.HashAggregateExec.mapChildren(HashAggregateExec.scala:51)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:496)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$3(TreeNode.scala:496)
+	at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren(TreeNode.scala:1264)
+	at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren$(TreeNode.scala:1263)
+	at org.apache.spark.sql.execution.datasources.v2.WriteToDataSourceV2Exec.mapChildren(WriteToDataSourceV2Exec.scala:352)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:496)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transformDown(TreeNode.scala:467)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transform(TreeNode.scala:435)
+	at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$$anon$2.apply(IncrementalExecution.scala:617)
+	at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$$anon$2.apply(IncrementalExecution.scala:538)
+	at org.apache.spark.sql.execution.QueryExecution$.$anonfun$prepareForExecution$1(QueryExecution.scala:638)
+	at scala.collection.LinearSeqOps.foldLeft(LinearSeq.scala:183)
+	at scala.collection.LinearSeqOps.foldLeft$(LinearSeq.scala:179)
+	at scala.collection.immutable.List.foldLeft(List.scala:79)
+	at org.apache.spark.sql.execution.QueryExecution$.prepareForExecution(QueryExecution.scala:637)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyExecutedPlan$2(QueryExecution.scala:285)
+	at org.apache.spark.sql.catalyst.QueryPlanningTracker.measurePhase(QueryPlanningTracker.scala:148)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$2(QueryExecution.scala:330)
+	at org.apache.spark.sql.execution.QueryExecution$.withInternalError(QueryExecution.scala:717)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$1(QueryExecution.scala:330)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+	at org.apache.spark.sql.execution.QueryExecution.executePhase(QueryExecution.scala:329)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyExecutedPlan$1(QueryExecution.scala:285)
+	at scala.util.Try$.apply(Try.scala:217)
+	at org.apache.spark.util.Utils$.doTryWithCallerStacktrace(Utils.scala:1392)
+	at org.apache.spark.util.Utils$.getTryWithCallerStacktrace(Utils.scala:1453)
+	at org.apache.spark.util.LazyTry.get(LazyTry.scala:58)
+	at org.apache.spark.sql.execution.QueryExecution.executedPlan(QueryExecution.scala:295)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runBatch$17(MicroBatchExecution.scala:1041)
+	at org.apache.spark.sql.execution.streaming.runtime.ProgressContext.reportTimeTaken(ProgressReporter.scala:200)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.runBatch(MicroBatchExecution.scala:1025)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$executeOneBatch$2(MicroBatchExecution.scala:516)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+	at org.apache.spark.sql.execution.streaming.runtime.ProgressContext.reportTimeTaken(ProgressReporter.scala:200)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.executeOneBatch(MicroBatchExecution.scala:481)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runActivatedStream$1(MicroBatchExecution.scala:461)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runActivatedStream$1$adapted(MicroBatchExecution.scala:461)
+	at org.apache.spark.sql.execution.streaming.runtime.TriggerExecutor.runOneBatch(TriggerExecutor.scala:40)
+	at org.apache.spark.sql.execution.streaming.runtime.TriggerExecutor.runOneBatch$(TriggerExecutor.scala:38)
+	at org.apache.spark.sql.execution.streaming.runtime.ProcessingTimeExecutor.runOneBatch(TriggerExecutor.scala:71)
+	at org.apache.spark.sql.execution.streaming.runtime.ProcessingTimeExecutor.execute(TriggerExecutor.scala:83)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.runActivatedStream(MicroBatchExecution.scala:461)
+	at org.apache.spark.sql.execution.streaming.runtime.StreamExecution.$anonfun$runStream$1(StreamExecution.scala:347)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+	at org.apache.spark.sql.execution.streaming.runtime.StreamExecution.org$apache$spark$sql$execution$streaming$runtime$StreamExecution$$runStream(StreamExecution.scala:307)
+	at org.apache.spark.sql.execution.streaming.runtime.StreamExecution$$anon$1.run(StreamExecution.scala:230)
+	Suppressed: org.apache.spark.util.Utils$OriginalTryStackTraceException: Full stacktrace of original doTryWithCallerStacktrace caller
+		at org.apache.spark.sql.execution.streaming.state.StateStoreErrors$.stateStoreValueSchemaNotCompatible(StateStoreErrors.scala:158)
+		at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker.check(StateSchemaCompatibilityChecker.scala:241)
+		at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker.$anonfun$validateAndMaybeEvolveStateSchema$4(StateSchemaCompatibilityChecker.scala:277)
+		at scala.collection.LinearSeqOps.foldLeft(LinearSeq.scala:183)
+		at scala.collection.LinearSeqOps.foldLeft$(LinearSeq.scala:179)
+		at scala.collection.immutable.List.foldLeft(List.scala:79)
+		at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker.validateAndMaybeEvolveStateSchema(StateSchemaCompatibilityChecker.scala:272)
+		at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker$.$anonfun$validateAndMaybeEvolveStateSchema$8(StateSchemaCompatibilityChecker.scala:395)
+		at scala.runtime.java8.JFunction0$mcZ$sp.apply(JFunction0$mcZ$sp.scala:17)
+		at scala.util.Try$.apply(Try.scala:217)
+		at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker$.validateAndMaybeEvolveStateSchema(StateSchemaCompatibilityChecker.scala:393)
+		at org.apache.spark.sql.execution.streaming.operators.stateful.StateStoreSaveExec.validateAndMaybeEvolveStateSchema(statefulOperators.scala:781)
+		at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$StateSchemaAndOperatorMetadataRule$$anonfun$5.applyOrElse(IncrementalExecution.scala:244)
+		at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$StateSchemaAndOperatorMetadataRule$$anonfun$5.applyOrElse(IncrementalExecution.scala:230)
+		at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$1(TreeNode.scala:491)
+		at org.apache.spark.sql.catalyst.trees.CurrentOrigin$.withOrigin(origin.scala:107)
+		at org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:491)
+		at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$3(TreeNode.scala:496)
+		at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren(TreeNode.scala:1264)
+		at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren$(TreeNode.scala:1263)
+		at org.apache.spark.sql.execution.aggregate.HashAggregateExec.mapChildren(HashAggregateExec.scala:51)
+		at org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:496)
+		at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$3(TreeNode.scala:496)
+		at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren(TreeNode.scala:1264)
+		at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren$(TreeNode.scala:1263)
+		at org.apache.spark.sql.execution.datasources.v2.WriteToDataSourceV2Exec.mapChildren(WriteToDataSourceV2Exec.scala:352)
+		at org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:496)
+		at org.apache.spark.sql.catalyst.trees.TreeNode.transformDown(TreeNode.scala:467)
+		at org.apache.spark.sql.catalyst.trees.TreeNode.transform(TreeNode.scala:435)
+		at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$$anon$2.apply(IncrementalExecution.scala:617)
+		at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$$anon$2.apply(IncrementalExecution.scala:538)
+		at org.apache.spark.sql.execution.QueryExecution$.$anonfun$prepareForExecution$1(QueryExecution.scala:638)
+		at scala.collection.LinearSeqOps.foldLeft(LinearSeq.scala:183)
+		at scala.collection.LinearSeqOps.foldLeft$(LinearSeq.scala:179)
+		at scala.collection.immutable.List.foldLeft(List.scala:79)
+		at org.apache.spark.sql.execution.QueryExecution$.prepareForExecution(QueryExecution.scala:637)
+		at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyExecutedPlan$2(QueryExecution.scala:285)
+		at org.apache.spark.sql.catalyst.QueryPlanningTracker.measurePhase(QueryPlanningTracker.scala:148)
+		at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$2(QueryExecution.scala:330)
+		at org.apache.spark.sql.execution.QueryExecution$.withInternalError(QueryExecution.scala:717)
+		at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$1(QueryExecution.scala:330)
+		at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+		at org.apache.spark.sql.execution.QueryExecution.executePhase(QueryExecution.scala:329)
+		at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyExecutedPlan$1(QueryExecution.scala:285)
+		at scala.util.Try$.apply(Try.scala:217)
+		at org.apache.spark.util.Utils$.doTryWithCallerStacktrace(Utils.scala:1392)
+		at org.apache.spark.util.LazyTry.tryT$lzycompute(LazyTry.scala:46)
+		at org.apache.spark.util.LazyTry.tryT(LazyTry.scala:46)
+		... 21 more
+26/07/03 22:34:30 ERROR MicroBatchExecution: Query [id = 9fbd19d7-4c65-44ea-a238-3ac13200e72d, runId = b44316b0-5c95-4939-aa6a-a6534d8e7ce6] terminated with error
+org.apache.spark.sql.execution.streaming.state.StateStoreKeySchemaNotCompatible: [STATE_STORE_KEY_SCHEMA_NOT_COMPATIBLE] Provided key schema does not match existing state key schema.
+Please check number and type of fields.
+Existing key_schema=StructType(StructField(window_time,StructType(StructField(start,TimestampType,true),StructField(end,TimestampType,true)),false)) and new key_schema=StructType(StructField(sensor_id,StringType,true)).
+If you want to force running the query without schema validation, please set spark.sql.streaming.stateStore.stateSchemaCheck to false.
+However, please note that running the query with incompatible schema could cause non-deterministic behavior. SQLSTATE: XXKST
+	at org.apache.spark.sql.execution.streaming.state.StateStoreErrors$.stateStoreKeySchemaNotCompatible(StateStoreErrors.scala:152)
+	at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker.check(StateSchemaCompatibilityChecker.scala:206)
+	at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker.$anonfun$validateAndMaybeEvolveStateSchema$4(StateSchemaCompatibilityChecker.scala:277)
+	at scala.collection.LinearSeqOps.foldLeft(LinearSeq.scala:183)
+	at scala.collection.LinearSeqOps.foldLeft$(LinearSeq.scala:179)
+	at scala.collection.immutable.List.foldLeft(List.scala:79)
+	at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker.validateAndMaybeEvolveStateSchema(StateSchemaCompatibilityChecker.scala:272)
+	at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker$.$anonfun$validateAndMaybeEvolveStateSchema$8(StateSchemaCompatibilityChecker.scala:395)
+	at scala.runtime.java8.JFunction0$mcZ$sp.apply(JFunction0$mcZ$sp.scala:17)
+	at scala.util.Try$.apply(Try.scala:217)
+	at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker$.validateAndMaybeEvolveStateSchema(StateSchemaCompatibilityChecker.scala:393)
+	at org.apache.spark.sql.execution.streaming.operators.stateful.StateStoreSaveExec.validateAndMaybeEvolveStateSchema(statefulOperators.scala:781)
+	at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$StateSchemaAndOperatorMetadataRule$$anonfun$5.applyOrElse(IncrementalExecution.scala:244)
+	at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$StateSchemaAndOperatorMetadataRule$$anonfun$5.applyOrElse(IncrementalExecution.scala:230)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$1(TreeNode.scala:491)
+	at org.apache.spark.sql.catalyst.trees.CurrentOrigin$.withOrigin(origin.scala:107)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:491)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$3(TreeNode.scala:496)
+	at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren(TreeNode.scala:1264)
+	at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren$(TreeNode.scala:1263)
+	at org.apache.spark.sql.execution.aggregate.HashAggregateExec.mapChildren(HashAggregateExec.scala:51)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:496)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$3(TreeNode.scala:496)
+	at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren(TreeNode.scala:1264)
+	at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren$(TreeNode.scala:1263)
+	at org.apache.spark.sql.execution.datasources.v2.WriteToDataSourceV2Exec.mapChildren(WriteToDataSourceV2Exec.scala:352)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:496)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transformDown(TreeNode.scala:467)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transform(TreeNode.scala:435)
+	at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$$anon$2.apply(IncrementalExecution.scala:617)
+	at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$$anon$2.apply(IncrementalExecution.scala:538)
+	at org.apache.spark.sql.execution.QueryExecution$.$anonfun$prepareForExecution$1(QueryExecution.scala:638)
+	at scala.collection.LinearSeqOps.foldLeft(LinearSeq.scala:183)
+	at scala.collection.LinearSeqOps.foldLeft$(LinearSeq.scala:179)
+	at scala.collection.immutable.List.foldLeft(List.scala:79)
+	at org.apache.spark.sql.execution.QueryExecution$.prepareForExecution(QueryExecution.scala:637)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyExecutedPlan$2(QueryExecution.scala:285)
+	at org.apache.spark.sql.catalyst.QueryPlanningTracker.measurePhase(QueryPlanningTracker.scala:148)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$2(QueryExecution.scala:330)
+	at org.apache.spark.sql.execution.QueryExecution$.withInternalError(QueryExecution.scala:717)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$1(QueryExecution.scala:330)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+	at org.apache.spark.sql.execution.QueryExecution.executePhase(QueryExecution.scala:329)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyExecutedPlan$1(QueryExecution.scala:285)
+	at scala.util.Try$.apply(Try.scala:217)
+	at org.apache.spark.util.Utils$.doTryWithCallerStacktrace(Utils.scala:1392)
+	at org.apache.spark.util.Utils$.getTryWithCallerStacktrace(Utils.scala:1453)
+	at org.apache.spark.util.LazyTry.get(LazyTry.scala:58)
+	at org.apache.spark.sql.execution.QueryExecution.executedPlan(QueryExecution.scala:295)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runBatch$17(MicroBatchExecution.scala:1041)
+	at org.apache.spark.sql.execution.streaming.runtime.ProgressContext.reportTimeTaken(ProgressReporter.scala:200)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.runBatch(MicroBatchExecution.scala:1025)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$executeOneBatch$2(MicroBatchExecution.scala:516)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+	at org.apache.spark.sql.execution.streaming.runtime.ProgressContext.reportTimeTaken(ProgressReporter.scala:200)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.executeOneBatch(MicroBatchExecution.scala:481)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runActivatedStream$1(MicroBatchExecution.scala:461)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runActivatedStream$1$adapted(MicroBatchExecution.scala:461)
+	at org.apache.spark.sql.execution.streaming.runtime.TriggerExecutor.runOneBatch(TriggerExecutor.scala:40)
+	at org.apache.spark.sql.execution.streaming.runtime.TriggerExecutor.runOneBatch$(TriggerExecutor.scala:38)
+	at org.apache.spark.sql.execution.streaming.runtime.ProcessingTimeExecutor.runOneBatch(TriggerExecutor.scala:71)
+	at org.apache.spark.sql.execution.streaming.runtime.ProcessingTimeExecutor.execute(TriggerExecutor.scala:83)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.runActivatedStream(MicroBatchExecution.scala:461)
+	at org.apache.spark.sql.execution.streaming.runtime.StreamExecution.$anonfun$runStream$1(StreamExecution.scala:347)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+	at org.apache.spark.sql.execution.streaming.runtime.StreamExecution.org$apache$spark$sql$execution$streaming$runtime$StreamExecution$$runStream(StreamExecution.scala:307)
+	at org.apache.spark.sql.execution.streaming.runtime.StreamExecution$$anon$1.run(StreamExecution.scala:230)
+	Suppressed: org.apache.spark.util.Utils$OriginalTryStackTraceException: Full stacktrace of original doTryWithCallerStacktrace caller
+		at org.apache.spark.sql.execution.streaming.state.StateStoreErrors$.stateStoreKeySchemaNotCompatible(StateStoreErrors.scala:152)
+		at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker.check(StateSchemaCompatibilityChecker.scala:206)
+		at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker.$anonfun$validateAndMaybeEvolveStateSchema$4(StateSchemaCompatibilityChecker.scala:277)
+		at scala.collection.LinearSeqOps.foldLeft(LinearSeq.scala:183)
+		at scala.collection.LinearSeqOps.foldLeft$(LinearSeq.scala:179)
+		at scala.collection.immutable.List.foldLeft(List.scala:79)
+		at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker.validateAndMaybeEvolveStateSchema(StateSchemaCompatibilityChecker.scala:272)
+		at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker$.$anonfun$validateAndMaybeEvolveStateSchema$8(StateSchemaCompatibilityChecker.scala:395)
+		at scala.runtime.java8.JFunction0$mcZ$sp.apply(JFunction0$mcZ$sp.scala:17)
+		at scala.util.Try$.apply(Try.scala:217)
+		at org.apache.spark.sql.execution.streaming.state.StateSchemaCompatibilityChecker$.validateAndMaybeEvolveStateSchema(StateSchemaCompatibilityChecker.scala:393)
+		at org.apache.spark.sql.execution.streaming.operators.stateful.StateStoreSaveExec.validateAndMaybeEvolveStateSchema(statefulOperators.scala:781)
+		at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$StateSchemaAndOperatorMetadataRule$$anonfun$5.applyOrElse(IncrementalExecution.scala:244)
+		at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$StateSchemaAndOperatorMetadataRule$$anonfun$5.applyOrElse(IncrementalExecution.scala:230)
+		at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$1(TreeNode.scala:491)
+		at org.apache.spark.sql.catalyst.trees.CurrentOrigin$.withOrigin(origin.scala:107)
+		at org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:491)
+		at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$3(TreeNode.scala:496)
+		at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren(TreeNode.scala:1264)
+		at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren$(TreeNode.scala:1263)
+		at org.apache.spark.sql.execution.aggregate.HashAggregateExec.mapChildren(HashAggregateExec.scala:51)
+		at org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:496)
+		at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$3(TreeNode.scala:496)
+		at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren(TreeNode.scala:1264)
+		at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren$(TreeNode.scala:1263)
+		at org.apache.spark.sql.execution.datasources.v2.WriteToDataSourceV2Exec.mapChildren(WriteToDataSourceV2Exec.scala:352)
+		at org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:496)
+		at org.apache.spark.sql.catalyst.trees.TreeNode.transformDown(TreeNode.scala:467)
+		at org.apache.spark.sql.catalyst.trees.TreeNode.transform(TreeNode.scala:435)
+		at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$$anon$2.apply(IncrementalExecution.scala:617)
+		at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$$anon$2.apply(IncrementalExecution.scala:538)
+		at org.apache.spark.sql.execution.QueryExecution$.$anonfun$prepareForExecution$1(QueryExecution.scala:638)
+		at scala.collection.LinearSeqOps.foldLeft(LinearSeq.scala:183)
+		at scala.collection.LinearSeqOps.foldLeft$(LinearSeq.scala:179)
+		at scala.collection.immutable.List.foldLeft(List.scala:79)
+		at org.apache.spark.sql.execution.QueryExecution$.prepareForExecution(QueryExecution.scala:637)
+		at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyExecutedPlan$2(QueryExecution.scala:285)
+		at org.apache.spark.sql.catalyst.QueryPlanningTracker.measurePhase(QueryPlanningTracker.scala:148)
+		at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$2(QueryExecution.scala:330)
+		at org.apache.spark.sql.execution.QueryExecution$.withInternalError(QueryExecution.scala:717)
+		at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$1(QueryExecution.scala:330)
+		at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+		at org.apache.spark.sql.execution.QueryExecution.executePhase(QueryExecution.scala:329)
+		at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyExecutedPlan$1(QueryExecution.scala:285)
+		at scala.util.Try$.apply(Try.scala:217)
+		at org.apache.spark.util.Utils$.doTryWithCallerStacktrace(Utils.scala:1392)
+		at org.apache.spark.util.LazyTry.tryT$lzycompute(LazyTry.scala:46)
+		at org.apache.spark.util.LazyTry.tryT(LazyTry.scala:46)
+		... 21 more
+26/07/03 22:34:30 INFO MicroBatchExecution: Async log purge executor pool for query [id = fb09ed03-8ed4-4e16-a7c4-38f27fcb7f05, runId = b0607f76-7bca-4b5c-9caf-642356f2fa13] has been shutdown
+26/07/03 22:34:30 INFO MicroBatchExecution: Async log purge executor pool for query [id = 9fbd19d7-4c65-44ea-a238-3ac13200e72d, runId = b44316b0-5c95-4939-aa6a-a6534d8e7ce6] has been shutdown
+26/07/03 22:34:30 INFO MicroBatchExecution: Async log purge executor pool for query [id = 8e6c4449-04e3-4be1-831e-1bb70dd29c0f, runId = 02100b69-b950-4d50-80b2-921c8c2eac15] has been shutdown
+26/07/03 22:34:30 INFO CheckpointFileManager: Writing atomically to file:/tmp/checkpoint_q1/state/0/0/_metadata/schema using temp file file:/tmp/checkpoint_q1/state/0/0/_metadata/.schema.f6504291-bf6a-4d21-82cc-3d03d830f753.tmp
+26/07/03 22:34:30 INFO CheckpointFileManager: Writing atomically to file:/tmp/checkpoint_q2/state/0/0/_metadata/schema using temp file file:/tmp/checkpoint_q2/state/0/0/_metadata/.schema.3e9e040e-bb4a-4b6a-9e33-46db8fed9cbc.tmp
+26/07/03 22:34:30 INFO CheckpointFileManager: Renamed temp file file:/tmp/checkpoint_q2/state/0/0/_metadata/.schema.3e9e040e-bb4a-4b6a-9e33-46db8fed9cbc.tmp to file:/tmp/checkpoint_q2/state/0/0/_metadata/schema
+26/07/03 22:34:30 INFO CheckpointFileManager: Renamed temp file file:/tmp/checkpoint_q1/state/0/0/_metadata/.schema.f6504291-bf6a-4d21-82cc-3d03d830f753.tmp to file:/tmp/checkpoint_q1/state/0/0/_metadata/schema
+26/07/03 22:34:30 INFO CheckpointFileManager: Writing atomically to file:/tmp/checkpoint_q2/state/0/_metadata/metadata using temp file file:/tmp/checkpoint_q2/state/0/_metadata/.metadata.2a20f78d-5e1d-45b3-a853-cd59e4ea2b3e.tmp
+26/07/03 22:34:30 INFO CheckpointFileManager: Writing atomically to file:/tmp/checkpoint_q1/state/0/_metadata/metadata using temp file file:/tmp/checkpoint_q1/state/0/_metadata/.metadata.3b6648d1-35d3-4415-9aef-5953639a1556.tmp
+Error in main: [STREAM_FAILED] Query [id = 9fbd19d7-4c65-44ea-a238-3ac13200e72d, runId = b44316b0-5c95-4939-aa6a-a6534d8e7ce6] terminated with exception: [STATE_STORE_KEY_SCHEMA_NOT_COMPATIBLE] Provided key schema does not match existing state key schema.
+Please check number and type of fields.
+Existing key_schema=StructType(StructField(window_time,StructType(StructField(start,TimestampType,true),StructField(end,TimestampType,true)),false)) and new key_schema=StructType(StructField(sensor_id,StringType,true)).
+If you want to force running the query without schema validation, please set spark.sql.streaming.stateStore.stateSchemaCheck to false.
+However, please note that running the query with incompatible schema could cause non-deterministic behavior. SQLSTATE: XXKST SQLSTATE: XXKST
+=== Streaming Query ===
+Identifier: [id = 9fbd19d7-4c65-44ea-a238-3ac13200e72d, runId = b44316b0-5c95-4939-aa6a-a6534d8e7ce6]
+Current Committed Offsets: {KafkaV2[Subscribe[sensor_DA25M622]]: {"sensor_DA25M622":{"0":980,"1":0,"2":1020}}}
+Current Available Offsets: {KafkaV2[Subscribe[sensor_DA25M622]]: {"sensor_DA25M622":{"0":980,"1":0,"2":1020}}}
+
+Current State: ACTIVE
+Thread State: RUNNABLE
+
+Logical Plan:
+~WriteToMicroBatchDataSource org.apache.spark.sql.execution.streaming.ConsoleTable$@54479cf3, 9fbd19d7-4c65-44ea-a238-3ac13200e72d, [numRows=10, truncate=false, checkpointLocation=/tmp/checkpoint_q4], Update
++- ~Aggregate [sensor_id#15], [sensor_id#15, avg(temperature#20) AS avg_temperature#24]
+   +- ~Project [sensor_id#15, temperature#20, timestamp#19, status#18, hour_of_day#21, day_of_week#22, CASE WHEN ((day_of_week#22 = 1) OR (day_of_week#22 = 7)) THEN 1 ELSE 0 END AS is_weekend#23]
+      +- ~Project [sensor_id#15, temperature#20, timestamp#19, status#18, hour_of_day#21, dayofweek(cast(timestamp#19 as date)) AS day_of_week#22]
+         +- ~Project [sensor_id#15, temperature#20, timestamp#19, status#18, hour(timestamp#19, Some(Asia/Kolkata)) AS hour_of_day#21]
+            +- ~Filter isnotnull(temperature#20)
+               +- ~Project [sensor_id#15, CASE WHEN isnull(temperature#16) THEN 25.0 ELSE temperature#16 END AS temperature#20, timestamp#19, status#18]
+                  +- ~Deduplicate [sensor_id#15, timestamp#19]
+                     +- ~Filter (((temperature#16 >= cast(-20 as double)) AND (temperature#16 <= cast(100 as double))) AND NOT isnull(timestamp#19))
+                        +- ~Project [sensor_id#15, temperature#16, try_to_timestamp(timestamp#17, Some(yyyy-MM-dd HH:mm:ss), TimestampType, Some(Asia/Kolkata), false) AS timestamp#19, status#18]
+                           +- ~Project [data#14.sensor_id AS sensor_id#15, data#14.temperature AS temperature#16, data#14.timestamp AS timestamp#17, data#14.status AS status#18]
+                              +- ~Project [from_json(StructField(sensor_id,StringType,false), StructField(temperature,DoubleType,true), StructField(timestamp,StringType,false), StructField(status,StringType,false), cast(value#8 as string), Some(Asia/Kolkata), false) AS data#14]
+                                 +- ~StreamingDataSourceV2ScanRelation[key#7, value#8, topic#9, partition#10, offset#11L, timestamp#12, timestampType#13] KafkaTable
+
+Traceback (most recent call last):
+  File "/home/sohang/Projects/iit-madras-web-mtech-ai/trimester3/DA5402W_MLOPS/assignments/Assignment1/spark_streaming.py", line 336, in main
+    spark.streams.awaitAnyTermination(timeout=60)  # Stop after 60 seconds
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/home/sohang/Projects/iit-madras-web-mtech-ai/.venv/lib/python3.14/site-packages/pyspark/python/lib/pyspark.zip/pyspark/sql/streaming/query.py", line 601, in awaitAnyTermination
+    return self._jsqm.awaitAnyTermination(int(timeout * 1000))
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sohang/Projects/iit-madras-web-mtech-ai/.venv/lib/python3.14/site-packages/pyspark/python/lib/py4j-0.10.9.9-src.zip/py4j/java_gateway.py", line 1362, in __call__
+    return_value = get_return_value(
+        answer, self.gateway_client, self.target_id, self.name)
+  File "/home/sohang/Projects/iit-madras-web-mtech-ai/.venv/lib/python3.14/site-packages/pyspark/python/lib/pyspark.zip/pyspark/errors/exceptions/captured.py", line 269, in deco
+    raise converted from None
+pyspark.errors.exceptions.captured.StreamingQueryException: [STREAM_FAILED] Query [id = 9fbd19d7-4c65-44ea-a238-3ac13200e72d, runId = b44316b0-5c95-4939-aa6a-a6534d8e7ce6] terminated with exception: [STATE_STORE_KEY_SCHEMA_NOT_COMPATIBLE] Provided key schema does not match existing state key schema.
+Please check number and type of fields.
+Existing key_schema=StructType(StructField(window_time,StructType(StructField(start,TimestampType,true),StructField(end,TimestampType,true)),false)) and new key_schema=StructType(StructField(sensor_id,StringType,true)).
+If you want to force running the query without schema validation, please set spark.sql.streaming.stateStore.stateSchemaCheck to false.
+However, please note that running the query with incompatible schema could cause non-deterministic behavior. SQLSTATE: XXKST SQLSTATE: XXKST
+=== Streaming Query ===
+Identifier: [id = 9fbd19d7-4c65-44ea-a238-3ac13200e72d, runId = b44316b0-5c95-4939-aa6a-a6534d8e7ce6]
+Current Committed Offsets: {KafkaV2[Subscribe[sensor_DA25M622]]: {"sensor_DA25M622":{"0":980,"1":0,"2":1020}}}
+Current Available Offsets: {KafkaV2[Subscribe[sensor_DA25M622]]: {"sensor_DA25M622":{"0":980,"1":0,"2":1020}}}
+
+Current State: ACTIVE
+Thread State: RUNNABLE
+
+Logical Plan:
+~WriteToMicroBatchDataSource org.apache.spark.sql.execution.streaming.ConsoleTable$@54479cf3, 9fbd19d7-4c65-44ea-a238-3ac13200e72d, [numRows=10, truncate=false, checkpointLocation=/tmp/checkpoint_q4], Update
++- ~Aggregate [sensor_id#15], [sensor_id#15, avg(temperature#20) AS avg_temperature#24]
+   +- ~Project [sensor_id#15, temperature#20, timestamp#19, status#18, hour_of_day#21, day_of_week#22, CASE WHEN ((day_of_week#22 = 1) OR (day_of_week#22 = 7)) THEN 1 ELSE 0 END AS is_weekend#23]
+      +- ~Project [sensor_id#15, temperature#20, timestamp#19, status#18, hour_of_day#21, dayofweek(cast(timestamp#19 as date)) AS day_of_week#22]
+         +- ~Project [sensor_id#15, temperature#20, timestamp#19, status#18, hour(timestamp#19, Some(Asia/Kolkata)) AS hour_of_day#21]
+            +- ~Filter isnotnull(temperature#20)
+               +- ~Project [sensor_id#15, CASE WHEN isnull(temperature#16) THEN 25.0 ELSE temperature#16 END AS temperature#20, timestamp#19, status#18]
+                  +- ~Deduplicate [sensor_id#15, timestamp#19]
+                     +- ~Filter (((temperature#16 >= cast(-20 as double)) AND (temperature#16 <= cast(100 as double))) AND NOT isnull(timestamp#19))
+                        +- ~Project [sensor_id#15, temperature#16, try_to_timestamp(timestamp#17, Some(yyyy-MM-dd HH:mm:ss), TimestampType, Some(Asia/Kolkata), false) AS timestamp#19, status#18]
+                           +- ~Project [data#14.sensor_id AS sensor_id#15, data#14.temperature AS temperature#16, data#14.timestamp AS timestamp#17, data#14.status AS status#18]
+                              +- ~Project [from_json(StructField(sensor_id,StringType,false), StructField(temperature,DoubleType,true), StructField(timestamp,StringType,false), StructField(status,StringType,false), cast(value#8 as string), Some(Asia/Kolkata), false) AS data#14]
+                                 +- ~StreamingDataSourceV2ScanRelation[key#7, value#8, topic#9, partition#10, offset#11L, timestamp#12, timestampType#13] KafkaTable
+
+26/07/03 22:34:30 INFO SparkContext: SparkContext is stopping with exitCode 0 from stop at NativeMethodAccessorImpl.java:0.
+26/07/03 22:34:30 INFO CheckpointFileManager: Renamed temp file file:/tmp/checkpoint_q2/state/0/_metadata/.metadata.2a20f78d-5e1d-45b3-a853-cd59e4ea2b3e.tmp to file:/tmp/checkpoint_q2/state/0/_metadata/metadata
+26/07/03 22:34:30 INFO CheckpointFileManager: Renamed temp file file:/tmp/checkpoint_q1/state/0/_metadata/.metadata.3b6648d1-35d3-4415-9aef-5953639a1556.tmp to file:/tmp/checkpoint_q1/state/0/_metadata/metadata
+26/07/03 22:34:30 ERROR MicroBatchExecution: Query [id = 172b0fae-4837-4e3e-9112-1e93a4d8221a, runId = a94a470c-c9e9-4f3a-8e44-43775dd01994] terminated with error
+org.apache.spark.SparkException: [INTERNAL_ERROR] The Spark SQL phase planning failed with an internal error. You hit a bug in Spark or the Spark plugins you use. Please, report this bug to the corresponding communities or vendors, and provide the full stack trace. SQLSTATE: XX000
+	at org.apache.spark.SparkException$.internalError(SparkException.scala:107)
+	at org.apache.spark.sql.execution.QueryExecution$.toInternalError(QueryExecution.scala:706)
+	at org.apache.spark.sql.execution.QueryExecution$.withInternalError(QueryExecution.scala:719)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$1(QueryExecution.scala:330)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+	at org.apache.spark.sql.execution.QueryExecution.executePhase(QueryExecution.scala:329)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyExecutedPlan$1(QueryExecution.scala:285)
+	at scala.util.Try$.apply(Try.scala:217)
+	at org.apache.spark.util.Utils$.doTryWithCallerStacktrace(Utils.scala:1392)
+	at org.apache.spark.util.Utils$.getTryWithCallerStacktrace(Utils.scala:1453)
+	at org.apache.spark.util.LazyTry.get(LazyTry.scala:58)
+	at org.apache.spark.sql.execution.QueryExecution.executedPlan(QueryExecution.scala:295)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runBatch$17(MicroBatchExecution.scala:1041)
+	at org.apache.spark.sql.execution.streaming.runtime.ProgressContext.reportTimeTaken(ProgressReporter.scala:200)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.runBatch(MicroBatchExecution.scala:1025)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$executeOneBatch$2(MicroBatchExecution.scala:516)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+	at org.apache.spark.sql.execution.streaming.runtime.ProgressContext.reportTimeTaken(ProgressReporter.scala:200)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.executeOneBatch(MicroBatchExecution.scala:481)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runActivatedStream$1(MicroBatchExecution.scala:461)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runActivatedStream$1$adapted(MicroBatchExecution.scala:461)
+	at org.apache.spark.sql.execution.streaming.runtime.TriggerExecutor.runOneBatch(TriggerExecutor.scala:40)
+	at org.apache.spark.sql.execution.streaming.runtime.TriggerExecutor.runOneBatch$(TriggerExecutor.scala:38)
+	at org.apache.spark.sql.execution.streaming.runtime.ProcessingTimeExecutor.runOneBatch(TriggerExecutor.scala:71)
+	at org.apache.spark.sql.execution.streaming.runtime.ProcessingTimeExecutor.execute(TriggerExecutor.scala:83)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.runActivatedStream(MicroBatchExecution.scala:461)
+	at org.apache.spark.sql.execution.streaming.runtime.StreamExecution.$anonfun$runStream$1(StreamExecution.scala:347)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+	at org.apache.spark.sql.execution.streaming.runtime.StreamExecution.org$apache$spark$sql$execution$streaming$runtime$StreamExecution$$runStream(StreamExecution.scala:307)
+	at org.apache.spark.sql.execution.streaming.runtime.StreamExecution$$anon$1.run(StreamExecution.scala:230)
+	Suppressed: org.apache.spark.util.Utils$OriginalTryStackTraceException: Full stacktrace of original doTryWithCallerStacktrace caller
+		at org.apache.spark.SparkException$.internalError(SparkException.scala:107)
+		at org.apache.spark.sql.execution.QueryExecution$.toInternalError(QueryExecution.scala:706)
+		at org.apache.spark.sql.execution.QueryExecution$.withInternalError(QueryExecution.scala:719)
+		at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$1(QueryExecution.scala:330)
+		at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+		at org.apache.spark.sql.execution.QueryExecution.executePhase(QueryExecution.scala:329)
+		at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyExecutedPlan$1(QueryExecution.scala:285)
+		at scala.util.Try$.apply(Try.scala:217)
+		at org.apache.spark.util.Utils$.doTryWithCallerStacktrace(Utils.scala:1392)
+		at org.apache.spark.util.LazyTry.tryT$lzycompute(LazyTry.scala:46)
+		at org.apache.spark.util.LazyTry.tryT(LazyTry.scala:46)
+		... 21 more
+Caused by: java.lang.NullPointerException: Cannot invoke "org.apache.spark.sql.classic.SparkSession.sparkContext()" because the return value of "org.apache.spark.sql.execution.SparkPlan.session()" is null
+	at org.apache.spark.sql.execution.SparkPlan.sparkContext(SparkPlan.scala:68)
+	at org.apache.spark.sql.execution.python.PythonSQLMetrics.$anonfun$pythonMetrics$1(PythonSQLMetrics.scala:26)
+	at scala.collection.Iterator$$anon$9.next(Iterator.scala:594)
+	at scala.collection.mutable.Growable.addAll(Growable.scala:62)
+	at scala.collection.mutable.Growable.addAll$(Growable.scala:57)
+	at scala.collection.immutable.MapBuilderImpl.addAll(Map.scala:710)
+	at scala.collection.immutable.Map$.from(Map.scala:661)
+	at scala.collection.immutable.Map$.from(Map.scala:172)
+	at scala.collection.MapOps.map(Map.scala:314)
+	at scala.collection.MapOps.map$(Map.scala:314)
+	at scala.collection.AbstractMap.map(Map.scala:420)
+	at org.apache.spark.sql.execution.python.PythonSQLMetrics.$init$(PythonSQLMetrics.scala:25)
+	at org.apache.spark.sql.execution.streaming.operators.stateful.BaseStreamingDeduplicateExec.<init>(statefulOperators.scala:1272)
+	at org.apache.spark.sql.execution.streaming.operators.stateful.StreamingDeduplicateExec.<init>(statefulOperators.scala:1374)
+	at org.apache.spark.sql.execution.streaming.operators.stateful.StreamingDeduplicateExec.copy(statefulOperators.scala:1373)
+	at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$WatermarkPropagationRule$$anonfun$7.applyOrElse(IncrementalExecution.scala:452)
+	at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$WatermarkPropagationRule$$anonfun$7.applyOrElse(IncrementalExecution.scala:430)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$1(TreeNode.scala:491)
+	at org.apache.spark.sql.catalyst.trees.CurrentOrigin$.withOrigin(origin.scala:107)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:491)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$3(TreeNode.scala:496)
+	at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren(TreeNode.scala:1264)
+	at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren$(TreeNode.scala:1263)
+	at org.apache.spark.sql.execution.FilterExec.mapChildren(basicPhysicalOperators.scala:220)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:496)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$3(TreeNode.scala:496)
+	at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren(TreeNode.scala:1264)
+	at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren$(TreeNode.scala:1263)
+	at org.apache.spark.sql.execution.ProjectExec.mapChildren(basicPhysicalOperators.scala:42)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:496)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$3(TreeNode.scala:496)
+	at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren(TreeNode.scala:1264)
+	at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren$(TreeNode.scala:1263)
+	at org.apache.spark.sql.execution.ProjectExec.mapChildren(basicPhysicalOperators.scala:42)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:496)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$3(TreeNode.scala:496)
+	at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren(TreeNode.scala:1264)
+	at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren$(TreeNode.scala:1263)
+	at org.apache.spark.sql.execution.datasources.v2.WriteToDataSourceV2Exec.mapChildren(WriteToDataSourceV2Exec.scala:352)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:496)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transformDown(TreeNode.scala:467)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transform(TreeNode.scala:435)
+	at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$$anon$2.apply(IncrementalExecution.scala:620)
+	at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$$anon$2.apply(IncrementalExecution.scala:538)
+	at org.apache.spark.sql.execution.QueryExecution$.$anonfun$prepareForExecution$1(QueryExecution.scala:638)
+	at scala.collection.LinearSeqOps.foldLeft(LinearSeq.scala:183)
+	at scala.collection.LinearSeqOps.foldLeft$(LinearSeq.scala:179)
+	at scala.collection.immutable.List.foldLeft(List.scala:79)
+	at org.apache.spark.sql.execution.QueryExecution$.prepareForExecution(QueryExecution.scala:637)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyExecutedPlan$2(QueryExecution.scala:285)
+	at org.apache.spark.sql.catalyst.QueryPlanningTracker.measurePhase(QueryPlanningTracker.scala:148)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$2(QueryExecution.scala:330)
+	at org.apache.spark.sql.execution.QueryExecution$.withInternalError(QueryExecution.scala:717)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$1(QueryExecution.scala:330)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+	at org.apache.spark.sql.execution.QueryExecution.executePhase(QueryExecution.scala:329)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyExecutedPlan$1(QueryExecution.scala:285)
+	at scala.util.Try$.apply(Try.scala:217)
+	at org.apache.spark.util.Utils$.doTryWithCallerStacktrace(Utils.scala:1392)
+	at org.apache.spark.util.LazyTry.tryT$lzycompute(LazyTry.scala:46)
+	at org.apache.spark.util.LazyTry.tryT(LazyTry.scala:46)
+	... 21 more
+26/07/03 22:34:30 INFO AppInfoParser: App info kafka.admin.client for adminclient-1 unregistered
+26/07/03 22:34:30 INFO Metrics: Metrics scheduler closed
+26/07/03 22:34:30 INFO Metrics: Closing reporter org.apache.kafka.common.metrics.JmxReporter
+26/07/03 22:34:30 INFO Metrics: Metrics reporters closed
+26/07/03 22:34:30 INFO MicroBatchExecution: Async log purge executor pool for query [id = 172b0fae-4837-4e3e-9112-1e93a4d8221a, runId = a94a470c-c9e9-4f3a-8e44-43775dd01994] has been shutdown
+26/07/03 22:34:30 INFO SparkUI: Stopped Spark web UI at http://192.168.1.31:4040
+26/07/03 22:34:30 INFO CodeGenerator: Code generated in 54.000327 ms
+26/07/03 22:34:30 INFO CheckpointFileManager: Writing atomically to file:/tmp/checkpoint_q2/state/1/0/_metadata/schema using temp file file:/tmp/checkpoint_q2/state/1/0/_metadata/.schema.048e0793-67b2-4135-9bdc-9a56a5f22acf.tmp
+26/07/03 22:34:30 INFO MapOutputTrackerMasterEndpoint: MapOutputTrackerMasterEndpoint stopped!
+26/07/03 22:34:30 INFO KafkaOffsetReaderAdmin: Partitions added: Map()
+26/07/03 22:34:30 INFO MemoryStore: MemoryStore started with capacity 434.4 MiB
+26/07/03 22:34:30 INFO MemoryStore: MemoryStore cleared
+26/07/03 22:34:30 INFO BlockManager: BlockManager stopped
+26/07/03 22:34:30 INFO BlockManagerMaster: BlockManagerMaster stopped
+26/07/03 22:34:30 INFO OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: OutputCommitCoordinator stopped!
+26/07/03 22:34:30 INFO SparkContext: Successfully stopped SparkContext (Uptime: 9937 ms)
+26/07/03 22:34:30 INFO CheckpointFileManager: Renamed temp file file:/tmp/checkpoint_q2/state/1/0/_metadata/.schema.048e0793-67b2-4135-9bdc-9a56a5f22acf.tmp to file:/tmp/checkpoint_q2/state/1/0/_metadata/schema
+26/07/03 22:34:30 INFO WriteToDataSourceV2Exec: Start processing data source write support: MicroBatchWrite[epoch: 0, writer: ConsoleWriter[numRows=5, truncate=true]]. The input RDD has 2 partitions.
+26/07/03 22:34:30 ERROR WriteToDataSourceV2Exec: Data source write support MicroBatchWrite[epoch: 0, writer: ConsoleWriter[numRows=5, truncate=true]] is aborting.
+26/07/03 22:34:30 ERROR WriteToDataSourceV2Exec: Data source write support MicroBatchWrite[epoch: 0, writer: ConsoleWriter[numRows=5, truncate=true]] aborted.
+26/07/03 22:34:30 INFO CheckpointFileManager: Writing atomically to file:/tmp/checkpoint_q2/state/1/_metadata/metadata using temp file file:/tmp/checkpoint_q2/state/1/_metadata/.metadata.d7dc0655-3a08-4197-a439-2b3b8ca39195.tmp
+26/07/03 22:34:30 ERROR MicroBatchExecution: Query [id = a2bcd5d4-7590-4b5d-a861-b787472e7b16, runId = 55a57b29-1302-47f4-86dc-c6760428ad47] terminated with error
+java.lang.IllegalStateException: SparkContext has been shutdown
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2487)
+	at org.apache.spark.sql.execution.datasources.v2.V2TableWriteExec.writeWithV2(WriteToDataSourceV2Exec.scala:451)
+	at org.apache.spark.sql.execution.datasources.v2.V2TableWriteExec.writeWithV2$(WriteToDataSourceV2Exec.scala:424)
+	at org.apache.spark.sql.execution.datasources.v2.WriteToDataSourceV2Exec.writeWithV2(WriteToDataSourceV2Exec.scala:352)
+	at org.apache.spark.sql.execution.datasources.v2.WriteToDataSourceV2Exec.run(WriteToDataSourceV2Exec.scala:365)
+	at org.apache.spark.sql.execution.datasources.v2.V2CommandExec.result$lzycompute(V2CommandExec.scala:43)
+	at org.apache.spark.sql.execution.datasources.v2.V2CommandExec.result(V2CommandExec.scala:43)
+	at org.apache.spark.sql.execution.datasources.v2.V2CommandExec.executeCollect(V2CommandExec.scala:49)
+	at org.apache.spark.sql.classic.Dataset.collectFromPlan(Dataset.scala:2275)
+	at org.apache.spark.sql.classic.Dataset.$anonfun$collect$1(Dataset.scala:1504)
+	at org.apache.spark.sql.classic.Dataset.$anonfun$withAction$2(Dataset.scala:2265)
+	at org.apache.spark.sql.execution.QueryExecution$.withInternalError(QueryExecution.scala:717)
+	at org.apache.spark.sql.classic.Dataset.$anonfun$withAction$1(Dataset.scala:2263)
+	at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId0$8(SQLExecution.scala:177)
+	at org.apache.spark.sql.execution.SQLExecution$.withSessionTagsApplied(SQLExecution.scala:285)
+	at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId0$7(SQLExecution.scala:139)
+	at org.apache.spark.JobArtifactSet$.withActiveJobArtifactState(JobArtifactSet.scala:94)
+	at org.apache.spark.sql.artifact.ArtifactManager.$anonfun$withResources$1(ArtifactManager.scala:112)
+	at org.apache.spark.sql.artifact.ArtifactManager.withClassLoaderIfNeeded(ArtifactManager.scala:106)
+	at org.apache.spark.sql.artifact.ArtifactManager.withResources(ArtifactManager.scala:111)
+	at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId0$6(SQLExecution.scala:139)
+	at org.apache.spark.sql.execution.SQLExecution$.withSQLConfPropagated(SQLExecution.scala:308)
+	at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId0$1(SQLExecution.scala:138)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+	at org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId0(SQLExecution.scala:92)
+	at org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId(SQLExecution.scala:250)
+	at org.apache.spark.sql.classic.Dataset.withAction(Dataset.scala:2263)
+	at org.apache.spark.sql.classic.Dataset.collect(Dataset.scala:1504)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runBatch$19(MicroBatchExecution.scala:1083)
+	at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId0$8(SQLExecution.scala:177)
+	at org.apache.spark.sql.execution.SQLExecution$.withSessionTagsApplied(SQLExecution.scala:285)
+	at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId0$7(SQLExecution.scala:139)
+	at org.apache.spark.JobArtifactSet$.withActiveJobArtifactState(JobArtifactSet.scala:94)
+	at org.apache.spark.sql.artifact.ArtifactManager.$anonfun$withResources$1(ArtifactManager.scala:112)
+	at org.apache.spark.sql.artifact.ArtifactManager.withClassLoaderIfNeeded(ArtifactManager.scala:106)
+	at org.apache.spark.sql.artifact.ArtifactManager.withResources(ArtifactManager.scala:111)
+	at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId0$6(SQLExecution.scala:139)
+	at org.apache.spark.sql.execution.SQLExecution$.withSQLConfPropagated(SQLExecution.scala:308)
+	at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId0$1(SQLExecution.scala:138)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+	at org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId0(SQLExecution.scala:92)
+	at org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId(SQLExecution.scala:250)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runBatch$18(MicroBatchExecution.scala:1065)
+	at org.apache.spark.sql.execution.streaming.runtime.ProgressContext.reportTimeTaken(ProgressReporter.scala:200)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.runBatch(MicroBatchExecution.scala:1065)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$executeOneBatch$2(MicroBatchExecution.scala:516)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+	at org.apache.spark.sql.execution.streaming.runtime.ProgressContext.reportTimeTaken(ProgressReporter.scala:200)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.executeOneBatch(MicroBatchExecution.scala:481)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runActivatedStream$1(MicroBatchExecution.scala:461)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runActivatedStream$1$adapted(MicroBatchExecution.scala:461)
+	at org.apache.spark.sql.execution.streaming.runtime.TriggerExecutor.runOneBatch(TriggerExecutor.scala:40)
+	at org.apache.spark.sql.execution.streaming.runtime.TriggerExecutor.runOneBatch$(TriggerExecutor.scala:38)
+	at org.apache.spark.sql.execution.streaming.runtime.ProcessingTimeExecutor.runOneBatch(TriggerExecutor.scala:71)
+	at org.apache.spark.sql.execution.streaming.runtime.ProcessingTimeExecutor.execute(TriggerExecutor.scala:83)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.runActivatedStream(MicroBatchExecution.scala:461)
+	at org.apache.spark.sql.execution.streaming.runtime.StreamExecution.$anonfun$runStream$1(StreamExecution.scala:347)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+	at org.apache.spark.sql.execution.streaming.runtime.StreamExecution.org$apache$spark$sql$execution$streaming$runtime$StreamExecution$$runStream(StreamExecution.scala:307)
+	at org.apache.spark.sql.execution.streaming.runtime.StreamExecution$$anon$1.run(StreamExecution.scala:230)
+26/07/03 22:34:30 INFO AppInfoParser: App info kafka.admin.client for adminclient-3 unregistered
+Spark session stopped.
+26/07/03 22:34:30 INFO Metrics: Metrics scheduler closed
+26/07/03 22:34:30 INFO Metrics: Closing reporter org.apache.kafka.common.metrics.JmxReporter
+26/07/03 22:34:30 INFO Metrics: Metrics reporters closed
+26/07/03 22:34:30 INFO MicroBatchExecution: Async log purge executor pool for query [id = a2bcd5d4-7590-4b5d-a861-b787472e7b16, runId = 55a57b29-1302-47f4-86dc-c6760428ad47] has been shutdown
+26/07/03 22:34:30 WARN NettyRpcEnv: Ignored failure: java.util.concurrent.RejectedExecutionException: Task java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask@371f5685[Not completed, task = java.util.concurrent.Executors$RunnableAdapter@414711f5[Wrapped task = org.apache.spark.rpc.netty.NettyRpcEnv$$anon$1@469081bd]] rejected from java.util.concurrent.ScheduledThreadPoolExecutor@194be9c0[Terminated, pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0]
+Exception in thread "stream execution thread for [id = a2bcd5d4-7590-4b5d-a861-b787472e7b16, runId = 55a57b29-1302-47f4-86dc-c6760428ad47]" org.apache.spark.SparkException: Exception thrown in awaitResult: 
+	at org.apache.spark.util.SparkThreadUtils$.awaitResult(SparkThreadUtils.scala:53)
+	at org.apache.spark.util.ThreadUtils$.awaitResult(ThreadUtils.scala:359)
+	at org.apache.spark.rpc.RpcTimeout.awaitResult(RpcTimeout.scala:75)
+	at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:101)
+	at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:85)
+	at org.apache.spark.sql.execution.streaming.state.StateStoreCoordinatorRef.deactivateInstances(StateStoreCoordinator.scala:177)
+	at org.apache.spark.sql.classic.StreamingQueryManager.notifyQueryTermination(StreamingQueryManager.scala:383)
+	at org.apache.spark.sql.execution.streaming.runtime.StreamExecution.$anonfun$runStream$5(StreamExecution.scala:417)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+	at org.apache.spark.util.UninterruptibleThread.runUninterruptibly(UninterruptibleThread.scala:152)
+	at org.apache.spark.sql.execution.streaming.runtime.StreamExecution.org$apache$spark$sql$execution$streaming$runtime$StreamExecution$$runStream(StreamExecution.scala:396)
+	at org.apache.spark.sql.execution.streaming.runtime.StreamExecution$$anon$1.run(StreamExecution.scala:230)
+Caused by: org.apache.spark.rpc.RpcEnvStoppedException: RpcEnv already stopped.
+	at org.apache.spark.rpc.netty.Dispatcher.postMessage(Dispatcher.scala:179)
+	at org.apache.spark.rpc.netty.Dispatcher.postLocalMessage(Dispatcher.scala:146)
+	at org.apache.spark.rpc.netty.NettyRpcEnv.askAbortable(NettyRpcEnv.scala:245)
+	at org.apache.spark.rpc.netty.NettyRpcEndpointRef.askAbortable(NettyRpcEnv.scala:561)
+	at org.apache.spark.rpc.netty.NettyRpcEndpointRef.ask(NettyRpcEnv.scala:565)
+	at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:100)
+	... 8 more
+26/07/03 22:34:30 INFO CheckpointFileManager: Renamed temp file file:/tmp/checkpoint_q2/state/1/_metadata/.metadata.d7dc0655-3a08-4197-a439-2b3b8ca39195.tmp to file:/tmp/checkpoint_q2/state/1/_metadata/metadata
+26/07/03 22:34:30 ERROR MicroBatchExecution: Query [id = 6bc244ad-e40b-4ae6-b674-01c1383021b8, runId = 9d4e598d-9162-47b4-a4c8-3a845c8466d4] terminated with error
+org.apache.spark.SparkException: [INTERNAL_ERROR] The Spark SQL phase planning failed with an internal error. You hit a bug in Spark or the Spark plugins you use. Please, report this bug to the corresponding communities or vendors, and provide the full stack trace. SQLSTATE: XX000
+	at org.apache.spark.SparkException$.internalError(SparkException.scala:107)
+	at org.apache.spark.sql.execution.QueryExecution$.toInternalError(QueryExecution.scala:706)
+	at org.apache.spark.sql.execution.QueryExecution$.withInternalError(QueryExecution.scala:719)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$1(QueryExecution.scala:330)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+	at org.apache.spark.sql.execution.QueryExecution.executePhase(QueryExecution.scala:329)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyExecutedPlan$1(QueryExecution.scala:285)
+	at scala.util.Try$.apply(Try.scala:217)
+	at org.apache.spark.util.Utils$.doTryWithCallerStacktrace(Utils.scala:1392)
+	at org.apache.spark.util.Utils$.getTryWithCallerStacktrace(Utils.scala:1453)
+	at org.apache.spark.util.LazyTry.get(LazyTry.scala:58)
+	at org.apache.spark.sql.execution.QueryExecution.executedPlan(QueryExecution.scala:295)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runBatch$17(MicroBatchExecution.scala:1041)
+	at org.apache.spark.sql.execution.streaming.runtime.ProgressContext.reportTimeTaken(ProgressReporter.scala:200)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.runBatch(MicroBatchExecution.scala:1025)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$executeOneBatch$2(MicroBatchExecution.scala:516)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+	at org.apache.spark.sql.execution.streaming.runtime.ProgressContext.reportTimeTaken(ProgressReporter.scala:200)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.executeOneBatch(MicroBatchExecution.scala:481)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runActivatedStream$1(MicroBatchExecution.scala:461)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.$anonfun$runActivatedStream$1$adapted(MicroBatchExecution.scala:461)
+	at org.apache.spark.sql.execution.streaming.runtime.TriggerExecutor.runOneBatch(TriggerExecutor.scala:40)
+	at org.apache.spark.sql.execution.streaming.runtime.TriggerExecutor.runOneBatch$(TriggerExecutor.scala:38)
+	at org.apache.spark.sql.execution.streaming.runtime.ProcessingTimeExecutor.runOneBatch(TriggerExecutor.scala:71)
+	at org.apache.spark.sql.execution.streaming.runtime.ProcessingTimeExecutor.execute(TriggerExecutor.scala:83)
+	at org.apache.spark.sql.execution.streaming.runtime.MicroBatchExecution.runActivatedStream(MicroBatchExecution.scala:461)
+	at org.apache.spark.sql.execution.streaming.runtime.StreamExecution.$anonfun$runStream$1(StreamExecution.scala:347)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+	at org.apache.spark.sql.execution.streaming.runtime.StreamExecution.org$apache$spark$sql$execution$streaming$runtime$StreamExecution$$runStream(StreamExecution.scala:307)
+	at org.apache.spark.sql.execution.streaming.runtime.StreamExecution$$anon$1.run(StreamExecution.scala:230)
+	Suppressed: org.apache.spark.util.Utils$OriginalTryStackTraceException: Full stacktrace of original doTryWithCallerStacktrace caller
+		at org.apache.spark.SparkException$.internalError(SparkException.scala:107)
+		at org.apache.spark.sql.execution.QueryExecution$.toInternalError(QueryExecution.scala:706)
+		at org.apache.spark.sql.execution.QueryExecution$.withInternalError(QueryExecution.scala:719)
+		at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$1(QueryExecution.scala:330)
+		at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+		at org.apache.spark.sql.execution.QueryExecution.executePhase(QueryExecution.scala:329)
+		at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyExecutedPlan$1(QueryExecution.scala:285)
+		at scala.util.Try$.apply(Try.scala:217)
+		at org.apache.spark.util.Utils$.doTryWithCallerStacktrace(Utils.scala:1392)
+		at org.apache.spark.util.LazyTry.tryT$lzycompute(LazyTry.scala:46)
+		at org.apache.spark.util.LazyTry.tryT(LazyTry.scala:46)
+		... 21 more
+Caused by: java.lang.NullPointerException: Cannot invoke "org.apache.spark.sql.classic.SparkSession.sparkContext()" because the return value of "org.apache.spark.sql.execution.SparkPlan.session()" is null
+	at org.apache.spark.sql.execution.SparkPlan.sparkContext(SparkPlan.scala:68)
+	at org.apache.spark.sql.execution.python.PythonSQLMetrics.$anonfun$pythonMetrics$1(PythonSQLMetrics.scala:26)
+	at scala.collection.Iterator$$anon$9.next(Iterator.scala:594)
+	at scala.collection.mutable.Growable.addAll(Growable.scala:62)
+	at scala.collection.mutable.Growable.addAll$(Growable.scala:57)
+	at scala.collection.immutable.MapBuilderImpl.addAll(Map.scala:710)
+	at scala.collection.immutable.Map$.from(Map.scala:661)
+	at scala.collection.immutable.Map$.from(Map.scala:172)
+	at scala.collection.MapOps.map(Map.scala:314)
+	at scala.collection.MapOps.map$(Map.scala:314)
+	at scala.collection.AbstractMap.map(Map.scala:420)
+	at org.apache.spark.sql.execution.python.PythonSQLMetrics.$init$(PythonSQLMetrics.scala:25)
+	at org.apache.spark.sql.execution.streaming.operators.stateful.StateStoreSaveExec.<init>(statefulOperators.scala:769)
+	at org.apache.spark.sql.execution.streaming.operators.stateful.StateStoreSaveExec.copy(statefulOperators.scala:768)
+	at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$WatermarkPropagationRule$$anonfun$7.applyOrElse(IncrementalExecution.scala:432)
+	at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$WatermarkPropagationRule$$anonfun$7.applyOrElse(IncrementalExecution.scala:430)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$1(TreeNode.scala:491)
+	at org.apache.spark.sql.catalyst.trees.CurrentOrigin$.withOrigin(origin.scala:107)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:491)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$3(TreeNode.scala:496)
+	at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren(TreeNode.scala:1264)
+	at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren$(TreeNode.scala:1263)
+	at org.apache.spark.sql.execution.aggregate.HashAggregateExec.mapChildren(HashAggregateExec.scala:51)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:496)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$3(TreeNode.scala:496)
+	at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren(TreeNode.scala:1264)
+	at org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren$(TreeNode.scala:1263)
+	at org.apache.spark.sql.execution.datasources.v2.WriteToDataSourceV2Exec.mapChildren(WriteToDataSourceV2Exec.scala:352)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:496)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transformDown(TreeNode.scala:467)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transform(TreeNode.scala:435)
+	at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$$anon$2.apply(IncrementalExecution.scala:620)
+	at org.apache.spark.sql.execution.streaming.runtime.IncrementalExecution$$anon$2.apply(IncrementalExecution.scala:538)
+	at org.apache.spark.sql.execution.QueryExecution$.$anonfun$prepareForExecution$1(QueryExecution.scala:638)
+	at scala.collection.LinearSeqOps.foldLeft(LinearSeq.scala:183)
+	at scala.collection.LinearSeqOps.foldLeft$(LinearSeq.scala:179)
+	at scala.collection.immutable.List.foldLeft(List.scala:79)
+	at org.apache.spark.sql.execution.QueryExecution$.prepareForExecution(QueryExecution.scala:637)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyExecutedPlan$2(QueryExecution.scala:285)
+	at org.apache.spark.sql.catalyst.QueryPlanningTracker.measurePhase(QueryPlanningTracker.scala:148)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$2(QueryExecution.scala:330)
+	at org.apache.spark.sql.execution.QueryExecution$.withInternalError(QueryExecution.scala:717)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$1(QueryExecution.scala:330)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)
+	at org.apache.spark.sql.execution.QueryExecution.executePhase(QueryExecution.scala:329)
+	at org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyExecutedPlan$1(QueryExecution.scala:285)
+	at scala.util.Try$.apply(Try.scala:217)
+	at org.apache.spark.util.Utils$.doTryWithCallerStacktrace(Utils.scala:1392)
+	at org.apache.spark.util.LazyTry.tryT$lzycompute(LazyTry.scala:46)
+	at org.apache.spark.util.LazyTry.tryT(LazyTry.scala:46)
+	... 21 more
+26/07/03 22:34:30 INFO AppInfoParser: App info kafka.admin.client for adminclient-2 unregistered
+26/07/03 22:34:30 INFO Metrics: Metrics scheduler closed
+26/07/03 22:34:30 INFO Metrics: Closing reporter org.apache.kafka.common.metrics.JmxReporter
+26/07/03 22:34:30 INFO Metrics: Metrics reporters closed
+26/07/03 22:34:30 INFO MicroBatchExecution: Async log purge executor pool for query [id = 6bc244ad-e40b-4ae6-b674-01c1383021b8, runId = 9d4e598d-9162-47b4-a4c8-3a845c8466d4] has been shutdown
+26/07/03 22:34:30 WARN NettyRpcEnv: Ignored failure: java.util.concurrent.RejectedExecutionException: Task java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask@abb29cb[Not completed, task = java.util.concurrent.Executors$RunnableAdapter@7c312fc9[Wrapped task = org.apache.spark.rpc.netty.NettyRpcEnv$$anon$1@399255b7]] rejected from java.util.concurrent.ScheduledThreadPoolExecutor@194be9c0[Terminated, pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0]
+Exception in thread "stream execution thread for [id = 6bc244ad-e40b-4ae6-b674-01c1383021b8, runId = 9d4e598d-9162-47b4-a4c8-3a845c8466d4]" org.apache.spark.SparkException: Exception thrown in awaitResult: 
+	at org.apache.spark.util.SparkThreadUtils$.awaitResult(SparkThreadUtils.scala:53)
+	at org.apache.spark.util.ThreadUtils$.awaitResult(ThreadUtils.scala:359)
+	at org.apache.spark.rpc.RpcTimeout.awaitResult(RpcTimeout.scala:75)
+	at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:101)
+	at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:85)
+	at org.apache.spark.sql.execution.streaming.state.StateStoreCoordinatorRef.deactivateInstances(StateStoreCoordinator.scala:177)
+	at org.apache.spark.sql.classic.StreamingQueryManager.notifyQueryTermination(StreamingQueryManager.scala:383)
+	at org.apache.spark.sql.execution.streaming.runtime.StreamExecution.$anonfun$runStream$5(StreamExecution.scala:417)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+	at org.apache.spark.util.UninterruptibleThread.runUninterruptibly(UninterruptibleThread.scala:152)
+	at org.apache.spark.sql.execution.streaming.runtime.StreamExecution.org$apache$spark$sql$execution$streaming$runtime$StreamExecution$$runStream(StreamExecution.scala:396)
+	at org.apache.spark.sql.execution.streaming.runtime.StreamExecution$$anon$1.run(StreamExecution.scala:230)
+Caused by: org.apache.spark.rpc.RpcEnvStoppedException: RpcEnv already stopped.
+	at org.apache.spark.rpc.netty.Dispatcher.postMessage(Dispatcher.scala:179)
+	at org.apache.spark.rpc.netty.Dispatcher.postLocalMessage(Dispatcher.scala:146)
+	at org.apache.spark.rpc.netty.NettyRpcEnv.askAbortable(NettyRpcEnv.scala:245)
+	at org.apache.spark.rpc.netty.NettyRpcEndpointRef.askAbortable(NettyRpcEnv.scala:561)
+	at org.apache.spark.rpc.netty.NettyRpcEndpointRef.ask(NettyRpcEnv.scala:565)
+	at org.apache.spark.rpc.RpcEndpointRef.askSync(RpcEndpointRef.scala:100)
+	... 8 more

@@ -1,3 +1,5 @@
+Open spark web UI at http://localhost:4040/ (while `spark-submit` is running).
+
 ```
 $ spark-submit spark_streaming.py
 WARNING: Using incubator modules: jdk.incubator.vector

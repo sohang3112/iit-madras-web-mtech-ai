@@ -14,7 +14,6 @@ from pyspark.sql.functions import (
     isnull,
     row_number,
     to_timestamp,
-    try_to_timestamp,
     unix_timestamp,
     when,
     window,
@@ -25,8 +24,8 @@ from pyspark.sql.functions import sum as spark_sum
 from pyspark.sql.types import DoubleType, LongType, StringType, StructField, StructType
 from pyspark.sql.window import Window
 
-# logging.basicConfig(level=logging.INFO)
-# logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 def create_spark_session():
@@ -65,7 +64,7 @@ def read_from_kafka(spark, kafka_brokers="localhost:9092", topic="sensor_DA25M62
         spark.readStream.format("kafka")
         .option("kafka.bootstrap.servers", kafka_brokers)
         .option("subscribe", topic)
-        .option("startingOffsets", "earliest")
+        .option("startingOffsets", "latest")
         .load()
     )
 
@@ -79,19 +78,17 @@ def read_from_kafka(spark, kafka_brokers="localhost:9092", topic="sensor_DA25M62
 
 def print_schema_and_sample(df):
     """Print schema information."""
-    print("=" * 80)
-    print("SCHEMA:")
+    logger.info("=" * 80)
+    logger.info("SCHEMA:")
     df.printSchema()
-    print("=" * 80)
+    logger.info("=" * 80)
     return df
 
 
 def convert_timestamps(df):
     """Convert timestamp strings to Spark Timestamp format."""
-    from pyspark.sql.functions import lit
-
     df = df.withColumn(
-        "timestamp", try_to_timestamp(col("timestamp"), lit("yyyy-MM-dd HH:mm:ss"))
+        "timestamp", to_timestamp(col("timestamp"), "yyyy-MM-dd HH:mm:ss")
     )
     return df
 
@@ -118,8 +115,9 @@ def handle_invalid_records(df):
 
 def remove_duplicates(df):
     """Remove duplicate records using sensor_id + timestamp natively."""
+    # We must define a watermark so Spark knows how long to keep keys in memory
+    df = df.withWatermark("timestamp", "10 minutes")
     # Native streaming deduplication
-    # Note: Watermark is applied later in event_time_processing() to avoid duplicate watermark error
     df = df.dropDuplicates(["sensor_id", "timestamp"])
     return df
 
@@ -152,7 +150,7 @@ def create_features(df):
 
 
 def data_preprocessing(spark, df):
-    print("Starting data preprocessing...")
+    logger.info("Starting data preprocessing...")
 
     # 1. Print schema
     df = print_schema_and_sample(df)
@@ -172,7 +170,7 @@ def data_preprocessing(spark, df):
     # 6. Create features
     df = create_features(df)
 
-    print("Data preprocessing completed.")
+    logger.info("Data preprocessing completed.")
     return df, invalid_df
 
 
@@ -231,7 +229,7 @@ def main():
 
     try:
         # Read from Kafka
-        print("Reading from Kafka topic: sensor_DA25M622")
+        logger.info("Reading from Kafka topic: sensor_DA25M622")
         df = read_from_kafka(
             spark, kafka_brokers="localhost:9092", topic="sensor_DA25M622"
         )
@@ -247,113 +245,78 @@ def main():
         # Event-Time Processing
         windowed_avg, df_watermarked = event_time_processing(df_processed)
 
-        # Clean up old checkpoints
-        import os
-        import shutil
-
-        for i in range(1, 4):
-            checkpoint_path = f"/tmp/checkpoint_q{i}"
-            if os.path.exists(checkpoint_path):
-                shutil.rmtree(checkpoint_path)
-                print(f"Cleaned checkpoint: {checkpoint_path}")
-
         # Start streaming queries
-        print("Starting streaming queries...")
+        logger.info("Starting streaming queries...")
 
         # Query 1: Processed data with debug info
         query1 = (
             df_processed.writeStream.format("console")
             .option("numRows", 20)
             .option("truncate", False)
-            .option("checkpointLocation", "/tmp/checkpoint_q1")
             .start()
         )
 
-        # Query 2: Windowed averages (REQUIRED: 5-min tumbling window)
+        # Query 2: Average temperature per sensor
         query2 = (
-            windowed_avg.writeStream.format("console")
-            .option("numRows", 10)
-            .outputMode("update")
-            .option("checkpointLocation", "/tmp/checkpoint_q2")
-            .trigger(processingTime="10 seconds")
-            .start()
-        )
-
-        # Query 3: Invalid records monitoring (REQUIRED: for reporting)
-        query3 = (
-            invalid_df.writeStream.format("console")
-            .option("numRows", 5)
-            .option("checkpointLocation", "/tmp/checkpoint_q3")
-            .trigger(processingTime="10 seconds")
-            .start()
-        )
-
-        # Query 4: Average Temperature per Sensor
-        query4 = (
             avg_temp.writeStream.format("console")
             .option("numRows", 10)
             .outputMode("update")
-            .option("truncate", False)
-            .option("checkpointLocation", "/tmp/checkpoint_q4")
             .trigger(processingTime="10 seconds")
             .start()
         )
 
-        # Query 5: Maximum Temperature per Sensor
-        query5 = (
+        # Query 3: Max temperature per sensor
+        query3 = (
             max_temp.writeStream.format("console")
             .option("numRows", 10)
             .outputMode("update")
-            .option("truncate", False)
-            .option("checkpointLocation", "/tmp/checkpoint_q5")
             .trigger(processingTime="10 seconds")
             .start()
         )
 
-        # Query 6: Active Sensors
-        query6 = (
+        # Query 4: Active sensors
+        query4 = (
             active_sensors.writeStream.format("console")
             .option("numRows", 10)
             .outputMode("update")
-            .option("truncate", False)
-            .option("checkpointLocation", "/tmp/checkpoint_q6")
             .trigger(processingTime="10 seconds")
             .start()
         )
 
-        # Query 7: Status Distribution
-        query7 = (
+        # Query 5: Status distribution
+        query5 = (
             status_dist.writeStream.format("console")
             .option("numRows", 10)
             .outputMode("update")
-            .option("truncate", False)
-            .option("checkpointLocation", "/tmp/checkpoint_q7")
             .trigger(processingTime="10 seconds")
             .start()
         )
 
-        print("All queries started. Awaiting termination...")
-        spark.streams.awaitAnyTermination(timeout=60)  # Stop after 60 seconds
+        # Query 6: Windowed averages
+        query6 = (
+            windowed_avg.writeStream.format("console")
+            .option("numRows", 10)
+            .outputMode("update")
+            .trigger(processingTime="10 seconds")
+            .start()
+        )
 
-        # Explicitly stop all queries
-        for query in spark.streams.active:
-            print(f"Stopping query: {query.name}")
-            query.stop()
-            query.awaitTermination()
+        # Query 7: Invalid records monitoring
+        query7 = (
+            invalid_df.writeStream.format("console")
+            .option("numRows", 5)
+            .trigger(processingTime="10 seconds")
+            .start()
+        )
 
-        print("\n" + "=" * 80)
-        print("STREAMING SUMMARY STATISTICS")
-        print("=" * 80)
-        print("Summary statistics were streamed to console above during execution.")
+        logger.info("All queries started. Awaiting termination...")
+        spark.streams.awaitAnyTermination()
 
     except Exception as e:
-        print(f"Error in main: {str(e)}")
-        import traceback
-
-        traceback.print_exc()
+        logger.error(f"Error in main: {str(e)}", exc_info=True)
     finally:
         spark.stop()
-        print("Spark session stopped.")
+        logger.info("Spark session stopped.")
 
 
 if __name__ == "__main__":
