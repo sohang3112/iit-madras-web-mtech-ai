@@ -1,3 +1,13 @@
+---
+Author: 
+CreationDate: 
+ChangeDate: 
+CurrentDate: 
+---
+
+<!-- set all attributes used by VS Code Markdown Converter extension to blank above, so that it doesn't come in generated PDF -->
+
+
 # ML Ops Assignment 1 Report
 
 Submitted by: Sohang Chopra (Roll No. DA25M622)
@@ -92,6 +102,8 @@ On varying the number of simultaneous consumers:
 
 Also we finally ran 2 different consumer groups - it's evident from their output that they consumed stream of events independently.
 
+**NOTE:** The given *producer.py* script is only producing records in partition 0, 2 (none in 1). This is why consumer only got records in partitions 0, 2.
+
 ### Discussion about Kafka
 
 1. Partitions divide a topic into independent, ordered logs across brokers to allow Kafka to scale horizontally and handle massive data throughput.
@@ -102,7 +114,132 @@ Also we finally ran 2 different consumer groups - it's evident from their output
 
 ## Part B - Spark
 
-TODO
+### Configuration
+
+| Item | Value |
+|---|---|
+| Kafka topic | `sensor_DA25M622` |
+| Partitions | 3 |
+| Replication factor | 1 |
+| Records produced | 2000 |
+| Watermark threshold | 5 minutes |
+| Tumbling window | 5 minutes |
+| Spark UI | `http://localhost:4040` |
+| Kafka UI | `http://localhost:8080` |
+
+### `spark_consumer.py` Terminal Output showing Schema, Sensor Statistics 
+
+```
+Schema :
+
+root
+ |-- sensor_id: string (nullable = true)
+ |-- temperature: double (nullable = true)
+ |-- timestamp: string (nullable = true)
+ |-- status: string (nullable = true)
+
+Avg temperature per sensor:
+
++---------+------------------+
+|sensor_id|   avg_temperature|
++---------+------------------+
+| sensor_7|  25.5604347826087|
+| sensor_8|26.243260869565212|
+| sensor_1|24.150816326530613|
+| sensor_4|26.257659574468082|
+| sensor_9|24.579347826086963|
+| sensor_6|24.305333333333333|
+|sensor_10|25.340999999999998|
+| sensor_2|25.818510638297862|
+| sensor_3| 25.27295454545454|
+| sensor_5| 24.24519230769232|
++---------+------------------+
+
+Max temperature per sensor:
+
++---------+---------------+
+|sensor_id|max_temperature|
++---------+---------------+
+| sensor_7|          34.59|
+| sensor_8|          34.75|
+| sensor_1|          33.71|
+| sensor_4|           34.9|
+| sensor_9|           34.7|
+| sensor_6|          34.71|
+|sensor_10|          34.82|
+| sensor_2|          34.74|
+| sensor_3|          32.49|
+| sensor_5|          34.86|
++---------+---------------+
+
+Active sensors:
+
++--------------------+-------------------+
+|         window_time|active_sensor_count|
++--------------------+-------------------+
+|{2026-07-05 09:50...|                  2|
+|{2026-07-05 10:00...|                 29|
+|{2026-07-05 09:55...|                 34|
+|{2026-07-05 10:10...|                270|
+|{2026-07-05 10:05...|                137|
++--------------------+-------------------+
+
+Status distribution:
+
++-----------+-----+
+|     status|count|
++-----------+-----+
+|maintenance|   20|
+|     active|  343|
+|      error|   50|
+|       idle|   59|
++-----------+-----+
+
+Windowed average temperature:
+
++--------------------+---------+----------------------+
+|              window|sensor_id|window_avg_temperature|
++--------------------+---------+----------------------+
+|{2026-07-05 10:00...| sensor_1|               26.4075|
+|{2026-07-05 10:10...| sensor_2|    25.558846153846158|
+|{2026-07-05 10:05...|sensor_10|    24.686666666666667|
+|{2026-07-05 10:00...| sensor_5|    23.941666666666666|
+|{2026-07-05 09:55...| sensor_8|                29.355|
+|{2026-07-05 10:05...| sensor_8|    28.025000000000006|
+|{2026-07-05 10:10...| sensor_5|     23.85592592592593|
+|{2026-07-05 09:55...| sensor_1|    21.653333333333336|
+|{2026-07-05 09:55...| sensor_3|    27.366666666666664|
+|{2026-07-05 10:05...| sensor_4|    25.874285714285712|
+|{2026-07-05 09:55...| sensor_7|     26.19333333333333|
+|{2026-07-05 10:00...| sensor_7|                 33.54|
+|{2026-07-05 10:10...| sensor_8|     25.11384615384615|
+|{2026-07-05 09:50...| sensor_8|                 32.62|
+|{2026-07-05 10:00...| sensor_6|    21.869999999999997|
+|{2026-07-05 10:00...| sensor_3|                18.785|
+|{2026-07-05 10:00...| sensor_2|    22.143333333333334|
+|{2026-07-05 09:55...| sensor_5|                22.244|
+|{2026-07-05 10:10...| sensor_9|     24.37444444444445|
+|{2026-07-05 10:00...| sensor_9|    25.700000000000003|
++--------------------+---------+----------------------+
+only showing top 20 rows
+------------------------------------------- 
+```
+
+### Event-Time Processing
+
+Dashboard evidence:
+
+| Dashboard | Observation |
+|---|---|
+| Kafbat UI | Topic `sensor_da25m590` contains the produced Kafka messages |
+| Spark UI | Jobs, stages, and SQL/DataFrame operations were visible at `http://localhost:4040` during execution |
+
+### Discussion
+
+Spark Structured Streaming treats the incoming Kafka sensor stream as an unbounded table. The implementation parses each record into a defined schema, converts the timestamp string to event time, removes invalid records, handles missing temperatures using recent same-sensor history, removes duplicates based on `sensor_id + timestamp`, and derives time-based features.
+
+Event-time processing is needed because sensor events may arrive out of order. Watermarking provides a bounded lateness policy. records within the 5-minute threshold are still accepted, while records older than that threshold are counted as discarded by watermarking. The active sensor metric uses the same event-time idea by counting sensors that transmitted at least one valid record within the latest 5-minute event-time window.
+
 
 -------------
 
