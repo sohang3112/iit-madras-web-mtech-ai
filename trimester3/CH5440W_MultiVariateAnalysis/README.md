@@ -42,3 +42,12 @@ SUM[(y - y_{pred})^2] = TODO
 sum of all deviations (from mean) = 0 [for linear regression solution line]
 
 TODO
+
+## Lecture NOT_SURE_NUMBER -- Chi Square Distribution and Mahalanobis Distance
+
+$$(x - \mu)^T \Sigma^{-1} (x - \mu) \le \chi^2 (\alpha) \quad \text{with probability} 1-\alpha$$
+
+- In chi-squared distribution with $p$ degrees of freedom, standard $100 (1 - \alpha)$ 'th percentile means area of $1 - \alpha$ lies to left (below) the $\chi^2 (\alpha)$ curve.
+- value of $d^2$ at $100 (1 - \alpha)$ 'th percentile represents all multivariate observations of X such that $100 (1 - \alpha) %$ lie below cuve and each obsevation has squared distance less than or equal: $d^2 \le \chi^2 (\alpha)$ .
+
+TODO

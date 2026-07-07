@@ -9,7 +9,7 @@ $ airflow standalone         # init database, scheduler, start airflow server at
 ```
 
 Open Airflow web UI at http://localhost:8080 . It asks for username and password. 
-A default username and password (generated when `airflow standalone` first runs) is at:
+A default username and password (generated when `airflow standalone` first runs) is at ~/airflow/simple_auth_manager_passwords.json.generated 
 
 ```bash
 $ cat ~/airflow/simple_auth_manager_passwords.json.generated 
