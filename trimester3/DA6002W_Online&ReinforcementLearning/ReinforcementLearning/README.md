@@ -73,3 +73,52 @@ RL methods:
 * Temporal Difference (TD) Learning
 * TODO
 * Deep RL
+
+TODO
+
+## Lecture on July 8
+
+(Revision of Monte Carlo Estimation)
+
+Monte Carlo learning is simply this whole iterative process of learning.
+In Monte Carlo methods expected values are used as emperical means.
+
+Greedy learning:
+
+Update Q values and improving it in each iteration:
+- initially Q value for each action is first return we see from environment
+- policy is improved to be $\epsilon$-greedy wrt Q values
+
+On-Policy Learning (we eventually reduce $\epsilon$ to near 0 so policy converges), Off-Policy Learning (straight greedy, no need for epsilon)
+
+Importance Sampling (rarely used nowadays due to better techniques):
+* Weigh the returns of behaviour policy b to make them representative of returns of target policy $\pi$
+$$\rho_{t:\tau-1} = \Pi_{i=t}^\tau \frac{\pi(A_t|S_t)}{b(A_t|S_t)}$$
+
+Example: Blackjack game - each player's goal is to get cards whose numerical values is as great as possible without exceeding 21
+**Exercise**: (TA also will cover later) solve blackjack using RL in python! see rules below:
+
+![Blackjack](images/mdp_blackjack.png)
+
+----------------- END OF MONTE CARLO --------------------------------
+
+### Temporal Difference (TD) Learning Methods
+
+Most central & novel idea to RL !
+Can use for both episodic and continous tasks
+
+We don't wait until end of episode to update -- after just 1-2 steps of MDP (partial MDP or bootstrapping) we update
+
+In Incremental Monte Carlo, error is $G_t - V(S_t)$
+In TD error, $G_t$ is replaced by TD target based on observed reward and next state at $t+1$ : $R_{t+1} + \gamma S_{t+1}$
+
+So update step becomes:
+$$V(S_t) += \alpha (R_{t+1} + \gamma V(S_{t+1}) - V(S_t))$$
+
+Practically Temporal Difference is observed to converge to optimal policy faster than Monte Carlo.
+
+Example: Robot chasing (safe path or shortcut ?):
+
+![Robot: Safe Path or Shortcut?](images/robot_safe_path.png)
+
+TODO

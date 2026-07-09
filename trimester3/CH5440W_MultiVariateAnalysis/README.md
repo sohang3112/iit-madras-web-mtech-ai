@@ -2,6 +2,8 @@
 
 Suggested Book: *Kutner, M. H., C. J. Nachtschiem, J. Netner, Applied Linear Regression Models. 4th ed. New Delhi: McGraw Hill, 2004*
 
+**IMPORTANT**: most lectures (10) don't have slides uploaded but lecture videos are there on course site so check those!
+
 ## Day 1: Linear Regression
 
 $Y$ is ground truth, $\beta$ is weights.
