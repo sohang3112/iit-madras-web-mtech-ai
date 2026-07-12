@@ -1,0 +1,751 @@
+
+Type equation here.
+
+                     Prescribed Text Books & Links
+Montgomery, D. C., G.C. Runger, Applied Statistics and Probability for Engineers. 5th
+
+ed. New Delhi: Wiley-India, 2011.
+                                                                                      rd
+Draper, N. R., H. Smith, Applied Regression Analysis.  3                                  ed. New Delhi: Wiley-India,
+
+1998.
+                                                                                                                           th
+Kutner, M. H., C. J. Nachtschiem, J. Netner, Applied Linear Regression Models. 4                                              ed.
+
+New Delhi: McGraw Hill, 2004.
+
+Note: In case of any reference be inadvertently omitted, the error will be rectified if intimated
+
+Interesting      web     links:   https://www.kaggle.com/code/ashydv/housing-price-prediction-linear-
+
+regression
+
+    Warming Up Problem: A Short Story
+
+❖In a renovated airport, the management wants to address the complaint
+  that waiting time is very long for the luggage conveyor belt
+❖So, the obvious solution is to increase the belt speed
+❖But, the management is afraid that increasing the speed may reduce
+  the number of luggages removed in one run
+❖So an experiment is conducted to find optimum conveyor speed
+
+        Results from the Experiment
+
+Sl. No.    Conveyor Belt Speed (cm/s)   Number of luggages picked
+                                                up/minute
+
+  1
+                      10                           4
+
+  2
+                      10                           5
+
+  3
+                      11                           7
+
+  4
+                      12                           11
+
+  5
+                      13                           12
+
+  6
+                      14                           14
+
+  7
+                      15                           17
+
+  8
+                      16                           18
+
+  9
+                      17                           16
+
+10
+                      18                           15
+
+11
+                      20                           12
+
+                     Data Scrutiny
+
+❖Number of Predictors:
+
+❖Number of Responses:
+
+❖How   does the number of luggages pickedup per minute
+  depend on conveyor belt speed?
+
+❖Obviously optimum is 16 cm/s so why do regression?
+
+                                                   Data Scrutiny
+❖    Number of Predictors: 1 (conveyor belt speed)
+❖    Number of Responses: 1
+❖    How does the number of luggages picked up per minute depend on conveyor
+     belt speed? Increases and decreases beyond a critical conveyor belt speed
+❖    Obviously optimum is 16 cm/s so why do regression?
+              a) We do not know exact optimum
+              b) We may need to find conveyor belt speed at say 14.75 cm/s as it may
+                   be a safety limit constraint
+
+                               Data Plotting
+
+20
+18
+16
+14
+12
+10
+8
+6
+4
+2
+0
+   8           10          12           14          16          18           20          22
+                                   Belt speed (cm/min.)
+
+                                            Model Choice
+
+
+❖    What linear regression models may be tried?
+
+                                                         ෠        ෠
+             a) First order model 𝑦ො                 =       +      𝑋    (obviously looks inadequate)
+                                                           0        1   1
+
+                                                                                               2
+                                                                   ෠        ෠           ෠
+                b)     Second order model 𝑦ො                   =      +      𝑋    +      𝑋     (may be tried)
+                                                                     0       1    1       2   2
+
+                               20
+                               18
+                               16
+                               14
+                               12
+                               10
+                                8
+                                6
+                                4
+                                2
+                                0
+                                  8        10       12       14       16       18       20       22
+                                                     Belt speed (cm/min.)
+
+Setting up the X Matrix (II Order Model)
+
+
+
+
+                                  X =                        Y =
+
+
+                                                             4
+                              1
+                                      10         100
+
+                                                             5
+                              1
+                                      10         100
+
+                              1                              7
+                                      11         121
+
+                              1
+                                      12         144         11
+
+                              1
+                                      13         169         12
+
+                              1
+                                      14         196
+                                                             14
+
+                              1
+                                      15         225
+                                                             17
+
+                              1
+                                      16         256
+                                                             18
+
+                              1
+                                      17         289
+                                                             16
+                              1
+                                      18         324
+                                                             15
+                              1
+                                      20         400
+                                                             12
+
+   Orders of Different Matrices
+
+
+
+
+Sl. No.                  Matrix                              Order
+
+
+    1
+                             𝐗
+
+    2
+                            𝐗′
+
+                              ෠
+                              
+
+    2
+
+                        ෠    ෠   ෠
+                              
+                       [            ]′
+                         𝟎    𝟏   𝟐
+
+    3
+                             𝐘
+
+    4
+                           𝐗′𝐗
+
+                             ′
+    5
+                           𝐗𝐘
+
+                            ′   −𝟏
+    6
+                          𝐗𝐗
+
+
+Please fill up the values in the above table
+
+  Orders of Different Matrices
+
+
+
+
+Sl. No.               Matrix                          Order
+
+
+   1
+                         𝐗                             11x3
+
+   2
+                         𝐗′                            3x11
+
+                          ෠
+                          
+
+   2
+
+                     ෠   ෠   ෠
+                          
+                   [           ]′                      3x1
+                      𝟎   𝟏   𝟐
+
+   3
+                         𝐘                             11x1
+
+   4
+                        𝐗′𝐗                            3x3
+
+                         ′
+   5
+                        𝐗𝐘                    (3x11)x(11x1)=3x1
+
+                        ′   −𝟏
+   6
+                      𝐗𝐗                               3x3
+
+       Parameter Estimation for II Order Model
+
+
+                                                                 ′    −𝟏      ′
+                                                    ෡
+                                                    𝛃   = 𝐗       𝐗       (𝐗    𝐘)
+
+
+
+                                                                                        -1
+X'*X  =                                                                       (X'*X)       =
+
+
+11            156           2324                                              44.4288           -6.2551       0.2100
+
+156           2324          36216                                             -6.2551       0.8918     -0.0303
+
+2324          36216         587012                                            0.2100       -0.0303      0.0010
+
+
+                                                   ෡
+                                                   𝛃   =
+X'*Y =                                                                                                               𝟐
+                                                                                   ෡      ෡        ෡           ෡
+                                                                                   𝐘  = 𝛃      + 𝛃     𝐗+ 𝛃        𝐗
+                                                                                             𝟎        𝟏          𝟐
+
+                                                   -67.1947
+131
+                                                                                                                                      𝟐
+                                                   10.2919                 ෡
+                                                                          𝐘   = −𝟔𝟕. 𝟏𝟗𝟓         + 𝟏𝟎. 𝟐𝟗𝟐𝐗         −  𝟎. 𝟑𝟏𝟔𝟒𝐗
+1976
+                                                   -0.3164
+30820
+
+                                                     Metrics of Regression
+
+
+Sl. No.                                            Metrics                                                              Metrics Formula                                                    Value
+
+
+
+                                                                                                                                           ′
+      1                                                                                                                                 𝐘𝐘
+
+                                                                                                                                       𝟏𝟏
+                                                                                                                                                                                             1789
+                                      Total Sum of Squares                                                                                     𝟐
+      2                                                                                                                               ෍𝐘
+                                                                                                                                               𝐢
+
+                                                                                                                                      𝐢=𝟏
+
+                                                                                                                                         ′    ′
+                                                                                                                                      ෡
+      3                         Regression Sum of Squares                                                                             𝛃    𝐗   𝐘                                         1781.768
+
+
+                                                                                                                                         ෡              ෡
+      4
+                                                                                                                           (𝐘−𝐗𝛃)′(Y-X𝛃)
+
+                                                                                                                                𝟏𝟏
+                                  Residual Sum of Squares                                                                                                                                  7.2316
+                                                                                                                                                      𝟐
+                                                                                                                                                 ෡
+      5                                                                                                                        ෍𝐘−𝐘
+                                                                                                                                          𝐢        𝐢
+
+                                                                                                                               𝐢=𝟏
+
+                                                                                                                                 𝟏𝟏
+
+      6                              Total Sum of Residuals                                                                                       ෡
+                                                                                                                                ෍𝐘−𝐘                                                             0
+                                                                                                                                           𝐢        𝐢
+
+                                                                                                                                𝐢=𝟏
+
+                                                                                                                                             𝟏𝟏
+                                                                                                                                         σ         𝐘
+                                                                                                                                             𝐢=𝟏     𝐢
+      7                                          Average Y                                                                       ഥ                                                         11.909
+                                                                                                                                 𝐘=
+                                                                                                                                             𝟏𝟏
+
+                                                                                                                                             𝟏𝟏
+                                                                                                                                                    ෡
+                                                                                                                                          σ        𝐘
+                                                                                                                                             𝐢=𝟏      𝐢
+                                                                                                                                 ഥ
+                                                                                                                                 ෡
+                                                                                                                                 𝐘=
+                                                                    ෡
+      8                                           Average Y                                                                                                                                11.909
+                                                                                                                                              𝟏𝟏
+
+   Matlab Code for Conveyor Belt Example
+
+
+clear all; clc;
+
+Data = [                       SlNo =Data(:,1);
+1 10 4                         Speed = Data(:,2);
+2 10 5                         Luggages = Data(:,3);
+3 11 7                         X= [ ones(numel(Speed),1) Speed Speed.^2];
+4 12 11
+5 13 12                        Y=Luggages;
+6 14 14                        beta_hat = inv(X'*X)*(X'*Y);
+7 15 17
+8 16 18                        beta_hat =
+9 17 16
+10 18 15                       -67.1947
+11 20 12                        10.2919
+];                              -0.3164
+
+                                                                                                                        % Fit seems real nice
+
+       Sum of Residuals and Total Sum of Squares
+
+                                              ഥ
+% Find average of Y and average of Y_Pred Y         : 11.9091 (Both are same)
+                                               𝑝𝑟𝑒𝑑
+
+Average_Ys = [mean(Y) mean(Y_Pred)];
+
+% What is sum of residuals? Pretty much zero
+
+Residual_Sum=sum(Y-Y_Pred); % Pretty much zero
+
+% What is total sum of squares : TSSQ
+% Two ways - 1. Simply Y'Y or 2. sum over Y^2_i
+
+TtSSQ1 = Y'*Y;
+TtSSQ2 = sum(Y.^2); % element by element squaring of terms
+
+TtSSQ_Compare = [ TtSSQ1 TtSSQ2];
+
+% TSSQ_Compare = 1789 1789             Both methods gave same answer
+
+Regression & Residuals Sum of Squares
+   % Let us find Regression SSQ RsSSQ1
+
+   RgSSQ1 = beta_hat'*X'*Y; % 1781.8
+
+   % Let us find Residuals Sum of Squares by 2 methods 1.RsSSQ1 or 2. RsSSQ2
+
+   RsSSQ1 = (Y-X*beta_hat)'*(Y-X*beta_hat);
+   RsSSQ2 = sum((Y-Y_Pred).^2);
+   % Compare the two Residual SSQ
+
+   Compare_RsSSQ = [ RsSSQ1  RsSSQ2];
+
+   % Compare_RsSSQ = [7.2316    7.2316]  % Both approaches give the same Residual Sum of
+   Squares
+
+  Sum of Squares Conservation
+
+% Check if Total Sum of Squares =
+% Regression Sum of Squares + Residual Sum of Squares
+
+Total_SSQ =  RgSSQ1+RsSSQ1; % Regression SSQ + Residual SSQ
+
+TotalSSQ_Compare = [TtSSQ1 Total_SSQ]; % Both are 1789
+
+% Regression Sum of Squares = 1781.7684;
+% Residual Sum of Squares   = 7.2316;
+% Total of the above two    = 1789.0
+
+                                     Optimization
+
+
+
+    % Find optimal conveyor belt speed
+
+% (differentiate Y w.r.t. X and set it to zero)
+
+                                                                                                 2
+                                                                          ෡    ෠    ෠       ෠
+                                                                         Y =     +   X +    X
+                                                                                 1   2        3
+
+                        1   beta_hat 2
+        X_opt   = −                                                      ෡             ෠       ෠
+                                                                        dY/dX = 0+        + 2   X
+                                                                                         2       3
+                        2   beta_hat 3
+
+                                                                             ෠       ෠
+                                                                                + 2   X      = 0
+                                                                               2       3  opt
+
+                              2
+  y_opt   = [1     x        x    ] ∗beta_hat;
+                     opt      opt
+
+                                        x      = 16.26 (cm/s)
+                                         opt
+
+
+                                        y      = 16.4902 ~16 luggages/minute
+                                         opt
+
+Conveyor Belt Example: II Order Model Fit
+
+                        20
+                        18
+                        16
+                        14
+                        12
+                        10
+                         8
+                         6
+                         4
+                         2
+                         0
+                            8            10            12            14           16            18            20            22
+                                                                Belt speed (cm/min.)
+                                                         Number of luggages      Predicted Number
+
+                                        Model Choice
+
+
+                                      ෠        ෠
+First order model 𝑦ො              =       +     𝑋     (obviously inadequate – may be compared
+                                        0        1   1
+
+                                                with II order model)
+
+
+
+                        20
+                        18
+                        16
+                        14
+                        12
+                        10
+                         8
+                         6
+                         4
+                         2
+                         0
+                            8       10       12       14       16       18       20       22
+                                               Belt speed (cm/min.)
+
+  Comparing I and II Order Regression Models
+
+Sl. No.              Metrics                 I order Model               II Order Model
+
+   1         Number of Parameters                   2                           3
+
+                                           −3.1042     1.0586
+                                                                 -67.1947   10.2919   -0.3164
+   3           Parameter Values
+                                               ෠       ෠                  ෠  ෠       ෠
+                                                                                and
+                                               β  and β                   β, β       β
+                                                 0       1                 0  1       2
+               Regression Sum of
+   6                                           1685.202                     1781.768
+                    Squares
+
+   7       Residual Sum of Squares              103.798                       7.232
+
+   8          Total Sum of Square                 1789                        1789
+
+
+                    Conclusion:  The II order model enjoys more
+
+                   Regression and less Residual Sum of Squares
+
+                         making it superior to the I order model
+
+Conveyor Belt Example: II Order Model Fits
+
+               20
+               18
+               16
+               14
+               12
+               10
+                8
+                6
+                4
+                2
+                0
+                  8            10            12            14            16            18           20            22
+                                                       Belt speed (cm/min.)
+                                               Number of luggages       Predicted Number
+
+     First & II Order Model Fits
+
+20
+18
+16
+14
+12
+10
+8
+6
+4
+2
+0
+   8            10           12            14            16           18            20           22
+                                       Belt speed (cm/min.)
+
+         Number of luggages              Second Order Model               First Order Model
+
+   Linear Regression in Matlab: I order Model
+
+% Demonstrating polyfit in Matlab % TA may find equivalent code in Python
+[pLinear,SLinear] = polyfit(Speed,Luggages,1)
+eqLinear = "Linear: " + pLinear(1) + "x + " + pLinear(2)
+xQuery = [0:1:20]';
+yLinear = polyval(pLinear,xQuery);
+%  "Linear: -3.1042  + 1.0586x  "  I order model equation
+
+     Linear Regression in Matlab: II order Model
+
+% Demonstrating polyfit in Matlab % TA may find equivalent code in Python
+[pQuad,SQuad] = polyfit(Speed,Luggages,2)
+eqQuad = "Quadratic: " + pQuad(1) + "x^2 + " + pQuad(2) + "x + " + pQuad(3)
+xQuery = [0:1:20]';
+yLinear = polyval(pLinear,xQuery);
+yQuad = polyval(pQuad,xQuery);
+
+%
+% "Quadratic: -67.1947  + 10.2919x + -0.31643x^2 : II order model
+
+Linear Regression in Matlab: Plots
+
+        scatter(Speed,Luggages)
+        hold on
+        plot(xQuery,yLinear,"-")
+        plot(xQuery,yQuad,"--")
+        hold off
+        xlabel("Belt Speed cm/s")
+        ylabel("Luggages Number/min")
+        legend(["Sample data" "Linear model" "Quadratic model"])
+        text(0.3,30,[eqLinear eqQuad])
+
+     Multivariable Linear Regression in Matlab
+
+Let us scale up the complexity from a simple linear regression model (toy
+model) involving
+a) Limited data (11 points)
+b) Single predictor (belt speed)
+c) Excellent Fit
+To
+c) Real life example
+d) Big data (21813 points)
+e) Multiple predictors (11) some of which may be strongly correlated
+f) May not get an excellent fit but only trends
+
+Matlab Code For Housing Data Correlations
+
+Tbl = array2table(Data, 'VariableNames', {'price', 'bedrooms',
+'bathrooms', 'sqftliving',            'sqftlot' ,'sqftabove', 'sqftbasement'
+,'sqftliving15' ,'sqftlot15'});
+corrplot(Tbl);
+
+Correlation Statistics with Matlab
+
+Correlation Statistics from JMP
+
+
+
+   Let
+                              Y=Price
+   X1 = bedrooms                               X5 = sqft_above
+   X2 = bathrooms                              X6 = sqft_basement
+   X3 = sqft_living                            X7 = sqft_living15
+   X4 = sqft_lot                               X8 = sqft_lot15
+
+      Normalizing Matlab Code For Housing Data
+
+As the predictors data (see a typical line below)  were in different orders of
+
+magnitudes we first normalize the data using Z-score
+
+           1      940     5000    940     0      1560    4500
+
+                                X −mean X
+                           Z =
+                                    X
+
+Z = Normalized score  mean(X) = average of Feature X
+
+𝑋  = standard deviation of Feature X
+
+         Normalizing Matlab Code For Housing Data
+
+                                                 X −  mean X
+                                         Z =
+                                                      X
+
+Z = Normalized score  mean(X) = average of Feature X
+
+  𝑋   = standard deviation of Feature X
+
+As a result of standardization all features are made to have a mean of 0 and
+
+standard deviation of unity
+                                   X1       X2       X3      X4      X6      X7      X8
+                        Mean  -6.33392E-16 4.5E-16 5.13E-16 -5.8E-17 -6.9E-15 1.66E-16 -3.8E-16
+                        STD        1         1       1       1       1        1       1
+
+              Normalizing Housing Data Features
+
+% The data in the code is first relabelled to X1, X2,…X8  for the 8
+% predictors and Y for price
+Features = [X1, X2, X3, X4, X5, X6, X7, X8];
+Target = Y/1e6;  % Express house price in millions of dollars
+Data_Norm = [ Target normalize(Features)];
+Tb2 = array2table([Data_Norm], 'VariableNames', {'Y', 'X1', 'X2', 'X3', 'X4'
+,'X5', 'X6' ,'X7' ,'X8'});
+
+Correlation For Normalized Data with Matlab: No Change
+
+                         Data Analysis
+❖As shown in the figure in previous slide, we find X5 has strong
+
+  correlation with most features and probably removing it may not affect
+
+  the information content in the data
+
+❖Retaining X5 predictor may lead to difficulties in parameter estimations
+
+                   Running Linear Regression
+
+
+% Linear regression was run as before and % we get the parameters as
+
+
+
+                 Coefficient   Normalized     Parameter      Value
+
+                      of         Feature
+
+                                                 ෠
+                   Intercept                     β           0.5402
+                                                  0
+
+
+                                                 ෠
+                     X1        # of bedrooms     β          -0.0545
+                                                  1
+
+                                                 ෠
+                     X2        # of bathrooms    β           0.0057
+                                                  2
+
+                                                 ෡
+                     X3         sqft_living                  0.2442
+                                                 𝛃
+                                                  𝟑
+
+                                                 ෠
+                     X4           sqft_lot                   0.0018
+                                                 β
+                                                  4
+
+                                                 ෠
+                     X6        sqft_basement                 0.0182
+                                                 β
+                                                  6
+
+                                                 ෠
+                     X7         sqft_living15    β           0.0489
+                                                  7
+
+                                                 ෠
+                     X8          sqft_lot15      β          -0.0240
+                                                  8
+
+Inspecting Model Fit
+
+                             Analysis
+
+❖Normalizing the data and scaling the target brought the numbers to more or
+  less consistent range for all predictors and outcome
+❖With the estimated regression coefficients we find square feet of the house
+  having maximum impact on the costs
+❖Had   we included X5 in the model, the matrix inversion would have been
+  difficult as the resulting matrix was nearly singular indicating strong collinearity
+  between certain features
+❖The fit may definitely be improved
+❖There seemed to be only a couple of outliers in the data which could not have
+  compromised the fit seriously
+

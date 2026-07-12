@@ -1,0 +1,110 @@
+
+                              Dr. Mahalanobis – Father of
+
+                                     Statistical Distance
+
+https://en.wikipedia.org/wiki/Prasanta_Chandra_Mahalanobis
+
+                                 Univariate Data
+❖  Dataset involving only one variable
+❖  Example:
+      a) Students marks in class XII
+      b) Defects in machined products
+      c) Temperatures in the month of May in Chennai
+      d) Concentration of pollutant coming out of a factory near a river
+❖  Data processed to find outliers, mean, median, mode, first quartile, second
+   quartile
+
+                       Bivariate Data
+❖Dataset involving two variables
+❖Example:
+      a) Students marks in laboratory and coursework
+      b) Temperature and pressure data collected in ammonia reactor in transient
+     mode
+      c) Temperatures and rainfall in the month of May in Chennai
+      d)  Employee experience and salary data
+❖Data also processed to find covariance, correlation coefficient
+
+                         Bivariate Data
+❖Dataset involving two variables
+❖Example:
+      a) Students marks in laboratory and coursework
+      b) Temperature & pressure data collected in ammonia reactor in transient  mode
+      c) Temperatures and rainfall in the month of May in Chennai
+      d)  Employee experience and salary data
+❖Data also processed to find covariance, correlation coefficient, simple regression
+
+Univariate and Bivariate Normal Distributions
+
+
+            https://medium.com/data-for-tomorrow/univariate-normal-distribution-47519960625e
+            https://medium.com/@irenemarkelic/how-to-create-a-bivariate-normal-random-vector-from-two-independent-normals-
+            f5ee1ef884ed
+            https://brilliant.org/wiki/multivariate-normal-distribution/
+
+                 Multivariate Data
+
+❖Dataset involving 2 or more variables
+❖Measured simultaneously during each observation
+❖For purpose of data analysis
+❖Multivariate data may also be multi-variety as data may be
+  numerical (-1,2,100) or categorical (Yes, No; Male, Female,
+  Gender Neutral;)
+
+                                         Multivariate Data
+    ❖    Examples:
+
+          a) Heart disease as a function of age, weight, cholesterol, pulse rate,
+
+               sugar
+
+          b) BET surface area as a function of pore size distribution, presence of
+
+              micro-pores and mesopores,  functional groups present, activation
+
+              agent used
+
+          c) Insurance policy pricing: age, sex, income, health status, average
+
+              regional lifespan
+https://www.investopedia.com/terms/m/multivariate-model.asp
+
+Businesses must
+a)Offer higher-quality products & services at lower costs
+b)React quicker to changing market conditions (supply and demand)
+c)Optimize workforce (quality as well as quantity)
+d)Maximize profits
+ To achieve the above
+❖knowledge creation and management are essential
+❖No   dearth of information, but lack of insight may hinder timely
+  intervention
+
+Businesses use the collected data intelligently to garner
+actionable insights for
+❖Improved decision-making
+❖Developing business strategy
+❖Predictive modeling, and
+❖Accumulate business intelligence,
+Often used in sectors like marketing, finance, and healthcare
+
+❖  Historic data is stored in data warehouses
+❖  Some   of that   information may    be   analyzed   and understood     with simple
+   statistics (mean, median, quartiles), but
+Most of the data in real life requires involved data mining through multivariate
+methods to convert them into
+❖  Data Mining: Extracting patterns in complex data using intelligent methods
+❖  Actionable insight for extracting patterns
+❖  So, the “pattern” extracted may be: cluster, anomaly, hidden relationship, or a
+   predictive rule
+Move from intuition/experience/sentiment to data driven strategies and decisions
+
+❖In a   chemical plant, sensors   continuously measure   pressure,
+
+  temperature, flowrate, vibration, and humidity.
+
+❖Machine learning algorithms analyze these multivariate data and
+
+❖Identify abnormal patterns indicating equipment failure or reactor
+
+  instability before an accident occurs.
+

@@ -45,7 +45,7 @@ sum of all deviations (from mean) = 0 [for linear regression solution line]
 
 TODO
 
-## Lecture NOT_SURE_NUMBER -- Chi Square Distribution and Mahalanobis Distance
+## Lecture 17 -- Chi Square Distribution and Mahalanobis Distance
 
 $$(x - \mu)^T \Sigma^{-1} (x - \mu) \le \chi^2 (\alpha) \quad \text{with probability} 1-\alpha$$
 
@@ -53,3 +53,16 @@ $$(x - \mu)^T \Sigma^{-1} (x - \mu) \le \chi^2 (\alpha) \quad \text{with probabi
 - value of $d^2$ at $100 (1 - \alpha)$ 'th percentile represents all multivariate observations of X such that $100 (1 - \alpha) %$ lie below cuve and each obsevation has squared distance less than or equal: $d^2 \le \chi^2 (\alpha)$ .
 
 TODO
+
+## References
+
+Books:
+- Brereton R. J., The Chi Squared and Multinormal Distributions, J. Chemometrics 2015, 29: 9–12
+- Johnson R A and D W Wichern, Applied Multivariate Statistical Analysis, Prentice Hall, 2002.
+- Maiti J, Multivariate Statistical Modeling in Engineering and Management, CRC Press, 2023
+- Backhaus K, B Erichon, S. Gensler, R. Weiber, T. Weiber, Multivariate Analysis – An Application Oriented Introduction, 2nd ed., Springer Gabler, 2023
+- Montgomery, D C and G C Runger, Applied Statistics and Probability for engineers, Wiley, 2003
+- Joseph F H, W C Black, BJ Babin and R E Anderson, Multivariate Data Analysis, 8th ed., Cengage, 2019
+- Afifi, A., May, S., Donatello, R., & Clark, V.A. (2019). Practical Multivariate Analysis (6th ed.). Chapman and Hall/CRC -- https://doi.org/10.1201/9781315203737
+- https://stats.oarc.ucla.edu/other/dae/
+- https://www.routledge.com/Practical-Multivariate-Analysis/Afifi-May-Donatello-Clark/p/book/9781032088471

@@ -1,0 +1,1204 @@
+
+Multivariate Data Analysis and Process Modeling
+a) Linear Regression
+b) Essential Linear Algebra
+c) Logistic Regression
+d) Basic Multivariate data calculations and statistical distance
+e) Principal Component Analysis
+f)Neural Networks
+g) Discriminant Analysis
+h) For Design of Experiments pl. see link https://nptel.ac.in/courses/103106112
+
+              Regression Analysis
+
+                                “It appeared from these experiments that
+                                 the oﬀspring did not tend to resemble
+                                 their parents in size, but always to be
+                               more mediocre than they – to be smaller
+                                 than the parents, if the parents were
+                               large; to be larger than the parents, if the
+                                         parents were small.”
+Sir Francis Galton
+
+                            Prescribed Text Books
+
+Montgomery, D. C., G.C. Runger, Applied Statistics and Probability for
+
+Engineers. 5th ed. New Delhi: Wiley-India, 2011.
+
+                                                                                                   rd
+Draper, N. R., H. Smith, Applied Regression Analysis.  3                                               ed. New Delhi:
+
+Wiley-India, 1998.
+
+Kutner, M. H., C. J. Nachtschiem, J. Netner, Applied Linear Regression
+
+                th
+Models. 4          ed. New Delhi: McGraw Hill, 2004.
+
+Note:      In   case      of   any     reference        be     inadvertently         omitted,       the     error    will   be
+
+rectified if intimated
+
+            What is Meant by Regression?
+
+
+  A return to former state of existence
+
+
+  Reduced symptoms    or lower severity of a disease instead of its
+
+  progression (regression of disease)
+
+
+  The relation between input and output is called regression because it
+
+  refers to a statistical tendency of data points to move ("regress" or
+
+  "step back") towards the average (mean) value.
+
+            What is Meant by Regression?
+
+
+  Historical Origin: "Regression to the Mean"
+
+
+  Galton's Observations (1870s-1880s): While studying the inheritance
+
+  of traits, Galton observed that children of very tall parents were
+
+  usually shorter than their parents but taller than the average, while
+
+  children of very short parents were usually taller than their parents
+
+  but shorter than the average.
+
+              What is Meant by Regression?
+
+
+   Regressing Toward Mediocrity: Galton called this phenomenon "regression
+
+   toward mediocrity" or "regression to the mean," meaning that data points
+
+   extreme in value tend to "regress" back toward the average value.
+
+
+   The "Line of Regression": To visualize and model this, Galton used a straight
+
+   line to summarize the relationship, which he termed the "regression line”
+
+
+   Machine Learning Definition: In modern data science, regression refers to a
+
+   supervised learning technique used to predict a continuous numerical output
+
+   (e.g., price, temperature, sales volume) based on input features.
+
+                         Which    is mid-parent    height
+                         and which is child height?
+
+
+https://select-statistics.co.uk/blog/regression-to-the-mean-as-relevant-today-as-it-was-in-the-1900s/
+
+         The Regression Line of Galton
+
+
+   Regression to the mean is an important statistical phenomenon which is
+
+   often neglected and may lead to misleading conclusions.
+
+
+   For example, statistics on the impact of CCTVs indicated that they reduced
+
+   crime by around 100 robberies
+
+
+   This inference was based on the reduction in crime after the CCTVs had
+
+   been installed.
+
+
+   But, CCTVs are often installed after there have been an unusually high
+
+   number of robberies
+
+
+   So you may generally anticipate that the number of robberies return to
+
+   normal levels afterwards anyway
+
+            Regression and Causality
+
+
+  Let there be a strong statistical relation between the response
+
+  variable Y and the explanatory or predictor variable X
+
+
+  But it does not imply in any way that Y depends causally on X i.e.,
+
+  X was solely responsible for causing Y
+
+
+  Irrespective of the strong statistical relation between X and Y, do
+
+  not attribute a cause-and-effect pattern to the regression model.
+
+   What is Linear about Regression?
+
+
+
+    In linear regression, "linear" means the model is linear in its
+
+    parameters (       , , … )
+                       o   1
+
+
+    This means that the parameters are not multiplied, divided,
+
+    or raised to powers, allowing the model to be expressed as
+
+    a weighted sum:
+
+What is Linear about Regression?
+
+                                                      + 
+                                                                      )+ 
+                                                                    )+ 
+
+                                                    2
+                                   N(   +   X,    )
+                                        0    1
+Y
+
+
+
+
+                                                     True line
+                                                     Y =    +  X
+                                                            0   1
+
+                                                                    X
+
+                              Overall Summary of Regression
+
+
+
+        Regression model assumes that the probability distributions of Y have
+
+                                                                                2
+        the same variance σ                                                       , regardless of the level of the predictor variable
+
+        X.
+
+
+        The error terms are assumed to be uncorrelated.
+
+Since the error terms ε and ε are uncorrelated, so are the responses
+                                                                                        i                     j
+
+        Y and Y
+             i                       j
+
+Regression model implies that the responses Y come from probability
+                                                                                                                                                                           i
+
+        distributions whose means are E(Y) = β                                                                                                           + β           X and whose variances
+                                                                                                                                  i                 0               1       i
+
+                          2
+        are σ                , the same for all levels of X
+
+Underlying Assumptions in Linear Regression
+
+
+
+
+          A1: Linearity in parameters
+
+
+          A2: The independent variables are measured without error
+
+                                                                                                                                                                                                                                                                       2
+
+          A3: Homoscedasticity: Error terms have a constant variance: Var(ε) = σ
+                                                                                                                                                                                                                                                     i
+
+                                                                                                                                                                                                                 2
+
+          A5: The error terms ε are normally distributed: ε  ∼ N(0, σ                                                                                                                                                )
+                                                                                    i                                                                                          i
+
+
+          A6: No perfect multi-collinearity
+
+                                       Another Important Assumption
+
+
+A0: Cov(ε, X) = 0
+                                  i          ji
+
+In linear regression, this means that the error term () is uncorrelated
+                                                                                                                                                                                           i
+
+                              th
+with the i                          setting of the independent variables (X).
+                                                                                                                                                                         j
+
+This fundamental assumption, often called exogeneity, ensures that
+
+the independent variables do not explain the variance in the errors
+
+                 Multiple Regression Model
+
+                          Y =     +   X   +   X  + 
+                                 o     1  1     2  2
+
+Y :  Response
+
+X  :  independent variable 1
+  1
+
+X  :  independent variable 2
+  2
+
+   : independent error term
+
+           Multiple Linear Regression Model
+
+                                  Y =       +      X   +      X   + 
+                                           o       1   1       2   2
+
+The term multiple appears because it contains more than
+
+one       regressor            variable          and       the      term        linear        appears
+
+because the equation is a linear function of the unknown
+
+parameters              ,    and        .
+                        o    1           2
+
+                   Multiple Regression Model
+
+
+                                 Y =       +     X    +     X    + 
+                                          o       1   1       2   2
+
+   :  Intercept
+  o
+
+  :  partial regression coefficient 1
+  1
+
+  :  partial regression coefficient 2
+  2
+
+                Partial Regression Coefficients
+
+
+                                  Y =        +     X    +     X    + 
+                                            o       1   1       2   2
+
+   and         :  partial regression coefficients 1 and 2
+  1            2
+
+The term partial is used because
+
+   refers to the change in the response Y due to a change
+  1
+
+only in X         with X        being kept constant.
+               1             2
+
+             Regression: Illustration
+
+                                                    2
+                                   N(   +   X,    )
+                                        0    1
+Y
+
+
+
+                                                     True line
+                                                     Y =    +  X
+                                                            0   1
+                                                                 X
+
+      Partial Regression Coefficients
+
+
+  Each response is assumed to belong to a normal
+
+  distribution centered vertically at the coordinate given
+
+  by the regression line.
+
+
+  The variances of all the normal distributions are
+
+  assumed to be the same.
+
+                        Multiple Regression Model
+
+                          Y =        +      X    +      X    +…+           X    + 
+                                    o        1   1       2    2              k    k
+
+This       is    a    multiple          regression              model          with       k    regressor
+
+variables (X              , X    , …, X        ).
+                        1      2             k
+
+The       parameters                   ,      ,                    are       called         as     partial
+                                      o       1        2, …,        k
+
+regression coefficients.
+
+                Multiple Regression Model
+
+                    Y =      +    X   +    X   +…+       X   + 
+                            o      1  1     2   2           k  k
+
+Even though the actual functional relationship between Y
+
+and    X   , X   ,…,     X    is unknown,          the    regression        equation
+          1     2          k
+
+represents an approximate relationship between the two
+
+over a certain (narrow) range of the variables.
+
+            Multiple Regression Model
+
+The    Multiple     Regression         Model      involving     interaction
+
+between variables may represented by
+
+                 Y =     +    X  +    X  +    X  X  + 
+                         o     1  1     2  2    12  1  2
+
+                Multiple Regression Model
+
+                    Y =      +    X    +    X   +    X   X   + 
+                            o      1   1      2  2     12   1  2
+
+This is still a linear regression model as the functional
+
+relationship is linear in the unknown parameters (                                 ,   ,
+                                                                                   o    1
+
+  ,    ).
+2      12
+
+               Multiple Regression Model
+
+
+                  Y =     +   X   +   X   +   X   X  + 
+                         o     1  1     2  2    12   1  2
+
+Expressing X       X    as equal to X        we may write the above
+                  1  2                     3
+
+equation as
+
+                    Y =     +   X   +   X   +  X   + 
+                            o    1  1     2  2    3   3
+
+                 Multiple Regression Model
+
+
+   When we generate a response surface to this model,
+
+   we get a curved surface.
+
+
+   However this still remains a linear model as it is linear
+
+   in its parameters (        ,  ,  ,  )
+                              o   1   2   3
+
+
+   Without interaction term, we have a flat planar surface
+
+                Multiple Regression Model
+
+                                             2          2
+         Y =     +    X  +   X   +    X    +    X    +    X  X   + 
+                 o     1  1     2  2    11  1      22  2      12  1  2
+
+              Y =    +    X  +    X  +    X  +    X  +    X  + 
+                     o     1  1     2  2     3  3     4  4     5  5
+
+Any regression model that is linear in parameters (s) is a
+
+linear regression model, irrespective of the resulting response
+
+surface being a plane or curved.
+                                              .
+
+      Matrix Approach to Multiple Regression
+
+   Let there be k regressor variables with n observations
+
+                                                      (X         , X          , X          ,…, X                  , Y), i=1, 2,…,n
+                                                              i1           i2           i3                     ik          i
+
+                             Y       =            +            X         +           X         + …+                       X         +    i=1, 2,…, n
+                                  i             o             1       i1              2       i2                            k      ik             i
+
+Note: n > k
+
+  This may be represented in a matrix notation as Y = X+ 
+
+  Matrix Form of the Regression Equations
+
+
+
+
+
+
+
+          Y
+              
+             1
+
+                                                                            
+                                                                            0
+                              1X      X     X    ...X
+                                                          
+              
+                                   11    12   13       1k
+
+                                                                             
+          Y
+                                                          
+             2
+                                                                         
+                            1X      X     X     ...X                      1
+                                    21   22    23       2k                   
+                                                          
+
+
+              
+          .                                                                
+                              .   .    .    .  ...  .                    .
+
+
+                       X
+Y                                                            β
+                                                                             
+              
+
+                              .   .    .    .  ...  .
+                                                                       .
+          .
+                                                                             
+              
+
+                                                          
+                              .   .    .    .  ...  .
+                                                                             
+                                                                         .
+                                                        
+          .
+                                                                             
+                              1X      X     X     ...X
+                                                          
+                                   n1   n2    n3       nk
+              
+                                                                         
+                                                                             
+                                                                            k
+                                                                             
+          Y
+              
+            n
+
+                             Y
+                                 
+                                1
+
+                                                                  1X      X     X    ...X      
+                                                                        11    12   13       1k
+                                 
+
+                                                                                               
+                             Y
+                                2                                  1X      X     X     ...X
+                                                                      21    22    23       2k
+                                                                                               
+
+                                                                                               
+                                                                 .   .    .    .  ...  .
+                             .
+                                                            X
+                                                                                               
+                  Y
+                                 
+                                                                   .   .    .    .  ...  .
+                                                                                               
+                             .
+                                                                                             
+                                                                   .   .    .    .  ...  .
+
+                                                                                               
+                                 
+                             .
+                                                                   1X      X     X     ...X
+                                                                                               
+                                                                       n1    n2    n3       nk
+
+                                 
+
+                             Y
+                                 
+                               n
+
+
+
+                    Y is  an (n x1) vector of the observations
+
+
+
+
+X  is an (n x p) matrix of the levels of the independent variables
+
+                    β
+                       
+                      0
+                                                  
+                                                  1
+
+                       
+                                                   
+                    β
+                      1                          
+                                                2
+                                                   
+
+
+                                                 
+                    .
+                                                .
+
+                                          ε
+            β                                     
+                       
+
+                                                .
+                    .
+                                                   
+                       
+
+                                                   
+                                                .
+                       
+                    .
+                                                   
+
+                       
+                                                 
+                                                   
+                                                 n
+                    β
+                       
+                       k
+                       
+
+
+
+ is a (px1) vector of the regression coefficients, and  is a (nx1)
+
+
+
+vector of the random errors.   Here p = k+1
+
+Matrix Approach to Multiple Regression
+
+
+                       Y = X+ 
+
+We wish to find estimates for the linear regression model
+
+coefficients (also   called   parameters)    which    are
+
+                        ˆ     ˆ    ˆ        ˆ
+                          ,   ,    ,...,
+                          0    1    2         k
+expressed as follows
+
+Matrix Approach to Multiple Regression
+
+                       ˆ    ˆ    ˆ         ˆ
+                         ,   ,   ,...,
+                        0     1    2        k
+Using these coefficients in the following model will help us
+
+to predict the response for various values of X (i=1,2,…k)
+                                              i
+
+
+   ˆ     ˆ       ˆ          ˆ                  ˆ
+  Yβ        βX        β     X     ...β       X
+           0      1   1       2   2              k   k
+
+    Least Squares Estimators of 
+
+
+
+       Least Squares Estimators of 
+
+
+
+These are the least squares model equations in matrix
+form.  Their solution is given by
+
+
+Dimensions of Matrices
+
+
+
+       Dimensions of Matrices
+
+
+
+Calculations of Error Sum of Squares (SS      )
+                                             E
+
+
+
+
+
+It may be shown that
+
+
+
+
+     Variance-Covariance Matrix
+
+
+
+      Variance-Covariance Matrix
+
+The diagonal elements of the Covariance matrix are the
+variances of the least square estimators and the off-
+diagonal elements are the covariances.
+The Covariance matrix dimensions are p x p
+
+Matrix Form of the Regression Equations
+
+
+
+
+                                               C      C     C
+                                                                 
+                                                  00    01    02
+
+                                    1   2                          2
+                      C(X'X)                C      C    C       
+                                                 10     11    12
+                                                                 
+
+                                                                 
+                                               C      C     C
+                                                 20    21    22  
+
+    Matrix Form of the Regression Equations
+
+
+
+
+
+
+                                                                               2
+                                                           ˆ
+                                                   V()                         C        ,j     0,1,2
+                                                                                        jj
+
+                                                                                                  2
+                                                                    ˆ       ˆ
+                                                  cov(                  ,       )                C       ,i    j
+                                                                       i        i                         ij
+
+   Significance of the Covariance Matrix
+
+Estimates of the variances of the regression coefficients
+
+                                              2                              2
+may be obtained by substituting                with an estimate as 
+
+is unknown.
+
+     Estimated Standard Error
+
+
+
+       Estimated Standard Error
+
+
+
+        Estimated Standard Errors
+
+
+  These standard errors provide an idea of the precision
+
+  of the estimation for the regression coefficients
+
+
+  Small standard errors indicate good precision.
+
+              Estimator of Error Variance
+
+
+   Estimation of residual error is important
+
+
+   The residual should ideally reflect the difference due to
+
+   random       factors     and     not    systematic       discrepancies
+
+   created by using an inadequate model
+
+                                                2
+
+   This is an unbiased estimator of 
+
+Estimator of Error Variance
+
+
+
+
+             Why n-p?
+
+
+
+
+
+
+
+
+
+             Why n-p?
+
+
+
+
+
+
+
+
+            Standard Error
+
+Statistical Properties of the Coefficients
+
+The least squares model equations in matrix form is given
+below.  The solution is given by
+
+
+
+
+      Actual response and its prediction
+
+Express the deviation between an actual response and the
+
+predicted response in terms of difference of two deviations
+
+
+   Deviation of actual response from mean response
+
+
+   Deviation of predicted response from mean response
+
+Relation between actual response and its
+
+                                                    prediction
+
+
+
+         Deviation of actual response from mean response
+
+
+         Deviation of predicted response from mean response
+
+                                                                           ˆ              ˆ
+                                 (Y          Y)(Y                      Y)(Y                    Y)
+                                       i                           i          i              i
+
+                                 or
+
+                                                ˆ                                       ˆ
+                                 (Y          Y)(Y                     Y)        (Y           Y)
+                                       i          i              i                         i
+
+                                                              (X, Y)
+                                                                      i         i
+   Y
+       i
+Y                                                                            ˆ                ˆ                  ˆ
+                                                                           Y                           X
+      i
+                                                                                                   0                 1
+     ˆ
+   Y
+         i
+
+   Y
+
+
+
+
+
+
+                                                                    X
+                                                                         i
+
+Sum of Squares in Linear Regression
+
+                     Total Sum of Squares =
+
+                 Regression Sum of Squares
+
+                                    +
+
+                    Residual Sum of Squares
+
+                  SS      = SS             + SS
+                      Total      Regression       Residual
+
+  Resolution of Total Sum of Squares
+
+
+
+Resolution of Total Sum of Squares
+
+
+
+
+
+
+          Resolution of Error Sum of Squares
+
+
+
+
+                           SS        = SS        – SS
+                                error       total        regression
+By definition of the total sum of squares, the second term
+
+becomes the regression sum of squares
+
+   Regression Sum of Squares due to 
+                                                                                                0
+
+
+
+
+
+Regression Sum of Squares due to 
+                                                                                              0
+
+
+
+
+
+Regression Sum of Squares due to 
+                                                                                            0
+
+
+
+
+
+      Regression Sum of Squares due to 
+                                                                                                 0
+
+
+
+
+
+   Regression Sum of Squares due to 
+                                                                                               0
+
+When we do sum of squares analysis we first consider
+
+the     contribution            from       the     intercept         (   )   and       then
+                                                                         0
+
+consider the additional contribution from the remaining
+
+regression coefficients for e.g. the slope (                              ) and so on.
+                                                                          1
+
+
+
+Regression Analysis: A Few
+
+    Terms Explained
+
+                                                                                        2
+              Coefficient of Determination (R                                             ):
+
+
+                                                 SS
+                                                     Regression
+                                           2
+                                        R     
+                                                    SS
+                                                        Total
+
+This      represents          the     proportion          of    the     total      variability
+
+accounted or explained by the linear regression model
+
+                                              2
+       Coefficient of Determination (R         ):
+
+     2
+The Rvalue may be increased by increasing the number
+
+of terms in the model and thereby increasing the number
+
+of coefficients that may be adjusted so that the model can
+
+be made to fit the data excellently.
+
+                                                                      2
+           Coefficient of Determination (R                             ):
+
+   A   complex      model     becomes        cumbersome         to   handle,
+
+   more empirical in nature and difficult to ascribe physical
+
+   reasons     for   the   dependence        of the    response      on   the
+
+   factors of the experiment.
+
+
+   A noisy data fitted with too many parameters will fail to
+
+   work well when implemented.
+
+                                                                                    2
+                                                Adjusted R                            :
+
+
+Here          Mean           Squares               of     the        error        and         model/total                 sum         of
+
+squares are used.
+
+
+                                                                 SS
+                                                                        Error
+                                                                                n     p
+                                                2
+                                            R        1
+                                                adj
+                                                                  SS
+                                                                         Total
+                                                                                n1
+
+                                                                                2
+                                            Adjusted R                            :
+
+                                                                 SS
+                                                                        Error
+                                                                                n     p
+                                                 2
+                                             R        1
+                                                 adj
+                                                                  SS
+                                                                         Total
+                                                                                 n1
+
+
+To penalize the addition of unnecessary terms in the model
+
+
+                                                                                           2
+equation              (“overfitting”)                  the       adjusted               R       value          also         gets
+
+
+reported.
+
+                                                                                    2
+                                                Adjusted R                             :
+
+                                                                    SS
+                                                                           Error
+                                                                                   n      p
+                                                   2
+                                               R         1
+                                                   adj
+                                                                     SS
+                                                                            Total
+                                                                                    n1
+
+
+The        SS              contribution                is     increased                by      dividing            with        the
+                  Error
+
+
+error degrees of freedom.  The latter reduces when more
+
+
+number of parameters are taken up by the model.
+
+                                                                                    2
+                                                Adjusted R                             :
+
+                                                                    SS
+                                                                           Error
+                                                                                   n      p
+                                                   2
+                                               R         1
+                                                   adj
+                                                                     SS
+                                                                            Total
+                                                                                    n1
+
+
+Unless the SS                               is considerably reduced by adding the
+                                  Error
+
+
+                                                                                                                             2
+extra         term         to     the       model            equation,                  the       adjusted               R      will
+
+
+increase upon increasing the number of parameters.
+
+PRESS: Prediction Error Sum of Squares
+
+
+   This term is also similar to the sum of squares of the
+
+   residuals.
+
+
+   We    sum    the   square     of the    deviations     between      the
+
+   actual     responses       and     the    corresponding         model
+
+   predicted values.
+
+PRESS: Prediction Error Sum of Squares
+
+The main difference to watch out for is that the prediction
+              th
+for the i        data is based on a model equation that excluded
+
+that     particular         data       point      but     used        the     remaining            data
+
+points to develop the model equation.
+
+PRESS: Prediction Error Sum of Squares
+
+
+  The same treatment is meted to other data points as well
+
+  when they   are compared   to their individual model
+
+  predictions.
+
+           PRESS:
+
+
+
+           PRESS:
+
+
+
+                         Representation of Regression
+
+
+
+      Figure      also     shows        probability        distributions        of    Y    for
+
+      midyear evaluation levels X = 50 and X = 70
+
+
+      Means of the probability distributions have a systematic
+
+      relation to the level of X.
+
+
+      This    systematic         relationship         is called      the    regression
+
+      function of Y on X
+
+
+      Graph of the regression function is the regression curve
+
+
+      The regression function is slightly curvilinear
+
+
+      Increase       in   the    expected        (mean)       year-end        evaluation
+
+      with an increase in midyear performance evaluation is
+
+      retarded at higher levels of midyear performance.
+
+                   Degrees of Freedom
+
+
+                     SS       = SS            + SS
+                         Total      Regression       Residual
+
+The SS         has n-1 degrees of freedom
+          Total
+
+The SS              has k degrees of freedom where k is related
+          Regression
+
+to total number of regression coefficients as
+
+           Degrees of Freedom
+
+                         p=k+1
+
+The residual sum of squares has (n-p) degrees of freedom
+where n is total number of responses.
+
+Analysis of Variance (ANOVA)
+
+
+Source of            Sum of          Degrees of             Mean
+
+  Variation         Squares            Freedom             Square
+
+Regression                                  k
+                        SS                                   MS
+                            R                                     R
+
+   Error or                                n-p
+                        SS                                   MS
+                            E                                     E
+
+   Residual
+
+     Total                                 n-1
+                        SS
+                            T
+
+             Source of          Sum of          Degrees of            Mean
+              Variation        Squares           Freedom            Square
+
+             Regression           SS                  k               MS
+                                      R                                   R
+
+               Error or           SS                 n-p              MS
+                                      E                                   E
+              Residual
+
+                 Total            SS                 n-1
+                                      T
+
+
+Here n is the total number of observations and p is the total
+
+number of parameters (including the constant                            ).
+                                                                        o
+
+                             Since k = (n-1) – (n-p)
+
+                                         k = p-1
+

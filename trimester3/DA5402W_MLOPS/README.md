@@ -284,3 +284,9 @@ Ray libraries:
 Two-phase planning: Logical Plan (eg. Read -> Map -> Filter -> Select) needs to be converted to Physical Plan, i.e., logical operators to Ray physical tasks/actors
 
 Plans are optimized before execution. *Operator Fusion* fuses adjacent transformation. One logical operator may turn into multiple physical tasks.
+
+### Git, Github, Gitlab -- TODO
+
+### Docker, Dockerfile, Docker Engine, Docker Compose, Docker Hub -- TODO
+
+cgroup, resource_group

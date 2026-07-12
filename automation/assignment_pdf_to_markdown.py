@@ -1,6 +1,17 @@
 """Convert assignment PDF to Markdown.
 
 Allows me to type solution in Markdown and then convert solution back to PDF to submit.
+
+NOTE: pymupdf on its own is also very useful even on CLI :
+
+$ python -m pymupdf    
+usage: pymupdf [-h] {show,clean,join,extract,embed-info,embed-add,embed-del,embed-upd,embed-extract,embed-copy,gettext,internal} ...
+$ python -m pymupdf gettext /path/to/file_name.pdf
+(creates /path/to/file_name.txt !)
+$ cd /path/to/folder && ~/iit-madras-web-mtech-ai/automation/all_pdfs_to_markdown.sh     # script that runs pymupdf gettext converts all **/*.pdf to *.txt
+# this error happened for one PDF only
+RuntimeError: program error: minslot too small = 0
+Failed for trimester3/CH5440W_MultiVariateAnalysis/lectures/30.06.2026/StatisticalDistance.pdf , continuing.
 """
 
 from argparse import ArgumentParser
@@ -30,9 +41,10 @@ CurrentDate: {TODAY}
 parser = ArgumentParser(description='Convert Assignment PDF to Markdown')
 parser.add_argument('pdf_path', help='Path to Assignment PDF')
 parser.add_argument('--image-size-limit', 
-                    type=float, 
-                    default=1, 
-                    help='Maximum size (in ratio of page size) for images to be extracted. Larger images will be skipped. By default, all images are extracted.')
+    type=float, 
+    default=1, 
+    help='Maximum size (in ratio of page size) for images to be extracted. Larger images will be skipped. By default, all images are extracted.'
+)
 args = parser.parse_args()
 
 pdf_path = Path(args.pdf_path)
