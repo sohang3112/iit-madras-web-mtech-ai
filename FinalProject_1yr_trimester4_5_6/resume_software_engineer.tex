@@ -1,0 +1,256 @@
+%-------------------------
+% Resume in Latex (developed on Overleaf - https://www.overleaf.com/project/639d4cdaa9ac112e7ca1ce40)
+% Author: Sohang Chopra
+% Based off of: https://github.com/jakegut/resume
+% License: MIT
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+
+%----------FONT OPTIONS----------
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure that generated pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    \textbf{\Huge \scshape Sohang Chopra} \\ \vspace{1pt}
+    \small Agra, India $|$ \vspace{1pt}
+    \small 837-392-6976 $|$ \href{mailto:sohangchopra@gmail.com}{\underline{sohangchopra@gmail.com}} $|$ 
+    \href{https://linkedin.com/in/sohang-chopra}{\underline{linkedin.com/in/sohang-chopra}} $|$
+    \href{https://github.com/sohang3112}{\underline{github.com/sohang3112}}
+\end{center}
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Indian Institute of Technology, Madras}
+      {}
+      {Master of Technology in Industrial Artificial Intelligence}
+      {Sept 2025 -- Present}
+  
+    \resumeSubheading
+      {Dayalbagh Educational Institute, Agra}{}
+      {Bachelor of Technology in Electrical Engineering, Minor in Computer Science}{July 2018 -- May 2022}
+  \resumeSubHeadingListEnd
+
+%-----------PROGRAMMING SKILLS-----------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Languages}{: Python, C, C++, Rust, Bash, JavaScript, SQL} \\
+     %-------------- Removed (not relevant to Qualcomm low-level job ---- \textbf{Frameworks \& Libraries}{: Tensorflow, MySQL, Flask, FastAPI, Selenium, Numpy \& Pandas} \\  --------------%
+     %----- Removed (WPF Framework for .NET, SFML, Bootstrap, JQuery, NodeJS): Kushagara suggested removing ones I'm not that confident in ----%
+     \textbf{Skills \& Concepts}{: Object Oriented Programming, Git, Open Source, GDB debugger, Operating System concepts (multi-threading, Mutexes, Semaphore, IPC, RTOS), Linux, Arduino, AWS, Docker, Machine Learning, Generative AI (LLMs), Full Stack Web,  Github Actions CI, Web Scraping} \\
+    }}
+ \end{itemize}
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Software Engineer}
+      {September 2024 -- Present}
+      {HCL Technology}
+      {Remote (Noida)}
+      \resumeItemListStart
+        \resumeItem{Consitently attained "Distinguished Performance" appraisal rating.}
+        \resumeItem{Part of a team making a Python package to prune Tensorflow Vision models by 50 \% so they run on resource-constrained chips.}
+        \resumeItem{Worked on CI/CD Github Actions that automatically check code formatting \& test it.}
+        \resumeItem{Refined usability by improving error tracebacks and documentation, and automated testing \& validation to minimize bugs.}
+      \resumeItemListEnd
+    
+    \resumeSubheading
+      {Software Engineer}{January 2022 -- October 2024}
+      {MFilterIt}{Noida}
+      \resumeItemListStart
+        \iffalse
+        %-- Commented, too many bullet  points! ---%
+        \resumeItem{Enhanced translation \textbf{efficiency} by over 600\% through \textbf{multithreading} and chunking, streamlining workflow by processing tasks in parallel}
+        \resumeItem{Engineered a \textbf{real-time face swap} feature for video streams using an \textbf{AWS EC2 GPU server}, enhancing user experience by integrating celebrity face overlays.}
+        \resumeItem{Collaborated in a multi-disciplinary team of 10+ to develop \textbf{Flask REST API microservices} for data analytics with a \textbf{MySQL database}, ensuring CCPA compliance in advertising strategies.}
+        \fi
+        
+        \resumeItem{Fine-tuned \textbf{Natural Language Processing} models with \textbf{Keras} and \textbf{PyTorch}, specialising in text detection and generation tasks.}
+        \resumeItem{Implemented content monitoring and data collection tools using \textbf{Selenium}, \textbf{AWS Lambda} and \textbf{Pandas} to identify and analyse discrepancies in client web and mobile platforms.}
+      \resumeItemListEnd
+
+    \iffalse
+    % ----------------- Commented: don't have proof (completion document) ------------%
+    \resumeSubheading
+      {Data Analyst (Intern)}{October -- December 2021}
+      {Trade Global}{Delhi}
+      \resumeItemListStart
+        \resumeItem{Analyzed 10 GB of historical stock data efficiently with \textbf{Pandas} in \textbf{Jupyter Notebook}.}
+        \resumeItem{Backtested over 10 stock strategies using Zerodha Kite API on historical data to select optimal trading strategies.}
+    \resumeItemListEnd
+    \fi
+
+    \resumeSubheading
+      {Software Engineer (Intern)}{April –- September 2021}
+      {Arcon Cybersecurity}{Mumbai (Remote)}
+      \resumeItemListStart
+        \resumeItem{Made a flexible \textbf{GUI} Interface using \textbf{WPF Framework (C\#)} to create automated web tasks through a flow chart.}
+        \resumeItem{Enabled easy execution of created tasks multiple times using \textbf{Selenium}, a web automation library.}
+    \resumeItemListEnd
+
+    \iffalse
+    %--------- Removed, web dev experience not relevant -----------%
+    \resumeSubheading
+      {Front End Web Developer (Intern)}{June 2019}
+      {Blazar Software Solutions}{Delhi}
+      \resumeItemListStart
+        \resumeItem{Created beautiful web pages for a project, using \textbf{HTML5 \& CSS} with \textbf{Bootstrap} components.}
+        % -- MAYBE remove following point - didn't learn much SEO anyway
+        \resumeItem{Learned SEO tasks, optimising page load times via Developer Tools.}
+    \resumeItemListEnd
+    \fi
+
+  \resumeSubHeadingListEnd
+
+
+%-----------PROJECTS-----------
+\section{Projects \& Open Source Contributions}
+    %------------ Commented because unrelated to c, embedded programming ---------------%
+    \resumeSubHeadingListStart 
+    
+      \resumeProjectHeading
+       {\textbf{\href{https://github.com/sohang3112/iforth}{\underline{IForth (Jupyter kernel for Forth)}}} $|$ \emph{Python, Forth, Docker, Open Source}}{}
+        \resumeItemListStart
+            \resumeItem{Revitalised the abandoned IForth \textbf{Open Source} repository by adding code prettification, shell command support, and stability enhancements, including Jupyter kernel termination management. Also added Dockerfile and published as Python package for easy installation.}
+        \resumeItemListEnd
+
+        \resumeProjectHeading
+        {\textbf{Open Source Merged PRs} $|$ \emph{JavaScript, Python, C, Rust}}{}
+          \resumeItemListStart
+            \resumeItem{\emph{C}: 2048.c: Added --help, --version CLI arguments}
+            \resumeItem{\emph{Rust}: Macrokata: Fix compile error in an exercise.}
+            \resumeItem{\emph{Python}: Added type hint stubs for Flask-SocketIO library to allow static type checking.}
+            \resumeItem{\emph{JavaScript}: ngn/apl: Made web app installable as a Progressive Web App (PWA) so it can be run offline on mobile or web.}
+          \resumeItemListEnd
+          
+        \iffalse
+        %---------- Commented because unrelated to C, embedded programming ----------%
+        \resumeProjectHeading
+       {\textbf{\href{https://github.com/sohang3112/face\_login}{\underline{Login using Face Detection}}} $|$ \emph{Python (FastApi), HTML / CSS / JS}}{}
+        \resumeItemListStart
+            \resumeItem{Web-based prototype for Login using \textbf{Face Detection}, with proper usage documentation.}
+        \resumeItemListEnd
+        \fi
+
+      \iffalse
+      %------ Commented (maybe not that important & impressive?) -----%
+      \resumeProjectHeading
+        {\textbf{\href{https://github.com/sohang3112/simple-text-editor}{\underline{Web-based Text Editor}}} $|$ \emph{Python (Flask), HTML / CSS / JS}}{October 2021}
+          \resumeItemListStart
+            \resumeItem{A simple and minimalist web-based text editor, which enables users to create, edit, save, and open text files effortlessly, all developed within 1 day}
+          \resumeItemListEnd
+        \fi
+
+        \resumeProjectHeading
+        {\textbf{\href{https://github.com/sohang3112/json-parser}{\underline{JSON Parser from scratch}}}
+         $|$ \emph{Haskell}}
+         {}
+         \resumeItemListStart
+            \resumeItem{A JSON Parser implemented using parser combinators with Parsec library in Haskell (functional programming).}
+        \resumeItemListEnd
+
+        \resumeProjectHeading
+        {\textbf{Embedded Morse Code Generator} $|$ \emph{C, Arduino}}{}
+          \resumeItemListStart 
+             \resumeItem{Developed a C-based Arduino application that converts user text input to Morse Code output via LEDs.}
+          \resumeItemListEnd
+
+        \resumeProjectHeading
+              {\textbf{Electrical Charge Simulator} $|$ \emph{C++, SFML}}{}
+              \resumeItemListStart
+                \resumeItem{Simulated interaction of 100s of randomly charged particles in space.}
+                \resumeItem{Studied many interesting phenomena (such as slingshot due to electromagnetic field).}
+              \resumeItemListEnd
+    \resumeSubHeadingListEnd
+
+%-------------------------------------------
+\end{document}

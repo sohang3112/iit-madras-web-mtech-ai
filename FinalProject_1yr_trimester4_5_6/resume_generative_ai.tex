@@ -1,0 +1,215 @@
+%-------------------------
+% Resume in Latex (developed on Overleaf - https://www.overleaf.com/project/639d4cdaa9ac112e7ca1ce40)
+% Author: Sohang Chopra
+% Based off of: https://github.com/jakegut/resume
+% License: MIT
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+
+%----------FONT OPTIONS----------
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure that generated pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    \textbf{\Huge \scshape Sohang Chopra} \\ \vspace{1pt}
+    \small Agra, India $|$ \vspace{1pt}
+    \small 837-392-6976 $|$ \href{mailto:sohangchopra@gmail.com}{\underline{sohangchopra@gmail.com}} $|$ 
+    \href{https://linkedin.com/in/sohang-chopra}{\underline{linkedin.com/in/sohang-chopra}} $|$
+    \href{https://github.com/sohang3112}{\underline{github.com/sohang3112}}
+\end{center}
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Software Engineer}{January 2022 -- Present}
+      {MFilterIt}{Noida}
+      \resumeItemListStart
+        \resumeItem{Built a \textbf{Generative AI} solution to classify themes in text comments by self-hosting an \textbf{Ollama Mistral} model in an \textbf{AWS EC2 GPU server} for multi-label classification.}
+        \resumeItem{Leveraged \textbf{Generative AI} by \textbf{fine-tuning GPT API} for span extraction to identify product claims from OCR banner text with \textbf{over 85\% accuracy}.}
+        \resumeItem{Used \textbf{Generative AI} by \textbf{fine-tuning GPT API} to generate SQL queries from natural language, enabling non-technical executives to fetch data.}
+        \resumeItem{Utilized YOLOv5 to classify images with violent content, achieving \textbf{over 80\% accuracy}, to differentiate between safe and unsafe images.}
+        \resumeItem{Applied \textbf{zero-shot and few-shot} techniques for both text and image classification.}
+      \resumeItemListEnd
+       
+    \resumeSubheading
+      {Data Analyst (Intern)}{October -- December 2021}
+      {Trade Global}{Delhi}
+      \resumeItemListStart
+        \resumeItem{Analyzed 10 GB of historical stock data efficiently with \textbf{Pandas} in \textbf{Jupyter Notebook}.}
+        \resumeItem{Backtested over 10 stock strategies using Zerodha Kite API on historical data to select optimal trading strategies.}
+    \resumeItemListEnd
+
+    \resumeSubheading
+      {Software Engineer (Intern)}{April –- September 2021}
+      {Arcon Cybersecurity}{Mumbai (Remote)}
+      \resumeItemListStart
+        \resumeItem{Made a flexible \textbf{GUI} Interface using \textbf{WPF Framework (C\#)} to create automated web tasks through a flow chart.}
+        \resumeItem{Enabled easy execution of tasks multiple times using \textbf{Selenium}, a web automation library.}
+    \resumeItemListEnd
+
+    \resumeSubheading
+      {Front End Web Developer (Intern)}{June 2019}
+      {Blazar Software Solutions}{Delhi}
+      \resumeItemListStart
+        \resumeItem{Designed beautiful web pages for a project, using \textbf{HTML5 \& CSS} with \textbf{Bootstrap} components.}
+        % -- MAYBE remove following point - didn't learn much SEO anyway
+        % -- \resumeItem{Learned SEO tasks, optimizing page load times via Developer Tools.}
+    \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+
+%-----------PROJECTS-----------
+\section{Projects \& Open Source Contributions}
+    \resumeSubHeadingListStart 
+      \resumeProjectHeading
+      %--- Last section empty because date omitted ---%
+        {\textbf{\href{https://github.com/ultralytics/yolov5/pull/11654}{\underline{YOLOv5 Image Classification Export}}} $|$ \emph{Python, Open Source}}{}
+        \resumeItemListStart
+            \resumeItem{Contributed to YOLOv5, an open-source \textbf{deep learning computer vision} framework.}
+            \resumeItem{Enhanced \texttt{classify/predict.py} module to export image classification results to CSV for further data analysis.}
+        \resumeItemListEnd
+    
+     \resumeProjectHeading
+      %--- Last section empty because date omitted ---%
+     {\textbf{\href{https://github.com/sohang3112/face\_login}{\underline{Login using Face Detection}}} $|$ \emph{AI, Full Stack Web, Python}}{}
+        \resumeItemListStart
+            \resumeItem{Developed a web-based login prototype using \textbf{Face Detection} with complete documentation.}
+            \resumeItem{Utilized \textbf{AI} library face\_recognition, \textbf{FastAPI} for backend, and \textbf{HTML/CSS/JavaScript} for frontend.}
+        \resumeItemListEnd
+
+    \resumeProjectHeading
+      %--- Last section empty because date omitted ---%
+        {\textbf{Morse Code with Arduino} $|$ \emph{Arduino, Embedded Programming, C}}{}
+        \resumeItemListStart
+            \resumeItem{Created a Morse code converter using Arduino, which translates typed text into Morse code and flashes corresponding LEDs.}
+        \resumeItemListEnd
+
+    \resumeSubHeadingListEnd
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Dayalbagh Educational Institute}{Agra}
+      {Bachelor of Technology in Electrical Engineering, Minor in Computer Science}{July 2018 -- May 2022}
+  \resumeSubHeadingListEnd
+
+
+%-----------PROGRAMMING SKILLS-----------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Languages}{: Python, SQL, HTML / CSS / JavaScript, C} \\
+     %----- Removed (Bash, C++, C#, Java): Kushagara suggested removing ones I'm not that confident in -----%
+     \textbf{Frameworks \& Libraries}{: SqlAlchemy, MySQL, Flask, FastApi, Pydantic, Selenium, Data Exploration with Numpy \& Pandas, Matplotlib, Arduino Embedded Programming (using C)} \\
+     %----- Removed (WPF Framework for .NET, SFML, Bootstrap, JQuery, NodeJS): Kushagara suggested removing ones I'm not that confident in ----%
+     \textbf{Skills \& Concepts}{: Generative AI, Full Stack Web, AWS (Lambda, Fargate, ECS, EC2, S3), Docker, Linux, Jupyter Notebook, Web Scraping, Arduino Programming, MVC, Object Oriented Programming, Git, Open Source} \\
+     %------- Removed (Machine Learning): not confident in it --------%
+    }}
+ \end{itemize}
+
+%----- BEGINNER-PROFICIENCY PROGRAMMING LANGUAGES -----------
+\section{Additional Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Haskell}: Implemented a JSON \textsf{parser} from scratch using \textsf{Parsec}: \url{https://github.com/sohang3112/json-parser} \\
+
+     \iffalse
+     %--- Commented - Kushagara advised to remove langs with no project experience ---%
+     \textbf{Rust}{: Completed Rustlings (practice exercises for Rust), Solving Macrokata exercises.} \\
+     \textbf{NodeJS/ExpressJS}{: Familiar with creating basic servers using NodeJS and ExpressJS} \\
+     \textbf{Clojure}{: Solved HackerRank problems.} \\
+     \fi
+    }}
+ \end{itemize}
+
+%-------------------------------------------
+\end{document}

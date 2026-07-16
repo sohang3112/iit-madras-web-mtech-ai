@@ -54,6 +54,33 @@ $$(x - \mu)^T \Sigma^{-1} (x - \mu) \le \chi^2 (\alpha) \quad \text{with probabi
 
 TODO
 
+--------------------------------------------------
+
+Midsem was till above.
+
+## Lecture 18 (13 July 2026) -- Partial Least Squares regression
+
+Inexpensive to create new features, but getting more rows is expensive.
+Clearly defined predictors and responses unlike PCA.
+
+TODO
+
+**Projection on Latent Structures (PLS)**
+- combines features from PCA and MLR (multiple linear regression):
+  - MLR regression only focuses on predicting Y
+  - PCA only looks at directions of maximum variance in X
+  - PLS decomposes X and Y at same time to capture shared variance
+- Predict set of dependent vars (Y) from independent vars or predictors (X), by extracting from predictors a set of orthogonal factors called *latent variables* which have best predictive power. 
+- Used when we Ordinary Least Squares is infeasible or can't be done because:
+  - High Multi-collinearity (highly correlated features/predictors): $X^T X$ becomes nearly singular (nearly non-invertible)
+  - High-dimensional data (no. of predictors $p$ > no. of observations $n$): $X^T X$ becomes singular (impossible to invert). common in genomics and chemometrics
+- Finding latent variables which simultaneously explain most variance of both X and Y
+- *NOTE*: Total Least Squares also looks at both X and Y - but there the reason is measurement error whereas in Partial Least Squares reasons are above (highly correlated features, features more than observations)
+
+![Projection on Latent Structures](images/projection_on_latent_structures.png)
+
+TODO
+
 ## References
 
 Books:

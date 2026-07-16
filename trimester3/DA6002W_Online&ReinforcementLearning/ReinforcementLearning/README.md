@@ -122,3 +122,91 @@ Example: Robot chasing (safe path or shortcut ?):
 ![Robot: Safe Path or Shortcut?](images/robot_safe_path.png)
 
 TODO
+
+## Lecture on July 13
+
+TODO
+
+$\lambda$-return ($\lambda$ in 0 to 1 is tradeoff between immediate and future rewards) :
+* it is a way of averaging multiple $n$-step returns
+* In Temporal Difference $TD(\lambda)$, $\lambda$-return becomes TD target
+* Idea: Average all $n$-step returns with exponentially decaying weights controlled by $\lambda$ (so geometric series)
+
+$$ G_t^\lambda = (1 - \lambda) \sum_{n=1}^\inf \lambda^{n-1} G_{t:t+n} $$
+
+* If we put $\lambda = 1$ then it becomes a Monte Carlo (MC) update only
+* If we put $\lambda = 0$ then it becomes 1-state TD update or $TD(0)$
+* At terminal state, all subsequent n-step returns are equal to conventional return $G_t$
+
+![Backward View of TD](images/BackupViewTDLambda)
+
+Forward View of $TD(\lambda)$ looks at future rewards / states. Issues with forward view:
+* Like in Monte Carlo, we can only calculate $\lambda$-return for episodic because they terminate
+
+TODO
+
+**Credit Assignment Problem (in all of RL)**: Present actions impact present as well as future rewards & states. Which action taken in past is responsible for reward in future? Agent needs to figure out which previous actions contributed to reward and how much.
+
+Most RL algos assume present action impacts all future though more weight to immediate rewards (discounting) 
+
+MC methods wait until end of episode, and then try to assign credit to actions based on accumulated return (from then to all future till termination).
+
+TD methods - much faster credit assignment. update value estimates at each time step based on the TD error
+
+**Eligibility Traces**: efficient solution to credit assignment and efficient alternative to $\lambda$-return
+* Approach:
+  * Keep track of state s or state-action pair (s,a) - their "eligibility" to receive value updates based on future rewards
+  * Facilitate temporal credit assignment by exponentially decaying eligibility over time
+  * Much simpler approach compared to maintaining multiple returns
+* Referred to as Backward View $TD(\lambda)$ because influence of TD error is propagated backward to all TD states (unlike forward where at each point we are trying to account for future rewards directly
+* A learned signal is sent backward to previous states
+
+Math & details of Eligibility Traces to be discussed next class.
+
+## Lecture on July 14
+
+Revision of last class: n-step TD Control, $\lambda$-return (a particular way of averaging multiple n-step), forward view $TD(\lambda)$, problem of Credit Assignment in RL, eligibility trace (backward view - has similarity to back propagation)
+
+TODO
+
+### Value Function Approximation
+
+all RL algos till now assumed tabular value functions - ie for each state or state-action pair there's a value
+
+drawbacks:
+* not scalable to large and/or continous space
+* memory intensive
+* lack of generalization: cannot extrapolate from seen to unseen states / state-action pairs
+* due to lack of generalization, slow learning, more samples, more time to converge
+
+TODO
+
+we solve these drawbacks via parametric approx to value functions
+
+*Shared Parameters*: Suppose nearby states have shared characteristics. Instead of learning seperate states, we describe every state using feature vectors:
+
+$$ x(s) = [1 , x_1(s) , x_2(s) , ... , x_d(s)] $$
+
+![Why Shared Parameters](images/value_func_approx_shared_parameters.png)
+
+Types of Value Function Approximators:
+
+![Types of Value Function Approximators](images/types_value_func_approximators.png)
+
+TODO
+
+Practical Learning Targets (compared to regression, there the target is fixed, here it's not) - adjust $w$ so that estimated value moves closer to target $v(S_t, w)$:
+
+![Practical Learning Targets](images/targets.png)
+
+TODO
+
+**Algorithm**: Gradient Monte-Carlo for Estimating $V_\pi$ ; Inputs: policy, differentiable value approximator $\hat{v}(s,w)$, learning rate $\alpha$
+
+TODO
+
+**Linear Function Approximator**: $\hat{v}(s,w) = w^T x$
+
+## Tutorials
+
+Tutorial on July 15: Reinforcement Learning notebook with library `gymnasium` -- TODO: learn this lib, will need it for the RL project/competition we'll have to do!
