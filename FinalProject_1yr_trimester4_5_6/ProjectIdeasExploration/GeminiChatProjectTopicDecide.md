@@ -245,4 +245,5 @@ You have a clear path forward. IIT Madras will reject a proposal only if it says
 Select the option that matches your bandwidth, set up a comparative matrix of multiple approaches, and you will easily pass the Phase I submission due on **July 15, 2026**.
 
 --------
-I'm unsure if Gemini actually used web search (hopefully it did) because I can't see external sources in its responses, only my own project atteched files.
+
+NOTE: Gemini suggested not yet shared these with project mentor, TODO: share for guidance.
