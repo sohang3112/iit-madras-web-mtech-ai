@@ -124,3 +124,21 @@ Best config: {'C': 1.0, 'max_iter': 100}
 Best F1 score recorded: 0.8235750733889323
 ```
 
+Results are in this Ray folder (and mlflow folder `mlruns` got created in current folder):
+
+```bash
+$ tree /home/sohang/ray_results/trainable_2026-07-18_15-38-26 
+/home/sohang/ray_results/trainable_2026-07-18_15-38-26
+├── basic-variant-state-2026-07-18_15-38-26.json
+├── experiment_state-2026-07-18_15-38-26.json
+├── trainable_9e0d4_00000_0_C=1.0000,max_iter=100_2026-07-18_15-38-26
+│   ├── events.out.tfevents.1784369313.sohang-VivoBook-ASUS-Laptop-X510UFO
+│   ├── params.json
+│   ├── params.pkl
+│   ├── progress.csv
+│   └── result.json
+└── tuner.pkl
+
+2 directories, 8 files
+```
+

@@ -10,6 +10,7 @@ import mlflow
 import time
 import os
 import tempfile
+from pathlib import Path
 import pandas as pd
 import numpy as np
 import traceback
@@ -151,23 +152,40 @@ def trainable(config):
                 pass
         ray.tune.report({"f1": 0.0, "accuracy": 0.0})
 
-search_space = {
-    "C": tune.choice([1.0]),
-    "max_iter": tune.choice([100]),
-}
+# Resolve MLflow output from the script directory so it always lands in this project folder.
+BASE_DIR = Path(__file__).resolve().parent
+MLRUNS_DIR = BASE_DIR / "mlruns"
+MLRUNS_DIR.mkdir(parents=True, exist_ok=True)
+tracking_uri = MLRUNS_DIR.as_uri()
 
-tuner = tune.Tuner(
-    tune.with_resources(trainable, resources={"cpu": 1}),
-    param_space=search_space,
-    tune_config=tune.TuneConfig(
-        num_samples=1,
-        max_concurrent_trials=1,
-        scheduler=ASHAScheduler(metric="f1", mode="max"),
-    ),
+print(f"MLflow tracking URI: {tracking_uri}")
+print(f"MLflow artifacts directory: {MLRUNS_DIR}")
+
+os.environ['MLFLOW_ALLOW_FILE_STORE'] = 'true'
+mlflow.set_tracking_uri(tracking_uri)
+experiment_id = mlflow.create_experiment(
+    "assignment2_DA25M622",
+    artifact_location=tracking_uri
 )
 
-results = tuner.fit()
-best = results.get_best_result(metric="f1", mode="max")
-print("Best config:", best.config)
-print("Best F1 score recorded:", best.metrics.get("f1"))
-ray.shutdown()
+with mlflow.start_run(experiment_id=experiment_id):
+    search_space = {
+        "C": tune.choice([1.0]),
+        "max_iter": tune.choice([100]),
+    }
+
+    tuner = tune.Tuner(
+        tune.with_resources(trainable, resources={"cpu": 1}),
+        param_space=search_space,
+        tune_config=tune.TuneConfig(
+            num_samples=1,
+            max_concurrent_trials=1,
+            scheduler=ASHAScheduler(metric="f1", mode="max"),
+        ),
+    )
+
+    results = tuner.fit()
+    best = results.get_best_result(metric="f1", mode="max")
+    print("Best config:", best.config)
+    print("Best F1 score recorded:", best.metrics.get("f1"))
+    ray.shutdown()

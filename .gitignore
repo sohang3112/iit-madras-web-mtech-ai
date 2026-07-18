@@ -5,6 +5,11 @@ part*
 _*
 ._*
 
+# mlflow
+mlruns/
+
+*.db
+
 # temporary backup files of LibreOffice
 .~lock*
 
