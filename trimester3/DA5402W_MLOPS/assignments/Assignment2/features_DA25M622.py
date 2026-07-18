@@ -5,7 +5,6 @@ import pyspark
 from pyspark.sql import SparkSession
 from pyspark.ml import Pipeline
 from pyspark.ml.feature import StringIndexer, VectorAssembler, Imputer, StandardScaler
-from pyspark.ml.classification import LogisticRegression
 
 spark = SparkSession.builder.appName("Assignment2_PartA").getOrCreate()
 
@@ -33,19 +32,21 @@ pipeline_stages = [
 
 preprocessing_pipeline = Pipeline(stages=pipeline_stages)
 
-# Fit and transform
 preprocessor = preprocessing_pipeline.fit(train_df)
 train_df_preprocessed = preprocessor.transform(train_df)
 test_df_preprocessed = preprocessor.transform(test_df)
 
 # in train output col 'y' automatically remained as it is as no transform was done on it
 
-# train_df_preprocessed.show()
-# test_df_preprocessed.show()
-
-# lr = LogisticRegression(featuresCol='features', labelCol='y')
+# it shows by default first 20 rows
+print('Train df:')
+train_df.select(categoricalCols + numericalCols).show()
+print('Test df:')
+test_df.select(categoricalCols + numericalCols).show()
 
 # create target label for training dataset
+# %%
+
 # %%
 # NOTE: these actually create FOLDERS {train,test}_processed_DA25M622.parquet - folders contain actual parquet files
 train_df_preprocessed.write.mode("overwrite").parquet("train_processed_DA25M622.parquet")
