@@ -7,7 +7,10 @@ pip install mlflow
 pip install seaborn      # for confusion matrix heatmap
 ```
 
-Part A done, Part B todo
+`mlflow ui` starts http://localhost:5000 (in the folder where started, saves *mlflow.db* sqlite file)
+IMPORTANT: clicking experiments in mlflow ui now by default shows a *GenAI* tab -- have to switch away to *Model Training* tab to view anything actual!
+
+Part A done, Part B done, Part C mlflow pending
 
 Ray is also lazy. You can actually load multiple datasets at once -- `ray.data.read_parquet(["path1", "path2"])`
 
@@ -124,7 +127,7 @@ Best config: {'C': 1.0, 'max_iter': 100}
 Best F1 score recorded: 0.8235750733889323
 ```
 
-Results are in this Ray folder (and mlflow folder `mlruns` got created in current folder):
+Results are in this Ray folder (and mlflow folder `mlruns` got created in current folder -- can start mlflow ui at http://localhost:5000 `MLFLOW_ALLOW_FILE_STORE=true mflow ui` which will auto use ./mlruns folder):
 
 ```bash
 $ tree /home/sohang/ray_results/trainable_2026-07-18_15-38-26 
