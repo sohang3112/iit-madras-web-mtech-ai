@@ -1,0 +1,117 @@
+
+## Demo 1 — Commit → Push → Pull Request
+
+
+
+# local loop
+git status
+git log --oneline
+echo "LEARNING_RATE = 0.05" >> src/train.py
+git status
+git diff
+git add src/train.py
+git commit -m "Tune learning rate to 0.05"
+git log --oneline
+
+# push to GitHub
+git remote add origin https://github.com/<you>/mlops-demo.git
+git push -u origin main
+
+
+
+
+
+## Demo 2 — Branch → Merge → Resolve a Conflict
+
+
+#pull request
+git switch -c fix/readme-typo
+sed -i '' 's/tiny MLOps demo/tiny, hands-on MLOps demo/' README.md
+git commit -am "Clarify project description in README"
+git push -u origin fix/readme-typo
+
+#create PR in website
+
+# ...merge in browser, then:
+git switch main
+git pull
+git log --oneline --graph
+
+# create a conflict
+git switch -c experiment/lr-high
+echo "LEARNING_RATE = 0.1" >> src/train.py
+git commit -am "Try LR = 0.1"
+git switch main
+git switch -c experiment/lr-low
+echo "LEARNING_RATE = 0.001" >> src/train.py
+git commit -am "Try LR = 0.001"
+git switch main
+git merge experiment/lr-high            # clean
+git merge experiment/lr-low             # CONFLICT
+
+# resolve: edit src/train.py to e.g. 0.05, delete <<< === >>> markers, then:
+git add src/train.py
+git commit --no-edit
+git log --oneline --graph
+
+
+
+
+
+## Demo 3 — Track a Large Model File with Git LFS
+
+git lfs install
+git lfs track "*.h5"
+cat .gitattributes
+
+mkfile 5m models/model.h5
+git add .gitattributes models/model.h5
+git commit -m "Add trained model (tracked by Git LFS)"
+
+git show HEAD:models/model.h5           # shows the tiny text pointer, not 5 MB
+git lfs ls-files
+
+
+
+
+## Demo 4 — Version a Dataset & Roll Back with DVC
+
+
+# init
+dvc init
+git status
+git commit -m "Initialize DVC"
+
+# put dataset under DVC
+cat data/dataset.csv
+dvc add data/dataset.csv
+cat data/dataset.csv.dvc
+git add data/dataset.csv.dvc
+git commit -m "Track dataset v1 with DVC"
+
+# remote + push
+mkdir -p /tmp/dvc-remote
+dvc remote add -d localstore /tmp/dvc-remote
+dvc push
+git add .dvc/config && git commit -m "Configure DVC remote"
+
+# version a change -> v2
+cat >> data/dataset.csv <<'ROWS'
+6,60,99.10,two-year,0
+7,1,45.20,month-to-month,1
+ROWS
+dvc status
+dvc add data/dataset.csv
+git commit -am "Update dataset to v2 (add 2 rows)"
+dvc push
+
+# roll back to v1
+git log --oneline
+git checkout HEAD~1 data/dataset.csv.dvc
+dvc checkout
+cat data/dataset.csv                    # back to 5 rows
+
+
+# optional: pipelines 
+dvc stage add -n prepare -d src/prepare.py -o data/dataset.csv python src/prepare.py
+

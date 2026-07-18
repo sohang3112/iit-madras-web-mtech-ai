@@ -36,6 +36,7 @@ ChatGPT follows instructions, Gemini completely ignores it.
 
 * RNN (Recurrent Neural Network) [it also has an attention mechanism]
 * Transformer
+* *MAYBE LATER don't think it's used that much, not sure* Graph Neural Network
 
 ## Main Course Material
 
@@ -43,6 +44,7 @@ Table of all courses (core & elective) with credits info for all trimesters is a
 
 - [Trimester 1: September - December 2025](trimester1/)
 - [Trimester 2: January - April 2026](trimester2/)
+- [Trimester 3: May - August 2026](trimester3/)
 
 ### Course Grades
 

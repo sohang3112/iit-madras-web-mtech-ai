@@ -174,7 +174,7 @@ TODO
 all RL algos till now assumed tabular value functions - ie for each state or state-action pair there's a value
 
 drawbacks:
-* not scalable to large and/or continous space
+* not scalable to large and/or continuous space
 * memory intensive
 * lack of generalization: cannot extrapolate from seen to unseen states / state-action pairs
 * due to lack of generalization, slow learning, more samples, more time to converge
