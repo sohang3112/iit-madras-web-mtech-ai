@@ -8,26 +8,38 @@ from ray.tune.schedulers import ASHAScheduler
 import ray.train
 import mlflow
 import time
-import os  # <-- Required for path resolution
+import os
 import tempfile
 import pandas as pd
+import numpy as np
 import traceback
 
 import matplotlib
 matplotlib.use('Agg') 
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.metrics import classification_report, confusion_matrix
 
 from ray.air.integrations.mlflow import setup_mlflow
 
-ray.init()
+# Keep Ray and Spark from overcommitting memory on this laptop.
+os.environ.setdefault("OMP_NUM_THREADS", "1")
+os.environ.setdefault("MKL_NUM_THREADS", "1")
+os.environ.setdefault("SPARK_LOCAL_IP", "127.0.0.1")
 
-# --- FIX HERE: Get absolute path relative to where you execute the script ---
+ray.init(ignore_reinit_error=True, num_cpus=1)
+
 DATASET_PATH = os.path.abspath("train_processed_DA25M622.parquet")
 
 def trainable(config):
+    # Enforce garbage collection inside workers to reclaim memory early
+    import gc
+    gc.collect()
+    
+    spark = None
     try:
+        if not os.path.exists(DATASET_PATH):
+            raise FileNotFoundError(f"Dataset not found at {DATASET_PATH}")
+
         setup_mlflow(
             config,
             experiment_name="assignment 2 DA25M622",
@@ -37,10 +49,17 @@ def trainable(config):
         spark = SparkSession.builder \
             .appName(f"Trial_{ray.tune.get_context().get_trial_id()}") \
             .config("spark.driver.bindAddress", "127.0.0.1") \
+            .config("spark.driver.memory", "1g") \
+            .config("spark.executor.memory", "1g") \
+            .config("spark.driver.memoryOverhead", "512m") \
+            .config("spark.executor.memoryOverhead", "512m") \
+            .config("spark.sql.execution.arrow.pyspark.enabled", "false") \
+            .config("spark.sql.shuffle.partitions", "1") \
+            .config("spark.default.parallelism", "1") \
+            .master("local[1]") \
             .getOrCreate()
         
-        # Workers can now successfully open the file from anywhere on the machine
-        df = spark.read.parquet(DATASET_PATH)
+        df = spark.read.parquet(DATASET_PATH).select("features", "y")
         train_df, val_df = df.randomSplit([0.8, 0.2], seed=42)
         
         f1_evaluator = MulticlassClassificationEvaluator(labelCol="y", predictionCol="prediction", metricName="f1")
@@ -76,19 +95,31 @@ def trainable(config):
         mlflow.log_metric("roc_auc", roc_auc)
         mlflow.log_metric("training_time", training_time)
         
-        eval_pd = predictions.select("y", "prediction").toPandas()
-        y_true = eval_pd["y"]
-        y_pred = eval_pd["prediction"]
+        # Aggregate counts natively to keep driver payloads low
+        counts_df = predictions.groupBy("y", "prediction").count().toPandas()
         
+        unique_labels = sorted(list(set(counts_df["y"].unique()) | set(counts_df["prediction"].unique())))
+        num_classes = len(unique_labels)
+        label_map = {label: idx for idx, label in enumerate(unique_labels)}
+        
+        cm = np.zeros((num_classes, num_classes), dtype=int)
+        for _, row in counts_df.iterrows():
+            i = label_map[row["y"]]
+            j = label_map[row["prediction"]]
+            cm[i, j] = row["count"]
+            
         with tempfile.TemporaryDirectory() as tmpdir:
             report_path = os.path.join(tmpdir, "classification_report.txt")
             with open(report_path, "w") as f:
-                f.write(classification_report(y_true, y_pred))
+                f.write(f"Accuracy: {accuracy:.4f}\n")
+                f.write(f"Weighted Precision: {precision:.4f}\n")
+                f.write(f"Weighted Recall: {recall:.4f}\n")
+                f.write(f"F1 Score: {f1_score:.4f}\n")
             mlflow.log_artifact(report_path)
             
-            cm = confusion_matrix(y_true, y_pred)
             fig, ax = plt.subplots(figsize=(6, 5))
-            sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", ax=ax)
+            sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", ax=ax,
+                        xticklabels=unique_labels, yticklabels=unique_labels)
             ax.set_ylabel('Actual')
             ax.set_xlabel('Predicted')
             ax.set_title('Confusion Matrix')
@@ -97,30 +128,40 @@ def trainable(config):
             plt.close(fig)
             mlflow.log_artifact(cm_path)
             
-            pred_path = os.path.join(tmpdir, "validation_predictions.csv")
-            eval_pd.to_csv(pred_path, index=False)
+            pred_path = os.path.join(tmpdir, "validation_counts.csv")
+            counts_df.to_csv(pred_path, index=False)
             mlflow.log_artifact(pred_path)
             
             mlflow.spark.log_model(model, artifact_path="model")
 
+        # Uncache data frames explicitly before closing the context
+        train_df.unpersist()
+        val_df.unpersist()
         spark.stop()
+        
         ray.tune.report({"f1": f1_score, "accuracy": accuracy})
 
     except Exception as e:
         print("--- WORKER EXCEPTION ENCOUNTERED ---")
         traceback.print_exc()
+        if spark:
+            try:
+                spark.stop()
+            except:
+                pass
         ray.tune.report({"f1": 0.0, "accuracy": 0.0})
 
 search_space = {
-    "C": tune.loguniform(1e-3, 1e2, 1e1),
-    "max_iter": tune.choice([50, 100, 200, 400]),
+    "C": tune.choice([1.0]),
+    "max_iter": tune.choice([100]),
 }
 
 tuner = tune.Tuner(
-    trainable,
+    tune.with_resources(trainable, resources={"cpu": 1}),
     param_space=search_space,
     tune_config=tune.TuneConfig(
-        num_samples=8,
+        num_samples=1,
+        max_concurrent_trials=1,
         scheduler=ASHAScheduler(metric="f1", mode="max"),
     ),
 )
@@ -129,3 +170,4 @@ results = tuner.fit()
 best = results.get_best_result(metric="f1", mode="max")
 print("Best config:", best.config)
 print("Best F1 score recorded:", best.metrics.get("f1"))
+ray.shutdown()
