@@ -16,7 +16,14 @@ q_*(s, a) = \sum_{s', r} p(s', r|s, a) (r + \gamma \max_{a^`} q_*(s', a')), \qua
 \pi_*(a|s) = \argmax_a q_*(s,a) , \quad (\text{Optimal Policy})
 $$
 
-**Incremental Monte Carlo Update** (from lecture 2): TODO
+**Incremental Monte Carlo Update** (from lecture 2) - $0 \le \alpha \le 1$ learning rate is or taken as $1 / n$ (n is total number of times state s or pair (s,a) has been visited till now) ; value updated iteratively by a fraction of error (because multiplied by $\alpha$) leading to reduced error:
+
+$$
+V_{n+1}(s) = V_n(s) + \alpha (G - V_n(s)) , \quad (G - V_n(s) \text{is error between observed return (target) and value estimate.}) \\
+Q_{n+1}(s,a) = Q_n(s,a) + \alpha (G - Q_n(s,a))
+$$
+
+NOTE: Incremental Monte Carlo Update with $\alpha_n = 1/n$ has effect of averaging all returns, but without having to remember all history.
 
 ## 1. Markov Decision Process
 
@@ -114,3 +121,20 @@ Same as MC estimation of state values, except state visits are replaced by state
 Dealing with problem of (if deterministic policy, same action appears for same state every episode) :
 * Exploring starts with random state-action pairs
 * Exploring with stochastic policy
+
+Incremental MC update formulae --> written at top of page
+
+MC Control: Policy Evaluation (to get action value) and Policy Improvement (greedy policy wrt action value of policy) are done alternately after every episode of experience to reasonably converge in limited episodes.
+
+### On-Policy and Off-Policy Learning
+* On-Policy (eval & improve policy currently being used to make decisions - more stable & better chance of coverage)
+* Off-Policy (eval & improve Target Policy, different from Behaviour Policy used to make decisions - less stable, may result in divergence)
+
+**On-Policy MC**:
+* *Soft Policy* (eg. $\epsilon$-greedy) is followed to balance exploration & exploitation. Stochastic, all possible actions in a state can be chosen with a non-zero probability.
+* Algorithms: 
+  * On-Policy First Visit MC Control (similar to prev; steps note TODO; initial all action values 0, uniform policy)
+    * Deciding between 2 actions (in a single state) in $\epsilon$-greedy: If one action is greedy, assign it probability $1 - \epsilon$ and other action probability $\epsilon$.
+      * Deciding between multiple actions (in a single state)? I think $1 - \epsilon$ for greedy action and $\epsilon / (K-1)$ for all other actions -- not sure TODO
+  
+**Off-Policy MC**: TODO
