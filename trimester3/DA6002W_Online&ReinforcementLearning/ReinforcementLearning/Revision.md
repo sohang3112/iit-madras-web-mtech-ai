@@ -1,3 +1,5 @@
+**TODO**: i skipped the examples in lectures - go through them!
+
 NOTE: Intro (course outline) is lecture 0.
 
 **Definitions** (from lecture 1):
@@ -24,6 +26,20 @@ Q_{n+1}(s,a) = Q_n(s,a) + \alpha (G - Q_n(s,a))
 $$
 
 NOTE: Incremental Monte Carlo Update with $\alpha_n = 1/n$ has effect of averaging all returns, but without having to remember all history.
+
+**Off-Policy MC - Importance Sampling** (from lecture 2):
+
+$$
+\rho_{t:T-1} = \Pi_{i=t}^{T-1} \frac{\pi(A_t | S_t)}{b(A_t | S_t)}, \quad (\text{Importance Sampling Ratio}) \\
+v_\pi(s) = E[\rho_{t:T-1} G_t | S_t = s]
+$$
+
+**1-step TD Learning** (from lecture 3) - unlike incremental MC (after full episode and using return $G_t$), here after one step of episode and using TD target based on observed reward and next state $R_{t+1} + \gamma V(S_{t+1})$:
+
+$$ 
+V(S_t) \leftarrow V(S_t) + \alpha [R_{t+1} + \gamma V(S_{t+1}) - V(S_t)] \\
+\text{TD(0) Error} = R_{t+1} + \gamma V(S_{t+1}) - V(S_t)
+$$
 
 ## 1. Markov Decision Process
 
@@ -137,4 +153,39 @@ MC Control: Policy Evaluation (to get action value) and Policy Improvement (gree
     * Deciding between 2 actions (in a single state) in $\epsilon$-greedy: If one action is greedy, assign it probability $1 - \epsilon$ and other action probability $\epsilon$.
       * Deciding between multiple actions (in a single state)? I think $1 - \epsilon$ for greedy action and $\epsilon / (K-1)$ for all other actions -- not sure TODO
   
-**Off-Policy MC**: TODO
+**Off-Policy MC**: both target $\pi$ and behavioural $b$ policies are fixed and generally deterministic.
+* Assumption: every action taken under $\pi$ is at least occasionally taken under $b$ .
+* Objective: Estimate action value $q_\pi$ based on episodes drawn by following policy $b$ .
+* Issues are solved by *Importance Sampling*:
+  * Distribution of episode under $b$ is different from under $\pi$ .
+  * Sampled returns are not under $b$ representative of policy $\pi$ .
+
+**Importance Sampling for Off-Policy MC**: estimate expected values under one distribution given samples from another. Equation on top of page.
+
+## 3. Temporal Difference Learning Methods -- TD is central and novel idea of RL !
+
+Outline:
+
+1. Intro to TD Learning
+2. 1-step TD Learning
+3. On-Policy TD Control: SARSA
+4. Off-Policy TD Control: Q-Learning
+5. Example: SARSA Vs Q-Learning
+6. On-Policy TD Control: Expected SARSA
+7. n-Step TD Methods and TD(λ)
+
+For both episodic and continuing tasks.
+
+**Basic Approach**: Update state or action value after one or more steps of MDP (partial episode or bootstrapping)
+
+### One-step TD Learning (aka TD(0))
+
+Update equation noted on top of page.
+
+Algorithm:
+* initial $\alpha \in (0,1)$; all state values usually initialized to 0
+* TODO
+
+not theoretically, but practically TD has been observed to converge faster than MC .
+
+

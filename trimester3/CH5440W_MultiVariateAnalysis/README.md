@@ -81,6 +81,32 @@ TODO
 
 TODO
 
+## Lecture on July 21 -- Partial Least Squares continued
+
+Covariance between $t_1$ ($ = X_1 w$) and $u_1$ ($= q_1$) is maximum.
+
+NIPALS Algorithm
+
+PLS 2 Algorithm
+
+we use all factors to predict both X and Y.
+
+3 matrices: W (p x a matrix whose columns are weight matrices), T and U are n x a matrices corresponding to X and Y respectively.
+
+X and Y are decomposed like this (Outer Relation):
+
+$$ X = T P^T + E, \quad Y = U Q^T + F^* $$
+
+Inner Relation: $U = T B + H$
+
+Mixed Relation: $Y = T B Q^T + F$
+
+Remember B is a diagonal matrix.
+
+Next algorithm seeks to get estimates for W, P, T, Q, U, B
+
+TODO
+
 ## References
 
 Books:

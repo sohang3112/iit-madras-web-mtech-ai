@@ -1,3 +1,5 @@
+NOTE: Assignment questions were till lecture 2 - Monte Carlo
+
 ## Answer 5 (of MCQ) Explanation
 
 **Question**: Which statement correctly distinguishes policy evaluation and value iteration?

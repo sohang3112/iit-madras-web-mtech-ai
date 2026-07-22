@@ -207,6 +207,54 @@ TODO
 
 **Linear Function Approximator**: $\hat{v}(s,w) = w^T x$
 
+TODO
+
+## Lecture on July 21 -- Policy-Gradient Methods (policy without estimating values for each action)
+
+Revision of previous lecture (Value Function Approximation):
+* function approximation replaces separate table entries with shared parameters/weights. Learning uses sample-based targets from MC, TD or n-step methods.
+  * Gradient Monte Carlo
+  * TD-based
+  * Linear Approximator
+  * Non-Linear Approximator
+* **Semi-Gradient** (we can do with standard gradient as well, but this reduces computation): fix the TD target, differentiate only the current TODO
+* Instability and divergence are especially likely when these 3 are combined (Deadly Triad): Function Approximation, Bootstrapping, Off-Policy Learning
+
+![Why use components of Deadly Triad](images/why_use_deadly_triad_components.png)
+
+NEW IN THIS LECTURE BELOW:
+
+* Value-based approach: learn how good each action is in each state: q(s,a) & select action with highest estimated value in the state s
+* But issues with this:
+  * in a continuous-action space, finding action with max value can require solving an optimization problem
+  * small changes in action values can cause abruptly different actions
+  * greedy action-value policy not suitable where a stochastic policy is required
+* Can agent learn policy directly, without first learning values of every possible actions?
+
+**Policy-Gradient learning methods** directly adjust policy parameters to increase expected long-term return.
+Use when continous action value space OR very large no. of actions OR desired behaviour should remain stochastic.
+Some use-cases: Robotic Control, Industrial Control, **LLM Tuning**
+
+![Policy-Gradient methods](images/policy_gradient_methods.png)
+
+Policy is represented by a differentiable function with parameters $\theta$: $\pi_\theta(s,a)$
+TODO
+
+Policy Parameterization for Discrete actions:
+
+* For a small or moderately sized action space, policy network produces a numerical preference for each action: $h_\theta(s,a) \in R$
+* high preference better
+* do softmax over all to get probabilities - due to softmax policy can be softmax but can also approach deterministic if needed
+
+Policy Parameterization for Continous actions:
+
+* policy produces probability distribution (eg. Gaussian: $\mu_\theta(s)$ is current preferred policy, $\sigma_\theta(s)$ is amount of exploration) over actions (since individual action values not possible)
+* TODO
+
+A couple of example problems: TODO
+
+Math of policy-gradient : next lecture
+
 ## Tutorials
 
 Tutorial on July 15: Reinforcement Learning notebook with library `gymnasium` -- TODO: learn this lib, will need it for the RL project/competition we'll have to do!
