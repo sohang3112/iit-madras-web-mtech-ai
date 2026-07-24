@@ -1,6 +1,8 @@
 
 
-## Week 8 -- Version Control and Collaboration
+## Week 8
+
+### Version Control and Collaboration
 
 ML Experiment = Code + Data + Configuration + Environment + Randomness
 
@@ -53,6 +55,9 @@ $ dvc push        # upload to remote
 $ dvc pull        # run on fresh clone
 
 $ dvc install     # installs git hook pre-push so that `dvc push` auto runs before `git push`. But `dvc pull` must still be run seperately
+
+$ git checkout COMMIT_ID_OR_BRANCH
+$ dvc checkout
 ```
 
 DVC pipeline *dvc.yaml* (run with `dvc repro` only the changed parts, or do nothing if no change - internally DVC builds a dependency graph) :
@@ -76,4 +81,75 @@ How does `dvc repro` know if anything changed? Via auto-generated *dvc.lock* fil
 - `dvc exp show` shows metrics-vs-params comparision table.
 - reproducible experiments: each experiment records params and links to the dvc.lock file that produced it.
 
-THIS LECTURE DONE.
+DVC pipeline example: `dvc stage add -n prepare -d src/prepare.py -o data/dataset.csv python src/prepare.py`
+
+### Container Orchestration
+
+Process Virtualization (eg. Java JVM) vs System Virtualization (heavy-weight full VMs on Hypervisor on Host OS on Physical Machine)
+
+Containers: light VMs without guest OS, Isolation between processes, using:
+* Namespaces: isolated view of file system, network resources, process table etc.
+* cgroups: Resource limits per process / container
+
+Docker:
+* server daemon and client
+* Image (eg. from Docker Registry) and Container
+* Docker Networking: networking between containers ---> TODO; THIS I DON'T KNOW
+
+Docker Alternatives: Buildah (build container images for Podman as it can't do it itself), RunC, LXC, Podman (daemon-less, systemd integration), Kaniko
+
+```bash
+$ docker pull python:3.7
+$ docker run nginx
+$ docker inspect CONTAINER_ID_OR_NAME       # outputs a very detailed JSON about container, including running status, ports, networks, environment variables etc.
+$ docker images --format "table {{.Repository}}\t{{.Tag}}\t{{.Size}}" | sort -hr -k 3   # find docker images taking most disk space
+$ docker history IMAGE_ID_OR_NAME        # shows all image layers -- can see from this which layer takes most memory spaces
+$ docker system prune -a      # delete all images
+
+# publish Docker image:
+# 1. Log in (use a Quay robot account token, not your password)
+docker login quay.io -u <quay-username>
+# Password prompt
+# 2. Tag for Quay: quay.io/<namespace>/<repo>:<tag>
+docker tag ml-app:v1 quay.io/myorg/ml-app:0.1.0
+# 3. Push
+```
+
+Docker Compose -- allows running multi-container apps (you specify multiple docker images and it brings them all up. Sets up a single network, all containers join in it so they can communicate.)
+
+Dockerfile -- each RUN, COPY, ADD is a new layer; layer captures only file system diff from previous layer; layers are shared across images
+
+When container is run, a new writeable container layer is created while all other layers remain read-only
+
+Build image with Dockerfile & run container on port 8000:
+
+```bash
+docker build -t ml-app:v1 . 
+docker run -d --name mycontainer1 -p 8000:8000 ml-app:v1
+```
+
+ADDITIONAL ASIDE: In Dockerfile `FROM scratch` -- scratch isn't an actual image but a built-in keyword that basically means, empty image using just the linux kernel. Distro images like ubuntu start from this, and import rootfs and add other basic needed utilities.
+
+
+## Week 6 is Code only -- Mlflow, Ray
+
+Mlflow (start mlflow server with `mlflow ui`)
+
+```python
+mlflow.set_experiment("name")          # create / switch experiment
+with mlflow.start_run(run_name="..."):       # open a run context
+  mlflow.log_param("k", v)            # one hyperparameter
+  mlflow.log_metric("rmse", 1.23)     # one scalar metric
+  mlflow.log_metric("loss", v, step=i)# metric series (convergence curve)
+  mlflow.log_artifact("file.png")     # attach any file
+  mlflow.sklearn.log_model(m, "model")# serialise + store model
+  mlflow.set_tag("env", "dev")        # searchable label
+mlflow.autolog()                       # auto-instrument library
+mlflow.search_runs(experiment_ids=[]) # DataFrame of all runs
+mlflow.sklearn.load_model("runs:/id/model")     # reload model
+mlflow.register_model(uri, name)      # add to Registry
+client.transition_model_version_stage(...)      # promote to Staging/Production
+mlflow.sklearn.load_model("models:/name/stage") # load from Registry
+```
+
+TODO: skipped Ray code notebook

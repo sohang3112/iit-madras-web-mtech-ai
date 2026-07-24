@@ -178,14 +178,40 @@ For both episodic and continuing tasks.
 
 **Basic Approach**: Update state or action value after one or more steps of MDP (partial episode or bootstrapping)
 
+TD vs MC :
+* TD will generally converge faster
+* TD methods have low variance and some bias, MC methods have high variance and zero bias.
+* TD can work with continuing tasks and incomplete episodes - MC cannot.
+
 ### One-step TD Learning (aka TD(0))
 
 Update equation noted on top of page.
 
-Algorithm:
-* initial $\alpha \in (0,1)$; all state values usually initialized to 0
-* TODO
+TD(0) Algorithm for Policy Evaluation (update after every state transition in an episode, not waiting for end of episode like in Monte Carlo):
+* initial $\alpha \in (0,1)$; all state values $V(S_t)$ initialized to 0
+* Loop for each timestamp t:
+  * from current state $S_t$ , policy predicts actions $A_t$ leading to new state $S_{t+1}$ and reward $R_{t+1}$
+  * update: $V(S_t) \leftarrow V(S_t) + \alpha (R_{t+1} + \gamma V(S_{t+1}) - V(S_t))$
 
-not theoretically, but practically TD has been observed to converge faster than MC .
+For a fixed policy, following TD(0), estimated value will converge to true $V(s)$, only if $\alpha$ is constant and small OR decreasing gradually.
 
+Properties:
+* it only looks at current reward and a single step into future
+* it DOES NOT do any backtracking, or alter value estimates of past states in episode based on current reward
+
+### On-Policy TD Control: SARSA
+
+Like MC Control, TD uses action values, and we use $\epsilon$-greedy policy here.
+
+Update rule (same as TD(0) update, just Q action values instead of V state values): 
+
+$$ Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha [R_{t+1} + \gamma Q(S_{t+1}, A_{t+1}) - Q(S_t, A_t)] $$
+
+Algorithm: Same as TD(0), just with Q action values used (inputs state and action) instead of V state values (input is state only).
+
+SARSA algo converges to optimal policy as long as each state-action pair is visited sufficient number of times.
+
+### Off-Policy TD Control: Q Learning
+
+Behaviour policy: greedy (which takes actions), Target policy: $\epsilon$-greedy (which samples experience)
 
