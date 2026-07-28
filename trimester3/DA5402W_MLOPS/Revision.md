@@ -36,6 +36,8 @@ $ git lfs prune
 
 DVC extra features over Git LFS:
 - Git LFS tied to Github (free tier has 1 GB storage + 1 GB / month bandwidth), in DVC you have to choose your own remote (Google Drive, AWS S3 or other cloud, self-hosted or local setup)
+   - NOTE: Google Drive remote of dvc doesn't actually work! "Acess to this app is blocked by Google". They say to instead "create a new app" - that basically means Google Cloud which is also paid :(
+     So doesn't look useful for me.
 - Has directory of *shards*, train / validation / test split, data lineage
 - Experiment / stage awareness (this data produced this model via this step)
 - Cloud: data governance, egress cost, access control
@@ -113,6 +115,23 @@ docker login quay.io -u <quay-username>
 # 2. Tag for Quay: quay.io/<namespace>/<repo>:<tag>
 docker tag ml-app:v1 quay.io/myorg/ml-app:0.1.0
 # 3. Push
+
+docker ps # containers currently running
+docker ps -a # all containers, including stopped ones
+docker run -it ubuntu bash # start an interactive Ubuntu shell in a container
+docker build -t myapp . # build an image from a Dockerfile in the current directory
+docker stop <container_id> # stop a running container
+docker rm <container_id> # remove a stopped container
+docker rmi <image_id> # remove an image
+docker logs <container_id> # view a container's output
+```
+
+See cpu, memory etc. stats of running Docker containers:
+
+```bash
+$ docker stats
+CONTAINER ID   NAME          CPU %     MEM USAGE / LIMIT   MEM %     NET I/O         BLOCK I/O   PIDS
+5c83c9038e1c   happy_gauss   0.00%     956KiB / 219.7GiB   0.00%     1.05kB / 126B   0B / 0B     1
 ```
 
 Docker Compose -- allows running multi-container apps (you specify multiple docker images and it brings them all up. Sets up a single network, all containers join in it so they can communicate.)
