@@ -2,6 +2,8 @@
 
 Suggested Book: *Kutner, M. H., C. J. Nachtschiem, J. Netner, Applied Linear Regression Models. 4th ed. New Delhi: McGraw Hill, 2004*
 
+NOTE: Re Assignment 2 on Partial Least Squares (question paper not yet shared): answers / approaches discussed in lecture on July 28
+
 **IMPORTANT**: most lectures (10) don't have slides uploaded but lecture videos are there on course site so check those!
 
 ## Day 1: Linear Regression
@@ -107,6 +109,18 @@ Next algorithm seeks to get estimates for W, P, T, Q, U, B
 
 TODO
 
+## Lecture on July 27
+
+TODO
+
+## Lecture on July 28 -- PLS 2 Regression & Assignment 2 Discussion
+
+PLS = Partial Least Squares
+
+[PLS 2: initial steps](images/partial_least_squares_initial_steps.jpeg)
+
+TODO
+
 ## References
 
 Books:
@@ -119,3 +133,4 @@ Books:
 - Afifi, A., May, S., Donatello, R., & Clark, V.A. (2019). Practical Multivariate Analysis (6th ed.). Chapman and Hall/CRC -- https://doi.org/10.1201/9781315203737
 - https://stats.oarc.ucla.edu/other/dae/
 - https://www.routledge.com/Practical-Multivariate-Analysis/Afifi-May-Donatello-Clark/p/book/9781032088471
+

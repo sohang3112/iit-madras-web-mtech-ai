@@ -41,6 +41,18 @@ V(S_t) \leftarrow V(S_t) + \alpha [R_{t+1} + \gamma V(S_{t+1}) - V(S_t)] \\
 \text{TD(0) Error} = R_{t+1} + \gamma V(S_{t+1}) - V(S_t)
 $$
 
+**On-Policy TD SARSA Update** (from lecture 3) -- same as above formula, just Q instead of V:
+
+$$ Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha [R_{t+1} + \gamma Q(S_{t+1}, A_{t+1}) - Q(S_t, A_t)] $$
+
+**On-Policy TD - Expected SARSA - Update** (from lecture 3) -- variation of SARSA where instead of next action, expected value (average) of Q values of all possible actions in next state is used [similar to off-policy Q learning]:
+
+$$ Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha [R_{t+1} + \gamma \sum_a \pi(a | S_{t+1}) Q(S_{t+1}, a) - Q(S_t, A_t)] $$
+
+**Off-Policy TD Q-Learning** (from lecture 3) - behaviour policy $b$ is $\epsilon$-greedy, target policy $\pi$ is greedy / deterministic (that's why we did $\max_a$ to choose maximum action value return from future states). At the start, we know no Q value (Q table is empty, aka all values 0) - over time we come to know of Q values of state-action pairs and so that's when the max part comes into play:
+
+$$ Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha [R_{t+1} + \gamma \sum_a Q(S_{t+1}, A_{t+1}) - Q(S_t, A_t)] $$
+
 ## 1. Markov Decision Process
 
 Outline:
@@ -162,7 +174,7 @@ MC Control: Policy Evaluation (to get action value) and Policy Improvement (gree
 
 **Importance Sampling for Off-Policy MC**: estimate expected values under one distribution given samples from another. Equation on top of page.
 
-## 3. Temporal Difference Learning Methods -- TD is central and novel idea of RL !
+## 3. WIP - Temporal Difference Learning Methods -- TD is central and novel idea of RL !
 
 Outline:
 
@@ -203,15 +215,35 @@ Properties:
 
 Like MC Control, TD uses action values, and we use $\epsilon$-greedy policy here.
 
-Update rule (same as TD(0) update, just Q action values instead of V state values): 
-
-$$ Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha [R_{t+1} + \gamma Q(S_{t+1}, A_{t+1}) - Q(S_t, A_t)] $$
+Update rule (same as TD(0) update, just Q action values instead of V state values) -- given on top of page.
 
 Algorithm: Same as TD(0), just with Q action values used (inputs state and action) instead of V state values (input is state only).
 
 SARSA algo converges to optimal policy as long as each state-action pair is visited sufficient number of times.
 
+**Expected SARSA**: A variant of SARSA - written on top of page.
+
 ### Off-Policy TD Control: Q Learning
 
-Behaviour policy: greedy (which takes actions), Target policy: $\epsilon$-greedy (which samples experience)
+Behaviour policy: $\epsilon$-greedy with small $\epsilon$ (which takes actions), Target policy: greedy (which samples actions)
 
+<!-- TODO: even after a conversation with Gemini, I have some confusion about when I would actually do Q-learning (type of off-policy learning). -->
+
+Q-Learning update equation written on top of this page.
+
+Algorithm:
+* initialize all Q(s,a) to 0
+* foreach timestamp t:
+  * based on current state s_t, choose action a_t according to behaviour policy using Q(s_t,a) values. Here epsilon-greedy.
+  * Observe next state and reward: $S_{t+1}$, $R_{t+1}$
+  * Update Q value of Q(s_t, a_t): $Q(s_t, a_t) \leftarrow Q(s_t,a_t) + \alpha [R_{t+1} + \gamma \max_a Q(S_{t+1}, a) - Q(s_t,a_t)]$
+    * NOTE that in update calculation, actual next action taken is NOT used, and instead we use Q value of best next action.
+
+Q learning converges to optimal policy as long as sufficient state-action pairs are visited.
+
+### n-step TD methods
+
+<!-- TODO: Complete! -->
+
+
+## 4. TODO - Value Function Approximation

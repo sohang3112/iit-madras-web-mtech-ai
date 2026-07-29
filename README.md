@@ -8,6 +8,11 @@ for web MTech an internal entrance exam of IIT Madras is conducted.
 
 **NOTE**: most files are text, but some are videos. GIT LFS is used to track these, so make sure to install it before cloning repo (eg. `sudo dnf install git-lfs` on Fedora linux).
 
+### Useful VS Code Extensions
+
+- [Markdown Converter](https://marketplace.visualstudio.com/items?itemName=manuth.markdown-converter) - Markdown -> PDF convert, useful for my assignments. Abandoned unfortunately (last comment on github was 4 years ago, and all its forks on Github are similarly abandoned), but it works.
+- [Better TODO Tree](https://marketplace.visualstudio.com/items?itemName=FanaticPythoner.better-todo-tree): a maintained fork of abandoned TODO Tree. Searches for `TODO:`, `FIXME:`, `BUG:` etc. in comments in files. This applies to Markdown also -- plain TODO: anywhere in file won't show up, only when used in an HTML comment.
+
 ### TODO
 
 NOTE: There's a minor rendering bug in Markdown Convert extension - it renders $\hat{y}$ (`\hat{y}`) with the "hat" too low over y so that it's overlapping and hard to read.

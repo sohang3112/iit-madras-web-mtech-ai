@@ -255,6 +255,100 @@ A couple of example problems: TODO
 
 Math of policy-gradient : next lecture
 
+## Lecture on July 27 - Parallel Actor-Critic Architecture
+
+Revision of last time (Actor-Critic Architecture, One-Step TD Architecture Algorithm)
+
+Actor-Critic Architecture:
+
+![Actor Critic Architecture](images/actor_critic.png)
+
+Actor uses only $\theta$ and state $S_t$ to select action. Critic uses only $w$ and state $S_t$ to evaluate new state.
+
+One-step TD actor critic algorithm (actor, critic params vectors $\theta$, $w$ get updated after each transition, unlike REINFORCE which updates after full return $G_t$ is obtained).
+
+Policy probab distribution (from which action is sampled) is Gaussian for continous action space, else apply softmax probabilities for discrete action space.
+
+![One-step actor critic algorithm](images/one_step_actor_critic_algo.png)
+
+NEW LECTURE MATERIAL:
+
+Why move beyond single actor-critic worker? Because single environment:
+* generates only one trajectory at a time
+* conservative transitions can be highly correlated
+* explores only one region of environment at a time, so high chance of overfitting (little exploration) to the region and converging to a local minimum
+
+Parallel Environments:
+* Generate several independent trajectories
+* More diverse training experience
+* Improve data-collection speed
+
+Parallel Actor-Critic Types: A2C, A3C
+
+Continous Learning Process in A2C, A3C :
+
+![Parallel Actor-Critic Learning Processs](images/parallel_actor_critic_learning.png)
+
+A2C: Synchronous Advantage Actor-Critic -- synchronous means every worker finishes before shared actor & critic get updated
+* update direction vector is average of all
+* TODO: math
+
+## Lecture on July 29 - Proximal Policy Architecture (revision of last class); Deep RL architectures (today lecture)
+
+Revision:
+* Proximal Policy Architecture (aka PPO - i think they are same?) makes a snapshot of policy, copies snapshots to parallel environments, multiple trajectories, transitions shuffled & ordered to create multiple epochs -- TODO: understand better what this means
+* Mini-Batch Update: pi_0 / pi (current policy / frozen policy) importance ratio is used
+
+![PPO KL Objective](images/ppo_kl_objective.png)
+
+PPO Learning Loop (omitted in it is 5th step: Refresh Data: after approx MK actor-critic updates, discard rollout and begin next PPO iteration):
+
+![PPO Learning Loop](images/ppo_learning_loop.png)
+
+PPO Key Takeaways:
+
+![PPO Key Takeaways](images/ppo_takeaways.png)
+
+TODAY'S TOPIC:
+
+Deep RL Architectures:
+
+![Deep RL Architectures](images/deep_rl_architectures.png)
+
+### Deep Q-Network (DQN): replaces Q-table, keeps Q-learning
+
+DQN handles high dimensional state representations, but requires manageable discrete action space.
+
+Directly implementing neural Q Function has issues:
+
+![Direct Neural Q Function issues](images/direct_neural_q_funct_issues.png)
+
+DQN Experience Replay Buffer:
+
+![DQN Experience Replay Buffer](dqn_experience_replay_buffer.png)
+
+DQN Target Network:
+
+![DQN Online and Target Network](dqn_target_network.png)
+
+TODO: DQN mini-batch update
+
+Overall DQN Workflow:
+
+![DQN Workflow](dqn_workflow.png)
+
+### Deterministic Policy Gradient (DDPG) - combines Actor-Critic with DQN
+
+Extends DQN to continous action space:
+
+![DDPG](ddpg.png)
+
+DDPG Actor-Critic Update:
+
+![DDPG Actor-Critic Update](ddpg_actor_critic_update.png)
+
 ## Tutorials
 
-Tutorial on July 15: Reinforcement Learning notebook with library `gymnasium` -- TODO: learn this lib, will need it for the RL project/competition we'll have to do!
+Tutorial on July 15: Reinforcement Learning notebook with library `gymnasium` -- TODO: learn this lib, will need it for the RL project/competition!
+
+Another tutorial on Actor-Critic using gymnasium happened.
