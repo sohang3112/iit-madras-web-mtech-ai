@@ -1162,6 +1162,9 @@ Practically threshold may differ (may be decided based on a validation set)
 
 ## Misc
 
+- NOTE TO SELF: sklearn runs on CPU only not GPU; these libs support GPU: XGBoost (boosted trees), NVIDIA RAPIDS cuML (drop-in replacement of sklearn models supporting GPU)
+- DONT use SVM for > 10K rows - it scales very badly. Others like RandomForest scale much better.
+
 ### Calculus
 
 - **Gamma Integral**: $\int_0^\infty x^2 e^{-x / \alpha} dx = 2! \alpha^3$
