@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-app
+  namespace: ml-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels: {app: ml-app}
+  template:
+    metadata:
+      labels: {app: ml-app}
+    spec:
+      containers:
+      - name: sentiment-api
+        image: sentiment-api:week9
+        ports: [{containerPort: 8000}]
+        envFrom: [{configMapRef: {name: ml-app-config}}]
+        resources:
+          requests: {cpu: 1, memory: 512Mi}
+          limits: {cpu: 2, memory: 1Gi}
+        startupProbe: {httpGet: {path: /health, port: 8000}}
+        readinessProbe: {httpGet: {path: /health, port: 8000}}
+        livenessProbe: {httpGet: {path: /health, port: 8000}}

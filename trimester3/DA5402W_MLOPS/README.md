@@ -290,3 +290,5 @@ Plans are optimized before execution. *Operator Fusion* fuses adjacent transform
 ### Docker, Dockerfile, Docker Engine, Docker Compose, Docker Hub -- TODO
 
 cgroup, resource_group
+
+## Tutorial on PyTorch compile internals (dynamo, autograd etc. details) ; also vllm on kubernetes to host llm -- July 31, 2026 -- TODO

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ml-app-config
+  namespace: ml-app
+data:
+  MODEL_NAME: mock-sentiment-model
