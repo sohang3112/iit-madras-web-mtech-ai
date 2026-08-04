@@ -2,6 +2,8 @@
 
 NOTE: Intro (course outline) is lecture 0.
 
+GENERAL: In TD learning methods (lecture 3), (Q learning, SARSA etc.) initial tabular state (V) or action (Q) value estimates can be arbitary but in practice are usually set to 0. This can be changed to intentionally bias RL agent (eg. set initial values much higher than rewards to encourage exploration in Optimistic environment, or lower to discourage exploration in Pessimistic environment). But make sure to always set values for terminal states as 0 only!
+
 **Definitions** (from lecture 1):
 
 $$
@@ -51,7 +53,29 @@ $$ Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha [R_{t+1} + \gamma \sum_a \pi(a | 
 
 **Off-Policy TD Q-Learning** (from lecture 3) - behaviour policy $b$ is $\epsilon$-greedy, target policy $\pi$ is greedy / deterministic (that's why we did $\max_a$ to choose maximum action value return from future states). At the start, we know no Q value (Q table is empty, aka all values 0) - over time we come to know of Q values of state-action pairs and so that's when the max part comes into play:
 
-$$ Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha [R_{t+1} + \gamma \sum_a Q(S_{t+1}, A_{t+1}) - Q(S_t, A_t)] $$
+$$ Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha [R_{t+1} + \gamma \max_a Q(S_{t+1}, A_{t+1}) - Q(S_t, A_t)] $$
+
+**n-step TD Policy Evaluation** (from lecture 3) -- note that in TD target, very last term added is NOT reward but instead state value estimate:
+* no updates during first $n-1$ evaluations of episode
+* if $t+n > T$ (episode terminates before n steps from t), then remaining rewards are treated as 0.
+
+$$
+G_{t:t+n} = R_{t+1} + \gamma R_{t+2} + \cdots + \gamma^{n-1} R_{t+1} + \gamma^n V(S_{t+n}), \quad \text{n-step TD Target} \\
+V(S_t) \leftarrow V(S_t) + \alpha [G_{t:t+n} - V(S_t)], \quad \text{n-step Update of state value estimate}
+$$
+
+**$\lambda$-return** (TD target for $TD(\lambda)$) (from lecture 3) - average all n-step returns with exponentially decaying weights : 
+
+$$ G_t^\lambda = (1 - \lambda) \sum_{n=1}^\infty \lambda^{n-1} G_{t:t+n} $$
+
+**Eligibility Traces aka Backward-View $TD(\lambda)$** (from lecture 3) - $\lambda$ Trace-Decay Parameter is rate at which credit decays over time, $\gamma$ is discount factor for return:
+
+$$
+E_0(s,a) = 0 \forall s, a \quad (\text{Initialize Eligibiity}) \\
+E_t(s,a) = \gamma \lambda E_{t-1}(s,a) + \mathbf{1}(S_t = s, A_t = a) \quad (\text{update eligibility for all s,a; indicator func means, +1 only for current state-action}) \\
+\delta_t = R_{t+1} + \gamma Q(S_{t+1}, A_{t+1}) - Q(S_t, A_t) \quad (\text{TD Error using current state, action}) \\
+Q(s,a) \leftarrow Q(s,a) + \alpha \delta_t E_t(s,a) \quad (\text{Q value update for all s,a using learning rate, TD error and Eligibility})
+$$
 
 ## 1. Markov Decision Process
 
@@ -205,7 +229,7 @@ TD(0) Algorithm for Policy Evaluation (update after every state transition in an
   * from current state $S_t$ , policy predicts actions $A_t$ leading to new state $S_{t+1}$ and reward $R_{t+1}$
   * update: $V(S_t) \leftarrow V(S_t) + \alpha (R_{t+1} + \gamma V(S_{t+1}) - V(S_t))$
 
-For a fixed policy, following TD(0), estimated value will converge to true $V(s)$, only if $\alpha$ is constant and small OR decreasing gradually.
+**For a fixed policy, following TD(0), estimated value will converge to true $V(s)$, only if $\alpha$ is constant and small OR decreasing gradually.**
 
 Properties:
 * it only looks at current reward and a single step into future
@@ -227,8 +251,6 @@ SARSA algo converges to optimal policy as long as each state-action pair is visi
 
 Behaviour policy: $\epsilon$-greedy with small $\epsilon$ (which takes actions), Target policy: greedy (which samples actions)
 
-<!-- TODO: even after a conversation with Gemini, I have some confusion about when I would actually do Q-learning (type of off-policy learning). -->
-
 Q-Learning update equation written on top of this page.
 
 Algorithm:
@@ -241,9 +263,86 @@ Algorithm:
 
 Q learning converges to optimal policy as long as sufficient state-action pairs are visited.
 
-### n-step TD methods
+### n-step TD Control -- generalization of MC methods and 1-step TD methods
 
-<!-- TODO: Complete! -->
+Bootstrapping is done and values are updated after n-steps.
+
+Advantages over MC and 1-step TD:
+* n-step TD gives better estimate of TD target than 1-step TD
+* lower bias than TD(0) and lower variance than MC
+* faster learning than MC and more stable than TD(0)
+* $n$ can be tuned based on problem
+
+![n-step TD backup diagrams](images/nstep_td_backup_diagrams.png)
+
+Factors affecting choice of n :
+* Task Type: Moderate values of n for continuing tasks to balance bias and variance
+* Rewards: Larger values of n in case of delayed rewards and vice versa
+* Type of Environment: Smaller value of n for highly stochastic environments to control variance
+* Memory and Computation: Larger values of n require more memory and high computation power
+* Learning rate: Learning rate α and n should adjusted inversely for stability and convergence
+* Practice: Tuning of n through experimentation and dynamic adjustment are recommended in practice to arrive at a suitable value
+
+**n-step TD Control: SARSA Algorithm** -- convergence properties are similar to other TD algorithms:
+* Input: $\epsilon$-greedy policy with small $\epsilon > 0$ and $\alpha \in (0, 1]$
+* Initialize: all Q(s,a) arbitarily (usually 0)
+* foreach timestep t:
+    * sample trajectory from $S_t$ to $S_{t+n}$ or $S_T$ (terminal) using actions $A_t$, $A_{t+1}$, ... using policy $\pi$ based on current Q estimates
+    * If terminated before $n$ steps $t+n > T$ then TD target is:
+      * $G_{t:t+n} = \sum_{i=t+1}^T \gamma^{i - t - 1} R_i$
+    * Else TD target is (full n steps completed -- note additionally adding Q value after n steps):
+      * $G_{t:t+n} = \sum_{i=t+1}^T \gamma^{i - t - 1} R_i + Q(S_{t+n}, A_{t+n})$
+    * Update Q Value: $Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha [G_{t:t+n} - Q(S_t, A_t)]$
+
+### $TD(\lambda)$
+
+Composite Return: we can make a composite TD Target as weighted average (aka weighted sum with sum of weights = 1) of multiple n-step TD Targets (i.e. each with different n)
+
+$\lambda$-return is a type of Composite Return - exponentially decaying weights for each increasing n (1 to infinity) -- it becomes TD Target for $TD(\lambda)$
+
+$\lambda$-return formula is on top of page -- at terminal state, all subsequent n-step returns are equal to normal return $G_t$ . At $\lambda = 1$ it becomes MC update, at $\lambda = 0$ it becomes TD(0) update.
+
+This is called **Forward-View $TD(\lambda)$**:
+
+![Forward-View TD(lambda)](images/forward_td_lambda.png)
+
+Issues with Forward-View TD(lambda):
+* like MC it can only be done for completed episodes
+* computing n-step returns for every value of n and every state & state-action pair is complex and inefficient.
+
+**Credit Assignment Problem**: which previous action contributed to a reward and to what extent? Analogous to determinining loss-contributing factors during backpropogation in neural networks.
+
+Eligibility Traces (aka backward-view $TD(\lambda)$) are an efficient credit assigning alternative to forward-view $TD(\lambda)$ .
+Maintains "eligibility" of each state or state-action pair to recieve value updates ; influence of TD error is propogated backward to all previously visited states ; unlike forward-view, it DOES NOT require keeping track of multiple n-step returns so it's much simpler.
+
+Formula for eligibility trace on top of page.
+
+## 4. Value Function Approximation
+
+Outline:
+
+1. Why Value Function Approximation?
+2. Features, Parameters and Generalisation
+3. Learning from Monte Carlo Targets
+4. Linear Function Approximation
+5. Learning from TD Targets: Semi-Gradient TD
+6. Control with Value Function Approximation
+7. Non-Linear Function Approximat
+
+## 5. Policy Gradient
+
+<!-- TODO -->
 
 
-## 4. TODO - Value Function Approximation
+## 6. Actor Critic Methods
+
+Outline:
+
+1. From REINFORCE to Actor–Critic
+2. Actor and Critic Components
+3. TD Error and Advantage Estimation
+4. One-Step Actor–Critic Algorithm
+5. Parallel Actor–Critic: A2C and A3C
+
+<!-- TODO: SKIPPED REINFORCE (apparently it's an algorithm discussed in earlier lectures?) -->
+

@@ -347,6 +347,40 @@ DDPG Actor-Critic Update:
 
 ![DDPG Actor-Critic Update](ddpg_actor_critic_update.png)
 
+## Lecture on August 3 -- Decision Transformer (DT)
+
+Motivation for Decision Transformer:
+* DQN and DDPG learn using Bellman targets and repeatedly interact with the environment.
+* In many historical applications, online exploration could be costly, unsafe or impractical.
+* Historical operating data may already contain historical trajectories with different levels of performance. Can we learn directly from these trajectories?
+
+Represent decision-making as a sequence problem: Desired Return + history of states and action --> Next action
+So it becomes Time Series Prediction.
+
+NOTE: even in policy gradient off-policy eval, interaction with environment is required. Here in DT interaction with env not required to learn.
+
+In transformer - self-supervised learning
+
+Trajectory is arranged as a sequence of 3 types of tokens (*undiscounted return*, state, action): {G_1, S_1, A_1}, {G_2, S_2, A_2}, ... , {G_T, S_T, A_T}
+
+Idea is to predict actions out of these.
+
+**Preparing Training Data for Decision Transformer**: 
+
+![Decision Transformer Training Data](images/decision_transformer.png)
+
+**Decision Transformer - Mini-Batch Learning**:
+
+![Decision Transformer - Mini-Batch Learning](images/decision_transformer_minibatch.png)
+
+Converting G, S, A inputs to vectors of same size $d$ for input to transformer:
+
+![Converting inputs to vectors for Transformer](images/decision_transformer_convert_inputs_to_vectors.png)
+
+**Decision Transformer - Inference**:
+
+![Decision Transformer - Inference](images/decision_transformer_inference.png)
+
 ## Tutorials
 
 Tutorial on July 15: Reinforcement Learning notebook with library `gymnasium` -- TODO: learn this lib, will need it for the RL project/competition!

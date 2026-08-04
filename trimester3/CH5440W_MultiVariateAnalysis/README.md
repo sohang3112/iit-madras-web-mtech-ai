@@ -121,6 +121,24 @@ PLS = Partial Least Squares
 
 TODO
 
+## Lecture on August 3 -- Discriminant Analysis (Supervised ML - uses X, Y)
+
+Discriminant Analysis types:
+* PCA
+* Linear Discriminant Analysis (LDA) -- using existing labels y, compress say 20 numerical features of X into 1 or 2 axes / features / variables that actually drive the class difference (ie maximize class seperation)
+
+Basically LDA like PCA is for dimensionality reduction - unlike PCA, LDA uses label y.
+
+![PCA and Linear Discriminant Analysis](images/pca_lda.png)
+
+Discriminant Function (also called Cannoncial Discriminant Function) is a linear function of discriminating variables (Y is Discriminant Variable aka Cannonical Variable):
+
+$$ Y = b_0 + b_1 X_1 + b_2 X_2 + \cdots + b_J X_J $$
+
+Assumption: relation between dependent and independent variables is linear.
+
+TODO
+
 ## References
 
 Books:
