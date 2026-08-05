@@ -381,6 +381,50 @@ Converting G, S, A inputs to vectors of same size $d$ for input to transformer:
 
 ![Decision Transformer - Inference](images/decision_transformer_inference.png)
 
+## Lecture on August 5 -- Multi-Agent Reinforcement Learning (MARL)
+
+Multi-Agent Reinforcement Learning (MARL): competitive, cooperative [we want cooperative usually to maximize team performance -- every agent gets same final team reward, inter-agent communication is very important in cooperative] ; TODO
+
+Cooperative:
+
+![Multi-Agent Cooperative Example](images/multi_agent_cooperative_example.png)
+
+Competitive (optimizes individual agent performance) - maybe but not necessarily zero-sum game:
+
+![Multi-Agent Competitive Example](images/multi_agent_competitive_example.png)
+
+![Cooperative Example - Attacker & Defender agents](images/cybersecurity_attacker_defender.png)
+
+**Mixed MARL** (agents competitive in some situations, cooperate in other situations)
+
+![Mixed MARL Example](images/mixed_marl.png)
+
+TODO
+
+List of Deep RL methods studied so far:
+
+![Deep RL Methods](images/deep_rl_methods.png)
+
+### Reward Shaping and Reinforcement Learning for LLM
+
+Common objective so far of all discussed RL methods has been to maximize expected returns (i.e. discounted sum of rewards).
+
+Reward Design: designing mathematical agent reward to match what we actually want agent to do
+
+Good Reward Design is sometimes insufficient because of sparse rewards (no / very delayed rewards for many / most actions)
+So we need to provide some artificial intermediate rewards / guidance
+This is done by **Reward Shaping** - it adds a guidance signal to original task reward.
+
+![Reward Shaping](images/reward_shaping.png)
+
+In addition to reward, we have constraints to ensure unsafe actions never take place.
+* Hard constraint: if RL agent says it wants to do an action that would result in unsafe - don't do the action
+
+IMPORTANT: for safety you put in constraints NOT in rewards
+
+DANGER: naive reward shaping changed reward risks actually changing the objective of the task!
+
+
 ## Tutorials
 
 Tutorial on July 15: Reinforcement Learning notebook with library `gymnasium` -- TODO: learn this lib, will need it for the RL project/competition!

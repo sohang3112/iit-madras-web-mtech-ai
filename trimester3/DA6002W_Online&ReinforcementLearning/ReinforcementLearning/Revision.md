@@ -327,7 +327,9 @@ Outline:
 4. Linear Function Approximation
 5. Learning from TD Targets: Semi-Gradient TD
 6. Control with Value Function Approximation
-7. Non-Linear Function Approximat
+7. Non-Linear Function Approximation
+
+<!-- TODO -->
 
 ## 5. Policy Gradient
 

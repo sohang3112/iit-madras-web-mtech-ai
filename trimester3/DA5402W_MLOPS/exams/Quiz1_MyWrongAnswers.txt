@@ -1,0 +1,125 @@
+QUESTION 9
+
+A Spark driver executes the following sequence and then calls two actions: 
+(1) df1 = spark.read.csv(...), 
+(2) df2 = df1.filter(...).select(...), 
+(3) df3 = df2.groupBy(...).agg(...), 
+(4) df3.show() — Action 1,
+(5) df3.count() — Action 2. 
+
+How many jobs and approximately how many stages are created in total?
+
+* 1 job, 1 stage – Spark reuses the DAG from the first action for both calls.
+* [RIGHT ANSWER, EXPLANATION BELOW] 2 jobs, approximately 4 stages in total – each action triggers a separate job, and groupBy() introduces a shuffle boundary creating at least 2 stages per job.
+* [THIS I SELECTED, IT'S WRONG ANSWER] 1 job, 2 stages – both actions share the same DAG execution.
+* 2 jobs, 1 stage each – filter() and select() are narrow, so no shuffle occurs at all.
+
+No, the answer is incorrect.
+Score: 0
+
+Accepted Answers:
+2 jobs, approximately 4 stages in total – each action triggers a separate job, and groupBy() introduces a shuffle boundary creating at least 2 stages per job. 
+
+--------
+
+QUESTION 14 -- 2 right opts selected, 1 option i didn't select so they marked 0 :(
+
+A streaming pipeline needs to be designed for a system handling millions of simultaneous user activity events. 
+Which combination of tools would be architecturally appropriate? 
+(Select ALL that apply)
+
+* [I SELECTED, CORRECT] Apache Kafka for event ingestion and messaging
+* [I SELECTED, CORRECT] Apache Flink for advanced real-time stream processing
+* Apache Airflow for scheduling the real-time stream
+* [DID NOT SELECT, CORRECT] Apache Spark for near real-time micro-batch processing
+* Amazon RedShift as the streaming ingestion layer
+
+---------
+
+QUESTION 15 -- 3 right opts selected, 1 option i didn't select so they marked 0 :(
+
+Which of the following are listed as best practices for Process Governance in MLOps? 
+(Select ALL that apply)
+
+* [I SELECTED, CORRECT] Automate governance checks in CI/CD pipelines
+* [I SELECTED, CORRECT] Maintain model cards and documentation
+* Use Apache Atlas to track data lineage
+* [I SELECTED, CORRECT] Implement approval workflows
+* [DID NOT SELECT, CORRECT] Use continuous monitoring for drift and bias
+
+----------
+
+QUESTION 19
+
+Consider the following Spark ML pipeline: [PIPELINE NOT SHOWING NOW]. How should the pipeline stages be classified?
+
+* All three are Estimators because the pipeline calls fit() on all of them.
+* [DID NOT SELECT, RIGHT ANSWER] VectorAssembler is a Transformer; StandardScaler and LinearRegression are Estimators.
+* [I SELECTED, WRONG ANSWER] VectorAssembler and StandardScaler are Transformers; LinearRegression is an Estimator.
+* All three are Transformers because pipeline.fit() converts them into Transformers.
+
+----------
+
+QUESTION 20
+
+Consider the following Spark ML cross-validation configuration: [NOT SHOWN NOW]. 
+Assuming Spark retrains the best model on the full training dataset after cross-validation, 
+how many total model-training runs are performed when cv.fit(train df) is executed?
+
+My Answer: 6
+Correct Answer: 31
+
+-----------
+
+QUESTION 29
+
+A tracking topic named user-profile-updates is configured as a compacted topic in Kafka. 
+The following sequence of messages is written to Partition 0 over time: [NOT SHOWN NOW]
+Which of the following statements correctly describe the state or behavior of this partition after log compaction runs? 
+(Select ALL that apply)
+
+* [I SELECTED, CORRECT] The message at Offset 3 will be preserved because it represents the latest state for "user1".
+* [I SELECTED, CORRECT] The message at Offset 4 will be preserved because it represents the latest state for "user2".
+* [I SELECTED, WRONG] Older messages with the same key (such as Offset 0 and Offset 2) are deleted immediately the instant a new message arrives with that key.
+* Log compaction will combine all historical values into a single consolidated array string under Offset 0.
+
+-------------
+
+QUESTION 33
+
+A cluster administrator wants to scale an existing Kafka topic to handle a higher volume of messages 
+and balance the data load across multiple newly provisioned brokers. 
+Which of the following architectural principles govern partition scaling, leadership, and load balancing in Kafka? 
+(Select ALL that apply)
+
+* [DID NOT SELECT, CORRECT] A single Kafka broker can only limit the ultimate storage and processing capacity of a single partition.
+* A single Kafka topic is permanently restricted to a maximum of 3 partitions after its initial cluster creation.
+* [I SELECTED, CORRECT] A topic can create an arbitrary number of partitions to effectively scale out horizontally across the cluster.
+* [I SELECTED, CORRECT] Partitions can be reassigned from one broker to another broker to balance cluster processing and storage loads.
+* [I SELECTED, WRONG] Messages written by multiple producers to the exact same partition are automatically interleaved.
+
+--------------
+
+QUESTION 42
+
+A Spark DataFrame sdf is distributed across multiple partitions. Which of the following operations require a shuffle?
+
+* [I SELECTED, CORRECT] sdf.groupBy("PULocationId").agg(F.sum("fare_amount"))
+* sdf.filter(F.col("fare_amount") > 10).select("trip_distance")
+* [DID NOT SELECT, CORRECT] spark.conf.set("spark.sql.autoBroadcastJoinThreshold", -1)
+* [DID NOT SELECT, CORRECT] sdf.join(zone_df, sdf["PULocationId"] == zone_df["LocationId"])
+* [DID NOT SELECT, CORRECT] sdf.repartition(16)
+
+----------------
+
+QUESTION 44
+
+Which statements about coalesce() are correct?
+
+coalesce(n) can reduce the number of partitions but does not increase it through data redistribution.
+coalesce() avoids a full shuffle when reducing partitions, making it cheaper than repartition() for consolidation.
+Using coalesce(1) before writing can produce a single output file, but may create a bottleneck because all output is written by one task.
+coalesce() evenly redistributes records across partitions when reducing the partition count.
+
+
+
