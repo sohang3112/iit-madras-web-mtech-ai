@@ -1,0 +1,186 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prefix-caching-demo
+  namespace: vllm
+data:
+  run-demo.sh: |
+    #!/bin/sh
+    set -e
+
+    VLLM_URL="http://vllm-server.vllm.svc.cluster.local:8000"
+    MODEL="meta-llama/Llama-3.2-1B-Instruct"
+
+    SHARED_PREFIX="You are a senior Kubernetes engineer. You have deep expertise in container orchestration, pod scheduling, resource management, networking (CNI, Services, Ingress), storage (CSI, PV/PVC), security (RBAC, NetworkPolicies, PodSecurity), and observability (metrics, logging, tracing). You follow best practices from the CNCF ecosystem. When answering questions, provide production-ready advice with concrete examples. Always consider high availability, scalability, and security implications."
+
+    echo "=============================================="
+    echo " vLLM Prefix Caching Demonstration"
+    echo "=============================================="
+    echo ""
+    echo "This demo sends multiple requests that share a long system prompt."
+    echo "With prefix caching enabled, vLLM caches the KV-cache for the shared"
+    echo "prefix so subsequent requests skip re-computation of those tokens."
+    echo ""
+    echo "----------------------------------------------"
+    echo " Phase 1: Baseline (first request - cold cache)"
+    echo "----------------------------------------------"
+    echo ""
+
+    START=$(date +%s%N)
+    RESP1=$(curl -s "$VLLM_URL/v1/chat/completions" \
+      -H "Content-Type: application/json" \
+      -d "{
+        \"model\": \"$MODEL\",
+        \"messages\": [
+          {\"role\": \"system\", \"content\": \"$SHARED_PREFIX\"},
+          {\"role\": \"user\", \"content\": \"How do I set up a HorizontalPodAutoscaler for a deployment?\"}
+        ],
+        \"max_tokens\": 150
+      }")
+    END=$(date +%s%N)
+    ELAPSED1=$(( (END - START) / 1000000 ))
+
+    echo "Request 1 (cold): ${ELAPSED1}ms"
+    echo "Prompt tokens: $(echo "$RESP1" | grep -o '"prompt_tokens":[0-9]*' | cut -d: -f2)"
+    echo "Completion tokens: $(echo "$RESP1" | grep -o '"completion_tokens":[0-9]*' | cut -d: -f2)"
+    echo ""
+
+    echo "----------------------------------------------"
+    echo " Phase 2: Same prefix, different questions (warm cache)"
+    echo "----------------------------------------------"
+    echo ""
+
+    QUESTIONS='How do I configure resource quotas per namespace?
+    What is the best way to implement pod-to-pod mTLS?
+    How should I set up cluster autoscaling with Karpenter?
+    Explain how to use PodDisruptionBudgets effectively.
+    What are best practices for etcd backup and restore?'
+
+    i=2
+    TOTAL_WARM=0
+    echo "$QUESTIONS" | while IFS= read -r question; do
+      question=$(echo "$question" | sed 's/^[[:space:]]*//')
+      START=$(date +%s%N)
+      RESP=$(curl -s "$VLLM_URL/v1/chat/completions" \
+        -H "Content-Type: application/json" \
+        -d "{
+          \"model\": \"$MODEL\",
+          \"messages\": [
+            {\"role\": \"system\", \"content\": \"$SHARED_PREFIX\"},
+            {\"role\": \"user\", \"content\": \"$question\"}
+          ],
+          \"max_tokens\": 150
+        }")
+      END=$(date +%s%N)
+      ELAPSED=$(( (END - START) / 1000000 ))
+      echo "Request $i (warm): ${ELAPSED}ms - $question"
+      i=$((i + 1))
+    done
+
+    echo ""
+    echo "----------------------------------------------"
+    echo " Phase 3: Multi-turn with growing shared prefix"
+    echo "----------------------------------------------"
+    echo ""
+    echo "Simulating a conversation where each turn builds on the last."
+    echo "The entire conversation history is the shared prefix for the next turn."
+    echo ""
+
+    TURN1_USER="What is a StatefulSet and when should I use one?"
+
+    START=$(date +%s%N)
+    TURN1_RESP=$(curl -s "$VLLM_URL/v1/chat/completions" \
+      -H "Content-Type: application/json" \
+      -d "{
+        \"model\": \"$MODEL\",
+        \"messages\": [
+          {\"role\": \"system\", \"content\": \"$SHARED_PREFIX\"},
+          {\"role\": \"user\", \"content\": \"$TURN1_USER\"}
+        ],
+        \"max_tokens\": 150
+      }")
+    END=$(date +%s%N)
+    ELAPSED=$(( (END - START) / 1000000 ))
+    TURN1_ASSISTANT=$(echo "$TURN1_RESP" | grep -o '"content":"[^"]*"' | head -1 | cut -d'"' -f4)
+    echo "Turn 1: ${ELAPSED}ms"
+
+    TURN2_USER="How do I handle persistent storage for StatefulSets across AZs?"
+
+    START=$(date +%s%N)
+    TURN2_RESP=$(curl -s "$VLLM_URL/v1/chat/completions" \
+      -H "Content-Type: application/json" \
+      -d "{
+        \"model\": \"$MODEL\",
+        \"messages\": [
+          {\"role\": \"system\", \"content\": \"$SHARED_PREFIX\"},
+          {\"role\": \"user\", \"content\": \"$TURN1_USER\"},
+          {\"role\": \"assistant\", \"content\": \"$TURN1_ASSISTANT\"},
+          {\"role\": \"user\", \"content\": \"$TURN2_USER\"}
+        ],
+        \"max_tokens\": 150
+      }")
+    END=$(date +%s%N)
+    ELAPSED=$(( (END - START) / 1000000 ))
+    echo "Turn 2: ${ELAPSED}ms (prefix includes turn 1 history)"
+
+    TURN2_ASSISTANT=$(echo "$TURN2_RESP" | grep -o '"content":"[^"]*"' | head -1 | cut -d'"' -f4)
+    TURN3_USER="Can you show me a YAML example combining volumeClaimTemplates with topology spread constraints?"
+
+    START=$(date +%s%N)
+    curl -s "$VLLM_URL/v1/chat/completions" \
+      -H "Content-Type: application/json" \
+      -d "{
+        \"model\": \"$MODEL\",
+        \"messages\": [
+          {\"role\": \"system\", \"content\": \"$SHARED_PREFIX\"},
+          {\"role\": \"user\", \"content\": \"$TURN1_USER\"},
+          {\"role\": \"assistant\", \"content\": \"$TURN1_ASSISTANT\"},
+          {\"role\": \"user\", \"content\": \"$TURN2_USER\"},
+          {\"role\": \"assistant\", \"content\": \"$TURN2_ASSISTANT\"},
+          {\"role\": \"user\", \"content\": \"$TURN3_USER\"}
+        ],
+        \"max_tokens\": 200
+      }" > /dev/null
+    END=$(date +%s%N)
+    ELAPSED=$(( (END - START) / 1000000 ))
+    echo "Turn 3: ${ELAPSED}ms (prefix includes turns 1+2 history)"
+
+    echo ""
+    echo "=============================================="
+    echo " Summary"
+    echo "=============================================="
+    echo ""
+    echo "With prefix caching (--enable-prefix-caching):"
+    echo "  - The shared system prompt KV-cache is computed once"
+    echo "  - Subsequent requests reuse cached KV blocks for matching prefixes"
+    echo "  - Multi-turn conversations benefit most: each new turn only"
+    echo "    computes KV for the new user message, not the full history"
+    echo ""
+    echo "Typical improvements:"
+    echo "  - Time-to-first-token (TTFT) reduced 2-5x for shared prefixes"
+    echo "  - GPU/CPU memory reuse across concurrent requests"
+    echo "  - Higher throughput for workloads with common system prompts"
+    echo ""
+    echo "To compare, restart vllm-server WITHOUT --enable-prefix-caching"
+    echo "and re-run this demo to see the difference."
+    echo "=============================================="
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: prefix-caching-demo
+  namespace: vllm
+spec:
+  containers:
+  - name: demo
+    image: curlimages/curl:latest
+    command: ["sleep", "infinity"]
+    volumeMounts:
+    - name: demo-script
+      mountPath: /scripts
+  volumes:
+  - name: demo-script
+    configMap:
+      name: prefix-caching-demo
+      defaultMode: 0755
+  restartPolicy: Never

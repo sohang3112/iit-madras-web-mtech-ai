@@ -1,0 +1,104 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vllm-server
+  namespace: vllm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: vllm
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: vllm
+    spec:
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - 8.8.8.8
+          - 8.8.4.4
+        searches:
+          - vllm.svc.cluster.local
+          - svc.cluster.local
+          - cluster.local
+        options:
+          - name: ndots
+            value: "5"
+      initContainers:
+      - name: download-model
+        image: python:3.12-slim
+        command: ["/bin/sh", "-c"]
+        args:
+        - |
+          pip install -q --no-cache-dir huggingface_hub &&
+          python -c "
+          from huggingface_hub import snapshot_download, hf_hub_download
+          from huggingface_hub.utils import HfHubHTTPError
+          from huggingface_hub import HfApi
+          import os
+
+          token = os.environ['HF_TOKEN']
+          repo = 'meta-llama/Llama-3.2-1B-Instruct'
+          local_dir = '/models/meta-llama/Llama-3.2-1B-Instruct'
+
+          api = HfApi()
+          files = api.list_repo_files(repo, token=token)
+          print(f'Downloading {len(files)} files one at a time...')
+
+          for i, f in enumerate(files):
+              print(f'  [{i+1}/{len(files)}] {f}')
+              hf_hub_download(
+                  repo_id=repo,
+                  filename=f,
+                  token=token,
+                  local_dir=local_dir,
+              )
+
+          print('Model download complete.')
+          "
+        env:
+        - name: HF_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: hf-token-secret
+              key: token
+        volumeMounts:
+        - name: llama-storage
+          mountPath: /models
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "1"
+          limits:
+            memory: "4Gi"
+            cpu: "2"
+      containers:
+      - name: vllm
+        image: public.ecr.aws/q9t5s3a7/vllm-cpu-release-repo:latest
+        command: ["/bin/sh", "-c"]
+        args:
+        - "vllm serve /models/meta-llama/Llama-3.2-1B-Instruct --gpu-memory-utilization 0.7 --enable-prefix-caching --max-model-len 4096"
+        env:
+        - name: HF_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: hf-token-secret
+              key: token
+        ports:
+        - containerPort: 8000
+          name: http
+        volumeMounts:
+        - name: llama-storage
+          mountPath: /models
+        resources:
+          requests:
+            memory: "8Gi"
+            cpu: "2"
+          limits:
+            memory: "12Gi"
+            cpu: "4"
+      volumes:
+      - name: llama-storage
+        persistentVolumeClaim:
+          claimName: vllm-models

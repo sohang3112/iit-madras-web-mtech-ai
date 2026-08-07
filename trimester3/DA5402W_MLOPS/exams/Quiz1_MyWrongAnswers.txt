@@ -116,10 +116,10 @@ QUESTION 44
 
 Which statements about coalesce() are correct?
 
-coalesce(n) can reduce the number of partitions but does not increase it through data redistribution.
-coalesce() avoids a full shuffle when reducing partitions, making it cheaper than repartition() for consolidation.
-Using coalesce(1) before writing can produce a single output file, but may create a bottleneck because all output is written by one task.
-coalesce() evenly redistributes records across partitions when reducing the partition count.
+* [I SELECTED, CORRECT] coalesce(n) can reduce the number of partitions but does not increase it through data redistribution.
+* [I SELECTED, CORRECT] coalesce() avoids a full shuffle when reducing partitions, making it cheaper than repartition() for consolidation.
+* [DID NOT SELECT, CORRECT] Using coalesce(1) before writing can produce a single output file, but may create a bottleneck because all output is written by one task.
+* [I SELECTED, WRONG] coalesce() evenly redistributes records across partitions when reducing the partition count.
 
 
 
