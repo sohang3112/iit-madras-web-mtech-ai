@@ -1,0 +1,32 @@
+    Slides Outline
+    Slide 1: Project Summary and Objectives
+        Topic: Early setup timing-violation screening during physical design closure Guo2022.
+        Use case: Reduce repeated costly routing and STA iterations during timing-driven design loops Guo2022.
+        Motivation: Current GNN timing predictors are effective but relatively complex and compute-demanding Guo2022Li2025
+        Ding2024.
+        Core idea: Reframe rare timing violations as a path-level anomaly detection task using sequential timing features.
+        Objectives: formulate dataset/task, build lightweight 1D-CNN, handle imbalance with focal loss, evaluate with PR-AUC and F1, study compute efficiency.
+    Slide 2: Project Summary and Objectives
+        Challenges in the area
+            Timing closure requires expensive iterative analysis Guo2022.
+            Existing GNNs face scalability and generalization limits on large graphs Li2025.
+            Class imbalance is intrinsic when violations are rare
+            Shrestha2026Lin2017.
+        State of the art
+            GNN slack prediction predicts arrival time and slack at endpoints Guo2022.
+            GAT-based timing prediction is a recent extension
+            Li2025.
+        Proposed contribution
+            Lightweight 1D-CNN screener for path sequences, targeting lower compute rather than higher absolute accuracy.
+            Practical for personal hardware and possibly edge-like deployment logic.
+    Slide 3: Literature Survey
+        OpenROAD/data foundation
+            OpenROAD is an open-source RTL-to-GDS flow with STA support and reproducible research value Ajayi2019Kahng2021.
+            EDA-Schema-V2 provides ~7,800 design instances, 18 circuits, and 36M+ timing paths
+            Shrestha2026.
+        Timing-prediction SOTA
+            Timing-engine-inspired GNN predicts arrival time and slack endpoints Guo2022.
+            GAT timing work reports improvement over prior SOTA and runtime reduction Li2025.
+        Method ingredients for proposal
+            1D-CNN is suitable for 1-D sequential anomaly diagnosis and can reduce parameters versus 2D-CNN Gong2022
+
