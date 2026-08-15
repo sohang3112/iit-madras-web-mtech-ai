@@ -1,5 +1,5 @@
-Registry,Login Command,Image Path
-Docker Hub,docker login,docker.io/<user>/ml-app:0.1.0
-GitHub GHCR,echo $PAT | docker login ghcr.io -u <user> --password-stdin,ghcr.io/<user>/ml-app:0.1.0
-AWS ECR,aws ecr get-login-password | docker login --password-stdin <acct>.dkr.ecr.<region>.amazonaws.com,<acct>.dkr.ecr.<region>.amazonaws.com/ml-app:0.1.0
-GCP Artifact Registry,gcloud auth configure-docker <region>-docker.pkg.dev,<region>-docker.pkg.dev/<project>/<repo>/ml-app:0.1.0
+Registry             , Login Command                                                                                   , Image Path
+Docker Hub           , docker login                                                                                    , docker.io/<user>/ml-app:0.1.0
+GitHub GHCR          , echo $PAT | docker login ghcr.io -u <user> --password-stdin                                     , ghcr.io/<user>/ml-app:0.1.0
+AWS ECR              , aws ecr get-login-password | docker login --password-stdin <acct>.dkr.ecr.<region>.amazonaws.com, <acct>.dkr.ecr.<region>.amazonaws.com/ml-app:0.1.0
+GCP Artifact Registry, gcloud auth configure-docker <region>-docker.pkg.dev                                            , <region>-docker.pkg.dev/<project>/<repo>/ml-app:0.1.0

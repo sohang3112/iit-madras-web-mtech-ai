@@ -2,13 +2,14 @@
 
 Prof Alka Bhushan said Mlops Quiz 2 syllabus topics are mainly (but NOT exclusively):
 - [ ] Hyper-Parameter Tuning and Training AI/ML model with spark and ray
-- [ ] Mlflow
-- [ ] Git, Git LFS, DVC
-- [ ] Docker, Kubernetes
-- [ ] vllm, torch.compile
-- [ ] CI/CD pipeline
-- [ ] Prometheus
-- [ ] Everything else!
+- [ ] WIP: Mlflow, Ray (Week 6) -- mlflow done, TODO: Ray notebook
+- [x] Git, Git LFS, DVC (Week 8)
+- [x] Docker, Kubernetes (Week 10)
+- [x] vllm, torch.compile (Week 11)
+- [x] Prometheus, CI/CD  (Github Actions, Jenkins) (Week 12)
+- [ ] Tutorials
+
+Week 6 onwards, since Week 1 to 5 came in Quiz 1 already
 
 ------
 

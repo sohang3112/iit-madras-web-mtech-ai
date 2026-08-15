@@ -292,3 +292,67 @@ Plans are optimized before execution. *Operator Fusion* fuses adjacent transform
 cgroup, resource_group
 
 ## Tutorial on PyTorch compile internals (dynamo, autograd etc. details) ; also vllm on kubernetes to host llm -- July 31, 2026 -- TODO
+
+## Resources
+
+LLM and vLLM:
+
+- https://magazine.sebastianraschka.com/p/building-a-gpt-style-llm-classifier
+- https://ranjankumar.in/large-language-models-llms-inference-and-serving/
+- https://docs.vllm.ai/en/latest/design/arch_overview/#process-count-summary
+- https://jarvislabs.ai/blog/vllm-optimization-techniques
+- https://pm.dartus.fr/posts/2025/how-llm-generate-text/
+
+VLLM on minikube (kubernetes cluster) practical: https://www.cncf.io/blog/2026/07/16/running-a-self-hosted-llm-in-kubernetes-with-vllm/
+
+PyTorch:
+
+- https://pytorch.org/get-started/pytorch-2-x/ -- `torch.compile()`
+- https://docs.pytorch.org/docs/stable/torch.compiler_dynamo_overview.html -- Torch Dynamo
+
+More on Pytorch:
+
+1. https://docs.pytorch.org/docs/2.12/user_guide/torch_compiler/torch.compiler.html
+2. https://docs.google.com/document/d/1y5CRfMLdwEoF1nTk9q8qEu1mgMUuUtvhklPKJ2emLU8/edit?tab=t.0#heading=h.ivdr7fm
+rbeab
+1. https://colab.research.google.com/drive/1Zh-Uo3TcTH8yYJF-LLo5rjlHVMtqvMdf?usp=sharing#scrollTo=ObOktQOeko5h
+2. https://docs.pytorch.org/docs/stable/torch.compiler_dynamo_deepdive.html
+3. https://docs.pytorch.org/assets/pytorch2-2.pdf
+4. https://www.youtube.com/watch?v=rn-kJQ-7JmQ
+5. https://www.youtube.com/watch?v=ppWKVg-VxmQ
+6. https://www.youtube.com/watch?v=GmhnYe9QQoM
+7. https://www.youtube.com/watch?v=5FNHwPIyHr8
+8.  https://docs.google.com/document/d/1GgvOe7C8_NVOMLOCwDaYV1mXXyHMXY7ExoewHqooxrs/edit?tab=t.0#heading=h.fh8z
+zonyw8ng
+1.  https://medium.com/data-science/how-pytorch-2-0-accelerates-deep-learning-with-operator-fusion-and-cpu-gpu-code-
+generation-35132a85bd26
+
+Docker:
+
+- https://blog.octo.com/docker-registry-first-steps/Containe
+
+Kubernetes:
+
+- https://github.com/pnl-iiitd/acm_fsn/tree/main
+- https://medium.com/aspnetrun/deploying-microservices-on-kubernetes-35296d369fdb
+
+vLLM, Kubernetes, Prometheus:
+- https://docs.vllm.ai/en/latest/serving/metrics.html
+- https://github.com/prometheus-operator/kube-prometheus
+- https://keda.sh/docs/scalers/prometheus/
+- https://github.com/NVIDIA/dcgm-exporter
+- https://sre.google/sre-book/monitoring-distributed-systems/
+- https://www.cncf.io/blog/2026/07/16/running-a-self-hosted-llm-in-kubernetes-with-vllm/
+
+GitHub Actions:
+* Docs: docs.github.com/actions
+* Reusable workflows: docs.github.com/actions/using-workflows/reusing-workflows
+* Self-hosted runners: docs.github.com/actions/hosting-your-own-runners
+* Security hardening: docs.github.com/actions/security-guides/security-hardening-for-github-actions
+* Public example repo: github.com/torch-spyre/torch-spyre (see .github/workflows/ and
+* .github/actions/ )
+
+Jenkins:
+* Docs: jenkins.io/doc
+* Pipeline syntax: jenkins.io/doc/book/pipeline/syntax
+* Shared libraries: jenkins.io/doc/book/pipeline/shared-libraries

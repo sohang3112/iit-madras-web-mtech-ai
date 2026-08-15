@@ -36,7 +36,7 @@ $ git lfs prune
 
 DVC extra features over Git LFS:
 - Git LFS tied to Github (free tier has 1 GB storage + 1 GB / month bandwidth), in DVC you have to choose your own remote (Google Drive, AWS S3 or other cloud, self-hosted or local setup)
-   - NOTE: Google Drive remote of dvc doesn't actually work! "Acess to this app is blocked by Google". They say to instead "create a new app" - that basically means Google Cloud which is also paid :(
+   - NOTE: Google Drive remote of dvc doesn't actually work! "Access to this app is blocked by Google". They say to instead "create a new app" - that basically means Google Cloud which is also paid :(
      So doesn't look useful for me.
 - Has directory of *shards*, train / validation / test split, data lineage
 - Experiment / stage awareness (this data produced this model via this step)
@@ -96,7 +96,7 @@ Containers: light VMs without guest OS, Isolation between processes, using:
 Docker:
 * server daemon and client
 * Image (eg. from Docker Registry) and Container
-* Docker Networking: networking between containers ---> TODO; THIS I DON'T KNOW
+* Docker Networking: networking between containers eg. bridge
 
 Docker Alternatives: Buildah (build container images for Podman as it can't do it itself), RunC, LXC, Podman (daemon-less, systemd integration), Kaniko
 
