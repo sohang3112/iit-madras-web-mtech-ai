@@ -1,0 +1,12 @@
+# Non-sensitive runtime configuration for the diabetes-api pods.
+# Consumed in full via envFrom in deployment.yaml.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: diabetes-api-config
+  labels:
+    app: diabetes-api
+data:
+  LOG_LEVEL: "INFO"
+  MODEL_PATH: "/app/model/model.joblib"
+  PORT: "5000"

@@ -1,0 +1,74 @@
+# Deployment for the diabetes prediction API.
+# 2 replicas for basic availability, with resource requests/limits sized to
+# fit comfortably on a 2 vCPU / 4GB host alongside other workloads.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: diabetes-api
+  labels:
+    app: diabetes-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: diabetes-api
+  template:
+    metadata:
+      labels:
+        app: diabetes-api
+    spec:
+      containers:
+        - name: diabetes-api
+          # Built locally with `docker build -t diabetes-api:latest .`
+          # imagePullPolicy is set to IfNotPresent so kind/minikube can use
+          # the locally-built image without needing a registry push.
+          image: diabetes-api:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+              name: http
+
+          # Bulk-load all non-sensitive settings from the ConfigMap.
+          envFrom:
+            - configMapRef:
+                name: diabetes-api-config
+
+          # Pull the API key from the Secret explicitly, so it's clear in
+          # this manifest exactly which sensitive value the app receives.
+          env:
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: diabetes-api-secret
+                  key: API_KEY
+
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+
+          # Readiness gates traffic: pods only join the Service's endpoint
+          # list once the model has finished loading and /health returns 200.
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+
+          # Liveness restarts the container if it becomes unresponsive/deadlocked.
+          # Longer initial delay than readiness so a briefly slow startup isn't
+          # mistaken for a crash.
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            timeoutSeconds: 3
+            failureThreshold: 3

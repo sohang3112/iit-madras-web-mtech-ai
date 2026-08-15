@@ -1,5 +1,17 @@
 # Syllabus of MLOps course
 
+Prof Alka Bhushan said Mlops Quiz 2 syllabus topics are mainly (but NOT exclusively):
+- [ ] Hyper-Parameter Tuning and Training AI/ML model with spark and ray
+- [ ] Mlflow
+- [ ] Git, Git LFS, DVC
+- [ ] Docker, Kubernetes
+- [ ] vllm, torch.compile
+- [ ] CI/CD pipeline
+- [ ] Prometheus
+- [ ] Everything else!
+
+------
+
 Source: page 11 of [Course Overview.pdf](lectures/lecture2_theory/Course%20Overview.pdf)
 
 Modules
