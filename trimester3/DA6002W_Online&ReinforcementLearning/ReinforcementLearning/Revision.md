@@ -38,24 +38,31 @@ $$
 
 **1-step TD Learning** (from lecture 3) - unlike incremental MC (after full episode and using return $G_t$), here after one step of episode and using TD target based on observed reward and next state $R_{t+1} + \gamma V(S_{t+1})$:
 
-$$ 
+$$
 V(S_t) \leftarrow V(S_t) + \alpha [R_{t+1} + \gamma V(S_{t+1}) - V(S_t)] \\
 \text{TD(0) Error} = R_{t+1} + \gamma V(S_{t+1}) - V(S_t)
 $$
 
 **On-Policy TD SARSA Update** (from lecture 3) -- same as above formula, just Q instead of V:
 
-$$ Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha [R_{t+1} + \gamma Q(S_{t+1}, A_{t+1}) - Q(S_t, A_t)] $$
+$$
+Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha [R_{t+1} + \gamma Q(S_{t+1}, A_{t+1}) - Q(S_t, A_t)]
+$$
 
 **On-Policy TD - Expected SARSA - Update** (from lecture 3) -- variation of SARSA where instead of next action, expected value (average) of Q values of all possible actions in next state is used [similar to off-policy Q learning]:
 
-$$ Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha [R_{t+1} + \gamma \sum_a \pi(a | S_{t+1}) Q(S_{t+1}, a) - Q(S_t, A_t)] $$
+$$
+Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha [R_{t+1} + \gamma \sum_a \pi(a | S_{t+1}) Q(S_{t+1}, a) - Q(S_t, A_t)]
+$$
 
 **Off-Policy TD Q-Learning** (from lecture 3) - behaviour policy $b$ is $\epsilon$-greedy, target policy $\pi$ is greedy / deterministic (that's why we did $\max_a$ to choose maximum action value return from future states). At the start, we know no Q value (Q table is empty, aka all values 0) - over time we come to know of Q values of state-action pairs and so that's when the max part comes into play:
 
-$$ Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha [R_{t+1} + \gamma \max_a Q(S_{t+1}, A_{t+1}) - Q(S_t, A_t)] $$
+$$
+Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha [R_{t+1} + \gamma \max_a Q(S_{t+1}, A_{t+1}) - Q(S_t, A_t)]
+$$
 
 **n-step TD Policy Evaluation** (from lecture 3) -- note that in TD target, very last term added is NOT reward but instead state value estimate:
+
 * no updates during first $n-1$ evaluations of episode
 * if $t+n > T$ (episode terminates before n steps from t), then remaining rewards are treated as 0.
 
@@ -64,9 +71,11 @@ G_{t:t+n} = R_{t+1} + \gamma R_{t+2} + \cdots + \gamma^{n-1} R_{t+1} + \gamma^n 
 V(S_t) \leftarrow V(S_t) + \alpha [G_{t:t+n} - V(S_t)], \quad \text{n-step Update of state value estimate}
 $$
 
-**$\lambda$-return** (TD target for $TD(\lambda)$) (from lecture 3) - average all n-step returns with exponentially decaying weights : 
+**$\lambda$-return** (TD target for $TD(\lambda)$) (from lecture 3) - average all n-step returns with exponentially decaying weights :
 
-$$ G_t^\lambda = (1 - \lambda) \sum_{n=1}^\infty \lambda^{n-1} G_{t:t+n} $$
+$$
+G_t^\lambda = (1 - \lambda) \sum_{n=1}^\infty \lambda^{n-1} G_{t:t+n}
+$$
 
 **Eligibility Traces aka Backward-View $TD(\lambda)$** (from lecture 3) - $\lambda$ Trace-Decay Parameter is rate at which credit decays over time, $\gamma$ is discount factor for return:
 
@@ -80,6 +89,7 @@ $$
 ## 1. Markov Decision Process
 
 Outline:
+
 1. Intro to Markov Decision Processes (MDPs)
 2. Formulation of an MDP
 3. Optimal Policies for MDPs
@@ -94,21 +104,25 @@ Task is Episodic or Continuous (no termination).
 
 Trajectory is a sequence of states, actions and rewards.
 
-Return: total cumulative reward agent receives starting from a timestamp. 
+Return: total cumulative reward agent receives starting from a timestamp.
 For Continuous tasks return would be infinite, hence we use Discounted Return only.
 
 Value Functions (comparing policies):
+
 - State Value Function: eval how good a state is for agent based on expected future rewards following policy. Value of terminal state is 0.
 - Action Value Function (aka Action Value or Q-value): Estimates how good it is for the agent to take an action in a state in terms of expected future rewards, following a policy
 
 Representing Value Functions:
+
 - Tabular form (for discrete and finite state and action spaces): states or (state,action) pairs with corresponding values
 - Parametric form (high dimensional continuous state and action spaces): function approximators (linear, polynomial, neural net based etc.)
 
 Bellman Equations: value of a state or (state,action) pair in terms of possible next states. so recursive
+
 - equations for optimal state & action value functions, and a formula that relates the 2
 
 Bellman Optimality Equations: Value(State under optimal policy) = ExpectedReturn for best action from that state
+
 - for fixed policy forms system of linear equations => solvable
 - but finding best policy is hard: maximizing makes it non linear
 - solving is tedious, expensive, requires state transition model => so practically iterative solutions used
@@ -119,6 +133,7 @@ Optimal Value Policy is better than all others. Optimal state and action value f
 Deterministic Optimal Policy must exist in MDP
 
 RL methods to learn Near-Optimal Policies:
+
 1. Monte Carlo Methods
 2. Temporal Difference Learning
 3. Policy Gradient Methods
@@ -128,6 +143,7 @@ RL methods to learn Near-Optimal Policies:
 ## 2. Monte Carlo (MC) Methods
 
 Outline:
+
 1. Intro to MC Methods in RL
 2. MC Policy Evaluation
 3. MC Control
@@ -139,12 +155,14 @@ MC only for episodic tasks; model-free (i.e. no state transition knowledge) - do
 Basic Principle: Value is approx Emperical Mean Return (used in place of Expected Return)
 
 Parts:
+
 * MC Policy: Estimate state and action values based on given policy
 * MC Control: Update policy towards optimality based on estimated value
 
 ### MC Policy
 
 Approach:
+
 * Run policy over all episode, then calc discounted return $G_t$ for each action from that time $t$ to end.
 * Calc average return based on all episodes in which $s$ appears
 
@@ -153,6 +171,7 @@ Approach:
 Dealing with possibility of same state appearing multiple times in single episode: 1. First Visit MC state estimation 2. Every Visit MC state estimation
 
 **First Visit MC state estimation**:
+
 - Init $V_\pi(s) = 0$, $N(s) = 0$ (no. of first-time state s appeared in an episode), $G(s) = 0$ (total return of state)
 - For time t till termination:
   - Sample whole episode (states, actions, returns) till termination
@@ -171,6 +190,7 @@ But without a model, action values need to be estimated too.
 Same as MC estimation of state values, except state visits are replaced by state-action visits
 
 Dealing with problem of (if deterministic policy, same action appears for same state every episode) :
+
 * Exploring starts with random state-action pairs
 * Exploring with stochastic policy
 
@@ -179,17 +199,20 @@ Incremental MC update formulae --> written at top of page
 MC Control: Policy Evaluation (to get action value) and Policy Improvement (greedy policy wrt action value of policy) are done alternately after every episode of experience to reasonably converge in limited episodes.
 
 ### On-Policy and Off-Policy Learning
+
 * On-Policy (eval & improve policy currently being used to make decisions - more stable & better chance of coverage)
 * Off-Policy (eval & improve Target Policy, different from Behaviour Policy used to make decisions - less stable, may result in divergence)
 
 **On-Policy MC**:
+
 * *Soft Policy* (eg. $\epsilon$-greedy) is followed to balance exploration & exploitation. Stochastic, all possible actions in a state can be chosen with a non-zero probability.
-* Algorithms: 
+* Algorithms:
   * On-Policy First Visit MC Control (similar to prev; steps note TODO; initial all action values 0, uniform policy)
     * Deciding between 2 actions (in a single state) in $\epsilon$-greedy: If one action is greedy, assign it probability $1 - \epsilon$ and other action probability $\epsilon$.
       * Deciding between multiple actions (in a single state)? I think $1 - \epsilon$ for greedy action and $\epsilon / (K-1)$ for all other actions -- not sure TODO
-  
+
 **Off-Policy MC**: both target $\pi$ and behavioural $b$ policies are fixed and generally deterministic.
+
 * Assumption: every action taken under $\pi$ is at least occasionally taken under $b$ .
 * Objective: Estimate action value $q_\pi$ based on episodes drawn by following policy $b$ .
 * Issues are solved by *Importance Sampling*:
@@ -215,6 +238,7 @@ For both episodic and continuing tasks.
 **Basic Approach**: Update state or action value after one or more steps of MDP (partial episode or bootstrapping)
 
 TD vs MC :
+
 * TD will generally converge faster
 * TD methods have low variance and some bias, MC methods have high variance and zero bias.
 * TD can work with continuing tasks and incomplete episodes - MC cannot.
@@ -224,6 +248,7 @@ TD vs MC :
 Update equation noted on top of page.
 
 TD(0) Algorithm for Policy Evaluation (update after every state transition in an episode, not waiting for end of episode like in Monte Carlo):
+
 * initial $\alpha \in (0,1)$; all state values $V(S_t)$ initialized to 0
 * Loop for each timestamp t:
   * from current state $S_t$ , policy predicts actions $A_t$ leading to new state $S_{t+1}$ and reward $R_{t+1}$
@@ -232,6 +257,7 @@ TD(0) Algorithm for Policy Evaluation (update after every state transition in an
 **For a fixed policy, following TD(0), estimated value will converge to true $V(s)$, only if $\alpha$ is constant and small OR decreasing gradually.**
 
 Properties:
+
 * it only looks at current reward and a single step into future
 * it DOES NOT do any backtracking, or alter value estimates of past states in episode based on current reward
 
@@ -254,6 +280,7 @@ Behaviour policy: $\epsilon$-greedy with small $\epsilon$ (which takes actions),
 Q-Learning update equation written on top of this page.
 
 Algorithm:
+
 * initialize all Q(s,a) to 0
 * foreach timestamp t:
   * based on current state s_t, choose action a_t according to behaviour policy using Q(s_t,a) values. Here epsilon-greedy.
@@ -268,6 +295,7 @@ Q learning converges to optimal policy as long as sufficient state-action pairs 
 Bootstrapping is done and values are updated after n-steps.
 
 Advantages over MC and 1-step TD:
+
 * n-step TD gives better estimate of TD target than 1-step TD
 * lower bias than TD(0) and lower variance than MC
 * faster learning than MC and more stable than TD(0)
@@ -276,6 +304,7 @@ Advantages over MC and 1-step TD:
 ![n-step TD backup diagrams](images/nstep_td_backup_diagrams.png)
 
 Factors affecting choice of n :
+
 * Task Type: Moderate values of n for continuing tasks to balance bias and variance
 * Rewards: Larger values of n in case of delayed rewards and vice versa
 * Type of Environment: Smaller value of n for highly stochastic environments to control variance
@@ -284,15 +313,16 @@ Factors affecting choice of n :
 * Practice: Tuning of n through experimentation and dynamic adjustment are recommended in practice to arrive at a suitable value
 
 **n-step TD Control: SARSA Algorithm** -- convergence properties are similar to other TD algorithms:
+
 * Input: $\epsilon$-greedy policy with small $\epsilon > 0$ and $\alpha \in (0, 1]$
 * Initialize: all Q(s,a) arbitarily (usually 0)
 * foreach timestep t:
-    * sample trajectory from $S_t$ to $S_{t+n}$ or $S_T$ (terminal) using actions $A_t$, $A_{t+1}$, ... using policy $\pi$ based on current Q estimates
-    * If terminated before $n$ steps $t+n > T$ then TD target is:
-      * $G_{t:t+n} = \sum_{i=t+1}^T \gamma^{i - t - 1} R_i$
-    * Else TD target is (full n steps completed -- note additionally adding Q value after n steps):
-      * $G_{t:t+n} = \sum_{i=t+1}^T \gamma^{i - t - 1} R_i + Q(S_{t+n}, A_{t+n})$
-    * Update Q Value: $Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha [G_{t:t+n} - Q(S_t, A_t)]$
+  * sample trajectory from $S_t$ to $S_{t+n}$ or $S_T$ (terminal) using actions $A_t$, $A_{t+1}$, ... using policy $\pi$ based on current Q estimates
+  * If terminated before $n$ steps $t+n > T$ then TD target is:
+    * $G_{t:t+n} = \sum_{i=t+1}^T \gamma^{i - t - 1} R_i$
+  * Else TD target is (full n steps completed -- note additionally adding Q value after n steps):
+    * $G_{t:t+n} = \sum_{i=t+1}^T \gamma^{i - t - 1} R_i + Q(S_{t+n}, A_{t+n})$
+  * Update Q Value: $Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha [G_{t:t+n} - Q(S_t, A_t)]$
 
 ### $TD(\lambda)$
 
@@ -307,6 +337,7 @@ This is called **Forward-View $TD(\lambda)$**:
 ![Forward-View TD(lambda)](images/forward_td_lambda.png)
 
 Issues with Forward-View TD(lambda):
+
 * like MC it can only be done for completed episodes
 * computing n-step returns for every value of n and every state & state-action pair is complex and inefficient.
 
@@ -317,7 +348,7 @@ Maintains "eligibility" of each state or state-action pair to recieve value upda
 
 Formula for eligibility trace on top of page.
 
-## 4. Value Function Approximation
+## 4. TODO Value Function Approximation
 
 Outline:
 
@@ -331,12 +362,11 @@ Outline:
 
 <!-- TODO -->
 
-## 5. Policy Gradient
+## 5. TODO Policy Gradient
 
 <!-- TODO -->
 
-
-## 6. Actor Critic Methods
+## 6. TODO Actor Critic Methods
 
 Outline:
 
@@ -347,4 +377,3 @@ Outline:
 5. Parallel Actor–Critic: A2C and A3C
 
 <!-- TODO: SKIPPED REINFORCE (apparently it's an algorithm discussed in earlier lectures?) -->
-
