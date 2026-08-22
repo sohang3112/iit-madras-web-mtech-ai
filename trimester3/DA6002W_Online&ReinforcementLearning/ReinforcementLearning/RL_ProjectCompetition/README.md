@@ -1,4 +1,6 @@
-Project Submission Deadline: 30 August
+Submission Deadlines:
+* Project Leaderboard: 2 September
+* Project Report (make using given report template LATEX): 4 September
 
 https://35.206.92.146.nip.io/ -- Submit here and see your public eval score and public leaderboard ranking.
 

@@ -1,0 +1,134 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{microtype}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5em}
+\setlist[itemize]{nosep,leftmargin=*}
+\setlist[enumerate]{nosep,leftmargin=*}
+
+\title{\textbf{ID6002W : RL Course Project Report}\\[0.4em]
+\large Industrial Inventory Control}
+\author{Student Name \quad | \quad Roll Number}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+\fbox{\parbox{0.92\textwidth}{
+\textbf{Recommended report length: 4--5 pages including references.}
+Keep the report concise and evidence-driven. Focus on what you tried, why you tried it, what worked, what did not work, and what you learned from the experiments.
+}}
+\end{center}
+
+\section{Problem and Assigned Configuration}
+
+Briefly describe the inventory-control problem in your own words. Do not repeat the full project statement.
+
+\begin{itemize}
+    \item \textbf{Variant ID:} \texttt{<enter variant ID>}
+    \item \textbf{Config fingerprint:} \texttt{<enter fingerprint>}
+    \item \textbf{Demand multiplier profile:} \texttt{<enter values>}
+    \item \textbf{Initial inventory profile:} \texttt{<enter values>}
+    \item \textbf{Lead-time delay profile:} \texttt{<enter values>}
+\end{itemize}
+
+\section{Techniques Attempted}
+
+List each distinct technique that you tried. For each technique, summarize the state/observation variables used, action representation, learning method, and any important design choices.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{p{0.18\textwidth}p{0.3\textwidth}p{0.5\textwidth}}
+\toprule
+\textbf{Technique} & \textbf{Observations Used} & \textbf{Key Design Choices} \\
+\midrule
+Technique 1 &  &    \\
+Technique 2 &  &    \\
+Technique 3 &  &    \\
+\bottomrule
+\end{tabular}
+\caption{Summary of techniques attempted. Add or remove rows as required.}
+\end{table}
+
+\section{Training and Experimental Setup}
+
+For the five top techniques, briefly report the experimental setup.
+
+\begin{itemize}
+    \item Number of training episodes / steps
+    \item Discount factor, learning rate, and other important hyperparameters
+    \item Exploration strategy, if applicable
+    \item Reward shaping, if used
+    \item Random seeds used for controlled comparisons
+\end{itemize}
+
+Do not list every hyperparameter unless it materially affects the result.
+
+\section{Results}
+
+Report the results of the top 5 techniques. Use the same evaluation protocol when comparing techniques.
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Technique} & \textbf{Mean Cost} & \textbf{Best Cost} & \textbf{Notes} \\
+\midrule
+Technique 1 &  &  &  \\
+Technique 2 &  &  &  \\
+Technique 3 &  &  &  \\
+\bottomrule
+\end{tabular}
+\caption{Validation performance before leaderboard submission.}
+\end{table}
+
+Include at most two plots that materially help explain the results. Examples include training return versus episode, validation cost across techniques, or cost breakdown across scenarios.
+
+% Example figure block:
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.75\textwidth]{training_curve.png}
+%     \caption{Training performance of the selected technique.}
+% \end{figure}
+
+\section{Analysis and Observations}
+
+Discuss the most important findings from your experiments. Focus on evidence rather than general descriptions of the algorithms.
+
+Suggested points:
+\begin{itemize}
+    \item Which technique performed best and why?
+    \item Which observations were most useful?
+    \item Did demand history or the arrival pipeline materially improve the policy?
+    \item How sensitive was performance to demand variation or lead-time delays?
+    \item What failure modes did you observe, such as stockouts, excessive holding, or discards?
+\end{itemize}
+
+\section{Key Learning}
+
+Summarize the 3--5 most important technical lessons from the project.
+
+\begin{enumerate}
+    \item 
+    \item 
+    \item 
+\end{enumerate}
+
+\section*{References}
+
+List only references that were actually used, such as papers, documentation, libraries, repositories, or other technical sources.
+
+
+\end{document}
