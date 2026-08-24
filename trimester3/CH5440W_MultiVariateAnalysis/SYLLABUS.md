@@ -1,3 +1,18 @@
+Endsem syllabus topics (full syllabus is coming, condensed topics list, possibly non-exhaustive):
+
+1. Intro to MVA
+2. Types of Variables (ratio, interval etc.)
+3. Types of missing data and methods of filling them & identifying outliers
+4. Linear Regression
+5. Linear Algebra
+6. Statistical Distance
+7. Partial Least Squares using NIPALS algorithm
+8. Discriminant Analysis
+
+PEN & PAPER EXAM: short answer types, qualitative & quantitative, problem solving
+
+----
+
 Midsem syllabus topics:
 
 1. Intro to Multi Variate Data Analysis
