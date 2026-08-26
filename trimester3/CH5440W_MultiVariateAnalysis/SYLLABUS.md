@@ -24,6 +24,8 @@ Midsem syllabus topics:
 7. Statistical distance upto Chi Square Distribution Test (statistical & mahalanobis distances)
 8. Linear Algebra (eg. LU decomposition, cholesky decomposition etc.)
 
+------
+
 Full syllabus topics (above is part / subset of below, since this below is full (midsem + endsem syllabus)):
 
 1. Use of data analysis for process performance enhancement 
