@@ -53,18 +53,18 @@ Table of all courses (core & elective) with credits info for all trimesters is a
 
 ### Course Grades
 
-Grade Code | Grade Points | Remarks
----------- | ------------ | ---------
-S          | 10           | _
-A          |  9           | _
-B          |  8           | _
-C          |  7           | _
-D          |  6           | _
-E          |  4           | _
-U          |  0           | _
-P          |  0           | Pass
-F          |  0           | Fail
-I          |  0           | Course incomplete / with hold
+| Grade Code | Grade Points | Remarks                       |
+| ---------- | ------------ | ----------------------------- |
+| S          | 10           | _                             |
+| A          | 9            | _                             |
+| B          | 8            | _                             |
+| C          | 7            | _                             |
+| D          | 6            | _                             |
+| E          | 4            | _                             |
+| U          | 0            | _                             |
+| P          | 0            | Pass                          |
+| F          | 0            | Fail                          |
+| I          | 0            | Course incomplete / with hold |
 
 **Grades 'S' to 'E' indicate successful completion of course.**
 
@@ -111,6 +111,8 @@ For any help / queries, send email at webmtech@code.iitm.ac.in .
 ## General Misc Resources
 - Past Papers (various subjects, levels, years): https://acegrade.in/prev_papers -- math, stats, python, deep learning, etc.
 - https://iitmdatascience.com/notes.html has some notes (no question papers) on math, python, ML etc. (though not sure of quality as haven't tried)
+- https://www.learnmlacademy.com/ -- made by my fellow student (same batch): Prateek Sharan
+  - WARNING: It's based on his notes of the Professor's lectures. But is NOT totally reliable because he used an LLM to synthesize his notes into a website.
 
 <!-- markdown-link-check-disable -->
 * [IITM Subreddit](https://www.reddit.com/r/iitmadras/)
