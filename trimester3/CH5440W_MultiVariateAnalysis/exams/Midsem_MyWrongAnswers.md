@@ -28,6 +28,12 @@ Right Answer: Nominal
 
 ---
 
+Q7:
+
+![Q7](image/Midsem_MyWrongAnswers/Q7.png)
+
+---
+
 Q10:
 
 Survey Data is collected from different states in India on number of defective electrical vehicles on the road.
@@ -136,6 +142,8 @@ Right Answer: 85.50,1.50,3.75
 ---
 
 Q30:
+
+![Q30](image/Midsem_MyWrongAnswers/Q30.png)
 
 My Wrong Answer: 2.917,17.917,6.5 -- Mistake: Calculated summary statistics ($\bar{x}$, $\bar{y}$, and $r$ or slope) using the wrong sample size $N$ in the denominator (divided totals by $N=6$ or misindexed the dataset table: $\frac{17.5}{6} \approx 2.917$, $\frac{107.5}{6} \approx 17.917$) instead of the correct degrees/sample count ($N=5$ or correct table subsets yielding $\bar{x} = 3.500, \bar{y} = 21.500, r = 0.934$).
 

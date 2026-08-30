@@ -1,5 +1,7 @@
 Endsem syllabus topics (full syllabus is coming, condensed topics list, possibly non-exhaustive):
 
+Prof said in last lecture: "Matrix algebra is there in portions including Matrix Differentiation"
+
 1. Intro to MVA
 2. Types of Variables (ratio, interval etc.)
 3. Types of missing data and methods of filling them & identifying outliers
@@ -10,6 +12,12 @@ Endsem syllabus topics (full syllabus is coming, condensed topics list, possibly
 8. Discriminant Analysis
 
 PEN & PAPER EXAM: short answer types, qualitative & quantitative, problem solving
+
+So "new" (post-midsem) lecture slide folders are only (rest is midsem material revision):
+
+- [ ] [Partial Least Squares 1](lectures/21.07.2026 Partial Least Squares 1/)
+- [ ] [Discriminant Analysis](lectures/11.08.2026 Discriminant Analysis/)
+- [ ] [Partial Least Squares 2](lectures/28.07.2026 Partial Least Squares 2/)
 
 ----
 
