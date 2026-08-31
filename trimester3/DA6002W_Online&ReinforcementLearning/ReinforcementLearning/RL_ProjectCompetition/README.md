@@ -17,4 +17,6 @@ NOTE: Need to submit 5 approaches from the following:
 - [ ] Proximal Policy Optimization (PPO)
 - [ ] DQN-- Select Technique --
 - [ ] Double DQN
+
+Submit: *.py* file or else *.zip* archive (it must contain *policy.py* at the root level).
                                     

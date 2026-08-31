@@ -4,9 +4,9 @@ Allows me to type solution in Markdown and then convert solution back to PDF to 
 
 NOTE: pymupdf on its own is also very useful even on CLI :
 
-$ python -m pymupdf    
+$ pymupdf    
 usage: pymupdf [-h] {show,clean,join,extract,embed-info,embed-add,embed-del,embed-upd,embed-extract,embed-copy,gettext,internal} ...
-$ python -m pymupdf gettext /path/to/file_name.pdf
+$ pymupdf gettext /path/to/file_name.pdf
 (creates /path/to/file_name.txt !)
 $ cd /path/to/folder && ~/iit-madras-web-mtech-ai/automation/all_pdfs_to_markdown.sh     # script that runs pymupdf gettext converts all **/*.pdf to *.txt
 # this error happened for one PDF only

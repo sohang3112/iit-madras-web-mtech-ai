@@ -8,6 +8,11 @@ for web MTech an internal entrance exam of IIT Madras is conducted.
 
 **NOTE**: most files are text, but some are videos. GIT LFS is used to track these, so make sure to install it before cloning repo (eg. `sudo dnf install git-lfs` on Fedora linux).
 
+### Time Series Analysis
+
+I did not take Time Series elective, but a person who has taken the class (Vishnu Mohan) shared its lecture slides.
+[These PPTs](TimeSeriesAnalysis_Lectures) were shared.
+
 ### Useful VS Code Extensions
 
 - [Markdown Converter](https://marketplace.visualstudio.com/items?itemName=manuth.markdown-converter) - Markdown -> PDF convert, useful for my assignments. Abandoned unfortunately (last comment on github was 4 years ago, and all its forks on Github are similarly abandoned), but it works.
