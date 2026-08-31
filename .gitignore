@@ -1,9 +1,9 @@
-# Temporary big data files (do not need to be commiitted as they are downloaded)
+# Temporary big data files (do not need to be committed as they are downloaded)
 *.parquet
 part*
 .part*
-_*
-._*
+_SUCCESS
+._SUCCESS.crc
 
 # mlflow
 mlruns/
@@ -153,7 +153,6 @@ celerybeat.pid
 .env
 .envrc
 .*venv
-*env/
 *venv/
 ENV/
 env.bak/
