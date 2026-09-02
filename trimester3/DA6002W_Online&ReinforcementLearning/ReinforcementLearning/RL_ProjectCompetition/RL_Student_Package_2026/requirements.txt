@@ -1,10 +1,18 @@
 # Recommended course environment: Python 3.11 or 3.12
+# So I'm using env: conda activate py312
+--extra-index-url https://download.pytorch.org/whl/cpu
 numpy>=2.0,<3.0
 pandas>=2.2,<3.0
 matplotlib>=3.9,<4.0
+# Gymnasium is RL environment library
 gymnasium>=1.2,<1.4
 scikit-learn>=1.6,<2.0
 torch>=2.6,<3.0
+# Stable-baselines3 is RL algorithm library - it has pre-built RL algorithms!!!
 stable-baselines3>=2.8,<3.0
-jupyterlab>=4.2,<5.0
+# jupyterlab>=4.2,<5.0
 ipykernel>=6.29,<7.0
+
+# dependency I added
+# submission environment won't have it but that's fine, it's only for type hints
+jaxtyping>=0.3.11

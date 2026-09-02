@@ -427,6 +427,16 @@ DANGER: naive reward shaping changed reward risks actually changing the objectiv
 
 ## Tutorials
 
-Tutorial on July 15: Reinforcement Learning notebook with library `gymnasium` -- TODO: learn this lib, will need it for the RL project/competition!
+*tutorials/RL_Gymnasium_MC_SARSA_Tutorial (2).ipynb*: Tutorial on July 15: Reinforcement Learning notebook with RL library `gymnasium`. 
+The notebook implements:
+* Completely Random episode
+* (On-Policy, Epsilon-Greedy) First-Visit Monte Carlo Learning on Blackjack environment
+* (On-Policy, Temporal Difference) SARSA on Cliff-Walking environment
+* TODO: implement last cell which is left as a practice assignment: *Tablular Q-Learning (Off-Policy) on Cliff-Walking environment*
 
-Another tutorial on Actor-Critic using gymnasium happened.
+*tutorials/Value_Function_Approximation_Tutorial (1).ipynb*
+
+*tutorials/RL_REINFORCE_A2C_A3C_Tutorial_WebMtech.ipynb* : Actor-Critic (A2C, A3C)
+
+*tutorials/DQN_and_Decision_Transformer.ipynb*
+
