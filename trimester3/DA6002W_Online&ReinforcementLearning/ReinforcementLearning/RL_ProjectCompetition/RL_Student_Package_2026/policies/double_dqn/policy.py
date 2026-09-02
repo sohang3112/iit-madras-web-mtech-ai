@@ -32,7 +32,7 @@ class Observation(TypedDict):
 script_dir = Path(__file__).parent
 # NOTE: at training, DoubleDQN is implemented as a subclass of DQN that overrides only train() function
 # since prediction is exactly the same as DQN, we can use DQN.load() to load the trained DoubleDQN model
-model = DQN.load(script_dir / "double_dqn_industrial_inventory.zip")
+model = DQN.load(script_dir / "best_tuned_double_dqn.zip")
 
 def run_policy(observation: Observation) -> list[int]:
     """
