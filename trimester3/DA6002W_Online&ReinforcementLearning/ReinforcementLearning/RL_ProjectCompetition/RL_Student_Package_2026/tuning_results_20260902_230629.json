@@ -1,0 +1,190 @@
+[
+  {
+    "trial": 11,
+    "actor_lr": 0.0003,
+    "critic_lr": 0.0006,
+    "gamma": 0.99,
+    "entropy_coef": 0.01,
+    "hidden_dims": [
+      256,
+      128
+    ],
+    "advantage_norm": true,
+    "mean_cost": 475430.625,
+    "std_cost": 55949.119200367,
+    "min_cost": 326997.5,
+    "max_cost": 572907.5,
+    "best_eval_cost": 478938.0
+  },
+  {
+    "trial": 9,
+    "actor_lr": 0.0003,
+    "critic_lr": 0.001,
+    "gamma": 0.98,
+    "entropy_coef": 0.01,
+    "hidden_dims": [
+      256,
+      128
+    ],
+    "advantage_norm": true,
+    "mean_cost": 517277.375,
+    "std_cost": 105184.1041147467,
+    "min_cost": 357120.0,
+    "max_cost": 769467.5,
+    "best_eval_cost": 612698.0
+  },
+  {
+    "trial": 4,
+    "actor_lr": 0.0001,
+    "critic_lr": 0.001,
+    "gamma": 0.99,
+    "entropy_coef": 0.01,
+    "hidden_dims": [
+      256,
+      128,
+      64
+    ],
+    "advantage_norm": true,
+    "mean_cost": 661242.25,
+    "std_cost": 147811.27811735985,
+    "min_cost": 430120.0,
+    "max_cost": 985427.5,
+    "best_eval_cost": 728858.5
+  },
+  {
+    "trial": 7,
+    "actor_lr": 0.0005,
+    "critic_lr": 0.001,
+    "gamma": 0.99,
+    "entropy_coef": 0.02,
+    "hidden_dims": [
+      256,
+      128
+    ],
+    "advantage_norm": true,
+    "mean_cost": 798223.75,
+    "std_cost": 62276.27032275215,
+    "min_cost": 690022.5,
+    "max_cost": 936877.5,
+    "best_eval_cost": 863131.5
+  },
+  {
+    "trial": 10,
+    "actor_lr": 0.0003,
+    "critic_lr": 0.0005,
+    "gamma": 0.99,
+    "entropy_coef": 0.02,
+    "hidden_dims": [
+      256,
+      128
+    ],
+    "advantage_norm": true,
+    "mean_cost": 989575.0,
+    "std_cost": 59962.85053055767,
+    "min_cost": 836465.0,
+    "max_cost": 1087572.5,
+    "best_eval_cost": 947653.0
+  },
+  {
+    "trial": 5,
+    "actor_lr": 0.0003,
+    "critic_lr": 0.0005,
+    "gamma": 0.995,
+    "entropy_coef": 0.005,
+    "hidden_dims": [
+      256,
+      128
+    ],
+    "advantage_norm": true,
+    "mean_cost": 1027212.875,
+    "std_cost": 66517.99231352277,
+    "min_cost": 899492.5,
+    "max_cost": 1162817.5,
+    "best_eval_cost": 966419.5
+  },
+  {
+    "trial": 1,
+    "actor_lr": 0.0001,
+    "critic_lr": 0.0005,
+    "gamma": 0.99,
+    "entropy_coef": 0.01,
+    "hidden_dims": [
+      256,
+      128
+    ],
+    "advantage_norm": true,
+    "mean_cost": 1103757.875,
+    "std_cost": 84532.53584890776,
+    "min_cost": 975810.0,
+    "max_cost": 1262260.0,
+    "best_eval_cost": 1107994.0
+  },
+  {
+    "trial": 8,
+    "actor_lr": 0.0001,
+    "critic_lr": 0.0005,
+    "gamma": 0.99,
+    "entropy_coef": 0.01,
+    "hidden_dims": [
+      256,
+      128
+    ],
+    "advantage_norm": false,
+    "mean_cost": 1481603.0,
+    "std_cost": 46560.902211512184,
+    "min_cost": 1399755.0,
+    "max_cost": 1574112.5,
+    "best_eval_cost": 1557370.0
+  },
+  {
+    "trial": 3,
+    "actor_lr": 0.0005,
+    "critic_lr": 0.0005,
+    "gamma": 0.98,
+    "entropy_coef": 0.01,
+    "hidden_dims": [
+      256,
+      128
+    ],
+    "advantage_norm": true,
+    "mean_cost": 1517845.25,
+    "std_cost": 39220.54164353802,
+    "min_cost": 1445482.5,
+    "max_cost": 1567012.5,
+    "best_eval_cost": 1462880.5
+  },
+  {
+    "trial": 2,
+    "actor_lr": 0.0003,
+    "critic_lr": 0.001,
+    "gamma": 0.99,
+    "entropy_coef": 0.005,
+    "hidden_dims": [
+      256,
+      128
+    ],
+    "advantage_norm": true,
+    "mean_cost": 1877516.125,
+    "std_cost": 37003.35089957226,
+    "min_cost": 1821850.0,
+    "max_cost": 1946787.5,
+    "best_eval_cost": 1821640.5
+  },
+  {
+    "trial": 6,
+    "actor_lr": 0.0001,
+    "critic_lr": 0.0005,
+    "gamma": 0.99,
+    "entropy_coef": 0.01,
+    "hidden_dims": [
+      128,
+      64
+    ],
+    "advantage_norm": true,
+    "mean_cost": 2055534.75,
+    "std_cost": 37180.94194190755,
+    "min_cost": 1980452.5,
+    "max_cost": 2108645.0,
+    "best_eval_cost": 2028358.0
+  }
+]

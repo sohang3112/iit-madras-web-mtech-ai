@@ -10,12 +10,13 @@ IMPORTANT: hyperparameter tuning in training is compulsory I think -- so do that
 
 My submitted RL policies:
 
-| Policy     | Public Leaderboard Cost | Local Eval Cost | Remarks               |
-| ---------- | ----------------------- | --------------- | --------------------- |
-| A2C        | 552,491.50              | 543,485.0       |
-| PPO        | 112,479.75              | 081,770.0       | Hyper-Parameter Tuned |
-| DQN        | 116,214.38              | 108,775.0       | Hyper-Parameter Tuned |
-| Double DQN | 134,677.50              | 104,805.0       | Hyper-Parameter Tuned |
+| Policy                  | Public Leaderboard Cost | Local Eval Cost | Remarks               |
+| ----------------------- | ----------------------- | --------------- | --------------------- |
+| A2C                     | 552,491.50              | 543,485.0       |
+| PPO                     | 112,479.75              | 081,770.0       | Hyper-Parameter Tuned |
+| DQN                     | 116,214.38              | 108,775.0       | Hyper-Parameter Tuned |
+| Double DQN              | 134,677.50              | 104,805.0       | Hyper-Parameter Tuned |
+| REINFORCE with baseline | 1,290,798.88            | 1,591,876.8     | Hyper-Parameter Tuned |
 
 the 3 initial tabular methods are NOT FEASIBLE due to very large state & action space of environment.
 
