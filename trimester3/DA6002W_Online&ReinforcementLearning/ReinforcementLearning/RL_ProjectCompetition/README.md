@@ -15,12 +15,14 @@ NOTE: Need to submit 5 approaches from the following:
 - [x] A2C (did no hyper-param tuning etc. right now BUT cost reduced by more than 3 times just by training parallelly on 4 environments instead of one env!!)
     * synchronous, deterministic variant of Asynchronous Advantage Actor Critic (A3C).
     * *Public Leaderboard Cost is 552,491.50*
-    * *Even in my own local naive eval also cost in a2c_training.ipynb is 543,485.0.*
+    * *My local measured eval cost: is 543,485.0.*
 - [ ] A3C
 - [x] Proximal Policy Optimization (PPO) (did no hyper-param tuning)
-    * *Public Leaderboard Cost: 1,224,555.00* (a bit better than A2C)
+    * *Public Leaderboard Cost: 1,224,555.00*
     * *My local measured eval cost: 1,249,722.5*
-- [ ] DQN (Deep Q Network)
+- [x] DQN (Deep Q Network)
+    * *Public Leaderboard Cost: 1,881,862.50* (considerably worse than the other 2 i submitted!)
+    * *My local measured eval cost: 1,944,380.0*
 - [ ] Double DQN
 
 Arnav (my colleague) said: he is working with DDQN, A3C, A2C, PPO and DQN. He said: I wasted too much time trying to get tabular methods to work as the state and action spaces are fairly discrete or can be easily discretised. I would suggest only working with Neural Nets and surprisingly deep networks did not help my algos at all either. I did run extensive hyper param experiments etc using MLflow etc which helped quite a bit.
@@ -32,7 +34,7 @@ It says top 5 (least difficult to tune):
 - [x] PPO: builtin
 - [ ] DDQN (not builtin, but Gemini said "modded / contrib")
 - [x] A2C: builtin
-- [ ] DQN: builtin
+- [x] DQN: builtin
 - [ ] A3C: suggested by Arnav, not builtin
 - [ ] Tabular Q learning: not builtin
 
