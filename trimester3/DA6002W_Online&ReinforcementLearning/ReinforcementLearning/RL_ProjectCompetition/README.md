@@ -12,11 +12,10 @@ NOTE: Need to submit 5 approaches from the following:
 - [ ] Neural Network based Q-Learning
 - [ ] Neural Network based SARSA
 - [ ] REINFORCE with or without a baseline
-- [x] A2C (did no hyper-param tuning etc. right now)
+- [x] A2C (did no hyper-param tuning etc. right now BUT cost reduced by more than 3 times just by training parallelly on 4 environments instead of one env!!)
     * synchronous, deterministic variant of Asynchronous Advantage Actor Critic (A3C).
-    * https://stable-baselines3.readthedocs.io/en/master/modules/a2c.html -- TODO: page has many tips / advice, which should improve performance. try them!
-    * *Cost is very bad: 1,619,501.75 (last rank in public leaderboard!)*
-    * *Even in my own local naive eval also cost in a2c_training.ipynb is 1,702,490.*
+    * *Public Leaderboard Cost is 552,491.50*
+    * *Even in my own local naive eval also cost in a2c_training.ipynb is 543,485.0.*
 - [ ] A3C
 - [x] Proximal Policy Optimization (PPO) (did no hyper-param tuning)
     * *Public Leaderboard Cost: 1,224,555.00* (a bit better than A2C)
@@ -30,8 +29,8 @@ Gemini says: PPO requires the least hyperparameter tuning, while custom naive ne
 
 It says top 5 (least difficult to tune):
 
-- [ ] PPO: builtin
-- [ ] DDQN builtin
+- [x] PPO: builtin
+- [ ] DDQN (not builtin, but Gemini said "modded / contrib")
 - [x] A2C: builtin
 - [ ] DQN: builtin
 - [ ] A3C: suggested by Arnav, not builtin
