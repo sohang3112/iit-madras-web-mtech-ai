@@ -30,7 +30,7 @@ class Observation(TypedDict):
 
 
 script_dir = Path(__file__).parent
-model = PPO.load(script_dir / "ppo_industrial_inventory.zip")
+model = PPO.load(script_dir / "ppo_inventory_best_searched.zip")
 
 def run_policy(observation: Observation) -> list[int]:
     """
