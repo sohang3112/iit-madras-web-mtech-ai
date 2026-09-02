@@ -13,6 +13,8 @@ stable-baselines3>=2.8,<3.0
 # jupyterlab>=4.2,<5.0
 ipykernel>=6.29,<7.0
 
-# dependency I added
-# submission environment won't have it but that's fine, it's only for type hints
+# dependencyies I added, submission environment won't have these
+# only for type hints in inference policy.py
 jaxtyping>=0.3.11
+# only for training (a bunch of extra dependencies like opencv, pygame, tensorboard, etc.)
+stable-baselines3[extra]>=2.8,<3.0

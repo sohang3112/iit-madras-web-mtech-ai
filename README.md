@@ -52,9 +52,10 @@ ChatGPT follows instructions, Gemini completely ignores it.
 
 Table of all courses (core & elective) with credits info for all trimesters is available at https://code.iitm.ac.in/artificial-intelligence in *Course Curriculum* tab.
 
-- [Trimester 1: September - December 2025](trimester1/)
-- [Trimester 2: January - April 2026](trimester2/)
-- [Trimester 3: May - August 2026](trimester3/)
+- [Trimester 1: Sept - Dec 2025](trimester1/)
+- [Trimester 2: Jan - April 2026](trimester2/)
+- [Trimester 3: May - Aug 2026](trimester3/)
+- [Trimester 4: Sept - Dec 2026](trimester4/)
 
 ### Course Grades
 

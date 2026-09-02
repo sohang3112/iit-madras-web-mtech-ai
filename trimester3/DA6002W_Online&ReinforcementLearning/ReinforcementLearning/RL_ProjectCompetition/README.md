@@ -12,11 +12,41 @@ NOTE: Need to submit 5 approaches from the following:
 - [ ] Neural Network based Q-Learning
 - [ ] Neural Network based SARSA
 - [ ] REINFORCE with or without a baseline
-- [x] A2C (*Cost is very bad: 1,619,501.75 (last rank in public leaderboard!)*)
+- [x] A2C (did no hyper-param tuning etc. right now)
+    * synchronous, deterministic variant of Asynchronous Advantage Actor Critic (A3C).
+    * https://stable-baselines3.readthedocs.io/en/master/modules/a2c.html -- TODO: page has many tips / advice, which should improve performance. try them!
+    * *Cost is very bad: 1,619,501.75 (last rank in public leaderboard!)*
+    * *Even in my own local naive eval also cost in a2c_training.ipynb is 1,702,490.*
 - [ ] A3C
-- [ ] Proximal Policy Optimization (PPO)
-- [ ] DQN
+- [x] Proximal Policy Optimization (PPO) (did no hyper-param tuning)
+    * *Public Leaderboard Cost: 1,224,555.00* (a bit better than A2C)
+    * *My local measured eval cost: 1,249,722.5*
+- [ ] DQN (Deep Q Network)
 - [ ] Double DQN
+
+Arnav (my colleague) said: he is working with DDQN, A3C, A2C, PPO and DQN. He said: I wasted too much time trying to get tabular methods to work as the state and action spaces are fairly discrete or can be easily discretised. I would suggest only working with Neural Nets and surprisingly deep networks did not help my algos at all either. I did run extensive hyper param experiments etc using MLflow etc which helped quite a bit.
+
+Gemini says: PPO requires the least hyperparameter tuning, while custom naive neural network methods (lacking replay buffers or target networks) require the most. Note that Stable-Baselines3 (SB3) only natively supports PPO, A2C, and DQN; the remaining methods require custom implementations or third-party extensions. *Have saved its ranking (least to most difficult / require tuning) in CSV*.
+
+It says top 5 (least difficult to tune):
+
+- [ ] PPO: builtin
+- [ ] DDQN builtin
+- [x] A2C: builtin
+- [ ] DQN: builtin
+- [ ] A3C: suggested by Arnav, not builtin
+- [ ] Tabular Q learning: not builtin
+
+https://stable-baselines3.readthedocs.io/en/master/guide/rl_tips.html says this, so try PPO next! (the others - SAC, TD3, DroQ - don't seem to be part of above options)
+
+List of builtin RL algorithms: https://stable-baselines3.readthedocs.io/en/master/guide/algos.html
+
+> Recent algorithms (PPO, SAC, TD3, DroQ) normally require little hyperparameter tuning, however, don’t expect the default ones to work in every environment.
+
+Full forms are: 
+* SAC: Soft Actor-Critic
+* TD3: Twin Delayed Deep Deterministic Policy Gradient
+* DroQ: Dropout Q-Functions for Doubly Efficient Reinforcement Learning
 
 Submit: *.py* file or else *.zip* archive (it must contain *policy.py* at the root).
 **NOTE**: I have put actual leaderboard submissions in policies/ folder. While making zip, ensure to cd into folder first to ensure policy.py is at root of zip, NOT inside a folder:
