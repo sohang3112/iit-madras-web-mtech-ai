@@ -30,7 +30,7 @@ class Observation(TypedDict):
 
 
 script_dir = Path(__file__).parent
-model = A2C.load(script_dir / "a2c_industrial_inventory.zip")
+model = A2C.load(script_dir / "best_a2c_model.zip")
 
 def run_policy(observation: Observation) -> list[int]:
     """

@@ -12,7 +12,7 @@ My submitted RL policies:
 
 | Policy                  | Public Leaderboard Cost | Local Eval Cost | Remarks               |
 | ----------------------- | ----------------------- | --------------- | --------------------- |
-| A2C                     | 552,491.50              | 543,485.0       |
+| A2C                     | 154022.75               | 153,264.25      | Hyper-Parameter Tuned |
 | PPO                     | 112,479.75              | 081,770.0       | Hyper-Parameter Tuned |
 | DQN                     | 116,214.38              | 108,775.0       | Hyper-Parameter Tuned |
 | Double DQN              | 134,677.50              | 104,805.0       | Hyper-Parameter Tuned |
