@@ -6,26 +6,41 @@ https://35.206.92.146.nip.io/ -- Submit here and see your public eval score and 
 
 NOTE: Need to submit 5 approaches from the following:
 
-- [ ] Tabular Q-Learning
-- [ ] Tabular SARSA
-- [ ] TD(lambda) with Eligibility Traces
-- [ ] Neural Network based Q-Learning
-- [ ] Neural Network based SARSA
-- [ ] REINFORCE with or without a baseline
-- [x] A2C (did no hyper-param tuning etc. right now BUT cost reduced by more than 3 times just by training parallelly on 4 environments instead of one env!!)
+IMPORTANT: hyperparameter tuning in training is compulsary I think -- so do that!!
+
+the 3 initial tabular methods are NOT FEASIBLE due to very large state & action space of environment.
+
+- [ ] Tabular Q-Learning -- **NOT FEASIBLE**
+- [ ] Tabular SARSA -- **NOT FEASIBLE** -- can use tutorials/RL_Gymnasium_MC_SARSA_Tutorial (2).ipynb
+- [ ] TD(lambda) with Eligibility Traces -- **NOT FEASIBLE**
+- [ ] Neural Network based Q-Learning -- **DOABLE, BUT LOW ON RECOMMENDATION LIST BY Gemini**
+- [ ] Neural Network based SARSA -- **NOT RECOMMENDED BY Gemini**
+- [ ] REINFORCE with or without a baseline -- **NOT RECOMMENDED BY Gemini**  -- TODO using tutorials/RL_REINFORCE_A2C_A3C_Tutorial_WebMtech.ipynb
+    * Gemini says: It is an episodic Monte Carlo method. For supply chain/inventory management environments with horizons of 30–90+ days, cumulative return $G_t$ has massive variance. Even with a learned value baseline, REINFORCE has strictly worse sample efficiency and stability compared to A2C/PPO.
+- [x] A2C - **TODO: hyper-parameter tuning**
+    * cost reduced by more than 3 times just by training parallelly on 4 environments instead of one env!!
     * synchronous, deterministic variant of Asynchronous Advantage Actor Critic (A3C).
     * *Public Leaderboard Cost is 552,491.50*
     * *My local measured eval cost: is 543,485.0.*
-- [ ] A3C
-- [x] Proximal Policy Optimization (PPO) (did no hyper-param tuning)
+- [ ] A3C -- TODO using tutorials/RL_REINFORCE_A2C_A3C_Tutorial_WebMtech.ipynb
+- [x] Proximal Policy Optimization (PPO) - **TODO: hyper-parameter tuning**
     * *Public Leaderboard Cost: 1,224,555.00*
     * *My local measured eval cost: 1,249,722.5*
-- [x] DQN (Deep Q Network)
+- [x] DQN (Deep Q Network) - **TODO: hyper-parameter tuning**
     * *Public Leaderboard Cost: 1,881,862.50* (considerably worse than the other 2 i submitted!)
     * *My local measured eval cost: 1,944,380.0*
-- [ ] Double DQN
+- [x] Double DQN -- **TODO: hyper-parameter tuning**
+    * *Public Leaderboard Cost:  456,673.50*
+    * *My local measured eval cost: 613,727.5*
 
-Arnav (my colleague) said: he is working with DDQN, A3C, A2C, PPO and DQN. He said: I wasted too much time trying to get tabular methods to work as the state and action spaces are fairly discrete or can be easily discretised. I would suggest only working with Neural Nets and surprisingly deep networks did not help my algos at all either. I did run extensive hyper param experiments etc using MLflow etc which helped quite a bit.
+Arnav (my colleague) said: he is working with:
+- [x] Double DQN
+- [ ] A3C
+- [x] A2C
+- [x] PPO
+- [x] DQN. 
+
+He said: I wasted too much time trying to get tabular methods to work as the state and action spaces are fairly discrete or can be easily discretised. I would suggest only working with Neural Nets and surprisingly deep networks did not help my algos at all either. I did run extensive hyper param experiments etc using MLflow etc which helped quite a bit.
 
 Gemini says: PPO requires the least hyperparameter tuning, while custom naive neural network methods (lacking replay buffers or target networks) require the most. Note that Stable-Baselines3 (SB3) only natively supports PPO, A2C, and DQN; the remaining methods require custom implementations or third-party extensions. *Have saved its ranking (least to most difficult / require tuning) in CSV*.
 

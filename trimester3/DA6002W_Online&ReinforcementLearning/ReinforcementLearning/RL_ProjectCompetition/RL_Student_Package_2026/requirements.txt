@@ -18,3 +18,8 @@ ipykernel>=6.29,<7.0
 jaxtyping>=0.3.11
 # only for training (a bunch of extra dependencies like opencv, pygame, tensorboard, etc.)
 stable-baselines3[extra]>=2.8,<3.0
+tianshou 
+skrl
+cleanrl
+tabular-rl
+gymnasium-robotics

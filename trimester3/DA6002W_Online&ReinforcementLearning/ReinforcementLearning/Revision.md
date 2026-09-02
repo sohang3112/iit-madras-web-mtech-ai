@@ -86,6 +86,96 @@ E_t(s,a) = \gamma \lambda E_{t-1}(s,a) + \mathbf{1}(S_t = s, A_t = a) \quad (\te
 Q(s,a) \leftarrow Q(s,a) + \alpha \delta_t E_t(s,a) \quad (\text{Q value update for all s,a using learning rate, TD error and Eligibility})
 $$
 
+----
+
+## Backward-View (ie using Eligibility Traces) TD lambda and SARSA algorithms given by Gemini
+
+Based on these notes, Gemini fleshed out following full algorithms:
+
+The backward-view eligibility trace formulation from your notes provides the complete, online tabular algorithm for **$TD(\lambda)$ (Policy Evaluation)** and its control extension **$\text{SARSA}(\lambda)$**.
+
+
+### Tabular $TD(\lambda)$ for State-Value Prediction ($V$)
+
+* **Initialize:**
+  * $V(s)$ arbitrarily (typically $0$) for all $s \in \mathcal{S}$, setting $V(\text{terminal}) = 0$.
+  * Parameters: step size $\alpha \in (0, 1]$, discount rate $\gamma \in [0, 1]$, trace decay rate $\lambda \in [0, 1]$.
+
+
+* **Loop for each episode:**
+  * Initialize eligibility trace: $E(s) \leftarrow 0$ for all $s \in \mathcal{S}$.
+  * Initialize state $S$.
+  * **Loop for each step of episode (until $S$ is terminal):**
+    1. Choose action $A \sim \pi(\cdot\vert{}S)$ <----- I.E. DO EPSILON-GREEDY ACTION
+    2. Take action $A$, observe next reward $R$ and next state $S'$.
+    3. Compute 1-step TD error:
+
+    $$\delta \leftarrow R + \gamma V(S') - V(S)$$
+
+
+    *(If $S'$ is terminal, use $V(S') = 0$)*
+
+    4. Update eligibility trace for the current state:
+
+    $$E(S) \leftarrow E(S) + 1 \quad \text{(accumulating trace)}$$
+
+
+    5. For all $s \in \mathcal{S}$:
+
+      $$V(s) \leftarrow V(s) + \alpha \delta E(s)$$
+
+
+      $$E(s) \leftarrow \gamma \lambda E(s)$$
+
+
+    6. Transition state: $S \leftarrow S'$.
+
+
+
+### Tabular $\text{SARSA}(\lambda)$ for Action-Value Control ($Q$)
+
+* **Initialize:**
+  * $Q(s, a)$ arbitrarily (typically $0$) for all $s \in \mathcal{S}, a \in \mathcal{A}$, setting $Q(\text{terminal}, \cdot) = 0$.
+  * Parameters: $\alpha \in (0, 1]$, $\gamma \in [0, 1]$, $\lambda \in [0, 1]$, and $\epsilon > 0$.
+
+
+* **Loop for each episode:**
+  * Initialize eligibility trace: $E(s, a) \leftarrow 0$ for all $s \in \mathcal{S}, a \in \mathcal{A}$.
+  * Initialize state $S$.
+  * Select action $A$ using $\epsilon$-greedy policy derived from $Q(S, \cdot)$.
+  * **Loop for each step of episode (until $S$ is terminal):**
+    1. Take action $A$, observe reward $R$ and next state $S'$.
+    2. Choose next action $A'$ using $\epsilon$-greedy policy derived from $Q(S', \cdot)$.
+    3. Compute TD error:
+
+    $$\delta \leftarrow R + \gamma Q(S', A') - Q(S, A)$$
+
+
+
+    *(If $S'$ is terminal, use $Q(S', A') = 0$)*
+    4. Increment eligibility for the current state-action pair:
+
+    $$E(S, A) \leftarrow E(S, A) + 1$$
+
+
+    5. Update all state-action pairs:
+
+    $$Q(s, a) \leftarrow Q(s, a) + \alpha \delta E(s, a) \quad \forall s, a$$
+
+
+    $$E(s, a) \leftarrow \gamma \lambda E(s, a) \quad \forall s, a$$
+
+
+    6. Advance step: $S \leftarrow S'$, $A \leftarrow A'$.
+
+
+
+### Key Takeaways
+
+* **Equivalence:** Updating all states simultaneously via $E(s)$ on each time step replicates the offline theoretical forward-view $\lambda$-return target $G_t^\lambda$ while operating fully online and step-by-step.
+* **Special Cases:** Setting $\lambda = 0$ reduces the updates exactly to 1-step TD / SARSA; setting $\lambda = 1$ makes the cumulative updates across the episode equivalent to Monte Carlo.
+
+
 ## 1. Markov Decision Process
 
 Outline:

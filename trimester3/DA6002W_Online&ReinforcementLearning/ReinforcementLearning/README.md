@@ -434,9 +434,13 @@ The notebook implements:
 * (On-Policy, Temporal Difference) SARSA on Cliff-Walking environment
 * TODO: implement last cell which is left as a practice assignment: *Tablular Q-Learning (Off-Policy) on Cliff-Walking environment*
 
-*tutorials/Value_Function_Approximation_Tutorial (1).ipynb*
+*tutorials/Value_Function_Approximation_Tutorial (1).ipynb* :
+* Gradient Monte Carlo
+* Semi-gradient TD(0)
+* Semi-gradient SARSA (linear function approximation on MountainCar)
 
-*tutorials/RL_REINFORCE_A2C_A3C_Tutorial_WebMtech.ipynb* : Actor-Critic (A2C, A3C)
+*tutorials/RL_REINFORCE_A2C_A3C_Tutorial_WebMtech.ipynb* : Actor-Critic (A2C), REINFORCE (a type of **Monte Carlo policy-gradient learning**: the update waits until the episode is complete and does not learn a separate value function.)
+  * TODO: A3C is left as a practice exercise in notebook
 
-*tutorials/DQN_and_Decision_Transformer.ipynb*
+*tutorials/DQN_and_Decision_Transformer.ipynb* : DQN, Decision Transformer
 
