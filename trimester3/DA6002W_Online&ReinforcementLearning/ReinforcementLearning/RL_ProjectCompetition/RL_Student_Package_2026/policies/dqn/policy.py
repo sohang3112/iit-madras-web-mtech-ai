@@ -30,7 +30,7 @@ class Observation(TypedDict):
 
 
 script_dir = Path(__file__).parent
-model = DQN.load(script_dir / "dqn_industrial_inventory.zip")
+model = DQN.load(script_dir / "dqn_industrial_inventory_tuned.zip")
 
 def run_policy(observation: Observation) -> list[int]:
     """

@@ -6,7 +6,16 @@ https://35.206.92.146.nip.io/ -- Submit here and see your public eval score and 
 
 NOTE: Need to submit 5 approaches from the following:
 
-IMPORTANT: hyperparameter tuning in training is compulsary I think -- so do that!!
+IMPORTANT: hyperparameter tuning in training is compulsory I think -- so do that!!
+
+My submitted RL policies:
+
+| Policy     | Public Leaderboard Cost | Local Eval Cost |
+| ---------- | ----------------------- | --------------- |
+| A2C        | 0,552,491.50            | 0,543,485.0     |
+| PPO        | 1,224,555.00            | 1,249,722.5     |
+| DQN        | 0,116,214.38            | 0,108,775.0     |
+| Double DQN | 0,456,673.50            | 0,613,727.5     |
 
 the 3 initial tabular methods are NOT FEASIBLE due to very large state & action space of environment.
 
@@ -20,18 +29,10 @@ the 3 initial tabular methods are NOT FEASIBLE due to very large state & action 
 - [x] A2C - **TODO: hyper-parameter tuning**
     * cost reduced by more than 3 times just by training parallelly on 4 environments instead of one env!!
     * synchronous, deterministic variant of Asynchronous Advantage Actor Critic (A3C).
-    * *Public Leaderboard Cost is 552,491.50*
-    * *My local measured eval cost: is 543,485.0.*
 - [ ] A3C -- TODO using tutorials/RL_REINFORCE_A2C_A3C_Tutorial_WebMtech.ipynb
 - [x] Proximal Policy Optimization (PPO) - **TODO: hyper-parameter tuning**
-    * *Public Leaderboard Cost: 1,224,555.00*
-    * *My local measured eval cost: 1,249,722.5*
 - [x] DQN (Deep Q Network) - **TODO: hyper-parameter tuning**
-    * *Public Leaderboard Cost: 1,881,862.50* (considerably worse than the other 2 i submitted!)
-    * *My local measured eval cost: 1,944,380.0*
 - [x] Double DQN -- **TODO: hyper-parameter tuning**
-    * *Public Leaderboard Cost:  456,673.50*
-    * *My local measured eval cost: 613,727.5*
 
 Arnav (my colleague) said: he is working with:
 - [x] Double DQN
