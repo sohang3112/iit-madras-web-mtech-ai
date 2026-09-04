@@ -1,3 +1,11 @@
+TO SUBMIT:
+* jupyter notebook: Reproducible training and validation codebase.
+* Project Report (.pdf): Summary document strictly limited to a maximum of 4 pages
+
+MY FINAL PUBLIC LEADERBOARD (as of 2 Sept, 23:37):
+* rank: 114
+* score: 361,638.65
+
 Submission Deadlines:
 * Project Leaderboard: 2 September
 * Project Report (make using given report template LATEX): 4 September
@@ -12,7 +20,7 @@ My submitted RL policies:
 
 | Policy                  | Public Leaderboard Cost | Local Eval Cost | Remarks               |
 | ----------------------- | ----------------------- | --------------- | --------------------- |
-| A2C                     | 154022.75               | 153,264.25      | Hyper-Parameter Tuned |
+| A2C                     | 154,022.75              | 153,264.25      | Hyper-Parameter Tuned |
 | PPO                     | 112,479.75              | 081,770.0       | Hyper-Parameter Tuned |
 | DQN                     | 116,214.38              | 108,775.0       | Hyper-Parameter Tuned |
 | Double DQN              | 134,677.50              | 104,805.0       | Hyper-Parameter Tuned |
@@ -25,7 +33,7 @@ the 3 initial tabular methods are NOT FEASIBLE due to very large state & action 
 - [ ] TD(lambda) with Eligibility Traces -- **NOT FEASIBLE**
 - [ ] Neural Network based Q-Learning -- **DOABLE, BUT LOW ON RECOMMENDATION LIST BY Gemini**
 - [ ] Neural Network based SARSA -- **NOT RECOMMENDED BY Gemini**
-- [ ] REINFORCE with or without a baseline -- **NOT RECOMMENDED BY Gemini**  -- TODO using tutorials/RL_REINFORCE_A2C_A3C_Tutorial_WebMtech.ipynb
+- [x] REINFORCE with or without a baseline -- **NOT RECOMMENDED BY Gemini**  -- TODO using tutorials/RL_REINFORCE_A2C_A3C_Tutorial_WebMtech.ipynb
     * Gemini says: It is an episodic Monte Carlo method. For supply chain/inventory management environments with horizons of 30–90+ days, cumulative return $G_t$ has massive variance. Even with a learned value baseline, REINFORCE has strictly worse sample efficiency and stability compared to A2C/PPO.
 - [x] A2C - **TODO: hyper-parameter tuning**
     * cost reduced by more than 3 times just by training parallelly on 4 environments instead of one env!!
@@ -37,7 +45,7 @@ the 3 initial tabular methods are NOT FEASIBLE due to very large state & action 
 
 Arnav (my colleague) said: he is working with:
 - [x] Double DQN
-- [ ] A3C
+- [ ] A3C -- I tried it, but its training hanged on cpu, gpu so abandoned it
 - [x] A2C
 - [x] PPO
 - [x] DQN. 
