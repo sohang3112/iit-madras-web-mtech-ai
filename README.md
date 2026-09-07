@@ -8,6 +8,10 @@ for web MTech an internal entrance exam of IIT Madras is conducted.
 
 **NOTE**: most files are text, but some are videos. GIT LFS is used to track these, so make sure to install it before cloning repo (eg. `sudo dnf install git-lfs` on Fedora linux).
 
+### MTech Thesis Project (final 1 year - trimester 4-6)
+
+All code, docs etc. are pushed to https://dagshub.com/sohang3112/vlsi-lightweight-timing-violation-screening-ml
+
 ### Time Series Analysis
 
 I did not take Time Series elective, but a person who has taken the class (Vishnu Mohan) shared its lecture slides.
