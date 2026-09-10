@@ -52,10 +52,10 @@ One nice property of norms as loss for optimization is that they are convex, so 
 
 **Loss functions measure some kind of distance.**
 
-Loss                       | Application           | $L(y, \hat{y})$                           | $\frac{\partial L}{\partial \hat{y}}$
--------------------------- | --------------------- | ----------------------------------------- | -----------------------------------------
-Binary Cross Entropy (BCE) | Binary Classification | $- y ln(\hat{y}) - (1-y) ln(1 - \hat{y})$ | $- y / \hat{y} + (1-y) / (1-\hat{y})$
-Mean Squared Error (MSE)   | Regression            | $\frac{1}{2} (\hat{y} - y)^2$             | $\hat{y} - y$
+| Loss                       | Application           | $L(y, \hat{y})$                           | $\frac{\partial L}{\partial \hat{y}}$ |
+| -------------------------- | --------------------- | ----------------------------------------- | ------------------------------------- |
+| Binary Cross Entropy (BCE) | Binary Classification | $- y ln(\hat{y}) - (1-y) ln(1 - \hat{y})$ | $- y / \hat{y} + (1-y) / (1-\hat{y})$ |
+| Mean Squared Error (MSE)   | Regression            | $\frac{1}{2} (\hat{y} - y)^2$             | $\hat{y} - y$                         |
 
 #### Linear Hyper-plane
 
@@ -167,11 +167,11 @@ $$
 
 #### Supervised vs Unsupervised learning
 
-Supervised learning            | Unsupervised
------------------------------- | ---------------
-Labelled data                  | Unlabelled data
-Training + Inference           | No Train, only Inference
-eg. Classification, Regression | eg. PCA, Clustering, Pattern Finding
+| Supervised learning            | Unsupervised                         |
+| ------------------------------ | ------------------------------------ |
+| Labelled data                  | Unlabelled data                      |
+| Training + Inference           | No Train, only Inference             |
+| eg. Classification, Regression | eg. PCA, Clustering, Pattern Finding |
 
 #### Loss functions
 
@@ -385,12 +385,12 @@ TODO: finish above sentence
 
 Here $z = W x + b, y = activation(z)$:
 
-Activation |                                       Gradient                  | Use
-------------------------------------------------- | ------------------------ | ---------------------------------------------
-$sigmoid(z) = \frac{1}{1 + e^{-z}}$               | $y (1-y)$                | Output layer (classification probabilities)
-$tanh(z) = \frac{1 - e^{-2 z}}{1 + e^{2 z}}$      | $1 - y^2$                | Hidden layer 
-$relu(z) = max(0, z)$                             | 1 if y > 0 else 0        | Hidden layer
-$leakyrelu_\alpha(z)$: 1 if z > 0 else $\alpha z$ | 1 if y > 0 else $\alpha$ | Hidden layer
+| Activation                                        | Gradient                 | Use                                         |
+| ------------------------------------------------- | ------------------------ | ------------------------------------------- |
+| $sigmoid(z) = \frac{1}{1 + e^{-z}}$               | $y (1-y)$                | Output layer (classification probabilities) |
+| $tanh(z) = \frac{1 - e^{-2 z}}{1 + e^{2 z}}$      | $1 - y^2$                | Hidden layer                                |
+| $relu(z) = max(0, z)$                             | 1 if y > 0 else 0        | Hidden layer                                |
+| $leakyrelu_\alpha(z)$: 1 if z > 0 else $\alpha z$ | 1 if y > 0 else $\alpha$ | Hidden layer                                |
 
 Bagging / Ensemble / Bootstrap:
 * multiple samples with replacement from train data, train on each
@@ -432,11 +432,11 @@ DON'T initialize all weights to same value like 0 (else very bad performance). I
 
 Control variance of randomness (U - Uniform, N - Normal distribution):
 
-Technique  | Activations           | Distribution                                      | Remark
----------- | --------------------- | ------------------------------------------------- | -------------------
-Xavier     | tanh, sigmoid, linear (no activation for regression output) | $\mathcal{U}(\pm \sqrt{6 / (n_{l+1} + n_{l-1})})$ | NOT applicable for RELU because unlike tanh, sigmoid RELU doesn't have symmetric mean around 0
-Kaiming He | RELU, Leaky RELU etc. | $\mathcal{N}(0, \sigma=\sqrt{2/n_{l-1}})$                     |
-LeCun      | SELU                  | $\mathcal{U}(\pm \sqrt{6 / n_{l-1}})$             |
+| Technique  | Activations                                                 | Distribution                                      | Remark                                                                                         |
+| ---------- | ----------------------------------------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| Xavier     | tanh, sigmoid, linear (no activation for regression output) | $\mathcal{U}(\pm \sqrt{6 / (n_{l+1} + n_{l-1})})$ | NOT applicable for RELU because unlike tanh, sigmoid RELU doesn't have symmetric mean around 0 |
+| Kaiming He | RELU, Leaky RELU etc.                                       | $\mathcal{N}(0, \sigma=\sqrt{2/n_{l-1}})$         |
+| LeCun      | SELU                                                        | $\mathcal{U}(\pm \sqrt{6 / n_{l-1}})$             |
 
 Random orthogonal matrix is used for any arbitary activation in libraries.
 
@@ -495,7 +495,10 @@ Consecutive gradients are orthogonal, so updates cause inefficient zig-zag movem
 
 Linear Decay: $\eta_n = (1 - \alpha) \eta_0 + \alpha \eta_t$ where $t$ is terminal rate instance, $\alpha = min(1, n/t)$
 
+<!-- markdown-link-check-disable -->
 [AdaGrad](https://datascience.stackexchange.com/questions/77308/why-l2-norm-in-adagrad-update-equation-not-l1) uses L2 norm:
+<!-- markdown-link-check-enable -->
+
 $$
 v_t = v_{t-1} + g_t^2 = \sum_{i=1}^t g_i^2 \\
 w_{t+1} = w_t - \frac{\eta}{\sqrt{v_t}  + \epsilon} g_t
