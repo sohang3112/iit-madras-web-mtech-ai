@@ -131,15 +131,15 @@ $$
 * Normal *65-95-99* Rule
 * Hypothesis Test: Chi-Squared (normal distribution): TODO
 
-Type                 | Distribution | $P(X = x)$                          | $P(X \le x)$         | $E[X]$          | $Var(X)$
--------------------- | ------------ | ----------------------------------- | -------------------- | --------------- | --------------------------
-Discrete & Continous | Uniform      | $\frac{1}{b-a}$                     | $\frac{x-a}{b-a}$    | $\frac{a+b}{2}$ | $\frac{(b-a)^2}{12}$
-Discrete             | Bernoulli    | $p$       | _                       | _                    | $n p$           | $p (1-p)$
-Discrete             | Binomial     | $\binom{n,x} p^x (1-p)^{n-x}$       | _                    | $n p$           | $n p (1-p)$
-Discrete             | Poisson      | $e^{-\lambda} \frac{\lambda^x}{x!}$ | $1 - e^{-\lambda x}$ | $\lambda$       | $\lambda$
-Discrete             | Exponential  | $\lambda e^{-\lambda x}$            |                      | $1 / \lambda$   | _
-Discrete             | Geometric    | $(1-p)^{x-1} p$                     | $1 - (1-p)^x$        | $1 / p$         | $\frac{1-p}{p^2}$
-Continous            | Normal       | $\frac{1}{\sigma \sqrt{2 \pi}} e^{- \frac{1}{2} (\frac{x-\mu}{\sigma})^2}$ | _ | $\mu$ | $\sigma$
+| Type                 | Distribution | $P(X = x)$                                                                 | $P(X \le x)$         | $E[X]$          | $Var(X)$             |
+| -------------------- | ------------ | -------------------------------------------------------------------------- | -------------------- | --------------- | -------------------- |
+| Discrete & Continous | Uniform      | $\frac{1}{b-a}$                                                            | $\frac{x-a}{b-a}$    | $\frac{a+b}{2}$ | $\frac{(b-a)^2}{12}$ |
+| Discrete             | Bernoulli    | $p$                                                                        | _                    | _               | $n p$                | $p (1-p)$ |
+| Discrete             | Binomial     | $\binom{n,x} p^x (1-p)^{n-x}$                                              | _                    | $n p$           | $n p (1-p)$          |
+| Discrete             | Poisson      | $e^{-\lambda} \frac{\lambda^x}{x!}$                                        | $1 - e^{-\lambda x}$ | $\lambda$       | $\lambda$            |
+| Discrete             | Exponential  | $\lambda e^{-\lambda x}$                                                   |                      | $1 / \lambda$   | _                    |
+| Discrete             | Geometric    | $(1-p)^{x-1} p$                                                            | $1 - (1-p)^x$        | $1 / p$         | $\frac{1-p}{p^2}$    |
+| Continous            | Normal       | $\frac{1}{\sigma \sqrt{2 \pi}} e^{- \frac{1}{2} (\frac{x-\mu}{\sigma})^2}$ | _                    | $\mu$           | $\sigma$             |
 
 $$X_1, X_2 ... X_n \sim \mathcal{N}(\mu, \sigma^2) \implies E[\bar{X}] = \mu, \quad SE[\bar{X}] = \frac{\sigma}{\sqrt{n}}$$
 
@@ -203,7 +203,7 @@ In general this is non-linear system of equations. In case of linear estimation,
 
 $$(X^T X) \beta = X^T y$$
 
-#### Maximum Likelihood Estimator (MLE) 
+#### Maximum Likelihood Estimator MLE
 
 Assuming training data follows a particular probability distribution, learn optimal parameter $\hat{\theta}$ to maximize likelihood:
 
@@ -783,24 +783,24 @@ Problem example:
 
 Training Data:
 
-Age | Credit Score | Home | Owner | Default?
---- | ------------ | ---- | ----- | ---------
-1 | 35 | High | Yes | No
-2 | 45 | Low | No | Yes
-3 | 28 | Medium | No | No
-4 | 52 | Low | No | Yes
-5 | 38 | High | Yes | No
-6 | 41 | Medium | Yes | No
-7 | 29 | Low | No | Yes
-8 | 55 | Medium | No | Yes
-9 | 33 | High | Yes | No
-10 | 47 | Low | No | Yes
+| Age | Credit Score | Home   | Owner | Default? |
+| --- | ------------ | ------ | ----- | -------- |
+| 1   | 35           | High   | Yes   | No       |
+| 2   | 45           | Low    | No    | Yes      |
+| 3   | 28           | Medium | No    | No       |
+| 4   | 52           | Low    | No    | Yes      |
+| 5   | 38           | High   | Yes   | No       |
+| 6   | 41           | Medium | Yes   | No       |
+| 7   | 29           | Low    | No    | Yes      |
+| 8   | 55           | Medium | No    | Yes      |
+| 9   | 33           | High   | Yes   | No       |
+| 10  | 47           | Low    | No    | Yes      |
 
 Inference Required for:
 
-Age | Credit Score | Home Owner
---- | ------------ | -----------
-40  | Low          | No
+| Age | Credit Score | Home Owner |
+| --- | ------------ | ---------- |
+| 40  | Low          | No         |
 
 $$
 P(C|X) = \frac{P(X|C) P(C)}{P(X)} \quad (\text{Posterior  Likelihood * Prior / P(X)}) \\
@@ -815,12 +815,12 @@ Likelihood for features calculated by:
 
 Discrete feature *Credit Score* table:
 
-Input class \ Output class | Default=Yes | Default=No
--------------------------- | ----------- | ----------
-Credit Score = High        | 0           | 3
-Credit Score = Medium      | 1           | 2
-Credit Score = Low         | 4           | 0
-Total                      | 5           | 5
+| Input class \ Output class | Default=Yes | Default=No |
+| -------------------------- | ----------- | ---------- |
+| Credit Score = High        | 0           | 3          |
+| Credit Score = Medium      | 1           | 2          |
+| Credit Score = Low         | 4           | 0          |
+| Total                      | 5           | 5          |
 
 only calculating what we need for this particular inference:
 
@@ -1096,15 +1096,15 @@ Similar to XGBoost and LightGBM, except it does numerical encoding of categorica
 
 ### XGBoost vs LightGBM vs CatBoost
 
-_  | XGBoost | LightGBM | CatBoost
--- | ------- | -------- | ----------
-Speed | Fast - parallel split search | Faster - histogram binning + leaf-wise growth | Medium - ordered target encoding
-Memory | High - gradients, hessians | Low - historgram binning, compressed features | Medium - category statistics
-Accuracy | Robust, stable, balanced trees | Often higher on large data, deeper trees | Stable - avoid label leakage
-Missing Values Handling | Native - default split direction | Native - seperate bin for missing | Native
-Categorical Features Support | Limited (One-Hot Encoding often required) | Very efficient - categorical grouping | Best - ordered target statistics
-Hyperparameter Tuning | High - many params to tune | Medium - depth & leaf control | Low - strong defaults
-When to Use | Stability & Robustness (default choice) | Very large data | Many Categorical Features
+| _                            | XGBoost                                   | LightGBM                                      | CatBoost                         |
+| ---------------------------- | ----------------------------------------- | --------------------------------------------- | -------------------------------- |
+| Speed                        | Fast - parallel split search              | Faster - histogram binning + leaf-wise growth | Medium - ordered target encoding |
+| Memory                       | High - gradients, hessians                | Low - historgram binning, compressed features | Medium - category statistics     |
+| Accuracy                     | Robust, stable, balanced trees            | Often higher on large data, deeper trees      | Stable - avoid label leakage     |
+| Missing Values Handling      | Native - default split direction          | Native - seperate bin for missing             | Native                           |
+| Categorical Features Support | Limited (One-Hot Encoding often required) | Very efficient - categorical grouping         | Best - ordered target statistics |
+| Hyperparameter Tuning        | High - many params to tune                | Medium - depth & leaf control                 | Low - strong defaults            |
+| When to Use                  | Stability & Robustness (default choice)   | Very large data                               | Many Categorical Features        |
 
 ## Adaboost Derivation (shared as new PDF in lecture slides)
 

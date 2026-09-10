@@ -4,7 +4,8 @@ TO SUBMIT:
 
 MY FINAL PUBLIC LEADERBOARD (as of 2 Sept, 23:37):
 * rank: 114
-* score: 361,638.65
+* public leaderboard score: 361,638.65
+* private leaderboard score: 376,863.65
 
 Submission Deadlines:
 * Project Leaderboard: 2 September
