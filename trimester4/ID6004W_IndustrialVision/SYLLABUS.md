@@ -1,5 +1,11 @@
 # ID6004W Industrial Vision - Syllabus
 
+| Assessment    | Marks |
+| ------------- | ----- |
+| 5 assignments | 30%   |
+| Mid-Sem exam  | 30%   |
+| End-Sem exam  | 40%   |
+
 Course contents:
 
 1. Introduction to image processing and filtering: 
@@ -45,7 +51,7 @@ Course contents:
 
 Textbooks:
 
-* Richard Szeliski, Computer Vision: Algorithms and Applications, 2010
-* Forsyth and Ponce, Computer Vision: A Modern Approach.
-* Hartley and Zisserman, Multiple View Geometry in Computer Vision
-* Goodfellow Ian, Bengio Yoshua, and Courville Aaron, Deep learning, 2016
+* *General*: Richard Szeliski, Computer Vision: Algorithms and Applications, 2010
+* *For Filtering, Features & Segmentation*: Forsyth and Ponce, Computer Vision: A Modern Approach.
+* *For Geometry*: Hartley and Zisserman, Multiple View Geometry in Computer Vision
+* *For Deep Learning*: Goodfellow Ian, Bengio Yoshua, and Courville Aaron, Deep learning, 2016
