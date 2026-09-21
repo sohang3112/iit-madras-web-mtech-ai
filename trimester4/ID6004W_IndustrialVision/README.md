@@ -6,7 +6,7 @@ Course Syllabus is 50-60% classical Computer Vision, and rest is modern Vision u
 
 **All Demos shared by Professor**: https://id6004w-demos.pages.dev/
 
-## Lecture 1: Intro
+## Lecture 0: Intro
 
 Computer Vision:
 * Classical : 
@@ -53,7 +53,7 @@ All vision methods are a way of imposing constraints: of image formation, geomet
 
 Perspectograph : seeing an object behind a sheet of glass
 
-## Lecture 2
+## Lecture 1
 
 On sample image:
 
@@ -75,7 +75,7 @@ Sobel filter
 
 TODO
 
-## Lecture 3 (prev First Derivative filters, now Second Derivatives)
+## Lecture 2 (prev First Derivative filters, now Second Derivatives)
 
 Laplacian is Second Derivative, it is continous and isotropic, i.e. it has no preferred direction. We discretize it using Taylor series approximation.
 
@@ -98,3 +98,27 @@ So solution is, to avoid increasing noise, we blur then differentiate:
 ![Blur then Differentiate](images/blur_then_differentiate.png)
 
 Smoothening before Differentiate: *LoG* (Laplacian of Gaussian)
+
+TODO
+
+## Lecture 3: Edge and Line Detection: Gradient, Canny and Hough Transform
+
+Edge is a pixel at which intensity changes sharply. Later these pixels are grouped to form full edge line.
+
+Edge gradient: detect both magnitude and orientation - i.e. 2D vector (x,y) of $\nabla G$
+
+Derivative of Gaussian, vs Difference of Gaussian
+
+Thresholding gradient magnitude fails at 3 criteria of a good edge detector
+
+Canny Edge Detector:
+
+![Canny Edge Detector](images/canny_edge_detector.png)
+
+Hysteresis Thresholding gives a weak edge threshold T1 and a strong threshold T2, instead of a single edge threshold.
+
+Now after detecting edge pixels, we need to group into edge lines. $y = m x + c$ does NOT work (for vertical line slope is infinite!), so instead we fit $p = x \cos
+ \theta + y \sin \theta$
+
+**Hough Transform** (voting in $(p, \theta)$ space): If a point $(x,y)$ is fixed and $\theta$ is varied, it traces a sinusoid for the fixed
+ $p$ in $(p, \theta)$ space. Then we vote -- how many pixels contribute to a single $(p, \theta)$ and the peaks are chosen as our grouped edge lines.
