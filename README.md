@@ -106,6 +106,8 @@ For any help / queries, send email at webmtech@code.iitm.ac.in .
 * Apply for Hostel (us web MTech students have to choose "Others Login" to apply for temporary stay): [IKollege](https://ikollege.iitm.ac.in/iitmhostel/)
 * Office of Hostel Management: [CCW](https://ccw.iitm.ac.in/)
 * Exams (mid-terms only, end-term is seperately held at exam centres): https://exams.study.iitm.ac.in/
+* IITM Central Library: https://cenlib.iitm.ac.in/
+* Shodhgandha; IITM past Phd Theses: https://shodhganga.inflibnet.ac.in/
 * Complaints platform: https://cc.iitm.ac.in/
 * Discussion by students & faculty: https://discourse.iitm.ac.in/
 * Buy merchandise (cloths, stationary etc.) having IIT Madras logo at [Gift Shop](https://iitmgiftshop.zohocommerce.com/) .
