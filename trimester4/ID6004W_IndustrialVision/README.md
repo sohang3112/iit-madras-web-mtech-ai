@@ -1,6 +1,6 @@
 # ID6004W Industrial Vision
 
-Faculty: Prof Vinkle Srivastav
+Faculty: Prof Vinkle Srivastav &lt;vinkle@dsai.iitm.ac.in&gt;
 
 Course Syllabus is 50-60% classical Computer Vision, and rest is modern Vision using Deep Learning.
 
