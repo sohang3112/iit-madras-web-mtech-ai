@@ -122,3 +122,7 @@ Now after detecting edge pixels, we need to group into edge lines. $y = m x + c$
 
 **Hough Transform** (voting in $(p, \theta)$ space): If a point $(x,y)$ is fixed and $\theta$ is varied, it traces a sinusoid for the fixed
  $p$ in $(p, \theta)$ space. Then we vote -- how many pixels contribute to a single $(p, \theta)$ and the peaks are chosen as our grouped edge lines.
+
+## Lecture 12: Camera Model (16 Oct 2026)
+
+
