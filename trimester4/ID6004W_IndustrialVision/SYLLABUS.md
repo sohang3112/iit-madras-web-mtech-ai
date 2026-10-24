@@ -6,6 +6,8 @@
 | Mid-Sem exam  | 30%   |
 | End-Sem exam  | 40%   |
 
+**NOTE**: Topics only covered in lecture videos NOT slides --> Bi-Linear & Tri-Linear Interpolation
+
 Course contents:
 
 1. Introduction to image processing and filtering: 
