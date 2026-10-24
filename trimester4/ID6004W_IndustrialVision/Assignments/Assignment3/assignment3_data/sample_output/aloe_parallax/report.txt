@@ -1,0 +1,17 @@
+2 images, reference = image 1 (aloeR.jpg)
+  image 0: 1000x866, 14997 SIFT keypoints
+  image 1: 1000x866, 15304 SIFT keypoints
+  pair 0-1: 14997 putative matches, 6327 after the ratio test
+
+(b) synthetic DLT test: max |H - H_true| after h33 = 1 is 6.75e-14
+(c) pair 0-1: 3647/6327 inliers (57.6%) after 50 iterations, RMS reprojection error on inliers 1.36 px
+(b) pair 0-1, 3647 inliers: mean reprojection error, normalised DLT 1.185 px, un-normalised DLT 1.190 px
+(b)   normalised    A: sigma1/sigma8 = 4.09e+00, sigma9/sigma8 = 5.29e-03
+(b)   un-normalised A: sigma1/sigma8 = 1.64e+06, sigma9/sigma8 = 1.12e-01
+(c) pair 0-1, tolerance  1.0 px: 2197 inliers
+(c) pair 0-1, tolerance  3.0 px: 3440 inliers
+(c) pair 0-1, tolerance 10.0 px: 5097 inliers
+(c) pair 0-1: discrepancy against cv2.findHomography, mean 1.04 px over the inlier points, max 10.47 px over the four image corners (inliers span x in [39, 996], y in [3, 801])
+
+(d) canvas 1066x873 px
+done in 3.3 s, outputs in sample_output/aloe_parallax/

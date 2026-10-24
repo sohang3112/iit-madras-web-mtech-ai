@@ -1,0 +1,26 @@
+5 images, reference = image 2 (boat3.jpg)
+  image 0: 1000x667, 1835 SIFT keypoints
+  image 1: 1000x667, 1316 SIFT keypoints
+  image 2: 1000x667, 1287 SIFT keypoints
+  image 3: 1000x667, 1304 SIFT keypoints
+  image 4: 1000x667, 1915 SIFT keypoints
+  pair 0-1: 1835 putative matches, 564 after the ratio test
+  pair 1-2: 1316 putative matches, 473 after the ratio test
+  pair 2-3: 1287 putative matches, 271 after the ratio test
+  pair 3-4: 1304 putative matches, 516 after the ratio test
+
+(b) synthetic DLT test: max |H - H_true| after h33 = 1 is 6.75e-14
+(c) pair 0-1: 509/564 inliers (90.2%) after 50 iterations, RMS reprojection error on inliers 0.53 px
+(c) pair 1-2: 372/473 inliers (78.6%) after 50 iterations, RMS reprojection error on inliers 0.56 px
+(c) pair 2-3: 217/271 inliers (80.1%) after 50 iterations, RMS reprojection error on inliers 0.65 px
+(c) pair 3-4: 462/516 inliers (89.5%) after 50 iterations, RMS reprojection error on inliers 0.90 px
+(b) pair 2-3, 217 inliers: mean reprojection error, normalised DLT 0.427 px, un-normalised DLT 0.426 px
+(b)   normalised    A: sigma1/sigma8 = 5.54e+00, sigma9/sigma8 = 6.22e-03
+(b)   un-normalised A: sigma1/sigma8 = 4.67e+06, sigma9/sigma8 = 1.30e-02
+(c) pair 2-3, tolerance  1.0 px: 198 inliers
+(c) pair 2-3, tolerance  3.0 px: 216 inliers
+(c) pair 2-3, tolerance 10.0 px: 248 inliers
+(c) pair 2-3: discrepancy against cv2.findHomography, mean 0.22 px over the inlier points, max 20.55 px over the four image corners (inliers span x in [511, 996], y in [75, 480])
+
+(d) canvas 4571x1595 px
+done in 5.5 s, outputs in sample_output/boat/

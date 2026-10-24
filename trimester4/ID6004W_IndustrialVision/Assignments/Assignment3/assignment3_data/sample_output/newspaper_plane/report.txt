@@ -1,0 +1,17 @@
+2 images, reference = image 1 (newspaper2.jpg)
+  image 0: 727x1000, 5391 SIFT keypoints
+  image 1: 727x1000, 6214 SIFT keypoints
+  pair 0-1: 5391 putative matches, 1782 after the ratio test
+
+(b) synthetic DLT test: max |H - H_true| after h33 = 1 is 6.75e-14
+(c) pair 0-1: 1528/1782 inliers (85.7%) after 50 iterations, RMS reprojection error on inliers 0.37 px
+(b) pair 0-1, 1528 inliers: mean reprojection error, normalised DLT 0.277 px, un-normalised DLT 0.277 px
+(b)   normalised    A: sigma1/sigma8 = 6.78e+00, sigma9/sigma8 = 2.43e-03
+(b)   un-normalised A: sigma1/sigma8 = 2.98e+06, sigma9/sigma8 = 4.42e-03
+(c) pair 0-1, tolerance  1.0 px: 1492 inliers
+(c) pair 0-1, tolerance  3.0 px: 1528 inliers
+(c) pair 0-1, tolerance 10.0 px: 1528 inliers
+(c) pair 0-1: discrepancy against cv2.findHomography, mean 0.00 px over the inlier points, max 0.00 px over the four image corners (inliers span x in [9, 323], y in [64, 966])
+
+(d) canvas 1122x1002 px
+done in 1.0 s, outputs in sample_output/newspaper_plane/
